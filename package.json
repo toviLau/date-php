@@ -1,24 +1,25 @@
 {
   "name": "date-php",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "这是一个Javascript版的时间日期格式化函数，使用方法和PHP语言一样",
   "author": "ToviLau",
   "main": "./dist/date.js",
   "unpkg": "./dist/date.js",
   "keywords": [
-    "date",
     "时间格式化",
     "日期格式化",
     "格式化",
     "日期时间",
-    "date-php",
+    "datetime",
+    "time",
+    "date",
+    "date-js",
+    "time-js",
     "date-format",
+    "time-format",
     "format",
     "format-date",
-    "datetime",
-    "date",
-    "time",
-    ""
+    "format-time"
   ],
   "scripts": {
     "start": "node ./config/esx.build.js",

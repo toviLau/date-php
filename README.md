@@ -13,9 +13,9 @@
 // 举个栗子
 var d = new Date('Mon Jul 15 2019 15:38:56 GMT+0800 (中国标准时间)'); // new Date(1563148800000) or new Date()
 
-date('Y-m-d', d);
+date('Y-m-d', d); // "2019-07-15
 // 或者这样
-d.format('Y-m-d');
+d.format('Y-m-d'); // "2019-07-15
 ```
 ### 安装(install)
 ```
@@ -28,7 +28,8 @@ npm i -S date-php
 ```
 
 ### 使用(use)
-> 所有方式的入参都是可选参数
+ > 1、以下所有方式的入参都是可选参数  
+ > 2、以下`new Date()` 时间对象我们默许都是 `1563176336000` Unix时间戳对应的时间
  
 ```javascript
 // npm -- CDN方式跳过
@@ -36,7 +37,10 @@ import date from 'date-php'; // 引入date-php
 
 // demo1 - date('格式化字符串', 时间对象);
 date('Y-m-d H:i:s', new Date()); // "2019-07-15 15:38:56" 
-date('Y-m-d H:ia', 1563176336000); // "2019-07-15 15:38pm"
+date('Y年m月d日 H点i分s秒', new Date()); // "2019年07月15日 15点38分56秒" 
+date('m-d-Y H:i:s', new Date()); // "07-15-2019 15:38:56" 
+date('y/m/d H:i', new Date()) + ' 星期'+['日', '一', '二', '三', '四','五','六'][date('w', new Date())]; // "19/07/15 15:38 星期三" 
+date('y-m-d h:i[a]', 1563176336000); // "19-07-15 03:38[pm]"
 date('Y-m-d H:i 第W周', 'Mon Jul 15 2019 15:38:56 GMT+0800 (中国标准时间)'); // "2019-07-15 15:38 第29周"
 
 // demo2 - 时间对象.date('格式化字符串');
@@ -44,6 +48,7 @@ new Date('2019-07-15 15:38:56').format('Y-m-d H:i:s'); // "2019-07-15 15:38:56"
 new Date(1563176336000).format('Y-m-d H:ia'); // "2019-07-15 15:38pm"
 new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 ```
+
 
 ### 格式字符串(默认值：{string} 'Y-m-d')
 > #### 也可以去[PHP官网](https://www.php.net/manual/zh/function.date.php)看看，使用方法一样
@@ -103,8 +108,8 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 ```
 
 ### 时间对象(默认值：{Date} 当前本地机器时间)
-> #### 可以是任意时间对象
-> #### 例如：
+> 可以是任意时间对象  
+> 例如：
 
 ```javascript
     1563176336000 // 时间戳
@@ -112,3 +117,9 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
     “2019-07-15 15:38:56” // 字符串日期
     “2019/07/15 15:38:56” // 字符串日期  
 ```
+### 关于鸣谢
+  [**Github**](http://www.github.com)
+  [**Npmjs**](http://www.npmjs.org)
+  [**rollup**](http://www.rollupjs.com) 
+  [**eslint**](https://eslint.org)
+  [**flow**](https://flow.org/)
