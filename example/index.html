@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DEMO</title>
+  <style>
+    .table {
+      width:950px;
+      border-right:1px solid #ccc;
+      border-bottom:1px solid #ccc;
+      margin:0 auto;
+    }
+
+    .table th {
+      line-height:2.4em;
+      background-color:#d9d9d9;
+    }
+
+    .table tbody tr:hover td {
+      background-color:#def;
+    }
+
+    .table tbody tr:nth-child(even) {
+      background-color:#f0f0f0;
+    }
+
+    .table td, .table th {
+      border-width:1px 0 0 1px;
+      border-style:solid;
+      border-color:#ccc;
+      padding:2px 0;
+    }
+
+    .table td .block, .table th .block {
+      padding:5px 10px;
+    }
+
+    .table td .block:nth-child(2) {
+      border-top:1px solid #ccc
+    }
+  </style>
+</head>
+<body>
+<table class="table" border="0" cellspacing="0">
+  <thead>
+  <tr>
+    <th>代码</th>
+    <th>输出</th>
+  </tr>
+  </thead>
+  <tbody id="tbody">
+  </tbody>
+</table>
+<pre id="description"></pre>
+<script src="../dist/date.js"></script>
+<script>
+  var dom = '';
+  [
+    'Y-m-d',
+    'Y-m-d H:i:s.u',
+    'Y-m-d 第W周',
+    'Y-m-d 周w',
+  ].forEach(res => {
+    [
+      new Date(),
+      new Date().getTime(),
+    ].forEach(child => {
+      dom += '' +
+        '<tr><td><div class="block">date("' + res + '", ' + child + ')</div><div class="block">new Date(' + child + ').format("' + res + '")</div></td>' +
+        '<td><div class="block">' + date(res, child) + '<br/>' + new Date(child).format(res) + '</div></td></tr>';
+    });
+  });
+  document.getElementById('tbody').innerHTML = dom;
+  const description = date.description;
+</script>
+</body>
+</html>

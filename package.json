@@ -1,0 +1,41 @@
+{
+  "name": "date-php",
+  "version": "1.2.0",
+  "description": "这是一个Javascript版的时间日期格式化函数，使用方法和PHP语言一样",
+  "author": "ToviLau",
+  "main": "./dist/date-php.js",
+  "unpkg": "./dist/date-php.js",
+  "keywords": [
+    "date",
+    "时间格式化",
+    "日期格式化",
+    "date-php",
+    "date-format",
+    "format-date"
+  ],
+  "scripts": {
+    "start": "node ./config/esx.build.js",
+    "dev:full": "rollup -w -c ./config/config.js --environment TARGET:full",
+    "dev:min": "rollup -w -c ./config/config.js --environment TARGET:min"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/toviLau/date-php.git"
+  },
+  "bugs": {
+    "url": "https://github.com/toviLau/date.format/issues"
+  },
+  "homepage": "https://github.com/toviLau/date.format#readme",
+  "devDependencies": {
+    "eslint-plugin-flowtype": "^3.12.1",
+    "rollup": "^1.17.0",
+    "rollup-plugin-buble": "^0.19.8",
+    "rollup-plugin-commonjs": "^10.0.1",
+    "rollup-plugin-flow-no-whitespace": "^1.0.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-replace": "^2.2.0",
+    "rollup-plugin-uglify": "^6.0.2",
+    "uglify-js": "^3.6.0"
+  }
+}
