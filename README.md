@@ -14,8 +14,10 @@
 var d = new Date('Mon Jul 15 2019 15:38:56 GMT+0800 (中国标准时间)'); // new Date(1563148800000) or new Date()
 
 date('Y-m-d', d); // "2019-07-15
+date('m-d-Y H:i:s', d); // "07-15-2019 15:38:56" 
 // 或者这样
 d.format('Y-m-d'); // "2019-07-15
+d.format('m-d-Y H:i:s'); // "07-15-2019 15:38:56" 
 ```
 ### 安装(install)
 ```
@@ -43,7 +45,7 @@ date('y/m/d H:i', new Date()) + ' 星期'+['日', '一', '二', '三', '四','�
 date('y-m-d h:i[a]', 1563176336000); // "19-07-15 03:38[pm]"
 date('Y-m-d H:i 第W周', 'Mon Jul 15 2019 15:38:56 GMT+0800 (中国标准时间)'); // "2019-07-15 15:38 第29周"
 
-// demo2 - 时间对象.date('格式化字符串');
+// demo2 - 时间对象.format('格式化字符串');
 new Date('2019-07-15 15:38:56').format('Y-m-d H:i:s'); // "2019-07-15 15:38:56" 
 new Date(1563176336000).format('Y-m-d H:ia'); // "2019-07-15 15:38pm"
 new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
@@ -122,4 +124,5 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
   [**Npmjs**](http://www.npmjs.org)
   [**rollup**](http://www.rollupjs.com) 
   [**eslint**](https://eslint.org)
-  [**flow**](https://flow.org/)
+  [**flow**](https://flow.org)
+  [**uglifyJs**](http://lisperator.net/uglifyjs/)

@@ -1,5 +1,5 @@
 /**
- * date-php.js v1.2.3
+ * date-php.js v1.2.4
  *   这是一个Javascript版的时间日期格式化函数，使用方法和PHP语言一样 repository https://github.com/toviLau/date-php.git
  *   (c) 2019 ToviLau. Released under the MIT License. 
  **/
@@ -200,7 +200,7 @@
         return fmt.replace(/([a-z])/ig, function (res, key) { return res !== key ? key : (replaceChars[key] ? replaceChars[key]() : key); });
     };
 
-    date.version = '1.2.3';
+    date.version = '1.2.4';
 
     Date.prototype.format = date;
     Object.defineProperty(date, 'description', {
