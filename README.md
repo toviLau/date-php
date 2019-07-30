@@ -20,7 +20,7 @@ d.format('Y-m-d');
 ### 安装(install)
 ```
 // npm 方式
-npm i -D date-php
+npm i -S date-php
 
 // cdn
 <script src="//unpkg.com/date-php"></script>
