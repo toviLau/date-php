@@ -1,6 +1,13 @@
 ### JavaScript仿PHP时间格式化函数
 ---
-这是一个JavaScript仿PHP时间格式化函数，使用方法与PHP语言一样。
+![issues](https://img.shields.io/github/issues/toviLau/date-php)
+![forks](https://img.shields.io/github/forks/toviLau/date-php)
+![stars](https://img.shields.io/github/stars/toviLau/date-php)
+![license](https://img.shields.io/github/license/toviLau/date-php)
+![npm](https://img.shields.io/npm/v/date-php)
+![downloads](https://img.shields.io/npm/dm/date-php.svg)
+
+> 这是一个JavaScript仿PHP时间格式化函数，使用方法与PHP语言一样。
 
 ```javascript
 // 举个栗子
