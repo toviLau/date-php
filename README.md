@@ -39,10 +39,10 @@ npm i -S date-php
 import date from 'date-php'; // 引入date-php
 
 // demo1 - date('格式化字符串', 时间对象);
-date('Y-m-d H:i:s', new Date()); // "2019-07-15 15:38:56" 
+date('Y-m-d H:i:s', new Date()); // "2019-07-15 15:38:56"
 date('Y年m月d日 H点i分s秒', new Date()); // "2019年07月15日 15点38分56秒" 
-date('m-d-Y H:i:s', new Date()); // "07-15-2019 15:38:56" 
-date('y/m/d H:i', new Date()) + ' 星期'+['日', '一', '二', '三', '四','五','六'][date('w', new Date())]; // "19/07/15 15:38 星期三" 
+date('m-d-Y H:i:s', new Date()); // "07-15-2019 15:38:56"
+date('y/m/d H:i', new Date()) + ' 星期'+['日', '一', '二', '三', '四', '五', '六'][date('w', new Date())]; // "19/07/15 15:38 星期三" 
 date('y-m-d h:i[a]', 1563176336000); // "19-07-15 03:38[pm]"
 date('Y-m-d H:i 第W周', 'Mon Jul 15 2019 15:38:56 GMT+0800 (中国标准时间)'); // "2019-07-15 15:38 第29周"
 
@@ -54,8 +54,12 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 
 
 ### 格式字符串(默认值：{string} 'Y-m-d')
-> #### 也可以去[PHP官网](https://www.php.net/manual/zh/function.date.php)看看，使用方法一样
-> ##### 也可以通过静态方法 `date.description` 在控制台打出所有格式字符串
+> 1、也可以去[*PHP官网*](https://www.php.net/manual/zh/function.date.php)看看，使用方法一样  
+> 2、也可以通过静态方法 `date.description` 在控制台打出所有格式字符串  
+> 3、关于转义字符串模板，这里PHP不同【敲黑板！！！】 (1.3.0+)
+> * ***如果在date里想输出模板本来的字符，请用转义符--双反斜杠“\\\\”(PHP是一个单反斜杠“\\”)***  
+>   举个栗子：date("\\\\I \\\\l\\\\ov\\\\e \\\\y\\\\o\\\\u: y-m-d H:i", new Date()) // 输出 "I love you: 19-07-15 15:38"  
+>   上面栗子中'I'、'l'、'o'、'e'、'y'、'u' 都模板字符串，所以前面加双反斜杠转义，这样字符就会输出本来的值
 
 ```
 日

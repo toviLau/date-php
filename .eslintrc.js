@@ -3,7 +3,7 @@ module.exports = {
   env: {
     es6: true,
     node: true,
-    browser: true
+    browser: true,
   },
   parserOptions: {
     parser: require.resolve('babel-eslint'),
@@ -11,11 +11,11 @@ module.exports = {
     // sourceType: 'module'
   },
   plugins: [
-    "flowtype"
+    'flowtype',
   ],
   extends: [
     'eslint:recommended',
-    "plugin:flowtype/recommended"
+    'plugin:flowtype/recommended',
   ],
   rules: {
     // 打包时禁止console/debugger/alert
@@ -27,21 +27,21 @@ module.exports = {
     'no-constant-condition': [
       'error',
       {
-        checkLoops: false
-      }
+        checkLoops: false,
+      },
     ],
     // 强制 getter 函数中出现 return 语句，并且禁止返回空，比如 return;
     'getter-return': [2,
       {
-        allowImplicit: false
-      }
+        allowImplicit: false,
+      },
     ],
 
     // 禁止在 if, for, while 里使用赋值语句，除非这个赋值语句被括号包起来了
     'no-cond-assign': [2, 'except-parens'],
 
-    // 强制2空格缩进
-    'indent': ['error', 2],
+    // 强制4空格缩进
+    'indent': ['error', 4],
 
     // 尾随逗号
     'comma-dangle': [2, {
@@ -49,18 +49,18 @@ module.exports = {
       'objects': 'never',
       'imports': 'never',
       'exports': 'never',
-      'functions': 'ignore'
+      'functions': 'ignore',
     }],
 
     // 强制 getter 和 setter 在对象中成对出现
-    'accessor-pairs':1,
+    'accessor-pairs': 1,
 
     // 禁止使用空方法
     'no-empty': 1,
     'no-empty-function': 1,
 
     // 强制数组方括号中使用一致的空格
-    'array-bracket-spacing':'never',
+    'array-bracket-spacing': 'never',
 
     // 强制使用骆驼拼写法命名，变量名中禁止出现下划线'_'
     'camelcase': 2,
@@ -78,7 +78,7 @@ module.exports = {
         'ignoreRegExpLiterals': true, // 忽略包含 RegExp 文字的行
         'ignoreTemplateLiterals': true, // 忽略包含模板文字的行
         'ignoreTrailingComments': true, // 忽略结尾注释
-      }
+      },
     ],
 
     // 禁止将 await 写在循环里，因为这样就无法同时发送多个异步请求了
@@ -127,7 +127,7 @@ module.exports = {
 
     // 强制在花括号内使用一致的换行符
     'object-curly-newline': [2,
-      { 'multiline': true }
+      { 'multiline': true },
     ],
 
     // 要求或禁止在变量声明周围换行
@@ -135,9 +135,9 @@ module.exports = {
 
     // 解构相关
     'prefer-destructuring': ['error', {
-        'array': true, // 启用数据解构
-        'object': true // 启用对象解构
-      }, {
+      'array': true, // 启用数据解构
+      'object': true, // 启用对象解构
+    }, {
       /**
        * 禁止直接重命名对象
        * 例如：
@@ -145,7 +145,7 @@ module.exports = {
        * 正确做法
        *   let { bar: foo } = object
        */
-      'enforceForRenamedProperties': true
+      'enforceForRenamedProperties': true,
     }],
     // 字符串使用单引号
     'quotes': [2, 'single'],
@@ -158,5 +158,5 @@ module.exports = {
 
     // 禁止使用不带 await 表达式的 async 函数
     'require-await': 2,
-  }
-}
+  },
+};
