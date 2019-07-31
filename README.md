@@ -6,6 +6,9 @@
 ![license](https://img.shields.io/github/license/toviLau/date-php)
 ![npm](https://img.shields.io/npm/v/date-php)
 ![downloads](https://img.shields.io/npm/dm/date-php.svg)
+![npm bundle size](https://img.shields.io/bundlephobia/min/date-php)
+![npm bundle size](https://img.shields.io/bundlephobia/minzip/date-php)
+
 
 > 这是一个Javascript版的仿PHP日期时间格式化函数，使用方法和PHP语言一样，有丰富的模板字符串，转换日期时间更自由。
 
