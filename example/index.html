@@ -36,7 +36,13 @@
     }
 
     .table td .block:nth-child(2) {
-      border-top:1px solid #ccc
+      border-top:1px solid #ccc;
+    }
+
+    .tips {
+      color:#ccc;
+      text-align:center;
+      line-height:3em;
     }
   </style>
 </head>
@@ -51,7 +57,7 @@
   <tbody id="tbody">
   </tbody>
 </table>
-<pre id="description"></pre>
+<div class="tips">打开控件台有惊喜哦，快F12~ Y(*^_^*)Y</div>
 <script src="../dist/date.js"></script>
 <script>
   var dom = '';
@@ -71,7 +77,7 @@
     });
   });
   document.getElementById('tbody').innerHTML = dom;
-  const description = date.description;
+  date.description;
 </script>
 </body>
 </html>

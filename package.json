@@ -1,7 +1,7 @@
 {
   "name": "date-php",
-  "version": "1.2.4",
-  "description": "这是一个Javascript版的时间日期格式化函数，使用方法和PHP语言一样",
+  "version": "1.2.5",
+  "description": "这是一个Javascript版的仿PHP日期时间格式化函数，使用方法和PHP语言一样，有丰富的模板字符串，转换日期时间更自由。",
   "author": "ToviLau",
   "main": "./dist/date.js",
   "unpkg": "./dist/date.js",

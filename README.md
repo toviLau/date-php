@@ -7,7 +7,7 @@
 ![npm](https://img.shields.io/npm/v/date-php)
 ![downloads](https://img.shields.io/npm/dm/date-php.svg)
 
-> 这是一个JavaScript仿PHP时间格式化函数，使用方法与PHP语言一样。
+> 这是一个Javascript版的仿PHP日期时间格式化函数，使用方法和PHP语言一样，有丰富的模板字符串，转换日期时间更自由。
 
 ```javascript
 // 举个栗子
@@ -15,6 +15,7 @@ var d = new Date('Mon Jul 15 2019 15:38:56 GMT+0800 (中国标准时间)'); // n
 
 date('Y-m-d', d); // "2019-07-15
 date('m-d-Y H:i:s', d); // "07-15-2019 15:38:56" 
+
 // 或者这样
 d.format('Y-m-d'); // "2019-07-15
 d.format('m-d-Y H:i:s'); // "07-15-2019 15:38:56" 
@@ -24,14 +25,14 @@ d.format('m-d-Y H:i:s'); // "07-15-2019 15:38:56"
 // npm 方式
 npm i -S date-php
 
-// cdn
+// CDN
 <script src="//unpkg.com/date-php"></script>
 
 ```
 
 ### 使用(use)
  > 1、以下所有方式的入参都是可选参数  
- > 2、以下`new Date()` 时间对象我们默许都是 `1563176336000` Unix时间戳对应的时间
+ > 2、以下`new Date()`或其它的日期时间的初始化的值，我们默许都是 `1563176336000` Unix时间戳对应的日期时间
  
 ```javascript
 // npm -- CDN方式跳过
