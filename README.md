@@ -1,20 +1,20 @@
 ### JavaScript仿PHP时间格式化函数
 ---
+<center>
 ![issues](https://img.shields.io/github/issues/toviLau/date-php)
 ![forks](https://img.shields.io/github/forks/toviLau/date-php)
 ![stars](https://img.shields.io/github/stars/toviLau/date-php)
 ![license](https://img.shields.io/github/license/toviLau/date-php)
-![npm](https://img.shields.io/npm/v/date-php)
-![downloads](https://img.shields.io/npm/dm/date-php.svg)
-![npm bundle size](https://img.shields.io/bundlephobia/min/date-php)
+[![npm](https://img.shields.io/npm/v/date-php)](https://www.npmjs.com/package/date-php)
+[![downloads](https://img.shields.io/npm/dm/date-php.svg)](https://www.npmjs.com/package/date-php)
 ![npm bundle size](https://img.shields.io/bundlephobia/minzip/date-php)
-
+</center>
 
 > 这是一个Javascript版的仿PHP日期时间格式化函数，使用方法和PHP语言一样，有丰富的模板字符串，转换日期时间更自由。
 
 ```javascript
 // 举个栗子
-var d = new Date('Mon Jul 15 2019 15:38:56 GMT+0800 (中国标准时间)'); // new Date(1563148800000) or new Date()
+var d = new Date(); // 定义一个时间对象。1563148800000 or 'Mon Jul 15 2019 15:38:56 GMT+0800 (中国标准时间)'
 
 date('Y-m-d', d); // "2019-07-15
 date('m-d-Y H:i:s', d); // "07-15-2019 15:38:56" 
@@ -60,7 +60,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 
 ### 格式字符串(默认值：{string} 'Y-m-d')
 > 1、也可以去[*PHP官网*](https://www.php.net/manual/zh/function.date.php)看看，使用方法一样  
-> 2、也可以通过静态方法 `date.description` 在控制台打出所有格式字符串<sup>(1.3.2<sup> - </sup>)</sup>    
+> 2、~~也可以通过静态方法 `date.description` 在控制台打出所有格式字符串~~<sup>(1.3.2<sup> - </sup>)</sup>   
 > 3、关于转义字符串模板，这里与PHP不同【敲黑板！！！】 <sup>(1.3.0<sup> + </sup>)</sup>  
 >> * ***如果在date里想输出模板本来的字符，请用转义符--双反斜杠“\\\\”(PHP是一个单反斜杠“\\”)。***   
 >>   举个栗子：date("\\\\I \\\\l\\\\ov\\\\e \\\\y\\\\o\\\\u: y-m-d H:i", new Date()) // 输出 "I love you: 19-07-15 15:38"  
