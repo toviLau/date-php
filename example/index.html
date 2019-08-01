@@ -59,24 +59,24 @@
 </table>
 <script src="../dist/date.js"></script>
 <script>
-  var dom = '';
-  [
-    'Y-m-d',
-    'Y-m-d H:i:s.u',
-    'Y-m-d 第W周',
-    'Y-m-d 周w',
-    'C年f月k日 星期K',
-  ].forEach(res => {
+    var dom = '';
     [
-      new Date(),
-      new Date().getTime(),
-    ].forEach(child => {
-      dom += '' +
-        '<tr><td><div class="block">date("' + res + '", ' + child + ')</div><div class="block">new Date(' + child + ').format("' + res + '")</div></td>' +
-        '<td><div class="block">' + date(res, child) + '<br/>' + new Date(child).format(res) + '</div></td></tr>';
+        'Y-m-d',
+        'Y-m-d H:i:s.u',
+        'Y-m-d 第W周',
+        'Y-m-d 周w',
+        'C年f月k日 星期K',
+    ].forEach(res => {
+        [
+            new Date(),
+            new Date().getTime(),
+        ].forEach(child => {
+            dom += '' +
+                '<tr><td><div class="block">date("' + res + '", ' + child + ')</div><div class="block">new Date(' + child + ').format("' + res + '")</div></td>' +
+                '<td><div class="block">' + date(res, child) + '<br/>' + new Date(child).format(res) + '</div></td></tr>';
+        });
     });
-  });
-  document.getElementById('tbody').innerHTML = dom;
+    document.getElementById('tbody').innerHTML = dom;
 </script>
 </body>
 </html>
