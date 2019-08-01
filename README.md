@@ -1,6 +1,5 @@
 ### JavaScript仿PHP时间格式化函数
 ---
-<center>
 ![issues](https://img.shields.io/github/issues/toviLau/date-php)
 ![forks](https://img.shields.io/github/forks/toviLau/date-php)
 ![stars](https://img.shields.io/github/stars/toviLau/date-php)
@@ -8,7 +7,6 @@
 [![npm](https://img.shields.io/npm/v/date-php)](https://www.npmjs.com/package/date-php)
 [![downloads](https://img.shields.io/npm/dm/date-php.svg)](https://www.npmjs.com/package/date-php)
 ![npm bundle size](https://img.shields.io/bundlephobia/minzip/date-php)
-</center>
 
 > 这是一个Javascript版的仿PHP日期时间格式化函数，使用方法和PHP语言一样，有丰富的模板字符串，转换日期时间更自由。
 
