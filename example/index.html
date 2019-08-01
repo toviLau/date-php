@@ -57,7 +57,6 @@
   <tbody id="tbody">
   </tbody>
 </table>
-<div class="tips">打开控件台有惊喜哦，快F12~ Y(*^_^*)Y</div>
 <script src="../dist/date.js"></script>
 <script>
   var dom = '';
@@ -66,6 +65,7 @@
     'Y-m-d H:i:s.u',
     'Y-m-d 第W周',
     'Y-m-d 周w',
+    'C年f月k日 星期K',
   ].forEach(res => {
     [
       new Date(),
@@ -77,7 +77,6 @@
     });
   });
   document.getElementById('tbody').innerHTML = dom;
-  date.description();
 </script>
 </body>
 </html>
