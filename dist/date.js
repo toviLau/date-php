@@ -1,5 +1,5 @@
 /**
- * date-php.js v1.3.2
+ * date-php.js v1.3.3
  *   这是一个Javascript版的仿PHP日期时间格式化函数，使用方法和PHP语言一样，有丰富的模板字符串，转换日期时间更自由。 repository https://github.com/toviLau/date-php.git
  *   (c) 2019 ToviLau. Released under the MIT License. 
  **/
@@ -78,10 +78,10 @@
         fmt = fmt ? fmt : 'Y-m-d';
         if (!(new Date(now - 0).getTime() || new Date(now).getTime())) { throw Error((function (D) {
             return '' +
-                '参数2不正确，须传入 “日期时间对象”。\n可以参考以下值：\n' +
-                "    \"" + D + "\"\n" +
-                "    \"" + (D.toUTCString()) + "\"\n" +
-                "    " + (D.getTime()) + "\n";
+                '参数2不正确，须传入 “日期时间对象”，或 “Unix时间戳” 或 “时间戳字符串”。\n可以参考以下值：\n' +
+                "  \"" + D + "\"\n" +
+                "  \"" + (D.toUTCString()) + "\"\n" +
+                "  " + (D.getTime()) + "  -- 推荐\n";
         })(new Date())); }
 
         now = this || (!isNaN(now - 0) ? new Date(now - 0) : new Date(now));
@@ -254,7 +254,7 @@
     };
 
     defP(Date.prototype, 'format', date);
-    defP(date, 'version', '1.3.2');
+    defP(date, 'version', '1.3.3');
     defP(date, 'description', function () { return (console.info('%cdate-php使用说明:\n' +
         '为了减少包的体积此方法已经废弃，查看使用说明请移步这里\nhttps://github.com/toviLau/date-php/blob/master/README.md'
         , 'color:#c63'

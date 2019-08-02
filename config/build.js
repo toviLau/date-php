@@ -24,29 +24,7 @@ const build = res => {
         .then(bundle => bundle.generate(output))
         .then(res => {
             const code = res.output[0].code;
-            return write(file, code);
-
-            // const code = res.output[0].code;
-            // const isMin = /min\.js$/.test(file);
-            // const buildCode = isMin
-            //                     ? (banner ? `${ banner }\n` : '') + code
-            //                     : code;
-            //
-            // return write(file, buildCode);
-
-            // if (isMin) {
-            //     const minCode = (banner ? `${ banner }\n` : '') + uglify.minify(code, {
-            //         output: {
-            //             ascii_only: true,
-            //         },
-            //         compress: {
-            //             pure_funcs: ['makeMap'],
-            //         },
-            //     }).code;
-            //     return write(file, minCode, true);
-            // } else {
-            //     return write(file, buildCode);
-            // }
+            return write(file, code, true);
         });
 };
 

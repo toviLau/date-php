@@ -64,10 +64,10 @@ const date = function (fmt = 'Y-m-d', now = new Date()) {
     fmt = fmt ? fmt : 'Y-m-d';
     if (!(new Date(now - 0).getTime() || new Date(now).getTime())) throw Error((D => {
         return '' +
-            '参数2不正确，须传入 “日期时间对象”。\n可以参考以下值：\n' +
-            `    "${ D }"\n` +
-            `    "${ D.toUTCString() }"\n` +
-            `    ${ D.getTime() }\n`;
+            '参数2不正确，须传入 “日期时间对象”，或 “Unix时间戳” 或 “时间戳字符串”。\n可以参考以下值：\n' +
+            `  "${ D }"\n` +
+            `  "${ D.toUTCString() }"\n` +
+            `  ${ D.getTime() }  -- 推荐\n`;
     })(new Date()));
 
     now = this || (!isNaN(now - 0) ? new Date(now - 0) : new Date(now));

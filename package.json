@@ -22,7 +22,7 @@
     "format-time"
   ],
   "scripts": {
-    "start": "node ./config/esx.build.js",
+    "start": "node config/build.js",
     "dev:full": "rollup -w -c ./config/config.js --environment TARGET:full",
     "dev:min": "rollup -w -c ./config/config.js --environment TARGET:min"
   },

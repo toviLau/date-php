@@ -43,7 +43,14 @@ const dists = {
             uglify({
                 output: {
                     comments: /Released under the MIT License/,
-                    quote_style: 1,
+                    quote_style: 1, // 使用单引号
+                },
+                compress: {
+                    properties: true, // 用 . 来重写属性引用
+                    dead_code: true, // 移除没被引用的代码
+                    drop_debugger: true, // 移除debugger
+                    unused: true, // 移除没有引用的变量
+                    // passes: 3, // 运行压缩的次数
                 },
                 ie8: true,
             }),
