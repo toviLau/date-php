@@ -135,9 +135,9 @@ module.exports = {
 
     // 解构相关
     'prefer-destructuring': ['error', {
-      'array': true, // 启用数据解构
+        'array': true, // 启用数据解构
       'object': true, // 启用对象解构
-    }, {
+      }, {
       /**
        * 禁止直接重命名对象
        * 例如：

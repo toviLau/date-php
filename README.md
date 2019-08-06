@@ -1,4 +1,4 @@
-### JavaScript仿PHP时间格式化函数
+### JavaScript仿PHP时间格式化函数(JavaScript mimics PHP time formatting functions)
 ---
 [![issues](https://img.shields.io/github/issues/toviLau/date-php)](https://github.com/toviLau/date-php/issues)
 ![forks](https://img.shields.io/github/forks/toviLau/date-php)
@@ -8,22 +8,23 @@
 [![downloads](https://img.shields.io/npm/dm/date-php.svg)](https://www.npmjs.com/package/date-php)
 ![npm bundle size](https://img.shields.io/bundlephobia/minzip/date-php)
 
-> 这是一个Javascript版的仿PHP日期时间格式化函数，使用方法和PHP语言一样，有丰富的模板字符串，转换日期时间更自由。1.3.2版本以后在原来的基础上增加了一些PHP中没有的模板字符串。
+> 这是一个Javascript模仿PHP日期时间格式化函数，使用方法和PHP非常类似，有丰富的模板字符串，转换日期时间更自由。1.3.2版本之后在原来的基础上增强了一些模板字符串。例如：中国的农历日期与用汉字来表示日期。  
+> This is a Javascript mimicking PHP datetime formatting function. It is very similar to PHP, has a rich template string, and converts datetimes more freely. After version 1.3.2, some template strings have been enhanced on the basis of the original. For example: Chinese lunar date and Chinese characters to indicate the date.
 
 ```javascript
-// 举个栗子
-var d = new Date(); // 定义一个时间对象。1563148800000 or 'Mon Jul 15 2019 15:38:56 GMT+0800 (中国标准时间)'
+// 举个栗子(demo)
+var d = new Date(); // 1563148800000 or 'Mon Jul 15 2019 15:38:56 GMT+0800 (中国标准时间)'
 
 date('Y-m-d', d); // "2019-07-15
 date('m-d-Y H:i:s', d); // "07-15-2019 15:38:56" 
 
-// 或者这样
+// 或者这样(or)
 d.format('Y-m-d'); // "2019-07-15
 d.format('m-d-Y H:i:s'); // "07-15-2019 15:38:56" 
 ```
 ### 安装(install)
 ```
-// npm 方式
+// npm
 npm i -S date-php
 
 // CDN
@@ -32,14 +33,20 @@ npm i -S date-php
 ```
 
 ### 使用(use)
- > 1、以下所有方式的入参都是可选参数  
- > 2、以下`new Date()`或其它的日期时间的初始化的值，我们默许都是 `1563176336000` Unix时间戳对应的日期时间
+ > 1、以下所有方式的入参都是可选参数。  
+ > 　 all the following methods are optional parameters.  
+ >
+ > 2、以下`new Date()`或其它的日期时间的初始化的值，我们默许都是 `1563176336000` Unix时间戳对应的日期时间。  
+ > 　 the following `new Date ()` or other date time initialization values, we acquiescence are `1563176336000` Unix timestamp corresponding date time.
  
 ```javascript
-// npm -- CDN方式跳过
-import date from 'date-php'; // 引入date-php
+// npm -- CDN方式跳过(CDN mode skip)
+import date from 'date-php'; // 引入date-php(import date-php)
 
-// demo1 - date('格式化字符串', 时间对象);
+/**
+ * 示例1 - date('格式化字符串', 时间对象)
+ * demo1 - date (‘format template string’, time object);
+ **/
 date('Y-m-d H:i:s', new Date()); // "2019-07-15 15:38:56"
 date('Y年m月d日 H点i分s秒', new Date()); // "2019年07月15日 15点38分56秒" 
 date('m-d-Y H:i:s', new Date()); // "07-15-2019 15:38:56"
@@ -51,97 +58,202 @@ date('y.m.d H:i', new Date()); // "19.07.15 15:38"
 date('C年f月k日 星期K', 1563176336000); // "二〇一九年七月十五日 星期一" (1.3.2+)
 date('ly年lm月ld日lt时lk刻【lg】',1563122222000) // “己亥年六月十三日子时六刻【三更】”(1.5.0+)
 
-// demo2 - 时间对象.format('格式化字符串');
+/**
+ * 示例2 - 日期时间对象.format('格式化模板字符串');
+ * demo2 - datetimeObject.format(‘format template string’);
+ */
 new Date('2019-07-15 15:38:56').format('Y-m-d H:i:s'); // "2019-07-15 15:38:56" 
 new Date(1563176336000).format('Y-m-d H:ia'); // "2019-07-15 15:38pm"
 new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 ```
 
-### 格式字符串(默认值：{string} 'Y-m-d')
-> 1、也可以去[*PHP官网*](https://www.php.net/manual/zh/function.date.php)看看，使用方法一样  
-> 2、~~也可以通过静态方法 `date.description` 在控制台打出所有格式字符串~~<sup>(1.3.2<sup> - </sup>)</sup>   
-> 3、关于转义字符串模板，这里与PHP不同 ***【敲黑板！！！】*** <sup>(1.3.0<sup> + </sup>)</sup>  
->> * ***如果在date里想输出模板本来的字符，请用转义符--双反斜杠“\\\\”(PHP是一个单反斜杠“\\”)。***   
+### 格式字符串，默认值：{string} ‘Y-m-d’(Format string, default: {string} ‘Y-m-d’)
+> 1、你也可以去[**PHP官网**](https://www.php.net/manual/zh/function.date.php)看看，使用方法一样  
+> 　 You can also go to the [**PHP official website**](https://www.php.net/manual/en/function.date.php) to see, the method is similar.  
+> 
+> 2、~~你也可以通过静态方法 `date.description` 在控制台打出所有模板字符串。~~<sup>(1.3.2<sup> - </sup>)</sup>   
+> 　 ~~You can also output all template strings in the console via the static method `date.description`.~~<sup>(1.3.2<sup> - </sup>)</sup>   
+>
+> 3、关于转义字符串模板，这里与PHP不同 **【敲黑板！！！】** <sup>(1.3.0<sup> + </sup>)</sup>  
+> 　 About the escaped string template, here is different from PHP **[Note! ! ! ]** <sup>(1.3.0<sup> + </sup>)</sup>  
+>> * **如果在date里想输出模板本来的字符，请用转义符--双反斜杠“\\\\”(PHP是一个单反斜杠“\\”)。**   
+>> * **If you want to output the original characters of the template on the date, use the escape character – double backslash “\” (PHP is a single backslash “\”).**  
 >>   举个栗子：date("\\\\I \\\\l\\\\ov\\\\e \\\\y\\\\o\\\\u: y-m-d H:i", new Date()) // 输出 "I love you: 19-07-15 15:38"  
+>>   For example: date(\\\\I \\\\l\\\\\ov\\\\e \\\\y\\\\o\\\\u: y-m-d H:i, new Date()) // Output "I love you: 19-07-15 15:38"  
 >>   上面栗子中'I'、'l'、'o'、'e'、'y'、'u' 都是模板字符串，所以前面加双反斜杠转义，这样字符就会输出本来的值。  
+>>   In the above example, 'I', 'l', 'o', 'e', 'y', 'u' are all template strings, so the front double backslash is escaped, so the character will output the original value.
 >
 > 4、加“*”号的为PHP语言中没有的功能，是`date-php.js`特有的功能。  
-> 5、转农历只能转1900-2100之间的200年查询。
+> 　 Adding the "*" in front is a function not available in the PHP language, and is a feature unique to `date-php.js`.
+> 
+> 5、转农历正常只能转1900-2100之间的200年份。  
+> 　 The conversion to the lunar calendar can only be transferred to 200 years between 1900-2100.
 
 ```
- 日
+ 日(Day)
     d: 月份中的第几天，有前导零的2位数字。从"01"到"31"
+       Day of the month, 2 digits with leading zeros. 01 through 31
+       
    *k: 月份中的第几天，汉字表示。从"一"到"卅一" 【1.3.2+】
+       Day of the month, Chinese character representation. "一" through “卅一"
+       
     D: 星期中的第几天，文本表示，3个字母。从"Mon"到"Sun"
+       A textual representation of a day, three letters. Mon through Sun
+       
     j: 月份中的第几天，没有前导零。从"1"到"31"
+       Day of the month without leading zeros. 1 through 31
+       
   *ld: 农历月份中的第几天。从"初一”到”卅”【1.5.0+】
-  *lt: 中国古代时晨计时中的时(类似小时)。从"子"到"亥"【1.5.0+】
+       Day of the month of the lunar month. "初一” through ”卅”[1.5.0+]
+  
+  *lt: 中国古代时晨计时中的时晨(类似小时，2小时1晨 )。从”子”到”亥”【1.5.0+】
+       The early timekeeping method in ancient China was “shi chen” (similar to hours, 2 hours of 1 shi chen). ”子” through ”亥”[1.5.0+]
+       
   *lk: 中国古代时晨计时中的刻(类似分钟，一时晨八刻钟)。从"零"到"七"【1.5.0+】
+       The ‘ke’ in the of ancient China (similar to minutes, 1 ‘shi cheng’ of 8 ‘ke’). “零” through ”七”[1.5.0+]
+       
   *lg: 中国古代夜里更时(打更点，一晚五更)。从"一"到"五"【1.5.0+】
+       The 'geng' in ancient Chinese night (tapping 'geng' point, one night five 'geng'). ”一” through ”五”[1.5.0+]
+       
     l: 星期几，完整的文本格式。从"Sunday"到"Saturday"
+       A full textual representation of the day of the week. 'Sunday' through 'Saturday'
+       
     N: ISO-8601格式的星期中的第几天。从"1"(表示星期一)到"7"(表示星期天)
+       ISO-8601 numeric representation of the day of the week. 1 (for Monday) through 7 (for Sunday)
+       
     S: 每月天数后面的英文后缀，2 个字符 st/nd/rd/th。
+       English ordinal suffix for the day of the month, 2 characters. st, nd, rd or th. Works well with j
+       
     w: 星期中的第几天，数字表示。从"0"(表示星期天)到"6"(表示星期六)
-    K: 星期中的第几天，汉字表示。从"日"(表示星期天)到"六"(表示星期六)【1.3.2+】
-    z: 年份中的第几天。"0"到"365"
- 
-  星期
-    W: 年份中的第几周
+       Numeric representation of the day of the week. 0 (for Sunday) through 6 (for Saturday)
+       
+    *K: 星期中的第几天，汉字表示。从"日"(表示星期天)到"六"(表示星期六)【1.3.2+】
+        The Chinese characters of the day of the week indicate. "日"(for Sunday) through "六"(for Saturday)[1.3.2+]
 
-  月
+    z: 年份中的第几天。从”0”到”365"
+       The day of the year. from 0 to 365
+
+  星期(Week)
+    W: 年份中的第几周
+       The week number in year.
+
+  月(Month)
     F: 月份，完整的文本格式。从"January"到"December"
+       A full textual representation of a month, such as January or March. January through December
+       
    *f: 月份，汉字表示。从"一"到"十二”【1.3.2+】
+       The Chinese characters of the month. "一" through "十二”
+       
     m: 数字表示的月份，有前导零。"01"到"12"
+       Numeric representation of a month, with leading zeros. “1” through “12”
+    
     M: 三个字母缩写表示的月份。从"Jan"到"Dec"
+    A short textual representation of a month, three letters. "Jan" through ”Dec"
+    
     n: 数字表示的月份，没有前导零。"1"到"12"
+    Numeric representation of a month, without leading zeros. 1 through 12
+    
   *lm:农历月份。从"一"到"十二"【1.5.0+】
+      Month of the lunar month. "一" through "十二" [1.5.0+]
+  
     t: 给定月份所应有的天数。 "28"到"31"
+       Number of days in the given month
  
-  年
+  年(Year)
     L: 是否为闰年。1:是，0:否
+       Whether it's a leap year. 1 leap year, 0 otherwise.
+       
     o: ISO-8601格式年份数字。这和 Y 的值类似，星期数（W）属于前一年或下一年，则用那一年。
+       ISO-8601 week-numbering year. This has the same value as Y, except that if the ISO week number (W) belongs to the previous or next year, that year is used instead.
+       
     Y: 4 位数字完整表示的年份
+       A full numeric representation of a year, 4 digits
+       
     y: 2 位数字表示的年份
+       A two digit representation of a year
+       
   *ly: 农历记年法(天干地支，60年一循环)。从"甲子"到"癸亥"【1.5.0+】
+       The ancient Chinese lunar calendar year method (the tian gan and the di zhi, cycle of 60 years). [1.5.0+]
+  
    *C: 4 个汉字表示的年份【1.3.2+】
+       Year indicated by 4 Chinese characters[1.3.2+]
  
-  时间
+  时间(Time)
     a: 小写的上午和下午值。"am"或"pm"
+       Lowercase Ante meridiem and Post meridiem. "am” or ”pm"
+
     A: 大写的上午和下午值。"AM"或"PM"
+	    Uppercase Ante meridiem and Post meridiem. “AM” or ”PM”
+	    
     B: Swatch Internet 标准时。"000"到"999"
+       Swatch Internet time. 000 through 999
+       
     g: 12 小时格式，没有前导零。"1"到"12"
+       12-hour format of an hour without leading zeros. 1 through 12
+       
     G: 24 小时格式，没有前导零。"0"到"23"
+       24-hour format of an hour without leading zeros. 0 through 23
+
     h: 12 小时格式，有前导零。"01"到"12"
+       12-hour format of an hour with leading zeros. 01 through 12
+
     H: 24 小时格式，有前导零。"00"到"23"
+       24-hour format of an hour with leading zeros. 00 through 23
+
     i: 有前导零的分钟数。"00"到"59"
+       Minutes with leading zeros. 00 to 59
+
     s: 有前导零的秒数。"00"到"59"
-    u: 有前导零的毫秒。"000"到"999"
+       Seconds with leading zeros. 00 through 59
+       
+    u: 有前导零的微秒。"000000”到”999000”, js暂时不支持微秒，微秒只能反回000。
+       Microseconds with leading zeros. 000000 through 999000，Js does not support microseconds for the time being, and the microseconds can only return to 000.   
+       
+    v: 有前导零的毫秒。"000"到"999"
+       Millisecond with leading zeros. 000 through 999
  
-  时区
+  时区(Timezone)
     e: 时区标识。UTC，GMT，Atlantic/Azores
+       Timezone identifier.Examples: UTC, GMT, Atlantic/Azores  
+       
     I: 是否为夏令时。1:是，0:否
+       Whether or not the date is in daylight saving time. 1 Daylight Saving Time, 0 otherwise.
+
     O: 与格林威治时间相差的小时数。例如：+0800
+       Difference to Greenwich time (GMT) in hours. Example: +0800
+
     P: 与格林威治时间的差别，小时和分钟之间有冒号分隔。例如：+08:00
+       Difference to Greenwich time (GMT) with colon between hours and minutes. Example: +08:00
+
     T: 本机所在的时区。例如：EST，MDT。
+    Timezone abbreviation.  Examples: EST, MDT
+
     Z: 时差偏移量的秒数。UTC 西边的时区偏移量总是负的，UTC 东边的时区偏移量总是正的。-43200 到 43200
- 
-  完整的日期／时间
+       Timezone offset in seconds. The offset for timezones west of UTC is always negative, and for those east of UTC is always positive. -43200 through 43200
+
+  完整的日期／时间(Full Date/Time)
     c: ISO 8601 格式的日期。例如：2019-07-15T15:38:56+08:00
-    r: RFC 822 格式的日期。例如：Thu, 15 Jul 2019 15:38:56 +0800
-    U: 从 Unix 纪元开始至今的秒数(Unix时间戳)。
+       ISO 8601 date.  Example: 2004-02-12T15:19:21+00:00
+
+    r: RFC 2822 格式的日期。例如：Thu, 15 Jul 2019 15:38:56 +0800
+       RFC 2822 formatted date. Example: Thu, 15 Jul 2019 15:38:56 +0800
+
+    U: 从 Unix 纪元1970-1-1开始至今的秒数(Unix时间戳)。
+       Seconds since the Unix Epoch at 1970-1-1 (Unix timestamp).
+    
 ```
 
-### 时间对象(默认值：{Date} 当前本地机器时间)
-> 可以是任意时间对象  
-> 例如：
+### 时间对象，默认值：{Date} 当前本地机器时间(Time object, default: {Date} local Datetime)
+> 可以是任意时间对象，例如：  
+> Can be any time object, for example:
 
 ```javascript
-    1563176336000 // 时间戳
-    new Date() // 当前本机日期和时间
-    '2019-07-15 15:38:56' // 字符串日期
-    '2019/07/15 15:38:56' // 字符串日期  
+    1563176336000 // 时间戳(Unix timestamp)
+    new Date() // 当前本机日期和时间(local datetime)
+    '2019-07-15 15:38:56' // 字符串日期(String date)
+    '2019/07/15 15:38:56' // 字符串日期(String date)  
 ```
-### 关于鸣谢
+### 关于鸣谢(About)
   [**Github**](http://www.github.com)
   [**Npmjs**](http://www.npmjs.org)
   [**rollup**](http://www.rollupjs.com) 

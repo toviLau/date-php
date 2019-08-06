@@ -238,7 +238,8 @@ const date = function (fmt = 'Y-m-d', now = new Date()) {
         H: () => pad(replaceChars.G(), 2),
         i: () => pad(now.getMinutes(), 2),
         s: () => pad(now.getSeconds(), 2),
-        u: () => (now.getTime() + '').substr(-3),
+        u: () => replaceChars.v() + '000',
+        v: () => (now.getTime() + '').substr(-3),
 
         // 时区
         e: () => Intl.DateTimeFormat().resolvedOptions().timeZone,

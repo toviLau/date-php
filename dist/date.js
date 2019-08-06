@@ -1,5 +1,5 @@
 /**
- * date-php.js v1.5.0
+ * date-php.js v1.5.1
  *   这是一个Javascript版的仿PHP日期时间格式化函数，使用方法和PHP语言一样，有丰富的模板字符串，转换日期时间更自由。 repository https://github.com/toviLau/date-php.git
  *   (c) 2019 ToviLau. Released under the MIT License. 
  **/
@@ -435,7 +435,8 @@
             H: function () { return pad(replaceChars.G(), 2); },
             i: function () { return pad(now.getMinutes(), 2); },
             s: function () { return pad(now.getSeconds(), 2); },
-            u: function () { return (now.getTime() + '').substr(-3); },
+            u: function () { return replaceChars.v() + '000'; },
+            v: function () { return (now.getTime() + '').substr(-3); },
 
             // 时区
             e: function () { return Intl.DateTimeFormat().resolvedOptions().timeZone; },
@@ -482,7 +483,7 @@
     };
 
     defP(Date.prototype, 'format', date);
-    defP(date, 'version', '1.5.0');
+    defP(date, 'version', '1.5.1');
     defP(date, 'description', function () { return (console.info('%cdate-php使用说明:\n' +
         '为了减少包的体积此方法已经废弃，查看使用说明请移步这里\nhttps://github.com/toviLau/date-php/blob/master/README.md'
         , 'color:#c63'
