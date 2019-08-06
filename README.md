@@ -9,7 +9,7 @@
 ![npm bundle size](https://img.shields.io/bundlephobia/minzip/date-php)
 
 > 这是一个Javascript模仿PHP日期时间格式化函数，使用方法和PHP非常类似，有丰富的模板字符串，转换日期时间更自由。1.3.2版本之后在原来的基础上增强了一些模板字符串。例如：中国的农历日期与用汉字来表示日期。  
-> This is a Javascript mimicking PHP datetime formatting function. It is very similar to PHP, has a rich template string, and converts datetimes more freely. After version 1.3.2, some template strings have been enhanced on the basis of the original. For example: Chinese lunar date and Chinese characters to indicate the date.
+> This is a Javascript mimicking PHP datetime formatting function. It is very similar to PHP, has a rich template string, and converts datetimes more freely. After version 1.3.2. Some template strings have been enhanced on the basis of the original. For example: Chinese lunar date and Chinese characters to indicate the date.
 
 ```javascript
 // 举个栗子(demo)
@@ -36,8 +36,8 @@ const date = require('date-php');
 ```
 
 ### 使用(use)
- > 1、以下所有方式的入参都是可选参数。  
- > 　 all the following methods are optional parameters.  
+ > 1、以下所有方式的入参都是可选参数。
+ > 　 Entry parameters in all of the following ways are optional.
  >
  > 2、以下`new Date()`或其它的日期时间的初始化的值，我们默许都是 `1563176336000` Unix时间戳对应的日期时间。  
  > 　 the following `new Date ()` or other date time initialization values, we acquiescence are `1563176336000` Unix timestamp corresponding date time.
@@ -47,15 +47,15 @@ const date = require('date-php');
 import date from 'date-php'; // 引入date-php(import date-php)
 
 /**
- * 示例1 - date('格式化字符串', 时间对象)
- * demo1 - date ('format template string', time object);
+ * 示例1 - date('格式化模板字符串', 日期时间对象)
+ * demo1 - date ('format template string', Datetime object);
  **/
 date('Y-m-d H:i:s', new Date()); // "2019-07-15 15:38:56"
 date('Y年m月d日 H点i分s秒', new Date()); // "2019年07月15日 15点38分56秒" 
 date('m-d-Y H:i:s', new Date()); // "07-15-2019 15:38:56"
 date('y/m/d H:i', new Date()); // "19/07/15 15:38" 
 date('y.m.d H:i', new Date()); // "19.07.15 15:38" 
-date('y-m-d h:i[a]', 1563176336000); // "19-07-15 03:38[pm]"
+date('y-m-d h:i[a]', new Date()); // "19-07-15 03:38[pm]"
 date('Y-m-d H:i 第W周', 'Mon Jul 15 2019 15:38:56 GMT+0800 (中国标准时间)'); // "2019-07-15 15:38 第29周"
 date('y.m.d H:i', new Date()); // "19.07.15 15:38" 
 date('C年f月k日 星期K', 1563176336000); // "二〇一九年七月十五日 星期一" (1.3.2+)
@@ -85,10 +85,10 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 >>   For example: date(\\\\I \\\\l\\\\\ov\\\\e \\\\y\\\\o\\\\u: y-m-d H:i, new Date()) // Output "I love you: 19-07-15 15:38"
 >> 
 >>   上面栗子中'I'、'l'、'o'、'e'、'y'、'u' 都是模板字符串，所以前面加双反斜杠(\\\\)转义，这样字符就会输出本来的值。  
->>   In the above example, 'I', 'l', 'o', 'e', 'y', 'u' are all template strings, so the front double backslash(\\\\) is escaped, so the character will output the original value.
+>>   In the above example, 'I', 'l', 'o', 'e', 'y', 'u' are all template strings, so add an double backslash (\\\\\) in front of the template string to escape , Character will output the original value.
 >
 > 4、加"\*"号的为PHP语言中没有的功能，是`date-php.js`特有的功能。  
-> 　 Adding the "\*" in front is a function not available in the PHP language, and is a feature unique to `date-php.js`.
+> 　 Add the "\*" in front is a function not available in the PHP language, and is a feature unique to `date-php.js`.
 > 
 > 5、转农历正常只能转1900-2100之间的200年份。  
 > 　 The conversion to the lunar calendar can only be transferred to 200 years between 1900-2100.
@@ -99,7 +99,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
        Day of the month, 2 digits with leading zeros. 01 through 31
        
    *k: 月份中的第几天，汉字表示。从"一"到"卅一" 【1.3.2+】
-       Day of the month, Chinese character representation. "一" through "卅一"
+       Day of the month, Chinese character representation. "一" through "卅一”[1.3.2+]
        
     D: 星期中的第几天，文本表示，3个字母。从"Mon"到"Sun"
        A textual representation of a day, three letters. Mon through Sun
@@ -210,11 +210,11 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
     s: 有前导零的秒数。"00"到"59"
        Seconds with leading zeros. "00" through "59"
        
-    u: 有前导零的微秒。"000000"到"999000", js暂时不支持微秒，微秒只能反回"000"。
-       Microseconds with leading zeros. "000000" through "999000"，Js does not support microseconds for the time being, and the microseconds can only return to "000".   
+    u: 有前导零的微秒。"000000"到"999000", js暂时不支持微秒，微秒只能反回"000”。【1.5.0*】
+       Microseconds with leading zeros. "000000" through "999000"，Js does not support microseconds for the time being, and the microseconds can only return to "000”.[1.5.0*]   
        
-    v: 有前导零的毫秒。"000"到"999"
-       Millisecond with leading zeros. "000" through "999"
+    v: 有前导零的毫秒。"000"到"999"【1.5.0+】
+       Millisecond with leading zeros. "000" through "999”[1.5.0+]
  
   时区(Timezone)
     e: 时区标识。UTC，GMT，Atlantic/Azores
