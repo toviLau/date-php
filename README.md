@@ -83,8 +83,8 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 >>   上面栗子中'I'、'l'、'o'、'e'、'y'、'u' 都是模板字符串，所以前面加双反斜杠转义，这样字符就会输出本来的值。  
 >>   In the above example, 'I', 'l', 'o', 'e', 'y', 'u' are all template strings, so the front double backslash is escaped, so the character will output the original value.
 >
-> 4、加"*"号的为PHP语言中没有的功能，是`date-php.js`特有的功能。  
-> 　 Adding the "*" in front is a function not available in the PHP language, and is a feature unique to `date-php.js`.
+> 4、加"\*"号的为PHP语言中没有的功能，是`date-php.js`特有的功能。  
+> 　 Adding the "\*" in front is a function not available in the PHP language, and is a feature unique to `date-php.js`.
 > 
 > 5、转农历正常只能转1900-2100之间的200年份。  
 > 　 The conversion to the lunar calendar can only be transferred to 200 years between 1900-2100.
