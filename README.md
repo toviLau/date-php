@@ -77,11 +77,11 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 > 3、关于转义字符串模板，这里与PHP不同 **【敲黑板！！！】** <sup>(1.3.0<sup> + </sup>)</sup>  
 > 　 About the escaped string template, here is different from PHP **[Note! ! ! ]** <sup>(1.3.0<sup> + </sup>)</sup>  
 >> * **如果在date里想输出模板本来的字符，请用转义符--双反斜杠"\\\\"(PHP是一个单反斜杠"\\")。**   
->> * **If you want to output the original characters of the template on the date, use the escape character – double backslash "\" (PHP is a single backslash "\").**  
+>> * **If you want to output the original characters of the template on the date, use the escape character – double backslash "\\\\" (PHP is a single backslash "\\").**  
 >>   举个栗子：date("\\\\I \\\\l\\\\ov\\\\e \\\\y\\\\o\\\\u: y-m-d H:i", new Date()) // 输出 "I love you: 19-07-15 15:38"  
 >>   For example: date(\\\\I \\\\l\\\\\ov\\\\e \\\\y\\\\o\\\\u: y-m-d H:i, new Date()) // Output "I love you: 19-07-15 15:38"  
->>   上面栗子中'I'、'l'、'o'、'e'、'y'、'u' 都是模板字符串，所以前面加双反斜杠转义，这样字符就会输出本来的值。  
->>   In the above example, 'I', 'l', 'o', 'e', 'y', 'u' are all template strings, so the front double backslash is escaped, so the character will output the original value.
+>>   上面栗子中'I'、'l'、'o'、'e'、'y'、'u' 都是模板字符串，所以前面加双反斜杠(\\\\)转义，这样字符就会输出本来的值。  
+>>   In the above example, 'I', 'l', 'o', 'e', 'y', 'u' are all template strings, so the front double backslash(\\\\) is escaped, so the character will output the original value.
 >
 > 4、加"\*"号的为PHP语言中没有的功能，是`date-php.js`特有的功能。  
 > 　 Adding the "\*" in front is a function not available in the PHP language, and is a feature unique to `date-php.js`.
@@ -131,7 +131,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
         The Chinese characters of the day of the week indicate. "日"(for Sunday) through "六"(for Saturday)[1.3.2+]
 
     z: 年份中的第几天。从"0"到"365"
-       The day of the year. from 0 to 365
+       The day of the year. "0" through "365"
 
   星期(Week)
     W: 年份中的第几周
@@ -183,7 +183,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
        Lowercase Ante meridiem and Post meridiem. "am" or "pm"
 
     A: 大写的上午和下午值。"AM"或"PM"
-	    Uppercase Ante meridiem and Post meridiem. "AM" or "PM"
+       Uppercase Ante meridiem and Post meridiem. "AM" or "PM"
 	    
     B: Swatch Internet 标准时。"000"到"999"
        Swatch Internet time. 000 through 999
@@ -243,15 +243,15 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
     
 ```
 
-### 时间对象，默认值：{Date} 当前本地机器时间(Time object, default: {Date} local Datetime)
+### 时间对象，默认值：{Date} 当前本地机器时间(Datetime object, default: {Date} local Datetime)
 > 可以是任意时间对象，例如：  
 > Can be any time object, for example:
 
 ```javascript
     1563176336000 // 时间戳(Unix timestamp)
-    new Date() // 当前本机日期和时间(local datetime)
-    '2019-07-15 15:38:56' // 字符串日期(String date)
-    '2019/07/15 15:38:56' // 字符串日期(String date)  
+    new Date() // 当前本机日期和时间(Local datetime)
+    '2019-07-15 15:38:56' // 字符串日期(String datetime)
+    '2019/07/15 15:38:56' // 字符串日期(String datetime)  
 ```
 ### 关于鸣谢(About)
   [**Github**](http://www.github.com)
