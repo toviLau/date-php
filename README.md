@@ -82,7 +82,8 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 >> * **如果在date里想输出模板本来的字符，请用转义符--双反斜杠"\\\\"(PHP是一个单反斜杠"\\")。**   
 >> * **If you want to output the original characters of the template on the date, use the escape character – double backslash "\\\\" (PHP is a single backslash "\\").**  
 >>   举个栗子：date("\\\\I \\\\l\\\\ov\\\\e \\\\y\\\\o\\\\u: y-m-d H:i", new Date()) // 输出 "I love you: 19-07-15 15:38"  
->>   For example: date(\\\\I \\\\l\\\\\ov\\\\e \\\\y\\\\o\\\\u: y-m-d H:i, new Date()) // Output "I love you: 19-07-15 15:38"  
+>>   For example: date(\\\\I \\\\l\\\\\ov\\\\e \\\\y\\\\o\\\\u: y-m-d H:i, new Date()) // Output "I love you: 19-07-15 15:38"
+>> 
 >>   上面栗子中'I'、'l'、'o'、'e'、'y'、'u' 都是模板字符串，所以前面加双反斜杠(\\\\)转义，这样字符就会输出本来的值。  
 >>   In the above example, 'I', 'l', 'o', 'e', 'y', 'u' are all template strings, so the front double backslash(\\\\) is escaped, so the character will output the original value.
 >
