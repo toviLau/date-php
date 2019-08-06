@@ -25,7 +25,10 @@ d.format('m-d-Y H:i:s'); // "07-15-2019 15:38:56"
 ### 安装(install)
 ```
 // npm
-npm i -S date-php
+npm i -S date-php;
+
+// nodejs
+const date = require('date-php');
 
 // CDN
 <script src="//unpkg.com/date-php"></script>
