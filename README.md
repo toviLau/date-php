@@ -8,9 +8,9 @@
 [![downloads](https://img.shields.io/npm/dm/date-php.svg)](https://www.npmjs.com/package/date-php)
 ![npm bundle size](https://img.shields.io/bundlephobia/minzip/date-php)
 
-> 这是一个Javascript模仿PHP日期时间格式化函数，使用方法和PHP非常类似，有丰富的模板字符，转换日期时间更自由。1.3.2版本之后在原来的基础上增强了一些模板字符。例如：中国的农历日期与用汉字来表示日期。  
-> This is a Javascript mimicking PHP datetime formatting function. It is very similar to PHP, has a rich template character, and converts datetimes more freely. In after version 1.3.2, Some template character have been enhanced on the basis of the original. For example: Chinese lunar date and Chinese characters to indicate the date.
-
+> 这是一个Javascript模仿PHP日期时间格式化函数，使用方法和PHP非常类似，有丰富的模板字符，并在原来的基础上增强了一些模板字符。例如：中国的农历日期与用汉字来表示日期。让转换日期时间更自由。
+> This is a Javascript mimicking PHP datetime formatting function. It is very similar to PHP, has rich template characters, and enhances some template characters on the basis of the original. For example: Chinese lunar date and Chinese characters to indicate the date. Make the conversion datetimes more free.
+ 
 ```javascript
 // 举个栗子(demo)
 // 首先(First)
