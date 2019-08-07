@@ -238,7 +238,7 @@ const date = function (fmt = 'Y-m-d', now = new Date()) {
         H: () => pad(replaceChars.G(), 2),
         i: () => pad(now.getMinutes(), 2),
         s: () => pad(now.getSeconds(), 2),
-        u: () => replaceChars.v() + '000',
+        u: () => replaceChars.v() + pad(Math.floor(Math.random()*1000), 3),
         v: () => (now.getTime() + '').substr(-3),
 
         // 时区

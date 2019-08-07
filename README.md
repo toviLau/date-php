@@ -8,8 +8,8 @@
 [![downloads](https://img.shields.io/npm/dm/date-php.svg)](https://www.npmjs.com/package/date-php)
 ![npm bundle size](https://img.shields.io/bundlephobia/minzip/date-php)
 
-> 这是一个Javascript模仿PHP日期时间格式化函数，使用方法和PHP非常类似，有丰富的模板字符串，转换日期时间更自由。1.3.2版本之后在原来的基础上增强了一些模板字符串。例如：中国的农历日期与用汉字来表示日期。  
-> This is a Javascript mimicking PHP datetime formatting function. It is very similar to PHP, has a rich template character, and converts datetimes more freely. After version 1.3.2. Some template character have been enhanced on the basis of the original. For example: Chinese lunar date and Chinese characters to indicate the date.
+> 这是一个Javascript模仿PHP日期时间格式化函数，使用方法和PHP非常类似，有丰富的模板字符，转换日期时间更自由。1.3.2版本之后在原来的基础上增强了一些模板字符。例如：中国的农历日期与用汉字来表示日期。  
+> This is a Javascript mimicking PHP datetime formatting function. It is very similar to PHP, has a rich template character, and converts datetimes more freely. In after version 1.3.2, Some template character have been enhanced on the basis of the original. For example: Chinese lunar date and Chinese characters to indicate the date.
 
 ```javascript
 // 举个栗子(demo)
@@ -39,7 +39,7 @@ npm i -S date-php;
  > 　 Entry parameters in all of the following ways are optional.
  >
  > 2、以下`new Date()`或其它的日期时间的初始化的值，我们默许都是 `1563176336000` Unix时间戳对应的日期时间。  
- > 　 The following `new Date ()` or other date time initialization values, we acquiescence are `1563176336000` Unix timestamp corresponding date time.
+ > 　 The following `new Date ()` or other date time initialization values, we acquiescence are `1563176336000` Unix timestamp corresponding Datetime.
  
 ```javascript
 // npm -- CDN方式跳过(CDN mode skip)
@@ -49,7 +49,7 @@ import date from 'date-php'; // 引入date-php(import date-php)
 const date = require('date-php'); // 引入date-php(require date-php)
 
 /**
- * 示例1 - date('模板字符串', 日期时间对象)
+ * 示例1 - date('模板字符', 日期时间对象)
  * demo1 - date ('Template character', Datetime object);
  **/
 date('Y-m-d H:i:s', new Date()); // "2019-07-15 15:38:56"
@@ -64,7 +64,7 @@ date('C年f月k日 星期K', 1563176336000); // "二〇一九年七月十五日 
 date('ly年lm月ld日lt时lk刻【lg】',1563122222000) // "己亥年六月十三日子时六刻【三更】"(1.5.0+)
 
 /**
- * 示例2 - 日期时间对象.format('模板字符串');
+ * 示例2 - 日期时间对象.format('模板字符');
  * demo2 - datetimeObject.format('Template character');
  */
 new Date('2019-07-15 15:38:56').format('Y-m-d H:i:s'); // "2019-07-15 15:38:56" 
@@ -72,21 +72,21 @@ new Date(1563176336000).format('Y-m-d H:ia'); // "2019-07-15 15:38pm"
 new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 ```
 
-### 模板字符串，默认值：{string} 'Y-m-d'(Template character, default: {string} 'Y-m-d')
+### 模板字符，默认值：{string} 'Y-m-d'(Template character, default: {string} 'Y-m-d')
 > 1、你也可以去[**PHP中文官网**](https://www.php.net/manual/zh/function.date.php)看看，使用方法一样  
 > 　 You can also go to the [**PHP english official website**](https://www.php.net/manual/en/function.date.php) to see, the method is similar.  
 > 
-> 2、~~你也可以通过静态方法 `date.description` 在控制台打出所有模板字符串。~~<sup>(1.3.2<sup> - </sup>)</sup>   
+> 2、~~你也可以通过静态方法 `date.description` 在控制台打出所有模板字符。~~<sup>(1.3.2<sup> - </sup>)</sup>   
 > 　 ~~You can also output all template character in the console via the static method `date.description`.~~<sup>(1.3.2<sup> - </sup>)</sup>   
 >
-> 3、关于转义模板字符串，这里与PHP不同 **【敲黑板！！！】** <sup>(1.3.0<sup> + </sup>)</sup>  
+> 3、关于转义模板字符，这里与PHP不同 **【敲黑板！！！】** <sup>(1.3.0<sup> + </sup>)</sup>  
 > 　 About the escaped template character, here is different from PHP **[Note!!!]** <sup>(1.3.0<sup> + </sup>)</sup>  
 >> * **如果在date里想输出模板本来的字符，请用转义符--双反斜杠"\\\\”(PHP是一个单反斜杠"\\")。**   
 >> * **If you want to output the original character of the template on the date, use the escape character – double backslash "\\\\" (PHP is a single backslash "\\").**  
 >>   举个栗子：date("\\\\I \\\\l\\\\ov\\\\e \\\\y\\\\o\\\\u: y-m-d H:i", new Date()) // 输出 "I love you: 19-07-15 15:38"  
 >>   Example: date(\\\\I \\\\l\\\\\ov\\\\e \\\\y\\\\o\\\\u: y-m-d H:i, new Date()) // Output "I love you: 19-07-15 15:38"
 >> 
->>   上面栗子中，’I’、’l’、’o’、’e’、’y’、’u’ 都是模板字符串，所以前面加双反斜杠(\\\\)转义，这样字符就会输出本来的值。  
+>>   上面栗子中，’I’、’l’、’o’、’e’、’y’、’u’ 都是模板字符，所以前面加双反斜杠(\\\\)转义，这样字符就会输出本来的值。  
 >>   In the previous example, 'I', 'l', 'o', 'e', 'y', 'u' are all template character, so add an double backslash (\\\\\) in front of the template character to escape , Character will output the original value.
 >
 > 4、加"\*"号的为PHP语言中没有的功能，是`date-php.js`特有的功能。  
@@ -212,8 +212,8 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
     s: 有前导零的秒数。"00"到"59"
        Seconds with leading zeros. "00" through "59"
        
-    u: 有前导零的微秒。"000000"到"999000", js暂时不支持微秒，微秒只能反回"000”。【1.5.0*】
-       Microseconds with leading zeros. "000000" through "999000"，Js does not support microseconds for the time being, and the microseconds can only return to "000”.[1.5.0*]   
+    u: 有前导零的微秒。"000000"到"999999"。由于Javascript暂时不支持微秒，所以微秒只能模拟来实现。返回带前导0的3位随机数。【1.5.2*】
+       Microseconds with leading zeros. "000000" to "999999". Since Javascript does not support microseconds for a while, microseconds can only be implemented by simulation. Returns a 3 chars random number with leading 0.[1.5.2*]   
        
     v: 有前导零的毫秒。"000"到"999"【1.5.0+】
        Millisecond with leading zeros. "000" through "999”[1.5.0+]
@@ -232,7 +232,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
        Difference to Greenwich time (GMT) with colon between hours and minutes. Example: +08:00
 
     T: 本机所在的时区。例如：EST，MDT。
-    Timezone abbreviation.  Examples: EST, MDT
+       Timezone abbreviation.  Examples: EST, MDT
 
     Z: 时差偏移量的秒数。UTC 西边的时区偏移量总是负的，UTC 东边的时区偏移量总是正的。-43200 到 43200
        Timezone offset in seconds. The offset for timezones west of UTC is always negative, and for those east of UTC is always positive. -43200 through 43200
