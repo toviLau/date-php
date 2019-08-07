@@ -47,6 +47,10 @@
     </style>
 </head>
 <body>
+<div class="now">
+    <div class="clock"><span>当前时间：</span> <span class="date-time">--:--</span></div>
+    <div class="clock"><span>now time：</span> <span class="date-time">--:--</span></div>
+</div>
 <table class="table" border="0" cellspacing="0">
     <thead>
     <tr>
@@ -79,6 +83,14 @@
         });
     });
     document.getElementById('tbody').innerHTML = dom;
+    const nowClock = document.getElementsByClassName('date-time');
+
+    setInterval(() => {
+        for (let i = 0; i < nowClock.length; i += 1) {
+            nowClock[i].innerHTML = date('Y-m-d H:i:s.v');
+        }
+    }, 1000);
+
 </script>
 </body>
 </html>

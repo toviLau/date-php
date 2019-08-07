@@ -18,11 +18,11 @@ var d = new Date(); // 1563148800000 or 'Mon Jul 15 2019 15:38:56 GMT+0800 (中�
 
 // 然后(Second)
 date('Y-m-d', d); // "2019-07-15
-date('m-d-Y H:i:s', d); // "07-15-2019 15:38:56" 
+date('m-d-Y H:i:s', d); // "07-15-2019 15:38:56"
 
 // 或者这样(Or)
 d.format('Y-m-d'); // "2019-07-15
-d.format('m-d-Y H:i:s'); // "07-15-2019 15:38:56" 
+d.format('m-d-Y H:i:s'); // "07-15-2019 15:38:56"
 ```
 ### 安装(install)
 ```
@@ -55,6 +55,8 @@ const date = require('date-php'); // 引入date-php(require date-php)
 date('Y-m-d H:i:s', new Date()); // "2019-07-15 15:38:56"
 date('Y年m月d日 H点i分s秒', new Date()); // "2019年07月15日 15点38分56秒" 
 date('m-d-Y H:i:s', new Date()); // "07-15-2019 15:38:56"
+date('m-d-Y H:i:s.v’, new Date()); // "07-15-2019 15:38:56.064”
+date('m-d-Y H:i:s.u’, new Date()); // "07-15-2019 15:38:56.064019”
 date('y/m/d H:i', new Date()); // "19/07/15 15:38" 
 date('y.m.d H:i', new Date()); // "19.07.15 15:38" 
 date('y-m-d h:i[a]', new Date()); // "19-07-15 03:38[pm]"
@@ -62,6 +64,8 @@ date('Y-m-d H:i 第W周', 'Mon Jul 15 2019 15:38:56 GMT+0800 (中国标准时间
 date('y.m.d H:i', new Date()); // "19.07.15 15:38" 
 date('C年f月k日 星期K', 1563176336000); // "二〇一九年七月十五日 星期一" (1.3.2+)
 date('ly年lm月ld日lt时lk刻【lg】',1563122222000) // "己亥年六月十三日子时六刻【三更】"(1.5.0+)
+// 更多请自由发挥...
+// More please use your imagination...
 
 /**
  * 示例2 - 日期时间对象.format('模板字符');
@@ -70,6 +74,8 @@ date('ly年lm月ld日lt时lk刻【lg】',1563122222000) // "己亥年六月十�
 new Date('2019-07-15 15:38:56').format('Y-m-d H:i:s'); // "2019-07-15 15:38:56" 
 new Date(1563176336000).format('Y-m-d H:ia'); // "2019-07-15 15:38pm"
 new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
+// 更多请自由发挥...
+// More please use your imagination...
 ```
 
 ### 模板字符，默认值：{string} 'Y-m-d'(Template character, default: {string} 'Y-m-d')
@@ -112,14 +118,14 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
   *ld: 农历月份中的第几天。从"初一"到"卅"【1.5.0+】
        Day of the month of the lunar month. "初一" through "卅"[1.5.0+]
   
-  *lt: 中国古代时晨计时中的时晨(类似小时，2小时1晨 )。从"子"到"亥"【1.5.0+】
-       The early timekeeping method in ancient China was "shi chen" (similar to hours, 2 hours of 1 shi chen). "子" through "亥"[1.5.0+]
+  *lt: 中国古代时晨计时中的时晨(类似小时，2小时1时晨 )。从"子"到"亥"【1.5.0+】
+       The early timekeeping method in ancient China was "shi chen" (similar to hours, 2 hours of 1 "shi chen"). "子" through "亥"[1.5.0+]
        
   *lk: 中国古代时晨计时中的刻(类似分钟，一时晨八刻钟)。从"零"到"七"【1.5.0+】
-       The 'ke' in the of ancient China (similar to minutes, 1 "shi cheng" of 8 "ke"). "零" through "七"[1.5.0+]
+       The "ke" in the of ancient China (similar to minutes, 1 "shi cheng" of 8 "ke"). "零" through "七"[1.5.0+]
        
-  *lg: 中国古代夜里更时(打更点，一晚五更)。从"一刻"到"五刻"【1.5.0+】
-       The "geng" in ancient Chinese night (tapping geng, one night five "geng"). "一刻" through "五刻"[1.5.0+]
+  *lg: 中国古代夜里更时(打更点，一晚五更)。从"一更”到”五更”【1.5.0+】
+       The "geng" in ancient Chinese night (tapping geng, one night five geng). "一更” through "五更”[1.5.0+]
        
     l: 星期几，完整的文本格式。从"Sunday"到"Saturday"
        A full textual representation of the day of the week. "Sunday" through "Saturday"
@@ -212,7 +218,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
     s: 有前导零的秒数。"00"到"59"
        Seconds with leading zeros. "00" through "59"
        
-    u: 有前导零的微秒。"000000"到"999999"。由于Javascript暂时不支持微秒，所以微秒只能模拟来实现。返回带前导0的3位随机数。【1.5.2*】
+    u: 有前导零的微秒。"000000"到"999999"。由于Javascript暂时不支持微秒，所以微秒只能模拟来实现。返回带前导0的3位随机数。(这个并不是真正的微秒，不精确，建议使用v--毫秒。)【1.5.2*】
        Microseconds with leading zeros. "000000" to "999999". Since Javascript does not support microseconds for a while, microseconds can only be implemented by simulation. Returns a 3 chars random number with leading 0.[1.5.2*]   
        
     v: 有前导零的毫秒。"000"到"999"【1.5.0+】
@@ -246,7 +252,6 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 
     U: 从 Unix 纪元1970-1-1开始至今的秒数(Unix时间戳)。
        Seconds since the Unix Epoch at 1970-1-1 (Unix timestamp).
-    
 ```
 
 ### 时间对象，默认值：{Date} 当前本地机器时间(Datetime object, default: {Date} local Datetime)
@@ -259,6 +264,32 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
     '2019-07-15 15:38:56' // 字符串日期(String datetime)
     '2019/07/15 15:38:56' // 字符串日期(String datetime)  
 ```
+
+### 应用黑科技(Interesting to use∂)
+> 可以非常简单的实现一个时钟，就象下面的一样。  
+> Coded a clock, is so ease, just like the following.
+> 
+> ![time clock](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARYAAAAmAgMAAAB8LlzFAAAADFBMVEX+/v4ODg60tLRkZGQyjgZFAAAEH0lEQVRIx+2VT8gMYRzHv/NMa3bw2Is/q0Y57M46kNKs90IGJ0kmGebwyrSOLo9/+ZdMryhJlD/NQULktZILcuKJk3+16sUmvHtwc5mLOGD9nnmWVi1FysX38Ozu08xnf7/fTM8HPyTBnycrwjN9AGWIZvMPIabMvImXrzX5WsKkz9bp3fkd8yNuT9oFYFK2pCvpg3UzsM7dL2BvsLiDUjdZksA80s1KHQAsztJqGIbHLjbPTlyECRozHhU+sKj6AcDQqyWffaBu7s9gx+NfYO+T48OodeVGgeqjbjDjFSitTAAoltwwPArCZDnb8fjB9lQ7AVIXhgQ2qGVGnAEFsxF7qMD0W3gtkbU8hZmdnTNCWSlVUObVcAICgK7wHONxmqpbWxw2gAcGIRcojMsafoUwRjIb5yWL4yIAIwzXGu9WV0o3CONe0U2xxCmbUmMEhwXANu4mVOXezIXZEFO9hZ/s+QnVaS5bmc+m2bxosNUVvjYr84qtMUCamn7q2D5hbLg5Zr8gzPqxGm4mp4Kp9feHXwvCGPd2DiNPxQipmkpa5rXPPYwpFGbopsZ4CmPLNmFEDbgpxyN4xiq/TRj7QLAQFFXNVYXx+jCFJKWm+O4nYUQYh4eRDTiEUQ2yTTGBzRWJQxiLxapnpmZzQGEm6KYChTmNsiFTGA+bo4KjNbE5arMck3DMxRY5AbOZxriE6W/qRlFVozG0eHZCs0mA4xaEaop+q6YsuGyb72KquVT9j/Qg3B5GVaPeYl7q6qbMPaO1S0jdywCm32BxPuLNAWFenq4VrizbddKrXTvQCOhROmif1E/qhmH6+r0BephwrT2MlKtnUI1MX2HYM0mYeuSaYXJql8fX4ZkkTAv1vFg1G35/rIhCRJjn+GmKamHqhc3XRG3oLZ3J5hQ2Ckw8NwkYxf/8zz+J7Ps+b7AaoNSAbk8N83M1fJzU6bvRZgIqv1aDIDUY+3ythvFAqSEaGuvHfHNmphbhDVTDkMgAzrbmamBxqtTQogtQvIP5I8m5IrUxcv1Ah31EkBumMlANcxTGwlatBjmH1AAhJgKFHSMbt/ltD9PWbAp3DFdfQIVJb6AaIPZmFphWg3FdqYHFmzuEMZb67XjYgU1H7CtqBTpnBqoBYv2YhbrUangR5IbZMQZY6mjeur2sMH7qOobU5QQD1QCh1LBYq2FFfEapYSSirQmMMCfeHs8xx91TocZwOVANEHmD27QapEMYzoTVw8w8lPUwZ5v6TJ8+WA0QpIYpeJqrYan0lGEgOGHo15lZx2KNoaaSHNMerAYIYcGCVsNyPzcMWnk1yxtBlUZpX1CYoUt6ND9RA8TL0xZ/18jVMLK1navhzC2F8Z/5liFhrlEYvq6nhnUD1QBRj6zvajgVEyalC3pHfl+S31DDX89X5oimdQZjjyEAAAAASUVORK5CYII=)
+
+```html
+示例代码(demo)
+
+<div class="now">
+    <div class="clock"><span>当前时间：</span> <span class="date-time">--:--</span></div>
+    <div class="clock"><span>now time：</span> <span class="date-time">--:--</span></div>
+</div>
+<script src="//unpkg.com/date-php"></script>
+<script type="text/javascript">
+    var nowClock = document.getElementsByClassName('date-time')
+    
+    setInterval(function() {
+        for(let i=0; i<nowClock.length; i+=1){
+            nowClock[i].innerHTML=date('Y-m-d H:i:s.v')
+        }
+    }, 1000);
+</script>
+```
+
 ### 关于鸣谢(About)
   [**Github**](http://www.github.com)
   [**Npmjs**](http://www.npmjs.org)
