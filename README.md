@@ -269,7 +269,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 > 可以非常简单的实现一个时钟，就象下面的一样。  
 > Coded a clock, is so ease, just like the following.
 > 
-> ![time clock][clock]
+> ![time clock](https://raw.githubusercontent.com/toviLau/date-php/master/src/img-md/clock.png)
 
 ```html
 示例代码(demo)
@@ -297,6 +297,4 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
   [**eslint**](https://eslint.org)
   [**flow**](https://flow.org)
   [**uglifyJs**](http://lisperator.net/uglifyjs/)
-
-
-[clock]:data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARYAAAAmAgMAAAB8LlzFAAAADFBMVEX+/v4ODg60tLRkZGQyjgZFAAAEH0lEQVRIx+2VT8gMYRzHv/NMa3bw2Is/q0Y57M46kNKs90IGJ0kmGebwyrSOLo9/+ZdMryhJlD/NQULktZILcuKJk3+16sUmvHtwc5mLOGD9nnmWVi1FysX38Ozu08xnf7/fTM8HPyTBnycrwjN9AGWIZvMPIabMvImXrzX5WsKkz9bp3fkd8yNuT9oFYFK2pCvpg3UzsM7dL2BvsLiDUjdZksA80s1KHQAsztJqGIbHLjbPTlyECRozHhU+sKj6AcDQqyWffaBu7s9gx+NfYO+T48OodeVGgeqjbjDjFSitTAAoltwwPArCZDnb8fjB9lQ7AVIXhgQ2qGVGnAEFsxF7qMD0W3gtkbU8hZmdnTNCWSlVUObVcAICgK7wHONxmqpbWxw2gAcGIRcojMsafoUwRjIb5yWL4yIAIwzXGu9WV0o3CONe0U2xxCmbUmMEhwXANu4mVOXezIXZEFO9hZ/s+QnVaS5bmc+m2bxosNUVvjYr84qtMUCamn7q2D5hbLg5Zr8gzPqxGm4mp4Kp9feHXwvCGPd2DiNPxQipmkpa5rXPPYwpFGbopsZ4CmPLNmFEDbgpxyN4xiq/TRj7QLAQFFXNVYXx+jCFJKWm+O4nYUQYh4eRDTiEUQ2yTTGBzRWJQxiLxapnpmZzQGEm6KYChTmNsiFTGA+bo4KjNbE5arMck3DMxRY5AbOZxriE6W/qRlFVozG0eHZCs0mA4xaEaop+q6YsuGyb72KquVT9j/Qg3B5GVaPeYl7q6qbMPaO1S0jdywCm32BxPuLNAWFenq4VrizbddKrXTvQCOhROmif1E/qhmH6+r0BephwrT2MlKtnUI1MX2HYM0mYeuSaYXJql8fX4ZkkTAv1vFg1G35/rIhCRJjn+GmKamHqhc3XRG3oLZ3J5hQ2Ckw8NwkYxf/8zz+J7Ps+b7AaoNSAbk8N83M1fJzU6bvRZgIqv1aDIDUY+3ythvFAqSEaGuvHfHNmphbhDVTDkMgAzrbmamBxqtTQogtQvIP5I8m5IrUxcv1Ah31EkBumMlANcxTGwlatBjmH1AAhJgKFHSMbt/ltD9PWbAp3DFdfQIVJb6AaIPZmFphWg3FdqYHFmzuEMZb67XjYgU1H7CtqBTpnBqoBYv2YhbrUangR5IbZMQZY6mjeur2sMH7qOobU5QQD1QCh1LBYq2FFfEapYSSirQmMMCfeHs8xx91TocZwOVANEHmD27QapEMYzoTVw8w8lPUwZ5v6TJ8+WA0QpIYpeJqrYan0lGEgOGHo15lZx2KNoaaSHNMerAYIYcGCVsNyPzcMWnk1yxtBlUZpX1CYoUt6ND9RA8TL0xZ/18jVMLK1navhzC2F8Z/5liFhrlEYvq6nhnUD1QBRj6zvajgVEyalC3pHfl+S31DDX89X5oimdQZjjyEAAAAASUVORK5CYII==
+  
