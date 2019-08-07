@@ -9,16 +9,18 @@
 ![npm bundle size](https://img.shields.io/bundlephobia/minzip/date-php)
 
 > 这是一个Javascript模仿PHP日期时间格式化函数，使用方法和PHP非常类似，有丰富的模板字符串，转换日期时间更自由。1.3.2版本之后在原来的基础上增强了一些模板字符串。例如：中国的农历日期与用汉字来表示日期。  
-> This is a Javascript mimicking PHP datetime formatting function. It is very similar to PHP, has a rich template string, and converts datetimes more freely. After version 1.3.2. Some template strings have been enhanced on the basis of the original. For example: Chinese lunar date and Chinese characters to indicate the date.
+> This is a Javascript mimicking PHP datetime formatting function. It is very similar to PHP, has a rich template character, and converts datetimes more freely. After version 1.3.2. Some template character have been enhanced on the basis of the original. For example: Chinese lunar date and Chinese characters to indicate the date.
 
 ```javascript
 // 举个栗子(demo)
+// 首先(First)
 var d = new Date(); // 1563148800000 or 'Mon Jul 15 2019 15:38:56 GMT+0800 (中国标准时间)'
 
+// 然后(Second)
 date('Y-m-d', d); // "2019-07-15
 date('m-d-Y H:i:s', d); // "07-15-2019 15:38:56" 
 
-// 或者这样(or)
+// 或者这样(Or)
 d.format('Y-m-d'); // "2019-07-15
 d.format('m-d-Y H:i:s'); // "07-15-2019 15:38:56" 
 ```
@@ -27,28 +29,28 @@ d.format('m-d-Y H:i:s'); // "07-15-2019 15:38:56"
 // npm
 npm i -S date-php;
 
-// nodejs
-const date = require('date-php');
-
 // CDN
 <script src="//unpkg.com/date-php"></script>
 
 ```
 
 ### 使用(use)
- > 1、以下所有方式的入参都是可选参数。
+ > 1、以下所有方式的入参都是可选参数。  
  > 　 Entry parameters in all of the following ways are optional.
  >
  > 2、以下`new Date()`或其它的日期时间的初始化的值，我们默许都是 `1563176336000` Unix时间戳对应的日期时间。  
- > 　 the following `new Date ()` or other date time initialization values, we acquiescence are `1563176336000` Unix timestamp corresponding date time.
+ > 　 The following `new Date ()` or other date time initialization values, we acquiescence are `1563176336000` Unix timestamp corresponding date time.
  
 ```javascript
 // npm -- CDN方式跳过(CDN mode skip)
 import date from 'date-php'; // 引入date-php(import date-php)
 
+// nodejs -- CDN方式跳过(CDN mode skip)
+const date = require('date-php'); // 引入date-php(require date-php)
+
 /**
- * 示例1 - date('格式化模板字符串', 日期时间对象)
- * demo1 - date ('format template string', Datetime object);
+ * 示例1 - date('模板字符串', 日期时间对象)
+ * demo1 - date ('Template character', Datetime object);
  **/
 date('Y-m-d H:i:s', new Date()); // "2019-07-15 15:38:56"
 date('Y年m月d日 H点i分s秒', new Date()); // "2019年07月15日 15点38分56秒" 
@@ -62,30 +64,30 @@ date('C年f月k日 星期K', 1563176336000); // "二〇一九年七月十五日 
 date('ly年lm月ld日lt时lk刻【lg】',1563122222000) // "己亥年六月十三日子时六刻【三更】"(1.5.0+)
 
 /**
- * 示例2 - 日期时间对象.format('格式化模板字符串');
- * demo2 - datetimeObject.format('format template string');
+ * 示例2 - 日期时间对象.format('模板字符串');
+ * demo2 - datetimeObject.format('Template character');
  */
 new Date('2019-07-15 15:38:56').format('Y-m-d H:i:s'); // "2019-07-15 15:38:56" 
 new Date(1563176336000).format('Y-m-d H:ia'); // "2019-07-15 15:38pm"
 new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 ```
 
-### 格式字符串，默认值：{string} 'Y-m-d'(Format string, default: {string} 'Y-m-d')
-> 1、你也可以去[**PHP官网**](https://www.php.net/manual/zh/function.date.php)看看，使用方法一样  
-> 　 You can also go to the [**PHP official website**](https://www.php.net/manual/en/function.date.php) to see, the method is similar.  
+### 模板字符串，默认值：{string} 'Y-m-d'(Template character, default: {string} 'Y-m-d')
+> 1、你也可以去[**PHP中文官网**](https://www.php.net/manual/zh/function.date.php)看看，使用方法一样  
+> 　 You can also go to the [**PHP english official website**](https://www.php.net/manual/en/function.date.php) to see, the method is similar.  
 > 
 > 2、~~你也可以通过静态方法 `date.description` 在控制台打出所有模板字符串。~~<sup>(1.3.2<sup> - </sup>)</sup>   
-> 　 ~~You can also output all template strings in the console via the static method `date.description`.~~<sup>(1.3.2<sup> - </sup>)</sup>   
+> 　 ~~You can also output all template character in the console via the static method `date.description`.~~<sup>(1.3.2<sup> - </sup>)</sup>   
 >
-> 3、关于转义字符串模板，这里与PHP不同 **【敲黑板！！！】** <sup>(1.3.0<sup> + </sup>)</sup>  
-> 　 About the escaped string template, here is different from PHP **[Note! ! ! ]** <sup>(1.3.0<sup> + </sup>)</sup>  
->> * **如果在date里想输出模板本来的字符，请用转义符--双反斜杠"\\\\"(PHP是一个单反斜杠"\\")。**   
->> * **If you want to output the original characters of the template on the date, use the escape character – double backslash "\\\\" (PHP is a single backslash "\\").**  
+> 3、关于转义模板字符串，这里与PHP不同 **【敲黑板！！！】** <sup>(1.3.0<sup> + </sup>)</sup>  
+> 　 About the escaped template character, here is different from PHP **[Note!!!]** <sup>(1.3.0<sup> + </sup>)</sup>  
+>> * **如果在date里想输出模板本来的字符，请用转义符--双反斜杠"\\\\”(PHP是一个单反斜杠"\\")。**   
+>> * **If you want to output the original character of the template on the date, use the escape character – double backslash "\\\\" (PHP is a single backslash "\\").**  
 >>   举个栗子：date("\\\\I \\\\l\\\\ov\\\\e \\\\y\\\\o\\\\u: y-m-d H:i", new Date()) // 输出 "I love you: 19-07-15 15:38"  
->>   For example: date(\\\\I \\\\l\\\\\ov\\\\e \\\\y\\\\o\\\\u: y-m-d H:i, new Date()) // Output "I love you: 19-07-15 15:38"
+>>   Example: date(\\\\I \\\\l\\\\\ov\\\\e \\\\y\\\\o\\\\u: y-m-d H:i, new Date()) // Output "I love you: 19-07-15 15:38"
 >> 
->>   上面栗子中'I'、'l'、'o'、'e'、'y'、'u' 都是模板字符串，所以前面加双反斜杠(\\\\)转义，这样字符就会输出本来的值。  
->>   In the above example, 'I', 'l', 'o', 'e', 'y', 'u' are all template strings, so add an double backslash (\\\\\) in front of the template string to escape , Character will output the original value.
+>>   上面栗子中，’I’、’l’、’o’、’e’、’y’、’u’ 都是模板字符串，所以前面加双反斜杠(\\\\)转义，这样字符就会输出本来的值。  
+>>   In the previous example, 'I', 'l', 'o', 'e', 'y', 'u' are all template character, so add an double backslash (\\\\\) in front of the template character to escape , Character will output the original value.
 >
 > 4、加"\*"号的为PHP语言中没有的功能，是`date-php.js`特有的功能。  
 > 　 Add the "\*" in front is a function not available in the PHP language, and is a feature unique to `date-php.js`.
@@ -152,10 +154,10 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
        Numeric representation of a month, with leading zeros. "1" through "12"
     
     M: 三个字母缩写表示的月份。从"Jan"到"Dec"
-    A short textual representation of a month, three letters. "Jan" through "Dec"
+       A short textual representation of a month, three letters. "Jan" through "Dec"
     
     n: 数字表示的月份，没有前导零。"1"到"12"
-    Numeric representation of a month, without leading zeros. "1" through "12"
+       Numeric representation of a month, without leading zeros. "1" through "12"
     
   *lm:农历月份。从"一"到"十二"【1.5.0+】
       Month of the lunar month. "一" through "十二" [1.5.0+]
@@ -237,7 +239,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 
   完整的日期／时间(Full Date/Time)
     c: ISO 8601 格式的日期。例如：2019-07-15T15:38:56+08:00
-       ISO 8601 date.  Example: 2004-02-12T15:19:21+00:00
+       ISO 8601 date. Example: 2004-02-12T15:19:21+00:00
 
     r: RFC 2822 格式的日期。例如：Thu, 15 Jul 2019 15:38:56 +0800
        RFC 2822 formatted date. Example: Thu, 15 Jul 2019 15:38:56 +0800
@@ -249,7 +251,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 
 ### 时间对象，默认值：{Date} 当前本地机器时间(Datetime object, default: {Date} local Datetime)
 > 可以是任意时间对象，例如：  
-> Can be any time object, for example:
+> Can be any datetime object, for example:
 
 ```javascript
     1563176336000 // 时间戳(Unix timestamp)
