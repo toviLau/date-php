@@ -56,8 +56,8 @@ const date = require('date-php'); // 引入date-php(require date-php)
 date('Y-m-d H:i:s', new Date()); // "2019-07-15 15:38:56"
 date('Y年m月d日 H点i分s秒', new Date()); // "2019年07月15日 15点38分56秒" 
 date('m-d-Y H:i:s', new Date()); // "07-15-2019 15:38:56"
-date('m-d-Y H:i:s.v’, new Date()); // "07-15-2019 15:38:56.064”
-date('m-d-Y H:i:s.u’, new Date()); // "07-15-2019 15:38:56.064019”
+date('m-d-Y H:i:s.v', new Date()); // "07-15-2019 15:38:56.064”
+date('m-d-Y H:i:s.u', new Date()); // "07-15-2019 15:38:56.064019”
 date('y/m/d H:i', new Date()); // "19/07/15 15:38" 
 date('y.m.d H:i', new Date()); // "19.07.15 15:38" 
 date('y-m-d h:i[a]', new Date()); // "19-07-15 03:38[pm]"
@@ -93,7 +93,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 >>   举个栗子：date("\\\\I \\\\l\\\\ov\\\\e \\\\y\\\\o\\\\u: y-m-d H:i", new Date()) // 输出 "I love you: 19-07-15 15:38"  
 >>   Example: date(\\\\I \\\\l\\\\\ov\\\\e \\\\y\\\\o\\\\u: y-m-d H:i, new Date()) // Output "I love you: 19-07-15 15:38"
 >> 
->>   上面栗子中，’I’、’l’、’o’、’e’、’y’、’u’ 都是模板字符，所以前面加双反斜杠(\\\\)转义，这样字符就会输出本来的值。  
+>>   上面栗子中，'I'、'l'、'o'、'e'、'y'、'u' 都是模板字符，所以前面加双反斜杠(\\\\)转义，这样字符就会输出本来的值。  
 >>   In the previous example, 'I', 'l', 'o', 'e', 'y', 'u' are all template character, so add an double backslash (\\\\\) in front of the template character to escape , Character will output the original value.
 >
 > 4、加"\*"号的为PHP语言中没有的功能，是`date-php.js`特有的功能。  
@@ -270,7 +270,9 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 > 可以非常简单的实现一个时钟，就象下面的一样。  
 > Coded a clock is so easy, just like the following.
 > 
-> ![time clock](https://raw.githubusercontent.com/toviLau/date-php/master/src/img-md/clock.gif)
+> ![time clock](https://raw.githubusercontent.com/toviLau/date-php/master/src/img-md/clock.gif)  
+> 咦！这个时间是不是有点怪？这是[***setInterval***](https://blog.csdn.net/acm765152844/article/details/51298915)的问题。(虽然我这只是图片，这是为了把问题抛出来，嘻嘻...)  
+> what! is this date time a bit strange? This is a problem with [***setInterval***](https://blog.csdn.net/acm765152844/article/details/51298915). (Although this is just a picture, this is to show the problem, ha ha...)
 
 ```html
 示例代码(demo)
