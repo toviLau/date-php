@@ -3,10 +3,11 @@
 [![issues](https://img.shields.io/github/issues/toviLau/date-php)](https://github.com/toviLau/date-php/issues)
 ![forks](https://img.shields.io/github/forks/toviLau/date-php)
 ![stars](https://img.shields.io/github/stars/toviLau/date-php)
-![license](https://img.shields.io/github/license/toviLau/date-php)
 [![npm](https://img.shields.io/npm/v/date-php)](https://www.npmjs.com/package/date-php)
 [![downloads](https://img.shields.io/npm/dm/date-php.svg)](https://www.npmjs.com/package/date-php)
 ![npm bundle size](https://img.shields.io/bundlephobia/minzip/date-php)
+![last commit](https://img.shields.io/github/last-commit/tovilau/date-php)
+![license](https://img.shields.io/github/license/toviLau/date-php)
 
 > 这是一个Javascript模仿PHP日期时间格式化函数，使用方法和PHP非常类似，有丰富的模板字符，并在原来的基础上增强了一些模板字符。例如：中国的农历日期与用汉字来表示日期。让转换日期时间更自由。
 > This is a Javascript mimicking PHP datetime formatting function. It is very similar to PHP, has rich template characters, and enhances some template characters on the basis of the original. For example: Chinese lunar date and Chinese characters to indicate the date. Make the conversion datetimes more free.

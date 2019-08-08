@@ -22,24 +22,48 @@ const {
     license,
 } = require(resolve('./package.json'));
 
-const desc = description.split(/\n/);
+
+/**
+ * 头注释文本换行计算;
+ */
+const bannerBescription = () => {
+    let splitLen = 110;
+    let desc = '';
+    const cPunctuation = /[^\x00-\xff]/ig;
+    description.split(/\n/).forEach(res => {
+        let tmpLen = 0;
+        res.match(/./g).forEach((str, idx) => {
+            tmpLen += /[^\x00-\xff]/.test(str) ? 2 : 1;
+            desc += str;
+            if (tmpLen % splitLen === 0) {
+                if (cPunctuation.test(res[idx + 1])) {
+                    tmpLen = tmpLen - 2; // : tmpLen;
+                } else if (/[a-z\-]/ig.test(res[idx])) {
+                    let i = 0;
+                    while (/\s/g.test(res[idx - i])) {
+                        i--;
+                    }
+                    tmpLen = tmpLen - (i + 1);
+                } else {
+                    desc += '\n';
+                }
+            }
+        });
+        desc = desc.replace(/^[\s]/gm, '');
+        desc += '\n';
+    });
+    let bannerDesc = '';
+    desc.split(/\n/).forEach(res => {
+        bannerDesc += ` *   ${ res }\n`;
+    });
+    return bannerDesc;
+};
+
 
 let banner =
     '/**\n' +
-    ` * ${ oName }.js v${ version }\n`;
-desc.forEach(res => {
-    let arr = [];
-    if (/[^\x00-\xff]/.test(res)) {
-        arr = res.match(/([^\x00-\xff]|[\w-_.,:]){1,65}/g);
-    } else {
-        arr = res.match(/([\w-_.,:]+\s){1,15}/g);
-    }
-    arr.forEach(str => {
-        banner += ` *   ${ str }\n`;
-    });
-});
-banner +=
-    ' *\n' +
+    ` * ${ oName }.js v${ version }\n` +
+    `${ bannerBescription() }` +
     ` *     -- repository ${ repository.url.substr(4) }\n` +
     ' *\n' +
     ` *   (c) ${ new Date().getFullYear() } ${ author }. Released under the ${ license } License. \n` +
