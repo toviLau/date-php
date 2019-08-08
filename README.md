@@ -270,7 +270,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 > 可以非常简单的实现一个时钟，就象下面的一样。  
 > Coded a clock, is so ease, just like the following.
 > 
-> ![time clock](https://raw.githubusercontent.com/toviLau/date-php/master/src/img-md/clock.png)
+> ![time clock](https://raw.githubusercontent.com/toviLau/date-php/master/src/img-md/clock.gif)
 
 ```html
 示例代码(demo)
