@@ -4,3 +4,4 @@
 .gitignore
 *.log
 node_modules
+*.psd

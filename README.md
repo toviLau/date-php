@@ -9,8 +9,8 @@
 ![last commit](https://img.shields.io/github/last-commit/tovilau/date-php)
 ![license](https://img.shields.io/github/license/toviLau/date-php)
 
-> 这是一个Javascript模仿PHP日期时间格式化函数，使用方法和PHP非常类似，有丰富的模板字符，并在原来的基础上增强了一些模板字符。例如：中国的农历日期与用汉字来表示日期。让转换日期时间更自由。
-> This is a Javascript mimicking PHP datetime formatting function. It is very similar to PHP, has rich template characters, and enhances some template characters on the basis of the original. For example: Chinese lunar date and Chinese characters to indicate the date. Make the conversion datetimes more free.
+> 这是一个Javascript模仿PHP日期时间格式化函数，使用方法和PHP非常类似，有丰富的模板字符，并在原来的基础上增强了一些模板字符。例如：中国的农历日期与用汉字来表示日期。让转换日期时间更自由。  
+> This is a Javascript mimicking PHP datetime formatting function. It is very similar to PHP, has rich template characters, and enhances some template characters on the basis of the original. Example: Chinese lunar date and Chinese characters to indicate the date. Make the conversion datetimes more free.
  
 ```javascript
 // 举个栗子(demo)
@@ -119,11 +119,11 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
   *ld: 农历月份中的第几天。从"初一"到"卅"【1.5.0+】
        Day of the month of the lunar month. "初一" through "卅"[1.5.0+]
   
-  *lt: 中国古代时晨计时中的时晨(类似小时，2小时1时晨 )。从"子"到"亥"【1.5.0+】
-       The early timekeeping method in ancient China was "shi chen" (similar to hours, 2 hours of 1 "shi chen"). "子" through "亥"[1.5.0+]
+  *lt: 中国古代计时单位中的时辰(类似小时，2小时1时辰)。从"子"到"亥"【1.5.0+】
+       The 'shi chen' in the ancient Chinese timing unit(similar to hours, 2 hours of 1 "shi chen"). "子" through "亥"[1.5.0+]
        
-  *lk: 中国古代时晨计时中的刻(类似分钟，一时晨八刻钟)。从"零"到"七"【1.5.0+】
-       The "ke" in the of ancient China (similar to minutes, 1 "shi cheng" of 8 "ke"). "零" through "七"[1.5.0+]
+  *lk: 中国古代计时单位中的刻(类似分钟，一时辰八刻钟)。从"零"到"七"【1.5.0+】
+       The 'ke' in the ancient Chinese timing unit(similar to minutes, 1 "shi cheng" of 8 "ke"). "零" through "七"[1.5.0+]
        
   *lg: 中国古代夜里更时(打更点，一晚五更)。从"一更”到”五更”【1.5.0+】
        The "geng" in ancient Chinese night (tapping geng, one night five geng). "一更” through "五更”[1.5.0+]
@@ -166,8 +166,8 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
     n: 数字表示的月份，没有前导零。"1"到"12"
        Numeric representation of a month, without leading zeros. "1" through "12"
     
-  *lm:农历月份。从"一"到"十二"【1.5.0+】
-      Month of the lunar month. "一" through "十二" [1.5.0+]
+  *lm: 农历月份。从"一"到"十二"【1.5.0+】
+       Month of the lunar month. "一" through "十二" [1.5.0+]
   
     t: 给定月份所应有的天数。 "28"到"31"
        Number of days in the given month
@@ -257,7 +257,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 
 ### 时间对象，默认值：{Date} 当前本地机器时间(Datetime object, default: {Date} local Datetime)
 > 可以是任意时间对象，例如：  
-> Can be any datetime object, for example:
+> it can be any datetime object, Example:
 
 ```javascript
     1563176336000 // 时间戳(Unix timestamp)
@@ -266,9 +266,9 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
     '2019/07/15 15:38:56' // 字符串日期(String datetime)  
 ```
 
-### 应用黑科技(Interesting to use)
+### 黑科技使用方式(Interesting to use)
 > 可以非常简单的实现一个时钟，就象下面的一样。  
-> Coded a clock, is so ease, just like the following.
+> Coded a clock is so easy, just like the following.
 > 
 > ![time clock](https://raw.githubusercontent.com/toviLau/date-php/master/src/img-md/clock.gif)
 
