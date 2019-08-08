@@ -266,7 +266,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
     '2019/07/15 15:38:56' // 字符串日期(String datetime)  
 ```
 
-### 应用黑科技(Interesting to use∂)
+### 应用黑科技(Interesting to use)
 > 可以非常简单的实现一个时钟，就象下面的一样。  
 > Coded a clock, is so ease, just like the following.
 > 
