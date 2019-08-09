@@ -7,9 +7,10 @@
 .eslintrc.js
 .flowconfig
 .gitignore
-*.log
-config
-node_modules
-src
 package-lock.json
+*.log
+src
+config
+example
+node_modules
 

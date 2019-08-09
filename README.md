@@ -271,7 +271,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 > 
 > ![time clock](https://raw.githubusercontent.com/toviLau/date-php/master/src/img-md/clock.gif)  
 >
-> 咦！这个时间的毫秒是不是有点怪？这是[**setInterval**](https://blog.csdn.net/acm765152844/article/details/51298915)的问题。(虽然这只是一张图片^_^，但目的是抛出Javascript确实存在的问题。)  
+> 咦！这个时间的毫秒是不是有点怪？这是[**setInterval**](https://blog.csdn.net/acm765152844/article/details/51298915)的问题。(虽然这只是一张图片^\_^，但目的是抛出Javascript确实存在的问题。)  
 > What! Is the millisecond of this Datetime a bit strange? This is a problem with [**setInterval**](https://blog.csdn.net/acm765152844/article/details/51298915). (Although this is just a picture ^_^, the purpose is to throw the problem Javascript does exist.)
 
 ```html

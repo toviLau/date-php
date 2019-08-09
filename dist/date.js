@@ -1,5 +1,5 @@
 /**
- * date-php.js v1.5.2
+ * date-php.js v1.5.3
  *   这是一个Javascript模仿PHP日期时间格式化函数，使用方法和PHP非常类似，有丰富的模板字符，并在原来的基础上增强了一些
  *   模板字符。例如：中国的农历日期与用汉字来表示日期。让转换日期时间更自由。
  *   This is a Javascript mimicking PHP datetime formatting function. It is very similar to PHP, has rich template 
@@ -490,7 +490,7 @@
     };
 
     defP(Date.prototype, 'format', date);
-    defP(date, 'version', '1.5.2');
+    defP(date, 'version', '1.5.3');
     defP(date, 'description', function () { return (console.info('%cdate-php使用说明:\n' +
         '为了减少包的体积此方法已经废弃，查看使用说明请移步这里\nhttps://github.com/toviLau/date-php/blob/master/README.md'
         , 'color:#c63'
