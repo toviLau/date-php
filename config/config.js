@@ -22,11 +22,11 @@ const {
     license,
 } = require(resolve('./package.json'));
 
-
 /**
  * 头注释文本换行计算;
  */
 const bannerBescription = () => {
+    // 注释换行字符长度
     let splitLen = 110;
     let desc = '';
     const cPunctuation = /[^\x00-\xff]/ig;

@@ -1,12 +1,12 @@
 ### JavaScript仿PHP时间格式化函数(JavaScript mimics PHP time formatting functions)
 ---
 [![issues](https://img.shields.io/github/issues/toviLau/date-php)](https://github.com/toviLau/date-php/issues)
-![forks](https://img.shields.io/github/forks/toviLau/date-php)
-![stars](https://img.shields.io/github/stars/toviLau/date-php)
+[![forks](https://img.shields.io/github/forks/toviLau/date-php)](https://github.com/toviLau/date-php)
+[![stars](https://img.shields.io/github/stars/toviLau/date-php)](https://github.com/toviLau/date-php)
 [![npm](https://img.shields.io/npm/v/date-php)](https://www.npmjs.com/package/date-php)
 [![downloads](https://img.shields.io/npm/dm/date-php.svg)](https://www.npmjs.com/package/date-php)
-![npm bundle size](https://img.shields.io/bundlephobia/minzip/date-php)
-![last commit](https://img.shields.io/github/last-commit/tovilau/date-php)
+[![npm bundle size](https://img.shields.io/bundlephobia/minzip/date-php)](https://www.npmjs.com/package/date-php)
+![github last commit](https://img.shields.io/github/last-commit/tovilau/date-php)
 ![license](https://img.shields.io/github/license/toviLau/date-php)
 
 > 这是一个Javascript模仿PHP日期时间格式化函数，使用方法和PHP非常类似，有丰富的模板字符，并在原来的基础上增强了一些模板字符。例如：中国的农历日期与用汉字来表示日期。让转换日期时间更自由。  
@@ -32,7 +32,6 @@ npm i -S date-php;
 
 // CDN
 <script src="//unpkg.com/date-php"></script>
-
 ```
 
 ### 使用(use)
@@ -111,7 +110,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
        Day of the month, Chinese character representation. "一" through "卅一”[1.3.2+]
        
     D: 星期中的第几天，文本表示，3个字母。从"Mon"到"Sun"
-       A textual representation of a day, three letters. Mon through Sun
+       Day of the week, textual representation, three letters. Mon through Sun
        
     j: 月份中的第几天，没有前导零。从"1"到"31"
        Day of the month without leading zeros. 1 through 31
@@ -257,7 +256,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 
 ### 时间对象，默认值：{Date} 当前本地机器时间(Datetime object, default: {Date} local Datetime)
 > 可以是任意时间对象，例如：  
-> it can be any datetime object, Example:
+> It can be any datetime object, Example:
 
 ```javascript
     1563176336000 // 时间戳(Unix timestamp)
@@ -266,13 +265,14 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
     '2019/07/15 15:38:56' // 字符串日期(String datetime)  
 ```
 
-### 黑科技使用方式(Interesting to use)
+### 黑科技的使用方式(Interesting to use)
 > 可以非常简单的实现一个时钟，就象下面的一样。  
 > Coded a clock is so easy, just like the following.
 > 
 > ![time clock](https://raw.githubusercontent.com/toviLau/date-php/master/src/img-md/clock.gif)  
-> 咦！这个时间是不是有点怪？这是[***setInterval***](https://blog.csdn.net/acm765152844/article/details/51298915)的问题。(虽然我这只是图片，这是为了把问题抛出来，嘻嘻...)  
-> what! is this date time a bit strange? This is a problem with [***setInterval***](https://blog.csdn.net/acm765152844/article/details/51298915). (Although this is just a picture, this is to show the problem, ha ha...)
+>
+> 咦！这个时间是不是有点怪？这是[**setInterval**](https://blog.csdn.net/acm765152844/article/details/51298915)的问题。(虽然这只是一张图片^_^，但目的是抛出Javascript确实存在的问题。)  
+> What! is this Datetime a bit strange? This is a problem with [**setInterval**](https://blog.csdn.net/acm765152844/article/details/51298915). (Although this is just a picture ^_^, the purpose is to throw the problem Javascript does exist.)
 
 ```html
 示例代码(demo)
@@ -299,5 +299,4 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
   [**rollup**](http://www.rollupjs.com) 
   [**eslint**](https://eslint.org)
   [**flow**](https://flow.org)
-  [**uglifyJs**](http://lisperator.net/uglifyjs/)
-  
+  [**uglifyJs**](http://lisperator.net/uglifyjs/)  
