@@ -1,4 +1,4 @@
-### JavaScript仿PHP日期时间格式化函数(JavaScript implements PHP datetime formatting method)
+### JavaScript仿PHP日期格式化函数(JavaScript implement PHP date format function)
 ---
 [![issues](https://img.shields.io/github/issues/toviLau/date-php)](https://github.com/toviLau/date-php/issues)
 [![forks](https://img.shields.io/github/forks/toviLau/date-php)](https://github.com/toviLau/date-php)
