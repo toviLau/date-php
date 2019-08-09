@@ -1,4 +1,4 @@
-### JavaScript仿PHP日期格式化函数(JavaScript implement PHP date format function)
+### JavaScript实现PHP日期格式化函数(JavaScript implement PHP date format function)
 ---
 [![issues](https://img.shields.io/github/issues/toviLau/date-php)](https://github.com/toviLau/date-php/issues)
 [![forks](https://img.shields.io/github/forks/toviLau/date-php)](https://github.com/toviLau/date-php)
@@ -10,7 +10,7 @@
 ![license](https://img.shields.io/github/license/toviLau/date-php)
 
 > 这是一个Javascript模仿PHP日期时间格式化函数，使用方法和PHP非常类似，有丰富的模板字符，并在原来的基础上增强了一些模板字符。例如：中国的农历日期与用汉字来表示日期。让转换日期时间更自由。  
-> This is a Javascript mimicking PHP datetime formatting function. It is very similar to PHP, has rich template characters, and enhances some template characters on the basis of the original. Example: Chinese lunar date and Chinese characters to indicate the date. Make the conversion datetimes more free.
+> This is a date function that implement PHP in Javascript. It is very similar to PHP, has rich template characters, and enhances some template characters on the basis of the original. Example: Chinese lunar date and Chinese characters to indicate the date. Make the conversion datetimes more free.
  
 ```javascript
 // 举个栗子(demo)
