@@ -7,10 +7,12 @@
 .eslintrc.js
 .flowconfig
 .gitignore
+.npmignore
 package-lock.json
 *.log
 src
 config
 example
 node_modules
-
+src/library/test
+src/img-md

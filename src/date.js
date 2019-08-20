@@ -1,15 +1,19 @@
 /**
  * 和PHP一样的时间戳格式化函数
  * @param  {string} fmt    格式 [默认值: 'Y-m-d']
+ *      all: 以JSON对象方式返回所有解析后的模板字符(1.6.0+)
+ *      -1: 以JSON对象方式返回所有解析后的模板字符(1.6.0+)
+ *      json: 以JSON对象方式返回所有解析后的模板字符(1.6.0+)
  *   日
  *      d: 月份中的第几天，有前导零的2位数字。从"01"到"31"
  *      *k: 月份中的第几天，汉字表示。从"一"到"卅一" (1.3.2+)
  *      D: 星期中的第几天，文本表示，3个字母。从"Mon"到"Sun"
  *      j: 月份中的第几天，没有前导零。从"1"到"31"
+ *      *lj 干支日(1.6.0+)
  *      *ld: 农历月份中的第几天。从"初一"到"卅"(1.5.0+)
  *      *lt: 中国古代时晨计时中的时(类似小时)。从"子"到"亥"(1.5.0+)
- *      *lk: 中国古代时晨计时中的刻(类似分钟，一时晨八刻钟)。从"零"到"七"(1.5.0+)
  *      *lg: 中国古代夜里更时(打更点，一晚五更)。从"一"到"五"(1.5.0+)
+ *      *lk: 中国古代时晨计时中的刻(类似分钟，一时晨八刻钟)。从"零"到"七"(1.5.0+)
  *      l: 星期几，完整的文本格式。从"Sunday"到"Saturday"
  *      N: ISO-8601格式的星期中的第几天。从"1"(表示星期一)到"7"(表示星期天)
  *      S: 每月天数后面的英文后缀，2 个字符 st/nd/rd/th。
@@ -23,19 +27,28 @@
  *   月
  *      F: 月份，完整的文本格式。从"January"到"December"
  *      f: 月份，汉字表示。从"一"到"十二"(1.3.2+)
+ *      lf: 干支月(1.6.0+)
  *      m: 数字表示的月份，有前导零。"01"到"12"
  *      M: 三个字母缩写表示的月份。从"Jan"到"Dec"
  *      n: 数字表示的月份，没有前导零。"1"到"12"
- *      *lm:农历月份。从"一"到"十二"(1.5.0+)
+ *      *lm: 农历月份。从"正"到"腊"(1.5.0+)(1.6.0*)
+ *      *lM: 农历月份。从"1"到"12"(1.6.0+)
  *      t: 给定月份所应有的天数。 "28"到"31"
+ *      la: 星座(1.6.0+)
+ *      ls: 24节气汉字(1.6.0+)
+ *      lS: 24节气英文(1.6.0+)
  *
  *   年
  *     L: 是否为闰年。1:是，0:否
  *     o: ISO-8601格式年份数字。这和 Y 的值类似，星期数（W）属于前一年或下一年，则用那一年。
  *     Y: 4 位数字完整表示的年份
  *     y: 2 位数字表示的年份
- *     *ly: 农历记年法(天干地支，60年一循环)。从"甲子"到"癸亥"(1.5.0+)
+ *     *ly: 天干地支记年法(60年一循环)。从"甲子"到"癸亥"(1.6.0*)
  *     *C: 4 个汉字表示的年份(1.3.2+)
+ *     *lc: 农历年数字(1.6.0+)
+ *     *lC: 农历年汉字(1.6.0+)
+ *     *lz: 生肖汉字 (12年一循环)。从"鼠"到"猪"(1.6.0+)
+ *     *lZ: 生肖英文 (12年一循环)。从"鼠"到"猪"(1.6.0+)
  *
  *   时间
  *     a: 小写的上午和下午值。"am"或"pm"
@@ -65,7 +78,7 @@
  * @param  {date}       now  要格式化的时间 [默认值: 默认为当前本地机器时间]
  * @return {string}     格式化的时间字符串
  */
-import toLunar from './library/toLunar';
+import getLunar from './library/getLunar';
 
 const date = function (fmt = 'Y-m-d', now = new Date()) {
     fmt = fmt ? fmt : 'Y-m-d';
@@ -99,6 +112,47 @@ const date = function (fmt = 'Y-m-d', now = new Date()) {
     const txt_months = ['', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     const baseFigure = { 1: '一', 2: '二', 3: '三', 4: '四', 5: '五', 6: '六' };
     const lunarTime = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥'];
+    const zodiac = { // 生宵英文速查表
+        '\u9f20': 'Rat',
+        '\u725b': 'OX',
+        '\u864e': 'Tiger',
+        '\u5154': 'Rabbit',
+        '\u9f99': 'Dragon',
+        '\u86c7': 'Snake',
+        '\u9a6c': 'Horse',
+        '\u7f8a': 'Sheep',
+        '\u7334': 'Monkey',
+        '\u9e21': 'Rooster',
+        '\u72d7': 'Dog',
+        '\u732a': 'Pig',
+    };
+    const solar ={
+        '\u5c0f\u5bd2': 'Minor Cold',
+        '\u5927\u5bd2': 'Major Cold',
+        '\u7acb\u6625': 'Start of Spring',
+        '\u96e8\u6c34': 'Rain Water',
+        '\u60ca\u86f0': 'Awakening of Insects',
+        '\u6625\u5206': 'Spring Equinox',
+        '\u6e05\u660e': 'Clear and Bright',
+        '\u8c37\u96e8': 'Grain Rain',
+        '\u7acb\u590f': 'Start of Summer',
+        '\u5c0f\u6ee1': 'Grain Buds',
+        '\u8292\u79cd': 'Grain in Ear',
+        '\u590f\u81f3': 'Summer Solstice',
+        '\u5c0f\u6691': 'Minor Heat',
+        '\u5927\u6691': 'Major Heat',
+        '\u7acb\u79cb': 'Start of Autumn',
+        '\u5904\u6691': 'End of Heat',
+        '\u767d\u9732': 'White Dew',
+        '\u79cb\u5206': 'Autumn Equinox',
+        '\u5bd2\u9732': 'Cold Dew',
+        '\u971c\u964d': 'Frost\'s Descent',
+        '\u7acb\u51ac': 'Start of Winter',
+        '\u5c0f\u96ea': 'Minor Snow',
+        '\u5927\u96ea': 'Major Snow',
+        '\u51ac\u81f3': 'Winter Solstice',
+    }
+
     const lunarKe = Object.assign(
         {},
         {
@@ -122,8 +176,15 @@ const date = function (fmt = 'Y-m-d', now = new Date()) {
         },
         ...baseFigure,
     );
+    const lMonth = Object.assign(
+        {},
+        {
+            7: '七', 8: '八', 9: '九', 10: '十', 11: '冬', 12: '腊',
+        },
+        ...baseFigure,
+    );
 
-    // 取中文日期
+    // 取中文日期(廿七)
     const textReplace = res => {
         return res.toString()
             .split('')
@@ -136,10 +197,11 @@ const date = function (fmt = 'Y-m-d', now = new Date()) {
             .join('');
     };
 
+    // 取中文日期2(一九八七)
+    const textReplace2 = succ => (succ + '').split('').map(res => dateFigure[res]).join('');
+
     // 获取农历
-    function getLunar() {
-        return toLunar(replaceChars.Y(), replaceChars.n(), replaceChars.j());
-    }
+    const lunarInfo = () => getLunar.solar2lunar(replaceChars.Y(), replaceChars.n(), replaceChars.j());
 
     // 模板字串替换函数
     const replaceChars = {
@@ -148,7 +210,8 @@ const date = function (fmt = 'Y-m-d', now = new Date()) {
         k: () => textReplace(replaceChars.j()), // 中文日(1.3.2+), PHP中无此功能
         D: () => replaceChars.l().substr(0, 3),
         j: () => now.getDate(),
-        ld: () => getLunar().ld,
+        lj: () => lunarInfo().gzDay, // 干支日(1.6.0+)
+        ld: () => lunarInfo().IDayCn,
         lt: () => lunarTime[Math.floor((replaceChars.G() >= 23 ? 0 : replaceChars.G() + 1) / 2)],
         lg: () => {
             const nowTime = replaceChars.G();
@@ -163,18 +226,18 @@ const date = function (fmt = 'Y-m-d', now = new Date()) {
                 case 2:
                 case 3:
                 case 4:
-                    return `${baseFigure[Math.ceil((nowTime < 19 ? nowTime + 24 : nowTime) / 2) - 9]}更`;
+                    return `${ baseFigure[Math.ceil((nowTime < 19 ? nowTime + 24 : nowTime) / 2) - 9] }更`;
                 default:
                     return '';
 
             }
         },
-        lk:()=>lunarKe[Math.floor(((replaceChars.U()+60*60) % (60*60*2))/60 / 15)],
+        lk: () => lunarKe[Math.floor(((replaceChars.U() + 60 * 60) % (60 * 60 * 2)) / 60 / 15)],
         l: () => longDays[replaceChars.w()],
         N: () => replaceChars.w() === 0 ? 7 : replaceChars.w(),
         S: () => txt_ordin[replaceChars.j()] ? txt_ordin[replaceChars.j()] : 'th',
         w: () => now.getDay(),
-        K: () => weekDay[replaceChars.w()], // 中文周(1.3.2+), PHP中无此功能
+        K: () => weekDay[replaceChars.w()], // 中文周(1.3.2+)
         z: () => Math.ceil((now - new Date(replaceChars.Y() + '/1/1')) / (60 * 60 * 24 * 1e3)),
 
         // 周
@@ -194,10 +257,12 @@ const date = function (fmt = 'Y-m-d', now = new Date()) {
         // 月
         F: () => txt_months[replaceChars.n()],
         f: () => textReplace(replaceChars.n()), // 中文月(1.3.2+), PHP中无此功能
+        lf: () => lunarInfo().gzMonth, // 干支月(1.6.0+)
         m: () => pad(replaceChars.n(), 2),
         M: () => replaceChars.F().substr(0, 3),
         n: () => now.getMonth() + 1,
-        lm: () => getLunar().lm,
+        lM: () => lunarInfo().lMonth,
+        lm: () => lMonth[lunarInfo().lMonth],
         t: () => {
             let year = replaceChars.Y();
             let nextMonth = replaceChars.n();
@@ -207,6 +272,10 @@ const date = function (fmt = 'Y-m-d', now = new Date()) {
             }
             return new Date(year, nextMonth, 0).getDate();
         },
+        la: () => lunarInfo().astro,
+        ls: () => lunarInfo().Term || '', // 24节气汉字(1.6.0+)
+        lS: () => solar[lunarInfo().Term] || '', // 24节气英文(1.6.0+)
+
 
         // 年
         L: () => Number(replaceChars.Y() % 400 === 0 || (replaceChars.Y() % 100 !== 0 && replaceChars.Y() % 4 === 0)),
@@ -216,8 +285,12 @@ const date = function (fmt = 'Y-m-d', now = new Date()) {
         },
         Y: () => now.getFullYear(),
         y: () => (replaceChars.Y() + '').slice(2),
-        ly: () => getLunar().ly,
-        C: () => (replaceChars.Y() + '').split('').map(res => dateFigure[res]).join(''), // 中文年(1.3.2+), PHP中无此功能
+        ly: () => lunarInfo().gzYear, // 干支年(1.6.0*)
+        C: () => textReplace2(replaceChars.Y()), // 中文年(1.3.2+), PHP中无此功能
+        lc: () => lunarInfo().lYear, // 农历年数字(1.6.0+)
+        lC: () => textReplace2(lunarInfo().lYear), // 农历年汉字(1.6.0+)
+        lz: () => lunarInfo().Animal, // 生肖汉字(1.6.0+)
+        lZ: () => zodiac[lunarInfo().Animal], // 生肖英文(1.6.0+)
 
         // 时间
         a: () => replaceChars.G() > 11 ? 'pm' : 'am',
@@ -238,7 +311,7 @@ const date = function (fmt = 'Y-m-d', now = new Date()) {
         H: () => pad(replaceChars.G(), 2),
         i: () => pad(now.getMinutes(), 2),
         s: () => pad(now.getSeconds(), 2),
-        u: () => replaceChars.v() + pad(Math.floor(Math.random()*1000), 3),
+        u: () => replaceChars.v() + pad(Math.floor(Math.random() * 1000), 3),
         v: () => (now.getTime() + '').substr(-3),
 
         // 时区
@@ -270,7 +343,12 @@ const date = function (fmt = 'Y-m-d', now = new Date()) {
         r: () => now.toString(),
         U: () => Math.round(now.getTime() / 1000),
     };
-    return fmt.replace(/(\\?(l[ymdtgk])|([a-z]))/ig, (res, key) => {
+    if (fmt === 'json' || fmt === 'all' || fmt === -1 || fmt === '-1') {
+        const json = {};
+        Object.keys(replaceChars).forEach((res, idx) => json[res] = replaceChars[res]());
+        return json;
+    }
+    return fmt.replace(/(\\?(l[a-z])|([a-z]))/ig, (res, key) => {
         let result = '';
         if (res !== key) {
             result = key;
@@ -288,7 +366,7 @@ const date = function (fmt = 'Y-m-d', now = new Date()) {
 defP(Date.prototype, 'format', date);
 defP(date, 'version', '__VERSION__');
 defP(date, 'description', () => (console.info('%cdate-php使用说明:\n' +
-    '为了减少包的体积此方法已经废弃，查看使用说明请移步这里\nhttps://github.com/toviLau/date-php/blob/master/README.md'
+    '已经废弃，查看使用说明请移步这里\nhttps://github.com/toviLau/date-php/blob/master/README.md'
     , 'color:#c63',
 )));
 

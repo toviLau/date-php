@@ -9,8 +9,8 @@
 ![github last commit](https://img.shields.io/github/last-commit/tovilau/date-php)
 ![license](https://img.shields.io/github/license/toviLau/date-php)
 
-> 这是一个Javascript模仿PHP日期时间格式化函数，使用方法和PHP非常类似，有丰富的模板字符，并在原来的基础上增强了一些模板字符。例如：中国的农历日期与用汉字来表示日期。让转换日期时间更自由。  
-> This is a date function that implement PHP in Javascript. It is very similar to PHP, has rich template characters, and enhances some template characters on the basis of the original. Example: Chinese lunar date and Chinese characters to indicate the date. Make the conversion datetimes more free.
+> 这是一个Javascript实现PHP日期时间格式化函数，使用方法和PHP非常类似，有丰富的模板字符，并在原来的基础上增强了一些模板字符。例如：中国的农历日期、用汉字来表示日期、十二生肖与星座。让转换日期时间更自由。  
+> This is a Javascript mimicking PHP datetime formatting function. It is very similar to PHP, has rich template characters, and enhances some template characters on the basis of the original. For example: Chinese Lunar Date, Chinese Character Date, Chinese Zodiac and Constellation. Make the conversion datetimes more free.  
  
 ```javascript
 // 举个栗子(demo)
@@ -79,8 +79,8 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 ```
 
 ### 模板字符，默认值：{string} 'Y-m-d'(Template character, default: {string} 'Y-m-d')
-> 1、你也可以去[**PHP中文官网**](https://www.php.net/manual/zh/function.date.php)看看，使用方法一样  
-> 　 You can also go to the [**PHP english official website**](https://www.php.net/manual/en/function.date.php) to see, the method is similar.  
+> 1、你也可以去<u> [**PHP中文官网**](https://www.php.net/manual/zh/function.date.php) </u>看看，使用方法类似。  
+> 　 You can also go to the <u> [**PHP english official website**](https://www.php.net/manual/en/function.date.php) </u>to see, the method is similar.  
 > 
 > 2、~~你也可以通过静态方法 `date.description` 在控制台打出所有模板字符。~~<sup>(1.3.2<sup> - </sup>)</sup>   
 > 　 ~~You can also output all template character in the console via the static method `date.description`.~~<sup>(1.3.2<sup> - </sup>)</sup>   
@@ -89,10 +89,10 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 > 　 About the escaped template character, here is different from PHP **[Note!!!]** <sup>(1.3.0<sup> + </sup>)</sup>  
 >> **如果在date里想输出模板本来的字符，请用转义符--双反斜杠"\\\\”(PHP是一个单反斜杠"\\")。**   
 >> **If you want to output the original character of the template on the date, use the escape character – double backslash "\\\\" (PHP is a single backslash "\\").**  
->>   举个栗子：date("\\\\I \\\\l\\\\ov\\\\e \\\\y\\\\o\\\\u: y-m-d H:i", new Date()) // 输出 "I love you: 19-07-15 15:38"  
->>   Example: date(\\\\I \\\\l\\\\\ov\\\\e \\\\y\\\\o\\\\u: y-m-d H:i, new Date()) // Output "I love you: 19-07-15 15:38"
+>>   举个栗子：date("\\\\I \\\\l\\\\o\\\\v\\\\e \\\\y\\\\o\\\\u: y-m-d H:i", new Date()) // 输出 "I love you: 19-07-15 15:38"  
+>>   Example: date(\\\\I \\\\l\\\\\o\\\\v\\\\e \\\\y\\\\o\\\\u: y-m-d H:i, new Date()) // Output "I love you: 19-07-15 15:38"
 >> 
->>   上面栗子中，'I'、'l'、'o'、'e'、'y'、'u' 都是模板字符，所以前面加双反斜杠(\\\\)转义，这样字符就会输出本来的值。  
+>>   上面栗子中，'I'、'l'、'o'、'v'、'e'、'y'、'u' 都是模板字符，所以前面加双反斜杠(\\\\)转义，这样字符就会输出本来的值。  
 >>   In the previous example, 'I', 'l', 'o', 'e', 'y', 'u' are all template character, so add an double backslash (\\\\\) in front of the template character to escape , Character will output the original value.
 >
 > 4、加"\*"号的为PHP语言中没有的功能，是`date-php.js`特有的功能。  
@@ -189,7 +189,9 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
   
    *C: 4 个汉字表示的年份【1.3.2+】
        Year indicated by 4 Chinese characters[1.3.2+]
- 
+
+  *lc: 生肖 (12年一循环)。从"鼠"到"猪"(1.6.0+) 
+  
   时间(Time)
     a: 小写的上午和下午值。"am"或"pm"
        Lowercase Ante meridiem and Post meridiem. "am" or "pm"

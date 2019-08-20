@@ -5,10 +5,11 @@
     <title>DEMO</title>
     <style>
         .table {
-            width:980px;
+            /*width:800px;*/
             border-right:1px solid #ccc;
             border-bottom:1px solid #ccc;
             margin:0 auto;
+            font-size:12px;
         }
         
         .table th {
@@ -24,6 +25,14 @@
             background-color:#f0f0f0;
         }
         
+        .table tbody tr:nth-child(odd):hover td:nth-last-child(4) {
+            background-color:#f0f0f0;
+        }
+        
+        .table tbody tr:nth-child(odd):hover td:nth-last-child(4) {
+            background-color:#fff;
+        }
+        
         .table td, .table th {
             border-width:1px 0 0 1px;
             border-style:solid;
@@ -31,12 +40,26 @@
             padding:2px 0;
         }
         
-        .table td .block, .table th .block {
-            padding:5px 10px;
+        .table td .block, .table th .block, .table .clock {
+            padding:2px 6px;
+        }
+        
+        .table .date-params {
+            color:#c33;
+            font-weight:bold;
+        }
+        
+        .table .date-object {
+            color:#393;
+            font-weight:bold;
         }
         
         .table td .block:nth-child(2) {
             border-top:1px solid #ccc;
+        }
+        
+        .table #now-time tr td {
+            background-color:#eeeeff;
         }
         
         .tips {
@@ -47,48 +70,69 @@
     </style>
 </head>
 <body>
-<div class="now">
-    <div class="clock"><span>当前时间：</span> <span class="date-time">--:--</span></div>
-    <div class="clock"><span>now time：</span> <span class="date-time">--:--</span></div>
-</div>
 <table class="table" border="0" cellspacing="0">
+    <thead id="now-time">
+    <tr>
+        <td colspan="4">
+            <div class="clock"><span>当前时间：</span> <span class="date-time">--:--</span></div>
+            <div class="clock"><span>now time：</span> <span class="date-time">--:--</span></div>
+        </td>
+    </tr>
+    </thead>
     <thead>
     <tr>
-        <th>代码</th>
+        <th>参数</th>
+        <th>时间对象</th>
+        <th>代码(<span class="date-object">时间对象</span> <span class="date-params">参数</span>)</th>
         <th>输出</th>
     </tr>
     </thead>
     <tbody id="tbody">
     </tbody>
 </table>
-<script src="../dist/date.min.js"></script>
+
+<script src="../dist/date.js"></script>
 <script>
-    var dom = '';
-    [
-        'Y-m-d',
-        'Y-m-d H:i:s.u',
-        'Y-m-d 第W周',
-        'Y-m-d 周w',
-        'C年f月k日 星期K',
-        'ly年lm月ld lt时lk刻 lg',
-    ].forEach(res => {
+    createHtml();
+
+    function createHtml() {
+        let dom = '';
         [
-            new Date(),
-            new Date().getTime(),
-            '2019-08-05 23:30',
-        ].forEach(child => {
-            dom += '' +
-                '<tr><td><div class="block">date("' + res + '", ' + child + ')</div><div class="block">new Date(' + child + ').format("' + res + '")</div></td>' +
-                '<td><div class="block">' + date(res, child) + '<br/>' + new Date(child).format(res) + '</div></td></tr>';
+            'Y-m-d',
+            'Y-m-d H:i:s',
+            'Y-m-d 第W周',
+            'Y-m-d 周w',
+            'C年f月k日 星期K',
+            'ly年lm月ld lt时lk刻 lg',
+            'ly年lf月lj日 生肖lz',
+            'lj lf ly lc lC lz lZ la lM',
+            'ls lS',
+        ].forEach(res => {
+            dom += '<tbody>';
+            const dateObj = [
+                'new Date()',
+                '2019-08-08 20:23:52',
+            ];
+            dateObj.forEach((child, idx) => {
+                dom +=
+                    // '<tr><td><div class="block">date("' + res + '", ' + child + ')</div></td>' +
+                    `<tr>${ idx === 0 ? '<td rowspan="' + dateObj.length + '"><div class="block date-params"> ' + res + '</div></td>' : '' }<td rowspan="1"><div class="block date-object">${ child }</div></td><td><div class="block">date("<span class="date-params">${ res }</span>", <span class="date-object">${ new Date(child).valueOf() ? '"' + child + '"' : child }</span>)</div><div class="block">new Date(<span class="date-object">${ new Date(child).valueOf() ? '"' + child + '"' : child }</span>).format("<span class="date-params">${ res }</span>")</div></td>` +
+                    `<td><div class="block"> ${ date(res, new Date(child).valueOf() ? child : eval(child)) } </div><div class="block">${ new Date(new Date(child).valueOf() ? child : eval(child)).format(res) }</div></td></tr>`;
+                // '<td><div class="block">' + date(res, child) + '<br/>' + new Date(child).format(res) + '</div></td></tr>';
+            });
+            dom += '</tbody>';
+
         });
-    });
-    document.getElementById('tbody').innerHTML = dom;
+        document.getElementById('tbody').innerHTML = dom;
+    }
+
     const nowClock = document.getElementsByClassName('date-time');
 
     setInterval(() => {
         for (let i = 0; i < nowClock.length; i += 1) {
             nowClock[i].innerHTML = date('Y-m-d H:i:s.v');
         }
+        // createHtml();
     }, 1000);
 
 </script>

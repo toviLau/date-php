@@ -5,3 +5,4 @@
 *.log
 node_modules
 *.psd
+src/library/test
