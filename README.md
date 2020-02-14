@@ -11,6 +11,7 @@
 
 > 这是一个Javascript模仿类似于PHP日期时间格式化函数，使用方法和PHP非常类似，有丰富的模板字符，并在原来的基础上增强了一些模板字符。例如：中国的农历日期、用汉字来表示日期、十二生肖与星座。让转换日期时间更自由。  
 > This is a JavaScript implements date formatting functions similar to PHP. It is very similar to PHP, has rich template characters, and enhances some template characters on the basis of the original. For example: Chinese Lunar Date, Chinese Character Date, Chinese Zodiac and Constellation. Make the conversion datetimes more free. 
+
 ```javascript
 // 举个栗子(demo)
 // 首先(First)
@@ -88,9 +89,10 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 > 　 About the escaped template character, here is different from PHP **[Note!!!]** <sup>(1.3.0<sup> + </sup>)</sup>  
 >> **如果在date里想输出模板本来的字符，请用转义符--双反斜杠"\\\\”(PHP是一个单反斜杠"\\")。**   
 >> **If you want to output the original character of the template on the date, use the escape character – double backslash "\\\\" (PHP is a single backslash "\\").**  
->>   举个栗子：date("\\\\I \\\\l\\\\o\\\\v\\\\e \\\\y\\\\o\\\\u: y-m-d H:i", new Date()) // 输出 "I love you: 19-07-15 15:38"  
->>   Example: date(\\\\I \\\\l\\\\\o\\\\v\\\\e \\\\y\\\\o\\\\u: y-m-d H:i, new Date()) // Output "I love you: 19-07-15 15:38"
+>>   举个栗子：date(“\\\\I(大写的i) \\\\l(小写的L)\\\\o\\\\v\\\\e \\\\y\\\\o\\\\u: y-m-d H:i", new Date()) // 输出 "I love you: 19-07-15 15:38"  
 >> 
+>>   Example: date(“\\\\I(大写的i) \\\\l(小写的L)\\\\o\\\\v\\\\e \\\\y\\\\o\\\\u: y-m-d H:i”, new Date()) // Output "I love you: 19-07-15 15:38"  
+>>
 >>   上面栗子中，'I'、'l'、'o'、'v'、'e'、'y'、'u' 都是模板字符，所以前面加双反斜杠(\\\\)转义，这样字符就会输出本来的值。  
 >>   In the previous example, 'I', 'l', 'o', 'e', 'y', 'u' are all template character, so add an double backslash (\\\\\) in front of the template character to escape , Character will output the original value.
 >
