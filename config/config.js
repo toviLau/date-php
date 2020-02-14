@@ -66,7 +66,7 @@ let banner =
     `${ bannerBescription() }` +
     ` *     -- repository ${ repository.url.substr(4) }\n` +
     ' *\n' +
-    ` *   (c) ${ new Date().getFullYear() } ${ author }. Released under the ${ license } License. \n` +
+    ` *   (c) 2019-${ new Date().getFullYear() } ${ author }. Released under the ${ license } License. \n` +
     ' **/';
 
 const input = resolve('./src/date.js');

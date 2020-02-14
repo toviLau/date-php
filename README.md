@@ -1,4 +1,4 @@
-### JavaScript实现PHP日期格式化函数(JavaScript implement PHP date format function)
+### JavaScript实现类似于PHP的日期格式功能JavaScript implements date formatting functions similar to PHP
 ---
 [![issues](https://img.shields.io/github/issues/toviLau/date-php)](https://github.com/toviLau/date-php/issues)
 [![forks](https://img.shields.io/github/forks/toviLau/date-php)](https://github.com/toviLau/date-php)
@@ -9,9 +9,8 @@
 ![github last commit](https://img.shields.io/github/last-commit/tovilau/date-php)
 ![license](https://img.shields.io/github/license/toviLau/date-php)
 
-> 这是一个Javascript实现PHP日期时间格式化函数，使用方法和PHP非常类似，有丰富的模板字符，并在原来的基础上增强了一些模板字符。例如：中国的农历日期、用汉字来表示日期、十二生肖与星座。让转换日期时间更自由。  
-> This is a Javascript mimicking PHP datetime formatting function. It is very similar to PHP, has rich template characters, and enhances some template characters on the basis of the original. For example: Chinese Lunar Date, Chinese Character Date, Chinese Zodiac and Constellation. Make the conversion datetimes more free.  
- 
+> 这是一个Javascript实现类似于PHP日期时间格式化函数，使用方法和PHP非常类似，有丰富的模板字符，并在原来的基础上增强了一些模板字符。例如：中国的农历日期、用汉字来表示日期、十二生肖与星座。让转换日期时间更自由。  
+> This is a JavaScript implements date formatting functions similar to PHP. It is very similar to PHP, has rich template characters, and enhances some template characters on the basis of the original. For example: Chinese Lunar Date, Chinese Character Date, Chinese Zodiac and Constellation. Make the conversion datetimes more free. 
 ```javascript
 // 举个栗子(demo)
 // 首先(First)
@@ -100,6 +99,9 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 > 
 > 5、转农历正常只能转1900-2100之间的200年份。  
 > 　 The conversion to the lunar calendar can only be transferred to 200 years between 1900-2100.
+> 
+> 6、模板字条区分大小写。  
+> 　 Template characters are case sensitive.
 
 ```
  日(Day)
@@ -114,19 +116,35 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
        
     j: 月份中的第几天，没有前导零。从"1"到"31"
        Day of the month without leading zeros. 1 through 31
+
+  *lj: 月份中的第几天(天干地支表示法) 例：'甲子' / '戊戌'【1.6.0+】
+       Day of the month(Heavenly Stems && Earthly Branches  Representation) E.g：'甲子' / '戊戌'【1.6.0+】
        
   *ld: 农历月份中的第几天。从"初一"到"卅"【1.5.0+】
        Day of the month of the lunar month. "初一" through "卅"[1.5.0+]
   
   *lt: 中国古代计时单位中的时辰(类似小时，2小时1时辰)。从"子"到"亥"【1.5.0+】
        The 'shi chen' in the ancient Chinese timing unit(similar to hours, 2 hours of 1 "shi chen"). "子" through "亥"[1.5.0+]
-       
+
+  *lg: 中国古代夜里更时(打更点，一晚五更)。从"1”到”5”【1.5.0*】
+       The "geng" in ancient Chinese night (tapping geng, one night five geng). "1” through "5”[1.5.0+]
+    
+  *lG: 中国古代夜里更时(打更点，一晚五更)。从"一更”到”五更”【1.6.0+】
+       The "geng" in ancient Chinese night (tapping geng, one night five geng). "一更” through "五更”[1.5.0+]
+
   *lk: 中国古代计时单位中的刻(类似分钟，一时辰八刻钟)。从"零"到"七"【1.5.0+】
        The 'ke' in the ancient Chinese timing unit(similar to minutes, 1 "shi cheng" of 8 "ke"). "零" through "七"[1.5.0+]
-       
-  *lg: 中国古代夜里更时(打更点，一晚五更)。从"一更”到”五更”【1.5.0+】
-       The "geng" in ancient Chinese night (tapping geng, one night five geng). "一更” through "五更”[1.5.0+]
-       
+
+   *fh: 节假日中文: 例如: 元旦节[1.6.0+]
+        holiday in chinese. e.g.: 元旦节[1.6.0+]
+        !需要自定义节假日请参考 “conf.replaceHolidayConf” “conf.editHolidayConf”
+        !For custom holidays, please refer to “conf.replaceHolidayConf” “conf.editHolidayConf”
+        
+   *lh: 节假日英文 例如: new Year[1.6.0+]
+        holiday in english. e.g.: new Year[1.6.0+]
+        !需要自定义节假日请参考 “conf.replaceHolidayConf” “conf.editHolidayConf”
+        !For custom holidays, please refer to “conf.replaceHolidayConf” “conf.editHolidayConf”
+
     l: 星期几，完整的文本格式。从"Sunday"到"Saturday"
        A full textual representation of the day of the week. "Sunday" through "Saturday"
        
@@ -155,6 +173,9 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
        
    *f: 月份，汉字表示。从"一"到"十二"【1.3.2+】
        The Chinese characters of the month. "一" through "十二"
+
+  *lf: 月份(天干地支表示法)。 例：'甲子' / '戊戌'【1.6.0+】
+       The month(Heavenly Stems && Earthly Branches  Representation) E.g：'甲子' / '戊戌'【1.6.0+】
        
     m: 数字表示的月份，有前导零。"01"到"12"
        Numeric representation of a month, with leading zeros. "1" through "12"
@@ -165,12 +186,36 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
     n: 数字表示的月份，没有前导零。"1"到"12"
        Numeric representation of a month, without leading zeros. "1" through "12"
     
+  *lM: 农历月份。从"1"到"12"【1.6.0+】
+       Month of the lunar month. "1" through "12" [1.6.0+]
+  
   *lm: 农历月份。从"一"到"十二"【1.5.0+】
        Month of the lunar month. "一" through "十二" [1.5.0+]
   
     t: 给定月份所应有的天数。 "28"到"31"
        Number of days in the given month
- 
+
+   *la: 星座(1.6.0+)
+        Constellation (1.6.0+)
+   
+   *ls: 24节气汉字(1.6.0+)
+        24 solar terms Chinese Characters(1.6.0+)
+
+   *lS: 24节气英文(1.6.0+)
+        24 solar terms English(1.6.0+)
+
+   *lq: 季度数字(1.6.0+)
+        Quarter Number(1.6.0+)
+
+   *lQ: 季度汉字(1.6.0+)
+        Quarter Number Chinese Characters(1.6.0+)
+
+   *q: 季度英文缩写(1.6.0+)
+       Quarter abbreviations(1.6.0+)
+
+   *Q: 李度英文(1.6.0+)
+       Quarter English(1.6.0+)
+
   年(Year)
     L: 是否为闰年。1:是，0:否
        Whether it's a leap year. 1 leap year, 0 otherwise.
@@ -191,6 +236,16 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
        Year indicated by 4 Chinese characters[1.3.2+]
 
   *lc: 生肖 (12年一循环)。从"鼠"到"猪"(1.6.0+) 
+       Chinese zodiac (12-year cycle). From "rat" to "pig" (1.6.0+)
+
+  *lC: 农历年汉字(1.6.0+)
+       Chinese character for the lunar calendar (1.6.0+)
+
+  *lz: 生肖汉字(1.6.0+)
+       Zodiac Chinese Characters (1.6.0+) 
+
+  *lZ: 生肖英文(1.6.0+)
+       Zodiac English (1.6.0+)
   
   时间(Time)
     a: 小写的上午和下午值。"am"或"pm"
@@ -198,7 +253,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 
     A: 大写的上午和下午值。"AM"或"PM"
        Uppercase Ante meridiem and Post meridiem. "AM" or "PM"
-	    
+
     B: Swatch Internet 标准时。"000"到"999"
        Swatch Internet time. 000 through 999
        
@@ -265,6 +320,96 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
     new Date() // 当前本机日期和时间(Local datetime)
     '2019-07-15 15:38:56' // 字符串日期(String datetime)
     '2019/07/15 15:38:56' // 字符串日期(String datetime)  
+```
+
+### 自定义节假日(Custom holidays)1.6.0+
+> **默认配置(default config)**
+
+```javascript
+{
+    '0101': ['元旦节', 'New Year'],
+    '0214': ['情人节', `Valentine's Day`],
+    '0308': ['国际妇女节', `International Women's Day`],
+    '0315': ['国际消费者权益日', `International Consumer Rights Day`],
+    '0312': ['植树节', `Arbor Day`],
+    '0422': ['世界地球日', `Earth Day`],
+    '0501': ['国际劳动节', `International Labour Day`],
+    '0504': ['青年节', `Youth day`],
+    '0512': ['国际护士节', `International Nurses Day`],
+    '0518': ['国际博物馆日', `International Museum Day`],
+    '0601': ['国际儿童节', `International Children's Day`],
+    '0605': ['世界环境日', `World Environment Day`],
+    '0623': ['国际奥林匹克日', `International Olympic Day`],
+    '0624': ['世界骨质疏松日', `World Osteoporosis Day`],
+    '0701': ['建党节', `Founding day`],
+    '0801': ['建军节', `Army Day`],
+    '0910': ['教师节', `Teachers' Day`],
+    '1224': ['平安夜', `Christmas Eve`],
+    '1117': ['世界学生日', `World student day`],
+    '1201': ['世界艾滋病日', `World AIDS Day`],
+    '1001': ['国庆', 'National Day'],
+    '*0101': ['春节', 'Chinese Year'],
+    '*0115': ['元宵节', 'Lantern Festival'],
+    '*0202': ['龙头节', 'Dragon head festival'],
+    '*0505': ['端午节', 'Dragon Boat Festival'],
+    '*0707': ['乞巧节', 'Qi Qiao Festival'],
+    '*0715': ['中元节', 'Ghost Festival'],
+    '*0815': ['中秋节', 'Moon Festival'],
+    '*0909': ['重阳节', 'Chongyang Festival'],
+    '*1001': ['寒衣节', 'Winter clothing festival'],
+    '*1015': ['下元节', 'Xia Yuan Festival'],
+    '*1208': ['腊八节', 'Laba Festival'],
+    '*1223': ['祭灶节', 'Stove Festival'],
+    '*1229': ['除夕', `Year's Eve`], // 农历闰年(leap year in lunar)
+    '*1230': ['除夕', `Year's Eve`], // 农历非闰年(not leap year in lunar)
+    '#0520': ['母亲节', `Mother's Day`],
+    '#0630': ['父亲节', `Father's day`]
+}
+```
+
+> **配置 Api(Configuration API)**
+
+|  Api  |  说明(description)  |
+| --- | --- |
+| replaceHolidayConf | 替换默认节假日配置 |
+| | Replace the default holiday preparation |
+| editHolidayConf | 修改或新增节假日配置 |
+| | Modify or add holiday preparation |
+
+> **key值说明(Key description)**
+
+|  Key  |  说明(description)  |
+| --- | --- |
+| 0101 | 4位数字表示公历日期，此key值表示：公历1月1日 |
+| | 4 digits indicate the Gregorian date, this key value means: January 1st of the Gregorian calendar |
+| *0101 | * + 4位数字表示农历日期，此key值表示：农历正月初一|
+|  | 4 digits represent the date of the lunar calendar, This key value means: the first day of the first lunar month |
+| #0520 | # + 4位数字表示公历某月第几个星期几，此key值表示：五月第2个星期日，(星期从0到6分别表示：日一二三四五六) |
+|  | # + 4 digits indicate in the Gregorian calendar how many weeks at this month and How many day at this week. This key value means: 2nd Sunday in May (the weeks from 0 to 6:  Mon Tues Wed Thur Fri Sat Sun) |
+ 
+> **代码示例(DEMO)**
+
+```javascript
+  // 修改与新增节日配置(未被修改的节日依然有效)
+  // Modified and added holiday config (unmodified holidays are still valid)
+  date.editHolidayConf = {
+    ‘0214’: [‘小三节’, ‘Other woman day’], // 修改(edit)
+    ‘0715’: [‘示例节’, `Demo’s day`], // 修改(edit)
+    ‘#0836’: [‘纪念日’, ‘Acommemoration day’], // 新增(add)
+    '*1213': [‘作者生日', 'Author's birthday'] // 新增(add)
+  }
+  
+  // 替换节日配置(默认配置的节日全部失效)
+  // Replace the holiday config (the default preparation of the holiday is all invalid)
+  date.replaceHolidayConf = { // 替换(replace)
+    ‘0214’: [‘小三节’, ‘Other woman day’],
+    ‘0715’: [‘示例节’, `Demo’s day`],
+    ‘#0836’: [‘纪念日’, ‘Acommemoration day’],
+    '*1213': [‘作者生日', 'Author's birthday']
+  }
+  
+  date(‘Y-m-d fh’, new Date()) // -> 2019-07-15 示例节
+  date(‘Y-m-d lh’, new Date()) // -> 2019-07-15 demos day
 ```
 
 ### 黑科技的使用方式(Interesting to use)

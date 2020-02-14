@@ -93,47 +93,58 @@
 
 <script src="../dist/date.js"></script>
 <script>
-    createHtml();
+  date.editHolidayConf = {
+    '*1213': ['刘桃伟生日', 'Tovi'],
+  }
+  createHtml();
+  function createHtml() {
+    let dom = '';
+    [
+      'Y-m-d fh - lh',
+      'Y-m-d H:i:s lq lQ q Q n',
+      'Y-m-d 第W周 lq lQ q Q n',
+      'Y-m-d 周w lg lG',
+      '公历(阳历)：C(Y)年f月k日 星期K',
+      '农历(阴历)：lC(lc)年lm月ld lt时lk刻',
+      'ly年lf月lj日 生肖lz lS ls',
+      'lj lf ly lc lC lz lZ la lM',
+      'o-m-d H:i:s.v',
+    ].forEach(res => {
+      dom += '<tbody>';
+      const dateObj = [
+        'new Date()',
+        // '2019-12-22 20:23:52',
+        '2018-01-01',
+        '2020-01-07',
+        '2020-01-24',
+        '2018-05-13',
+        '2019-05-12',
+        '2020-05-10',
+        '2020-10-01',
+        '2019-01-25 01:00:01',
+        '2019-01-26 01:00:01',
+      ];
+      dateObj.forEach((child, idx) => {
+        dom +=
+          // '<tr><td><div class="block">date("' + res + '", ' + child + ')</div></td>' +
+          `<tr>${ idx === 0 ? '<td rowspan="' + dateObj.length + '"><div class="block date-params"> ' + res + '</div></td>' : '' }<td rowspan="1"><div class="block date-object">${ child }</div></td><td><div class="block">date("<span class="date-params">${ res }</span>", <span class="date-object">${ new Date(child).valueOf() ? '"' + child + '"' : child }</span>)</div><div class="block">new Date(<span class="date-object">${ new Date(child).valueOf() ? '"' + child + '"' : child }</span>).format("<span class="date-params">${ res }</span>")</div></td>` +
+          `<td><div class="block"> ${ date(res, new Date(child).valueOf() ? child : eval(child))} </div>`+
+          `<div class="block">${ new Date(new Date(child).valueOf() ? child : eval(child)).format(res) }</div></td></tr>`;
+          // '<td><div class="block">' + date(res, child) + '<br/>' + new Date(child).format(res) + '</div></td></tr>';
+      });
+      dom += '</tbody>';
 
-    function createHtml() {
-        let dom = '';
-        [
-            'Y-m-d',
-            'Y-m-d H:i:s',
-            'Y-m-d 第W周',
-            'Y-m-d 周w',
-            'C年f月k日 星期K',
-            'ly年lm月ld lt时lk刻 lg',
-            'ly年lf月lj日 生肖lz',
-            'lj lf ly lc lC lz lZ la lM',
-            'ls lS',
-        ].forEach(res => {
-            dom += '<tbody>';
-            const dateObj = [
-                'new Date()',
-                '2019-08-08 20:23:52',
-            ];
-            dateObj.forEach((child, idx) => {
-                dom +=
-                    // '<tr><td><div class="block">date("' + res + '", ' + child + ')</div></td>' +
-                    `<tr>${ idx === 0 ? '<td rowspan="' + dateObj.length + '"><div class="block date-params"> ' + res + '</div></td>' : '' }<td rowspan="1"><div class="block date-object">${ child }</div></td><td><div class="block">date("<span class="date-params">${ res }</span>", <span class="date-object">${ new Date(child).valueOf() ? '"' + child + '"' : child }</span>)</div><div class="block">new Date(<span class="date-object">${ new Date(child).valueOf() ? '"' + child + '"' : child }</span>).format("<span class="date-params">${ res }</span>")</div></td>` +
-                    `<td><div class="block"> ${ date(res, new Date(child).valueOf() ? child : eval(child)) } </div><div class="block">${ new Date(new Date(child).valueOf() ? child : eval(child)).format(res) }</div></td></tr>`;
-                // '<td><div class="block">' + date(res, child) + '<br/>' + new Date(child).format(res) + '</div></td></tr>';
-            });
-            dom += '</tbody>';
+    });
+    document.getElementById('tbody').innerHTML = dom;
+  }
 
-        });
-        document.getElementById('tbody').innerHTML = dom;
+  const nowClock = document.getElementsByClassName('date-time');
+
+  setInterval(() => {
+    for (let i = 0; i < nowClock.length; i += 1) {
+      nowClock[i].innerHTML = date('Y-m-d H:i:s.v');
     }
-
-    const nowClock = document.getElementsByClassName('date-time');
-
-    setInterval(() => {
-        for (let i = 0; i < nowClock.length; i += 1) {
-            nowClock[i].innerHTML = date('Y-m-d H:i:s.v');
-        }
-        // createHtml();
-    }, 1000);
+  }, 1000);
 
 </script>
 </body>
