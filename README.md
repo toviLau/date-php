@@ -383,7 +383,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 | 0101 | 4位数字表示公历日期，此key值表示：公历1月1日 |
 | | 4 digits indicate the Gregorian date, this key value means: January 1st of the Gregorian calendar |
 | *0101 | * + 4位数字表示农历日期，此key值表示：农历正月初一|
-|  | 4 digits represent the date of the lunar calendar, This key value means: the first day of the first lunar month |
+|  | * + 4 digits represent the date of the lunar calendar, This key value means: the first day of the first lunar month |
 | #0520 | # + 4位数字表示公历某月第几个星期几，此key值表示：五月第2个星期日，(星期从0到6分别表示：日一二三四五六) |
 |  | # + 4 digits indicate in the Gregorian calendar how many weeks at this month and How many day at this week. This key value means: 2nd Sunday in May (the weeks from 0 to 6:  Mon Tues Wed Thur Fri Sat Sun) |
  
