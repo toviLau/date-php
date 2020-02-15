@@ -397,7 +397,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
     '0214': ['小三节', 'Other woman day'], // 修改(edit)
     '0715': ['示例节', `Demo's day`], // 修改(edit)
     '#0836': ['纪念日', 'Acommemoration day'], // 新增(add)
-    '*1213': ['作者生日', 'Author's birthday'] // 新增(add)
+    '*1213': ['作者生日', `Author's birthday`] // 新增(add)
   }
   
   // 替换节日配置(默认配置的节日全部失效)
@@ -406,7 +406,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
     '0214': ['小三节', 'Other woman day'],
     '0715': ['示例节', `Demo's day`],
     '#0836': ['纪念日', 'Acommemoration day'],
-    '*1213': ['作者生日', 'Author's birthday']
+    '*1213': ['作者生日', `Author's birthday`]
   }
   
   date('Y-m-d fh', new Date()) // -> 2019-07-15 示例节
