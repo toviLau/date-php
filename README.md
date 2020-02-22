@@ -30,7 +30,7 @@ d.format('m-d-Y H:i:s'); // "07-15-2019 15:38:56"
 d.format('m-d-y H:i:s'); // "07-15-20 15:38:56"
  
 ```
-[更多示例(More examples)](#-使用use)
+[更多示例(More examples)](#使用use)
 <br/>
 <br/>
 
