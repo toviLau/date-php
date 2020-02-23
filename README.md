@@ -13,8 +13,9 @@
 > This is a JavaScript implements date formatting functions similar to PHP. It is very similar to PHP, has rich template characters, and enhances some template characters on the basis of the original. For example: Chinese Lunar Date, Chinese Character Date, Chinese Zodiac and Constellation. Make the conversion datetimes more free. 
 
 ```javascript
-// 举个栗子(demo)
+// 举个栗子(examples)
 // 首先(First)
+import date from 'date-php';
 var d = new Date(); // 1563148800000 or 'Mon Jul 15 2019 15:38:56 GMT+0800 (中国标准时间)'
 
 // 然后(Second)
@@ -27,8 +28,7 @@ date('y-m-d H:i:s[a] D', d); // "07-15-20 15:38:56[pm] Mon"
 d.format('Y-m-d'); // "2019-07-15
 d.format('y-m-d'); // "2019-07-15
 d.format('m-d-Y H:i:s'); // "07-15-2019 15:38:56"
-d.format('m-d-y H:i:s'); // "07-15-20 15:38:56"
- 
+d.format('m-d-y H:i:s'); // "07-15-20 15:38:56" 
 ```
 [更多示例(More examples)](#使用use)
 <br/>
@@ -51,15 +51,15 @@ npm i -S date-php;
  > 　 The following `new Date ()` or other date time initialization values, we acquiescence are `1563176336000` Unix timestamp corresponding Datetime.
  
 ```javascript
-// npm -- CDN方式跳过(CDN mode skip)
+// ES6+ -- CDN方式跳过(CDN mode skip)
 import date from 'date-php'; // 引入date-php(import date-php)
 
-// nodejs -- CDN方式跳过(CDN mode skip)
+// CommonJS && AMD -- CDN方式跳过(CDN mode skip)
 const date = require('date-php'); // 引入date-php(require date-php)
 
 /**
  * 示例1 - date('模板字符', 日期时间对象)
- * demo1 - date ('Template character', Datetime object);
+ * demo 1 - date ('Template character', Datetime object);
  **/
 date('Y-m-d H:i:s', new Date()); // "2019-07-15 15:38:56"
 date('Y年m月d日 H点i分s秒', new Date()); // "2019年07月15日 15点38分56秒" 
@@ -78,7 +78,7 @@ date('ly年lm月ld日lt时lk刻【lg】',1563122222000) // "己亥年六月十�
 
 /**
  * 示例2 - 日期时间对象.format('模板字符');
- * demo2 - datetimeObject.format('Template character');
+ * demo 2 - datetimeObject.format('Template character');
  */
 new Date('2019-07-15 15:38:56').format('Y-m-d H:i:s'); // "2019-07-15 15:38:56" 
 new Date(1563176336000).format('Y-m-d H:ia'); // "2019-07-15 15:38pm"
@@ -112,6 +112,11 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 > 
 > 6、模板字条区分大小写。  
 > 　 Template characters are case sensitive.
+> 
+> 7、支持节假日输出  
+>       Support festival output  
+>       需要自定义节假日请参考 [conf.replaceHolidayConf](#自定义节假日custom-holidays160) 与 [conf.editHolidayConf] (#自定义节假日custom-holidays160)  
+>       For custom holidays, please refer to [conf.replaceHolidayConf](#自定义节假日custom-holidays160)  & [conf.editHolidayConf](#自定义节假日custom-holidays160)   
 
 ```
  日(Day)
@@ -128,7 +133,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
        Day of the month without leading zeros. 1 through 31
 
   *lj: 月份中的第几天(天干地支表示法) 例：'甲子' / '戊戌'【1.6.0+】
-       Day of the month(Heavenly Stems && Earthly Branches  Representation) E.g：'甲子' / '戊戌'【1.6.0+】
+       Day of the month(Heavenly Stems && Earthly Branches  Representation) E.g：'甲子' / '戊戌’[1.6.0+]
        
   *ld: 农历月份中的第几天。从"初一"到"卅"【1.5.0+】
        Day of the month of the lunar month. "初一" through "卅"[1.5.0+]
@@ -145,12 +150,12 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
   *lk: 中国古代计时单位中的刻(类似分钟，一时辰八刻钟)。从"零"到"七"【1.5.0+】
        The 'ke' in the ancient Chinese timing unit(similar to minutes, 1 "shi cheng" of 8 "ke"). "零" through "七"[1.5.0+]
 
-   *fh: 节假日中文: 例如: 元旦节[1.6.0+]
+   *fh: 节假日中文: 例如: 元旦节【1.6.0+】
         holiday in chinese. e.g.: 元旦节[1.6.0+]
         !需要自定义节假日请参考 “conf.replaceHolidayConf” “conf.editHolidayConf”
         !For custom holidays, please refer to “conf.replaceHolidayConf” “conf.editHolidayConf”
         
-   *lh: 节假日英文 例如: new Year[1.6.0+]
+   *lh: 节假日英文 例如: new Year【1.6.0+】
         holiday in english. e.g.: new Year[1.6.0+]
         !需要自定义节假日请参考 “conf.replaceHolidayConf” “conf.editHolidayConf”
         !For custom holidays, please refer to “conf.replaceHolidayConf” “conf.editHolidayConf”
@@ -182,10 +187,10 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
        A full textual representation of a month, such as January or March. "January" through "December"
        
    *f: 月份，汉字表示。从"一"到"十二"【1.3.2+】
-       The Chinese characters of the month. "一" through "十二"
+       The Chinese characters of the month. "一" through "十二”[1.3.2+]
 
   *lf: 月份(天干地支表示法)。 例：'甲子' / '戊戌'【1.6.0+】
-       The month(Heavenly Stems && Earthly Branches  Representation) E.g：'甲子' / '戊戌'【1.6.0+】
+       The month(Heavenly Stems && Earthly Branches  Representation) E.g：'甲子' / '戊戌’[1.6.0+]
        
     m: 数字表示的月份，有前导零。"01"到"12"
        Numeric representation of a month, with leading zeros. "1" through "12"
@@ -205,26 +210,26 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
     t: 给定月份所应有的天数。 "28"到"31"
        Number of days in the given month
 
-   *la: 星座(1.6.0+)
-        Constellation (1.6.0+)
+   *la: 星座【1.6.0+】
+        Constellation [1.6.0+]
    
-   *ls: 24节气汉字(1.6.0+)
-        24 solar terms Chinese Characters(1.6.0+)
+   *ls: 24节气汉字【1.6.0+】
+        24 solar terms Chinese Characters[1.6.0+]
 
-   *lS: 24节气英文(1.6.0+)
-        24 solar terms English(1.6.0+)
+   *lS: 24节气英文【1.6.0+】
+        24 solar terms English[1.6.0+]
 
-   *lq: 季度数字(1.6.0+)
-        Quarter Number(1.6.0+)
+   *lq: 季度数字【1.6.0+】
+        Quarter Number[1.6.0+]
 
-   *lQ: 季度汉字(1.6.0+)
-        Quarter Number Chinese Characters(1.6.0+)
+   *lQ: 季度汉字【1.6.0+】
+        Quarter Number Chinese Characters[1.6.0+]
 
-   *q: 季度英文缩写(1.6.0+)
-       Quarter abbreviations(1.6.0+)
+   *q: 季度英文缩写【1.6.0+】
+       Quarter abbreviations[1.6.0+]
 
-   *Q: 李度英文(1.6.0+)
-       Quarter English(1.6.0+)
+   *Q: 李度英文【1.6.0+】
+       Quarter English[1.6.0+]
 
   年(Year)
     L: 是否为闰年。1:是，0:否
@@ -245,17 +250,17 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
    *C: 4 个汉字表示的年份【1.3.2+】
        Year indicated by 4 Chinese characters[1.3.2+]
 
-  *lc: 生肖 (12年一循环)。从"鼠"到"猪"(1.6.0+) 
-       Chinese zodiac (12-year cycle). From "rat" to "pig" (1.6.0+)
+  *lc: 生肖 (12年一循环)。从"鼠"到"猪"【1.6.0+】
+       Chinese zodiac (12-year cycle). From "rat" to "pig" [1.6.0+]
 
-  *lC: 农历年汉字(1.6.0+)
-       Chinese character for the lunar calendar (1.6.0+)
+  *lC: 农历年汉字【1.6.0+】
+       Chinese character for the lunar calendar [1.6.0+]
 
-  *lz: 生肖汉字(1.6.0+)
-       Zodiac Chinese Characters (1.6.0+) 
+  *lz: 生肖汉字【1.6.0+】
+       Zodiac Chinese Characters [1.6.0+] 
 
-  *lZ: 生肖英文(1.6.0+)
-       Zodiac English (1.6.0+)
+  *lZ: 生肖英文【1.6.0+】
+       Zodiac English [1.6.0+]
   
   时间(Time)
     a: 小写的上午和下午值。"am"或"pm"
@@ -431,8 +436,9 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 > 咦！这个时间的毫秒是不是有点怪？这是[**setInterval**](https://blog.csdn.net/acm765152844/article/details/51298915)的问题。(虽然这只是一张图片^\_^，但目的是抛出Javascript确实存在的问题。)  
 > What! Is the millisecond of this Datetime a bit strange? This is a problem with [**setInterval**](https://blog.csdn.net/acm765152844/article/details/51298915). (Although this is just a picture ^_^, the purpose is to throw the problem Javascript does exist.)
 
+
 ```html
-示例代码(demo)
+示例代码(demo code)
 
 <div class="now">
     <div class="clock"><span>当前时间：</span> <span class="date-time">--:--</span></div>
