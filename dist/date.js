@@ -638,7 +638,8 @@
       var getDate = [
         dateArr[2] + dateArr[3],
         '*' + lunarInfo.lcMonth + lunarInfo.lcDay,
-        '#' + dateArr[2] + getWeekInMonth() + curDate.getDay() ];
+        '#' + dateArr[2] + getWeekInMonth() + curDate.getDay(),
+        '@' + pad(Math.ceil((new Date(dateArr[1], dateArr[2]-1, dateArr[3]) - new Date(dateArr[1] + '/1/1')) / (60 * 60 * 24 * 1e3)) + 1, 4) ];
 
       var holiday = {
         '0101': ['元旦节', 'New Year'],
@@ -658,6 +659,7 @@
         '0701': ['建党节', "Founding day"],
         '0801': ['建军节', "Army Day"],
         '0910': ['教师节', "Teachers' Day"],
+        '1024': ['中国程序员节', "Chinese programmers day"],
         '1224': ['平安夜', "Christmas Eve"],
         '1117': ['世界学生日', "World student day"],
         '1201': ['世界艾滋病日', "World AIDS Day"],
@@ -678,15 +680,17 @@
         '*1230': lunarInfo.isLeap ? '' : ['除夕', "Year's Eve"],
         '#0520': ['母亲节', "Mother's Day"],
         '#0630': ['父亲节', "Father's day"],
+        '@0256': ['俄罗斯程序员节', "Russian Programmer's Day"],
       };
       if (date.replaceHolidayConf) { holiday = date.replaceHolidayConf; }
-      if (date.editHolidayConf) { Object.assign(holiday, date.exitHolidayConf); }
-      // edit, add
+      if (date.editHolidayConf) { Object.assign(holiday, date.editHolidayConf); }
+
       var festivalList = {
         cn: [],
         en: [],
       };
       getDate.forEach(function (res) {
+        // debugger
         if (holiday && holiday[res]) {
           festivalList.cn.push(holiday[res][0]);
           festivalList.en.push(holiday[res][1]);
@@ -777,6 +781,7 @@
      * @param  {date}       now  要格式化的时间 [默认值: 默认为当前本地机器时间]
      * @return {string}     格式化的时间字符串
      */
+
     var date$1 = function (fmt, now, config) {
       if ( fmt === void 0 ) fmt = 'Y-m-d';
       if ( now === void 0 ) now = new Date();
@@ -928,7 +933,7 @@
         ld: function () { return lunarInfo().IDayCn; },
         lt: function () { return lunarTime[Math.floor((tChars.G() >= 23 ? 0 : tChars.G() + 1) / 2)]; },
         lg: function () { return tChars.G() > 18 || tChars.G() < 5 ? Math.ceil((tChars.G() < 19 ? tChars.G() + 24 : tChars.G()) / 2) - 9 : ''; },
-        lG: function () { return ("" + (tChars.lg() ? baseFigure[tChars.lg()]+ '更' : '')); },
+        lG: function () { return ("" + (tChars.lg() ? baseFigure[tChars.lg()] + '更' : '')); },
         lk: function () { return lunarKe[Math.floor(((tChars.U() + 60 * 60) % (60 * 60 * 2)) / 60 / 15)]; },
         fh: function () { return (getFestival(tChars.Y() + tChars.m() + tChars.d()).cn || []).join(); },
         lh: function () { return (getFestival(tChars.Y() + tChars.m() + tChars.d()).en || []).join(); },
@@ -1065,7 +1070,6 @@
 
     defP(Date.prototype, 'format', date$1);
     defP(date$1, 'version', '1.6.2');
-    defP(date$1.prototype, 'conf', function () { return (undefined); });
     defP(date$1, 'description', function () { return (console.info('%cdate-php使用说明:\n' +
       '已经废弃，查看使用说明请移步这里\nhttps://github.com/toviLau/date-php/blob/master/README.md'
       , 'color:#c63'

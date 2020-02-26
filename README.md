@@ -95,7 +95,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 > 　 ~~You can also output all template character in the console via the static method `date.description`.~~<sup>(1.3.2<sup> - </sup>)</sup>   
 >
 > 3、关于转义模板字符，这里与PHP不同 **【敲黑板！！！】** <sup>(1.3.0<sup> + </sup>)</sup>  
-> 　 About the escaped template character, here is different from PHP **[Note!!!]** <sup>(1.3.0<sup> + </sup>)</sup>  
+> 　 About the escaped template character, here is different from PHP **[Note!!!]** <sup>(1.3.0 + )</sup>  
 >> **如果在date里想输出模板本来的字符，请用转义符--双反斜杠"\\\\”(PHP是一个单反斜杠"\\")。**   
 >> **If you want to output the original character of the template on the date, use the escape character – double backslash "\\\\" (PHP is a single backslash "\\").**  
 >>   举个栗子：date(“\\\\I(大写的i) \\\\l(小写的L)\\\\o\\\\v\\\\e \\\\y\\\\o\\\\u: y-m-d H:i", new Date()) // 输出 "I love you: 19-07-15 15:38"  
@@ -341,45 +341,49 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 > **默认配置(default config)**
 
 ```javascript
+
 {
-    '0101': ['元旦节', 'New Year'],
-    '0214': ['情人节', `Valentine's Day`],
-    '0308': ['国际妇女节', `International Women's Day`],
-    '0315': ['国际消费者权益日', `International Consumer Rights Day`],
-    '0312': ['植树节', `Arbor Day`],
-    '0422': ['世界地球日', `Earth Day`],
-    '0501': ['国际劳动节', `International Labour Day`],
-    '0504': ['青年节', `Youth day`],
-    '0512': ['国际护士节', `International Nurses Day`],
-    '0518': ['国际博物馆日', `International Museum Day`],
-    '0601': ['国际儿童节', `International Children's Day`],
-    '0605': ['世界环境日', `World Environment Day`],
-    '0623': ['国际奥林匹克日', `International Olympic Day`],
-    '0624': ['世界骨质疏松日', `World Osteoporosis Day`],
-    '0701': ['建党节', `Founding day`],
-    '0801': ['建军节', `Army Day`],
-    '0910': ['教师节', `Teachers' Day`],
-    '1224': ['平安夜', `Christmas Eve`],
-    '1117': ['世界学生日', `World student day`],
-    '1201': ['世界艾滋病日', `World AIDS Day`],
-    '1001': ['国庆', 'National Day'],
-    '*0101': ['春节', 'Chinese Year'],
-    '*0115': ['元宵节', 'Lantern Festival'],
-    '*0202': ['龙头节', 'Dragon head festival'],
-    '*0505': ['端午节', 'Dragon Boat Festival'],
-    '*0707': ['乞巧节', 'Qi Qiao Festival'],
-    '*0715': ['中元节', 'Ghost Festival'],
-    '*0815': ['中秋节', 'Moon Festival'],
-    '*0909': ['重阳节', 'Chongyang Festival'],
-    '*1001': ['寒衣节', 'Winter clothing festival'],
-    '*1015': ['下元节', 'Xia Yuan Festival'],
-    '*1208': ['腊八节', 'Laba Festival'],
-    '*1223': ['祭灶节', 'Stove Festival'],
-    '*1229': ['除夕', `Year's Eve`], // 农历闰年(leap year in lunar)
-    '*1230': ['除夕', `Year's Eve`], // 农历非闰年(not leap year in lunar)
-    '#0520': ['母亲节', `Mother's Day`],
-    '#0630': ['父亲节', `Father's day`]
+  '0101': ['元旦节', 'New Year'],
+  '0214': ['情人节', `Valentine's Day`],
+  '0308': ['国际妇女节', `International Women's Day`],
+  '0315': ['国际消费者权益日', `International Consumer Rights Day`],
+  '0312': ['植树节', `Arbor Day`],
+  '0422': ['世界地球日', `Earth Day`],
+  '0501': ['国际劳动节', `International Labour Day`],
+  '0504': ['青年节', `Youth day`],
+  '0512': ['国际护士节', `International Nurses Day`],
+  '0518': ['国际博物馆日', `International Museum Day`],
+  '0601': ['国际儿童节', `International Children's Day`],
+  '0605': ['世界环境日', `World Environment Day`],
+  '0623': ['国际奥林匹克日', `International Olympic Day`],
+  '0624': ['世界骨质疏松日', `World Osteoporosis Day`],
+  '0701': ['建党节', `Founding day`],
+  '0801': ['建军节', `Army Day`],
+  '0910': ['教师节', `Teachers' Day`],
+  '1024': ['中国程序员节', `Chinese programmers day`],
+  '1224': ['平安夜', `Christmas Eve`],
+  '1117': ['世界学生日', `World student day`],
+  '1201': ['世界艾滋病日', `World AIDS Day`],
+  '1001': ['国庆', 'National Day'],
+  '*0101': ['春节', 'Chinese Year'],
+  '*0115': ['元宵节', 'Lantern Festival'],
+  '*0202': ['龙头节', 'Dragon head festival'],
+  '*0505': ['端午节', 'Dragon Boat Festival'],
+  '*0707': ['乞巧节', 'Qi Qiao Festival'],
+  '*0715': ['中元节', 'Ghost Festival'],
+  '*0815': ['中秋节', 'Moon Festival'],
+  '*0909': ['重阳节', 'Chongyang Festival'],
+  '*1001': ['寒衣节', 'Winter clothing festival'],
+  '*1015': ['下元节', 'Xia Yuan Festival'],
+  '*1208': ['腊八节', 'Laba Festival'],
+  '*1223': ['祭灶节', 'Stove Festival'],
+  '*1229': lunarInfo.isLeap ? ['除夕', `Year's Eve`] : '',
+  '*1230': lunarInfo.isLeap ? '' : ['除夕', `Year's Eve`],
+  '#0520': ['母亲节', `Mother's Day`],
+  '#0630': ['父亲节', `Father's day`],
+  '@0256': ['俄罗斯程序员节', `Russian Programmer's Day`],
 }
+
 ```
 
 > **配置 Api(Configuration API)**
@@ -401,7 +405,9 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 |  | * + 4 digits represent the date of the lunar calendar, This key value means: the first day of the first lunar month |
 | #0520 | # + 4位数字表示公历某月第几个星期几，此key值表示：五月第2个星期日，(星期从0到6分别表示：日一二三四五六) |
 |  | # + 4 digits indicate in the Gregorian calendar how many weeks at this month and How many day at this week. This key value means: 2nd Sunday in May (the weeks from 0 to 6:  Mon Tues Wed Thur Fri Sat Sun) |
- 
+| @0256 <sup>(1.6.3+)</sup> | @ + 4位数字表示公历年份中的第几天 |
+|  | @ + 4 digits indicate the day of the year in the Gregorian calendar |
+
 > **代码示例(DEMO)**
 
 ```javascript

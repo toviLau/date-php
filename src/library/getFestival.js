@@ -41,6 +41,7 @@ export default function getFestival(dateObj) {
     dateArr[2] + dateArr[3],
     '*' + lunarInfo.lcMonth + lunarInfo.lcDay,
     '#' + dateArr[2] + getWeekInMonth() + curDate.getDay(),
+    '@' + pad(Math.ceil((new Date(dateArr[1], dateArr[2]-1, dateArr[3]) - new Date(dateArr[1] + '/1/1')) / (60 * 60 * 24 * 1e3)) + 1, 4),
   ];
 
   let holiday = {
@@ -61,6 +62,7 @@ export default function getFestival(dateObj) {
     '0701': ['建党节', `Founding day`],
     '0801': ['建军节', `Army Day`],
     '0910': ['教师节', `Teachers' Day`],
+    '1024': ['中国程序员节', `Chinese programmers day`],
     '1224': ['平安夜', `Christmas Eve`],
     '1117': ['世界学生日', `World student day`],
     '1201': ['世界艾滋病日', `World AIDS Day`],
@@ -81,15 +83,17 @@ export default function getFestival(dateObj) {
     '*1230': lunarInfo.isLeap ? '' : ['除夕', `Year's Eve`],
     '#0520': ['母亲节', `Mother's Day`],
     '#0630': ['父亲节', `Father's day`],
+    '@0256': ['俄罗斯程序员节', `Russian Programmer's Day`],
   };
   if (date.replaceHolidayConf) holiday = date.replaceHolidayConf;
-  if (date.editHolidayConf) Object.assign(holiday, date.exitHolidayConf);
-  // edit, add
+  if (date.editHolidayConf) Object.assign(holiday, date.editHolidayConf);
+
   const festivalList = {
     cn: [],
     en: [],
   };
   getDate.forEach(res => {
+    // debugger
     if (holiday && holiday[res]) {
       festivalList.cn.push(holiday[res][0]);
       festivalList.en.push(holiday[res][1]);

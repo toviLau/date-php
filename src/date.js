@@ -82,7 +82,8 @@
  */
 import getLunar from './library/getLunar';
 import getFestival from './library/getFestival';
-const date = function (fmt = 'Y-m-d', now = new Date(), config={}) {
+
+const date = function (fmt = 'Y-m-d', now = new Date(), config = {}) {
   fmt = fmt ? fmt : 'Y-m-d';
   if (!(new Date(now - 0).getTime() || new Date(now).getTime())) throw Error((D => {
     return '' +
@@ -232,7 +233,7 @@ const date = function (fmt = 'Y-m-d', now = new Date(), config={}) {
     ld: () => lunarInfo().IDayCn,
     lt: () => lunarTime[Math.floor((tChars.G() >= 23 ? 0 : tChars.G() + 1) / 2)],
     lg: () => tChars.G() > 18 || tChars.G() < 5 ? Math.ceil((tChars.G() < 19 ? tChars.G() + 24 : tChars.G()) / 2) - 9 : '',
-    lG: () => `${ tChars.lg() ? baseFigure[tChars.lg()]+ '更' : ''}`,
+    lG: () => `${ tChars.lg() ? baseFigure[tChars.lg()] + '更' : '' }`,
     lk: () => lunarKe[Math.floor(((tChars.U() + 60 * 60) % (60 * 60 * 2)) / 60 / 15)],
     fh: () => (getFestival(tChars.Y() + tChars.m() + tChars.d()).cn || []).join(),
     lh: () => (getFestival(tChars.Y() + tChars.m() + tChars.d()).en || []).join(),
@@ -369,7 +370,6 @@ const date = function (fmt = 'Y-m-d', now = new Date(), config={}) {
 
 defP(Date.prototype, 'format', date);
 defP(date, 'version', '__VERSION__');
-defP(date.prototype, 'conf', () => (undefined));
 defP(date, 'description', () => (console.info('%cdate-php使用说明:\n' +
   '已经废弃，查看使用说明请移步这里\nhttps://github.com/toviLau/date-php/blob/master/README.md'
   , 'color:#c63',
