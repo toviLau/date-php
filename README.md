@@ -118,155 +118,155 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 >       需要自定义节假日请参考 [conf.replaceHolidayConf](#自定义节假日custom-holidays160) 与 [conf.editHolidayConf] (#自定义节假日custom-holidays160)  
 >       For custom holidays, please refer to [conf.replaceHolidayConf](#自定义节假日custom-holidays160)  & [conf.editHolidayConf](#自定义节假日custom-holidays160)   
 
-\# | chars | Description
---- | :--- | :---
-日(Day) |　|
- | d | 月份中的第几天，有前导零的2位数字。从"01"到"31"
- | | Day of the month, 2 digits with leading zeros. 01 through 31
- | \*k <sup style="color:#f33">1.3.2+</sup> | 月份中的第几天，汉字表示。从"一"到"卅一"
- | | Day of the month, Chinese character representation. "一" through "卅一”
- | D | 星期中的第几天，文本表示，3个字母。从"Mon"到"Sun"
- | | Day of the week, textual representation, three letters. Mon through Sun
- | j | 月份中的第几天，没有前导零。从"1"到"31"
- | | Day of the month without leading zeros. 1 through 31
- | *lj <sup style="color:#f33">1.6.0+</sup> | 月份中的第几天(天干地支表示法) 例：'甲子' / '戊戌'
- | | Day of the month(Heavenly Stems && Earthly Branches  Representation) E.g：'甲子' / '戊戌’ 
- | \*ld <sup style="color:#f33">1.5.0+</sup>| 农历月份中的第几天。从"初一"到"卅"
- | | Day of the month of the lunar month. "初一" through "卅"
- | \*lt <sup style="color:#f33">1.5.0+</sup> | 中国古代计时单位中的时辰(类似小时，2小时1时辰)。从"子"到"亥"
- | | The 'shi chen' in the ancient Chinese timing unit(similar to hours, 2 hours of 1 "shi chen"). "子" through "亥"
- | \*lg <sup style="color:#f33">1.5.0\*</sup> | 中国古代夜里更时(打更点，一晚五更)。从"1”到”5”
- | | The "geng" in ancient Chinese night (tapping geng, one night five geng). "1” through "5”
- | \*lG <sup style="color:#f33">1.5.0+</sup> | 中国古代夜里更时(打更点，一晚五更)。从"一更”到”五更”
- | | The "geng" in ancient Chinese night (tapping geng, one night five geng). "一更” through "五更”
- | \*lk  <sup style="color:#f33">1.5.0+</sup> | 中国古代计时单位中的刻(类似分钟，一时辰八刻钟)。从"零"到"七"
- | | The 'ke' in the ancient Chinese timing unit(similar to minutes, 1 "shi cheng" of 8 "ke"). "零" through "七"
- | \*fh <sup style="color:#f33">1.6.0+</sup> | 节假日中文: 例如: 元旦节
- | | holiday in chinese. e.g.: 元旦节
- | | !需要自定义节假日请参考  [`conf.replaceHolidayConf`](#自定义节假日custom-holidays160) 与 [`conf.editHolidayConf`](#自定义节假日custom-holidays160)  
- | | !For custom holidays, please refer to  [`conf.replaceHolidayConf`](#自定义节假日custom-holidays160) & [`conf.editHolidayConf`](#自定义节假日custom-holidays160)  
- | \*lh <sup style="color:#f33">1.6.0+</sup> | 节假日英文 例如: new Year
- | | holiday in english. e.g.: new Year
- | | !需要自定义节假日请参考 [`conf.replaceHolidayConf`](#自定义节假日custom-holidays160) 与 [`conf.editHolidayConf`](#自定义节假日custom-holidays160)  
- | | !For custom holidays, please refer to [`conf.replaceHolidayConf`](#自定义节假日custom-holidays160) & [`conf.editHolidayConf`](#自定义节假日custom-holidays160)  
- | l | 星期几，完整的文本格式。从"Sunday"到"Saturday"
- | | A full textual representation of the day of the week. "Sunday" through "Saturday"
- | N | ISO-8601格式的星期中的第几天。从"1"(表示星期一)到"7"(表示星期天)
- | | ISO-8601 numeric representation of the day of the week. 1 (for Monday) through 7 (for Sunday)
- | S | 每月天数后面的英文后缀，2 个字符 st/nd/rd/th。
- | | English ordinal suffix for the day of the month, 2 characters. st, nd, rd or th. Works well with j
- | w | 星期中的第几天，数字表示。从"0"(表示星期天)到"6"(表示星期六)
- | | Numeric representation of the day of the week. 0 (for Sunday) through 6 (for Saturday)
- | \*K <sup style="color:#f33">1.3.2+</sup> | 星期中的第几天，汉字表示。从"日"(表示星期天)到"六"(表示星期六)
- | | The Chinese characters of the day of the week indicate. "日"(for Sunday) through "六"(for Saturday)
- | z | 年份中的第几天。从"0"到"365"
- | | The day of the year. "0" through "365"
- | | 
-星期(Week) | |
- | W | 年份中的第几周
- | | The week number in year.
- | | 
-月(Month) | |
- | F | 月份，完整的文本格式。从"January"到"December"
- | | A full textual representation of a month, such as January or March. "January" through "December"       
- | \*f <sup style="color:#f33">1.3.2+</sup> | 月份，汉字表示。从"一"到"十二"
- | | The Chinese characters of the month. "一" through "十二”
- | \*lf <sup style="color:#f33">1.6.0+</sup> | 月份(天干地支表示法)。 例：'甲子' / '戊戌'
- | | The month(Heavenly Stems && Earthly Branches  Representation) E.g：'甲子' / '戊戌’
- | m | 数字表示的月份，有前导零。"01"到"12"
- | | Numeric representation of a month, with leading zeros. "1" through "12"    
- | M | 三个字母缩写表示的月份。从"Jan"到"Dec"
- | | A short textual representation of a month, three letters. "Jan" through "Dec"    
- | n | 数字表示的月份，没有前导零。"1"到"12"
- | | Numeric representation of a month, without leading zeros. "1" through "12"    
- | \*lM <sup style="color:#f33">1.6.0+</sup> | 农历月份。从"1"到"12"
- | | Month of the lunar month. "1" through "12"
- | \*lm <sup style="color:#f33">1.5.0+</sup> | 农历月份。从"一"到"十二"
- | | Month of the lunar month. "一" through "十二"
- | t | 给定月份所应有的天数。 "28"到"31"
- | | Number of days in the given month
- | \*la <sup style="color:#f33">1.6.0+</sup> | 12星座
- | | 12 Constellation
- | \*ls <sup style="color:#f33">1.6.0+</sup> | 24节气汉字
- | | 24 solar terms Chinese Characters
- | \*lS <sup style="color:#f33">1.6.0+</sup> | 24节气英文
- | | 24 solar terms English
- | \*lq <sup style="color:#f33">1.6.0+</sup> | 季度数字
- | | Quarter Number
- | \*lQ <sup style="color:#f33">1.6.0+</sup> | 季度汉字
- | | Quarter Number Chinese Characters
- | \*q <sup style="color:#f33">1.6.0+</sup> | 季度英文缩写
- | | Quarter abbreviations
- | \*Q <sup style="color:#f33">1.6.0+</sup> | 李度英文
- | | Quarter English
- | | 
-年(Year) | |
- | L | 是否为闰年。1:是，0:否
- | | Whether it's a leap year. 1 leap year, 0 otherwise.       
- | o | ISO-8601格式年份数字。这和 Y 的值类似，星期数（W）属于前一年或下一年，则用那一年。
- | | ISO-8601 week-numbering year. This has the same value as Y, except that if the ISO week number (W) belongs to the previous or next year, that year is used instead.       
- | Y | 4 位数字完整表示的年份
- | | A full numeric representation of a year, 4 digits       
- | y | 2 位数字表示的年份
- | | A two digit representation of a year
- | \*ly <sup style="color:#f33">1.5.0+</sup> | 农历记年法(天干地支，60年一循环)。从"甲子"到"癸亥"
- | | The ancient Chinese lunar calendar year method (the tian gan and the di zhi, cycle of 60 years). 
- | \*C <sup style="color:#f33">1.3.2+</sup> | 4 个汉字表示的年份
- | | Year indicated by 4 Chinese characters
- | \*lc <sup style="color:#f33">1.6.0+</sup> | 生肖 (12年一循环)。从"鼠"到"猪"
- | | Chinese zodiac (12-year cycle). From "rat" to "pig"
- | \*lC <sup style="color:#f33">1.6.0+</sup> | 农历年汉字
- | | Chinese character for the lunar calendar
- | \*lz <sup style="color:#f33">1.6.0+</sup> | 生肖汉字
- | | Zodiac Chinese Characters 
- | \*lZ <sup style="color:#f33">1.6.0+</sup> | 生肖英文
- | | Zodiac English
- | | 
-时间(Time) | |
- | a | 小写的上午和下午值。"am"或"pm"
- | | Lowercase Ante meridiem and Post meridiem. "am" or "pm"
- | A | 大写的上午和下午值。"AM"或"PM"
- | | Uppercase Ante meridiem and Post meridiem. "AM" or "PM"
- | B | Swatch Internet 标准时。"000"到"999"
- | | Swatch Internet time. 000 through 999
- | g | 12 小时格式，没有前导零。"1"到"12"
- | | 12-hour format of an hour without leading zeros. "1" through "12"
- | G | 24 小时格式，没有前导零。"0"到"23"
- | | 24-hour format of an hour without leading zeros. "0" through "23"
- | h | 12 小时格式，有前导零。"01"到"12"
- | | 12-hour format of an hour with leading zeros. "01" through "12"
- | H | 24 小时格式，有前导零。"00"到"23"
- | | 24-hour format of an hour with leading zeros. "00" through "23"
- | i | 有前导零的分钟数。"00"到"59"
- | | Minutes with leading zeros. "00" to "59"
- | s | 有前导零的秒数。"00"到"59"
- | | Seconds with leading zeros. "00" through "59"
- | u <sup style="color:#f33">1.5.2\*</sup> | 有前导零的微秒。"000000"到"999999"。由于Javascript暂时不支持微秒，所以微秒只能模拟来实现。返回带前导0的3位随机数。(这个并不是真正的微秒，不精确，建议使用v--毫秒。)
- | | Microseconds with leading zeros. "000000" to "999999". Since Javascript does not support microseconds for a while, microseconds can only be implemented by simulation. Returns a 3 chars random number with leading 0.   
- | v <sup style="color:#f33">1.5.0+</sup> | 有前导零的毫秒。"000"到"999"
- | | Millisecond with leading zeros. "000" through "999”
- | | 
-时区(Timezone) | |
- | e | 时区标识。UTC，GMT，Atlantic/Azores
- | | Timezone identifier.Examples: UTC, GMT, Atlantic/Azores  
- | I | 是否为夏令时。1:是，0:否
- | | Whether or not the date is in daylight saving time. 1 Daylight Saving Time, 0 otherwise.
- | O | 与格林威治时间相差的小时数。例如：+0800
- | | Difference to Greenwich time (GMT) in hours. Example: +0800
- | P | 与格林威治时间的差别，小时和分钟之间有冒号分隔。例如：+08:00
- | | Difference to Greenwich time (GMT) with colon between hours and minutes. Example: +08:00
- | T | 本机所在的时区。例如：EST，MDT。
- | | Timezone abbreviation.  Examples: EST, MDT
- | Z | 时差偏移量的秒数。UTC 西边的时区偏移量总是负的，UTC 东边的时区偏移量总是正的。-43200 到 43200
- | | Timezone offset in seconds. The offset for timezones west of UTC is always negative, and for those east of UTC is always positive. -43200 through 43200
- | | 
-完整的日期／时间(Full Date/Time) | |
- | c | ISO 8601 格式的日期。例如：2019-07-15T15:38:56+08:00
- | | ISO 8601 date. Example: 2004-02-12T15:19:21+00:00
- | r | RFC 2822 格式的日期。例如：Thu, 15 Jul 2019 15:38:56 +0800
- | | RFC 2822 formatted date. Example: Thu, 15 Jul 2019 15:38:56 +0800
- | U | 从 Unix 纪元1970-1-1开始至今的秒数(Unix时间戳)。
- | | Seconds since the Unix Epoch at 1970-1-1 (Unix timestamp).
+| \# | chars | Description |
+| :--- | :--- | :--- |
+| 日(Day) |　| |
+ | | d | 月份中的第几天，有前导零的2位数字。从"01"到"31" |
+ | | | Day of the month, 2 digits with leading zeros. 01 through 31 |
+ | | \*k <sup style="color:#f33">1.3.2+</sup> | 月份中的第几天，汉字表示。从"一"到"卅一" |
+ | | | Day of the month, Chinese character representation. "一" through "卅一” |
+ | | D | 星期中的第几天，文本表示，3个字母。从"Mon"到"Sun" |
+ | | | Day of the week, textual representation, three letters. Mon through Sun |
+ | | j | 月份中的第几天，没有前导零。从"1"到"31" |
+ | | | Day of the month without leading zeros. 1 through 31 |
+ | | *lj <sup style="color:#f33">1.6.0+</sup> | 月份中的第几天(天干地支表示法) 例：'甲子' / '戊戌' |
+ | | | Day of the month(Heavenly Stems && Earthly Branches  Representation) E.g：'甲子' / '戊戌’ | 
+ | | \*ld <sup style="color:#f33">1.5.0+</sup>| 农历月份中的第几天。从"初一"到"卅" |
+ | | | Day of the month of the lunar month. "初一" through "卅" |
+ | | \*lt <sup style="color:#f33">1.5.0+</sup> | 中国古代计时单位中的时辰(类似小时，2小时1时辰)。从"子"到"亥" |
+ | | | The 'shi chen' in the ancient Chinese timing unit(similar to hours, 2 hours of 1 "shi chen"). "子" through "亥" |
+ | | \*lg <sup style="color:#f33">1.5.0\*</sup> | 中国古代夜里更时(打更点，一晚五更)。从"1”到”5” |
+ | | | The "geng" in ancient Chinese night (tapping geng, one night five geng). "1” through "5” |
+ | | \*lG <sup style="color:#f33">1.5.0+</sup> | 中国古代夜里更时(打更点，一晚五更)。从"一更”到”五更” |
+ | | | The "geng" in ancient Chinese night (tapping geng, one night five geng). "一更” through "五更” |
+ | | \*lk  <sup style="color:#f33">1.5.0+</sup> | 中国古代计时单位中的刻(类似分钟，一时辰八刻钟)。从"零"到"七" |
+ | | | The 'ke' in the ancient Chinese timing unit(similar to minutes, 1 "shi cheng" of 8 "ke"). "零" through "七" |
+ | | \*fh <sup style="color:#f33">1.6.0+</sup> | 节假日中文: 例如: 元旦节 |
+ | | | holiday in chinese. e.g.: 元旦节 |
+ | | | !需要自定义节假日请参考  [`conf.replaceHolidayConf`](#自定义节假日custom-holidays160) 与 [`conf.editHolidayConf`](#自定义节假日custom-holidays160) |  
+ | | | !For custom holidays, please refer to  [`conf.replaceHolidayConf`](#自定义节假日custom-holidays160) & [`conf.editHolidayConf`](#自定义节假日custom-holidays160) |  
+ | | \*lh <sup style="color:#f33">1.6.0+</sup> | 节假日英文 例如: new Year |
+ | | | holiday in english. e.g.: new Year |
+ | | | !需要自定义节假日请参考 [`conf.replaceHolidayConf`](#自定义节假日custom-holidays160) 与 [`conf.editHolidayConf`](#自定义节假日custom-holidays160) |  
+ | | | !For custom holidays, please refer to [`conf.replaceHolidayConf`](#自定义节假日custom-holidays160) & [`conf.editHolidayConf`](#自定义节假日custom-holidays160) |  
+ | | l | 星期几，完整的文本格式。从"Sunday"到"Saturday" |
+ | | | A full textual representation of the day of the week. "Sunday" through "Saturday" |
+ | | N | ISO-8601格式的星期中的第几天。从"1"(表示星期一)到"7"(表示星期天) |
+ | | | ISO-8601 numeric representation of the day of the week. 1 (for Monday) through 7 (for Sunday) |
+ | | S | 每月天数后面的英文后缀，2 个字符 st/nd/rd/th。 |
+ | | | English ordinal suffix for the day of the month, 2 characters. st, nd, rd or th. Works well with j |
+ | | w | 星期中的第几天，数字表示。从"0"(表示星期天)到"6"(表示星期六) |
+ | | | Numeric representation of the day of the week. 0 (for Sunday) through 6 (for Saturday) |
+ | | \*K <sup style="color:#f33">1.3.2+</sup> | 星期中的第几天，汉字表示。从"日"(表示星期天)到"六"(表示星期六) |
+ | | | The Chinese characters of the day of the week indicate. "日"(for Sunday) through "六"(for Saturday) |
+ | | z | 年份中的第几天。从"0"到"365" |
+ | | | The day of the year. "0" through "365" |
+ | | | | 
+| 星期(Week) | | |
+ | | W | 年份中的第几周 |
+ | | | The week number in year. |
+ | | | | 
+| 月(Month) | | |
+ | | F | 月份，完整的文本格式。从"January"到"December" |
+ | | | A full textual representation of a month, such as January or March. "January" through "December" |       
+ | | \*f <sup style="color:#f33">1.3.2+</sup> | 月份，汉字表示。从"一"到"十二" |
+ | | | The Chinese characters of the month. "一" through "十二” |
+ | | \*lf <sup style="color:#f33">1.6.0+</sup> | 月份(天干地支表示法)。 例：'甲子' / '戊戌' |
+ | | | The month(Heavenly Stems && Earthly Branches  Representation) E.g：'甲子' / '戊戌’ |
+ | | m | 数字表示的月份，有前导零。"01"到"12" |
+ | | | Numeric representation of a month, with leading zeros. "1" through "12" |    
+ | | M | 三个字母缩写表示的月份。从"Jan"到"Dec" |
+ | | | A short textual representation of a month, three letters. "Jan" through "Dec" |    
+ | | n | 数字表示的月份，没有前导零。"1"到"12" |
+ | | | Numeric representation of a month, without leading zeros. "1" through "12" |    
+ | | \*lM <sup style="color:#f33">1.6.0+</sup> | 农历月份。从"1"到"12" |
+ | | | Month of the lunar month. "1" through "12" |
+ | | \*lm <sup style="color:#f33">1.5.0+</sup> | 农历月份。从"一"到"十二" |
+ | | | Month of the lunar month. "一" through "十二" |
+ | | t | 给定月份所应有的天数。 "28"到"31" |
+ | | | Number of days in the given month |
+ | | \*la <sup style="color:#f33">1.6.0+</sup> | 12星座 |
+ | | | 12 Constellation |
+ | | \*ls <sup style="color:#f33">1.6.0+</sup> | 24节气汉字 |
+ | | | 24 solar terms Chinese Characters |
+ | | \*lS <sup style="color:#f33">1.6.0+</sup> | 24节气英文 |
+ | | | 24 solar terms English |
+ | | \*lq <sup style="color:#f33">1.6.0+</sup> | 季度数字 |
+ | | | Quarter Number |
+ | | \*lQ <sup style="color:#f33">1.6.0+</sup> | 季度汉字 |
+ | | | Quarter Number Chinese Characters |
+ | | \*q <sup style="color:#f33">1.6.0+</sup> | 季度英文缩写 |
+ | | | Quarter abbreviations |
+ | | \*Q <sup style="color:#f33">1.6.0+</sup> | 李度英文 |
+ | | | Quarter English |
+ | | | | 
+| 年(Year) | | |
+ | | L | 是否为闰年。1:是，0:否 |
+ | | | Whether it's a leap year. 1 leap year, 0 otherwise. |       
+ | | o | ISO-8601格式年份数字。这和 Y 的值类似，星期数（W）属于前一年或下一年，则用那一年。 |
+ | | | ISO-8601 week-numbering year. This has the same value as Y, except that if the ISO week number (W) belongs to the previous or next year, that year is used instead. |       
+ | | Y | 4 位数字完整表示的年份 |
+ | | | A full numeric representation of a year, 4 digits |       
+ | | y | 2 位数字表示的年份 |
+ | | | A two digit representation of a year |
+ | | \*ly <sup style="color:#f33">1.5.0+</sup> | 农历记年法(天干地支，60年一循环)。从"甲子"到"癸亥" |
+ | | | The ancient Chinese lunar calendar year method (the tian gan and the di zhi, cycle of 60 years). | 
+ | | \*C <sup style="color:#f33">1.3.2+</sup> | 4 个汉字表示的年份 |
+ | | | Year indicated by 4 Chinese characters |
+ | | \*lc <sup style="color:#f33">1.6.0+</sup> | 生肖 (12年一循环)。从"鼠"到"猪" |
+ | | | Chinese zodiac (12-year cycle). From "rat" to "pig" |
+ | | \*lC <sup style="color:#f33">1.6.0+</sup> | 农历年汉字 |
+ | | | Chinese character for the lunar calendar |
+ | | \*lz <sup style="color:#f33">1.6.0+</sup> | 生肖汉字 |
+ | | | Zodiac Chinese Characters | 
+ | | \*lZ <sup style="color:#f33">1.6.0+</sup> | 生肖英文 |
+ | | | Zodiac English |
+ | | | | 
+| 时间(Time) | | |
+ | | a | 小写的上午和下午值。"am"或"pm" |
+ | | | Lowercase Ante meridiem and Post meridiem. "am" or "pm" |
+ | | A | 大写的上午和下午值。"AM"或"PM" |
+ | | | Uppercase Ante meridiem and Post meridiem. "AM" or "PM" |
+ | | B | Swatch Internet 标准时。"000"到"999" |
+ | | | Swatch Internet time. 000 through 999 |
+ | | g | 12 小时格式，没有前导零。"1"到"12" |
+ | | | 12-hour format of an hour without leading zeros. "1" through "12" |
+ | | G | 24 小时格式，没有前导零。"0"到"23" |
+ | | | 24-hour format of an hour without leading zeros. "0" through "23" |
+ | | h | 12 小时格式，有前导零。"01"到"12" |
+ | | | 12-hour format of an hour with leading zeros. "01" through "12" |
+ | | H | 24 小时格式，有前导零。"00"到"23" |
+ | | | 24-hour format of an hour with leading zeros. "00" through "23" |
+ | | i | 有前导零的分钟数。"00"到"59" |
+ | | | Minutes with leading zeros. "00" to "59" |
+ | | s | 有前导零的秒数。"00"到"59" |
+ | | | Seconds with leading zeros. "00" through "59" |
+ | | u <sup style="color:#f33">1.5.2\*</sup> | 有前导零的微秒。"000000"到"999999"。由于Javascript暂时不支持微秒，所以微秒只能模拟来实现。返回带前导0的3位随机数。(这个并不是真正的微秒，不精确，建议使用v--毫秒。) |
+ | | | Microseconds with leading zeros. "000000" to "999999". Since Javascript does not support microseconds for a while, microseconds can only be implemented by simulation. Returns a 3 chars random number with leading 0. |   
+ | | v <sup style="color:#f33">1.5.0+</sup> | 有前导零的毫秒。"000"到"999" |
+ | | | Millisecond with leading zeros. "000" through "999” |
+ | | | | 
+| 时区(Timezone) | | |
+ | | e | 时区标识。UTC，GMT，Atlantic/Azores |
+ | | | Timezone identifier.Examples: UTC, GMT, Atlantic/Azores |  
+ | | I | 是否为夏令时。1:是，0:否 |
+ | | | Whether or not the date is in daylight saving time. 1 Daylight Saving Time, 0 otherwise. |
+ | | O | 与格林威治时间相差的小时数。例如：+0800 |
+ | | | Difference to Greenwich time (GMT) in hours. Example: +0800 |
+ | | P | 与格林威治时间的差别，小时和分钟之间有冒号分隔。例如：+08:00 |
+ | | | Difference to Greenwich time (GMT) with colon between hours and minutes. Example: +08:00 |
+ | | T | 本机所在的时区。例如：EST，MDT。 |
+ | | | Timezone abbreviation.  Examples: EST, MDT |
+ | | Z | 时差偏移量的秒数。UTC 西边的时区偏移量总是负的，UTC 东边的时区偏移量总是正的。-43200 到 43200 |
+ | | | Timezone offset in seconds. The offset for timezones west of UTC is always negative, and for those east of UTC is always positive. -43200 through 43200 |
+ | | | | 
+| 完整的日期／时间(Full Date/Time) | | |
+ | | c | ISO 8601 格式的日期。例如：2019-07-15T15:38:56+08:00 |
+ | | | ISO 8601 date. Example: 2004-02-12T15:19:21+00:00 |
+ | | r | RFC 2822 格式的日期。例如：Thu, 15 Jul 2019 15:38:56 +0800 |
+ | | | RFC 2822 formatted date. Example: Thu, 15 Jul 2019 15:38:56 +0800 |
+ | | U | 从 Unix 纪元1970-1-1开始至今的秒数(Unix时间戳)。 |
+ | | | Seconds since the Unix Epoch at 1970-1-1 (Unix timestamp). |
 
 ### 时间对象，默认值：{Date} 当前本地机器时间(Datetime object, default: {Date} local Datetime)
 > 可以是任意时间对象，例如：  
