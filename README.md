@@ -110,7 +110,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 > 5、转农历正常只能转1900-2100之间的200年份。  
 > 　 The conversion to the lunar calendar can only be transferred to 200 years between 1900-2100.
 > 
-> 6、模板字条区分大小写。  
+> 6、模板字符区分大小写。  
 > 　 Template characters are case sensitive.
 > 
 > 7、支持节假日输出  
@@ -118,7 +118,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 >       需要自定义节假日请参考 [conf.replaceHolidayConf](#自定义节假日custom-holidays160) 与 [conf.editHolidayConf] (#自定义节假日custom-holidays160)  
 >       For custom holidays, please refer to [conf.replaceHolidayConf](#自定义节假日custom-holidays160)  & [conf.editHolidayConf](#自定义节假日custom-holidays160)   
 
-\# | chars | Description
+# | chars | Description
 --- | :--- | :---
 日(Day) |　|
  | d | 月份中的第几天，有前导零的2位数字。从"01"到"31"
@@ -161,11 +161,11 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
  | | The Chinese characters of the day of the week indicate. "日"(for Sunday) through "六"(for Saturday)
  | z | 年份中的第几天。从"0"到"365"
  | | The day of the year. "0" through "365"
- 　｜　｜
+ | | 
 星期(Week) | |
  | W | 年份中的第几周
  | | The week number in year.
- ｜　｜
+ | | 
 月(Month) | |
  | F | 月份，完整的文本格式。从"January"到"December"
  | | A full textual representation of a month, such as January or March. "January" through "December"       
@@ -199,7 +199,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
  | | Quarter abbreviations
  | \*Q <sup style="color:#f33">1.6.0+</sup> | 李度英文
  | | Quarter English
- ｜　｜
+ | | 
 年(Year) | |
  | L | 是否为闰年。1:是，0:否
  | | Whether it's a leap year. 1 leap year, 0 otherwise.       
@@ -221,7 +221,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
  | | Zodiac Chinese Characters 
  | \*lZ <sup style="color:#f33">1.6.0+</sup> | 生肖英文
  | | Zodiac English
- ｜　｜
+ | | 
 时间(Time) | |
  | a | 小写的上午和下午值。"am"或"pm"
  | | Lowercase Ante meridiem and Post meridiem. "am" or "pm"
@@ -245,7 +245,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
  | | Microseconds with leading zeros. "000000" to "999999". Since Javascript does not support microseconds for a while, microseconds can only be implemented by simulation. Returns a 3 chars random number with leading 0.   
  | v <sup style="color:#f33">1.5.0+</sup> | 有前导零的毫秒。"000"到"999"
  | | Millisecond with leading zeros. "000" through "999”
- ｜　｜
+ | | 
 时区(Timezone) | |
  | e | 时区标识。UTC，GMT，Atlantic/Azores
  | | Timezone identifier.Examples: UTC, GMT, Atlantic/Azores  
@@ -259,7 +259,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
  | | Timezone abbreviation.  Examples: EST, MDT
  | Z | 时差偏移量的秒数。UTC 西边的时区偏移量总是负的，UTC 东边的时区偏移量总是正的。-43200 到 43200
  | | Timezone offset in seconds. The offset for timezones west of UTC is always negative, and for those east of UTC is always positive. -43200 through 43200
- ｜　｜
+ | | 
 完整的日期／时间(Full Date/Time) | |
  | c | ISO 8601 格式的日期。例如：2019-07-15T15:38:56+08:00
  | | ISO 8601 date. Example: 2004-02-12T15:19:21+00:00
