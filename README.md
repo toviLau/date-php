@@ -143,12 +143,12 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
  | | The 'ke' in the ancient Chinese timing unit(similar to minutes, 1 "shi cheng" of 8 "ke"). "零" through "七"
  | \*fh <sup style="color:#f33">1.6.0+</sup> | 节假日中文: 例如: 元旦节
  | | holiday in chinese. e.g.: 元旦节
- | | !需要自定义节假日请参考  [`conf.replaceHolidayConf`](#自定义节假日custom-holidays160) 与 [`conf.editHolidayConf`] (#自定义节假日custom-holidays160)  
- | | !For custom holidays, please refer to  [`conf.replaceHolidayConf`](#自定义节假日custom-holidays160) & [`conf.editHolidayConf`] (#自定义节假日custom-holidays160)  
+ | | !需要自定义节假日请参考  [`conf.replaceHolidayConf`](#自定义节假日custom-holidays160) 与 [`conf.editHolidayConf`](#自定义节假日custom-holidays160)  
+ | | !For custom holidays, please refer to  [`conf.replaceHolidayConf`](#自定义节假日custom-holidays160) & [`conf.editHolidayConf`](#自定义节假日custom-holidays160)  
  | \*lh <sup style="color:#f33">1.6.0+</sup> | 节假日英文 例如: new Year
- | | holiday in english. e.g.: new Year[1.6.0+]
- | | !需要自定义节假日请参考 [`conf.replaceHolidayConf`](#自定义节假日custom-holidays160) 与 [`conf.editHolidayConf`] (#自定义节假日custom-holidays160)  
- | | !For custom holidays, please refer to [`conf.replaceHolidayConf`](#自定义节假日custom-holidays160) & [`conf.editHolidayConf`] (#自定义节假日custom-holidays160)  
+ | | holiday in english. e.g.: new Year
+ | | !需要自定义节假日请参考 [`conf.replaceHolidayConf`](#自定义节假日custom-holidays160) 与 [`conf.editHolidayConf`](#自定义节假日custom-holidays160)  
+ | | !For custom holidays, please refer to [`conf.replaceHolidayConf`](#自定义节假日custom-holidays160) & [`conf.editHolidayConf`](#自定义节假日custom-holidays160)  
  | l | 星期几，完整的文本格式。从"Sunday"到"Saturday"
  | | A full textual representation of the day of the week. "Sunday" through "Saturday"
  | N | ISO-8601格式的星期中的第几天。从"1"(表示星期一)到"7"(表示星期天)
