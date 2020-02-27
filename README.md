@@ -118,7 +118,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 >       需要自定义节假日请参考 [conf.replaceHolidayConf](#自定义节假日custom-holidays160) 与 [conf.editHolidayConf] (#自定义节假日custom-holidays160)  
 >       For custom holidays, please refer to [conf.replaceHolidayConf](#自定义节假日custom-holidays160)  & [conf.editHolidayConf](#自定义节假日custom-holidays160)   
 
-# | chars | Description
+\# | chars | Description
 --- | :--- | :---
 日(Day) |　|
  | d | 月份中的第几天，有前导零的2位数字。从"01"到"31"
