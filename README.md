@@ -30,7 +30,7 @@ d.format('y-m-d'); // "2019-07-15
 d.format('m-d-Y H:i:s'); // "07-15-2019 15:38:56"
 d.format('m-d-y H:i:s'); // "07-15-20 15:38:56" 
 ```
-[更多示例(More examples)](#使用use)
+[更多示例(More examples)](#use)
 <br/>
 <br/>
 
@@ -42,7 +42,7 @@ npm i -S date-php;
 // CDN
 <script src="//unpkg.com/date-php"></script>
 ```
-
+<div id=“use” name=“use”></div>
 ### 使用(use)
  > 1、以下所有方式的入参都是可选参数。  
  > 　 Entry parameters in all of the following ways are optional.
@@ -115,8 +115,8 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 > 
 > 7、支持节假日输出  
 >       Support festival output  
->       需要自定义节假日请参考 [conf.replaceHolidayConf](#自定义节假日custom-holidays160) 与 [conf.editHolidayConf] (#自定义节假日custom-holidays160)  
->       For custom holidays, please refer to [conf.replaceHolidayConf](#自定义节假日custom-holidays160)  & [conf.editHolidayConf](#自定义节假日custom-holidays160)   
+>       需要自定义节假日请参考 [conf.replaceHolidayConf](#custom) 与 [conf.editHolidayConf](#custom)  
+>       For custom holidays, please refer to [conf.replaceHolidayConf](#custom)  & [conf.editHolidayConf](#custom)
 
 | \# | chars | Description |
 | :--- | :--- | :--- |
@@ -143,12 +143,12 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 | | | The 'ke' in the ancient Chinese timing unit(similar to minutes, 1 "shi cheng" of 8 "ke"). "零" through "七" |
 | | \*fh <sup style="color:#f33">1.6.0+</sup> | 节假日中文: 例如: 元旦节 |
 | | | holiday in chinese. e.g.: 元旦节 |
-| | | !需要自定义节假日请参考  [`conf.replaceHolidayConf`](#自定义节假日custom-holidays160) 与 [`conf.editHolidayConf`](#自定义节假日custom-holidays160) |  
-| | | !For custom holidays, please refer to  [`conf.replaceHolidayConf`](#自定义节假日custom-holidays160) & [`conf.editHolidayConf`](#自定义节假日custom-holidays160) |  
+| | | !需要自定义节假日请参考  [`conf.replaceHolidayConf`](#custom) 与 [`conf.editHolidayConf`](#custom) |  
+| | | !For custom holidays, please refer to  [`conf.replaceHolidayConf`](#custom) & [`conf.editHolidayConf`](#custom)|  
 | | \*lh <sup style="color:#f33">1.6.0+</sup> | 节假日英文 例如: new Year |
 | | | holiday in english. e.g.: new Year |
-| | | !需要自定义节假日请参考 [`conf.replaceHolidayConf`](#自定义节假日custom-holidays160) 与 [`conf.editHolidayConf`](#自定义节假日custom-holidays160) |  
-| | | !For custom holidays, please refer to [`conf.replaceHolidayConf`](#自定义节假日custom-holidays160) & [`conf.editHolidayConf`](#自定义节假日custom-holidays160) |  
+| | | !需要自定义节假日请参考 [`conf.replaceHolidayConf`](#custom) 与 [`conf.editHolidayConf`](#custom) |  
+| | | !For custom holidays, please refer to [`conf.replaceHolidayConf`](#custom) & [`conf.editHolidayConf`](#custom) |  
 | | l | 星期几，完整的文本格式。从"Sunday"到"Saturday" |
 | | | A full textual representation of the day of the week. "Sunday" through "Saturday" |
 | | N | ISO-8601格式的星期中的第几天。从"1"(表示星期一)到"7"(表示星期天) |
@@ -278,7 +278,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
     '2019-07-15 15:38:56' // 字符串日期(String datetime)
     '2019/07/15 15:38:56' // 字符串日期(String datetime)  
 ```
-
+<div id=“custom” name=“custom”></div>
 ### 自定义节假日(Custom holidays)1.6.0+
 > **默认配置(default config)**
 
