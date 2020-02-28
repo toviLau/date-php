@@ -42,7 +42,9 @@ npm i -S date-php;
 // CDN
 <script src="//unpkg.com/date-php"></script>
 ```
+
 <div id=“use” name=“use”></div>
+
 ### 使用(use)
  > 1、以下所有方式的入参都是可选参数。  
  > 　 Entry parameters in all of the following ways are optional.
