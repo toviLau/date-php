@@ -217,7 +217,6 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 > **默认配置(default config)**
 
 ```javascript
-
 {
     '0101': ['元旦节', 'New year'],
     '0214': ['情人节', `Valentine's day`],
