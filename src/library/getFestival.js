@@ -1,23 +1,7 @@
 import getLunar from './getLunar';
+import { pad } from './module'
 
 export default function getFestival(dateObj) {
-
-  /**
-   * 补前导零(0)
-   * @param {number} str 字符
-   * @param {number} len 长度
-   * @param {string} placeholder 前导占位符
-   * @returns {string}
-   */
-  function pad(str, len, placeholder = '0') {
-    str += '';
-    if (str.length < len) {
-      return new Array(++len - str.length).join(placeholder) + str;
-    } else {
-      return str;
-    }
-  }
-
   const dateArr = dateObj.match(/(\d{4})(\d{2})(\d{2})/);
   const curDate = new Date(`${ dateArr[1] }-${ dateArr[2] }-${ dateArr[3] }`);
 

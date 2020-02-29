@@ -1,5 +1,5 @@
 /**
- * date-php.js v1.6.3
+ * date-php.js v1.6.5-beta1
  *   这是一个Javascript模仿PHP日期时间格式化函数，使用方法和PHP非常类似，有丰富的模板字符，并在原来的基础上增强了一些
  *   模板字符。例如：中国的农历日期、用汉字来表示日期、十二生肖与星座。让转换日期时间更自由。
  *   This is a Javascript mimicking PHP datetime formatting function. It is very similar to PHP, has rich template 
@@ -596,26 +596,218 @@
         },
     };
 
-    function getFestival(dateObj) {
+    /**
+     * 补前导零(0)
+     * @param {number} str 字符
+     * @param {number} len 长度
+     * @param {string} placeholder 前导占位符
+     * @returns {string}
+     */
+    function pad(str, len, placeholder) {
+      if ( placeholder === void 0 ) placeholder = '0';
 
-      /**
-       * 补前导零(0)
-       * @param {number} str 字符
-       * @param {number} len 长度
-       * @param {string} placeholder 前导占位符
-       * @returns {string}
-       */
-      function pad(str, len, placeholder) {
-        if ( placeholder === void 0 ) placeholder = '0';
-
-        str += '';
-        if (str.length < len) {
-          return new Array(++len - str.length).join(placeholder) + str;
-        } else {
-          return str;
-        }
+      str += '';
+      if (str.length < len) {
+        return new Array(++len - str.length).join(placeholder) + str;
+      } else {
+        return str;
       }
+    }var longDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    var txt_ordin = {
+      1: 'st',
+      2: 'nd',
+      3: 'rd',
+      21: 'st',
+      22: 'nd',
+      23: 'rd',
+      31: 'st',
+    };
+    var txt_months = ['', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    var baseFigure = {
+      1: '一',
+      2: '二',
+      3: '三',
+      4: '四',
+      5: '五',
+      6: '六',
+    };
+    var lunarTime = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥'];
+    var ordinal = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth'];
+    var zodiac = { // 生宵英文速查表
+      '\u9f20': 'Rat',
+      '\u725b': 'OX',
+      '\u864e': 'Tiger',
+      '\u5154': 'Rabbit',
+      '\u9f99': 'Dragon',
+      '\u86c7': 'Snake',
+      '\u9a6c': 'Horse',
+      '\u7f8a': 'Sheep',
+      '\u7334': 'Monkey',
+      '\u9e21': 'Rooster',
+      '\u72d7': 'Dog',
+      '\u732a': 'Pig',
+    };
+    var solar = {
+      '\u5c0f\u5bd2': 'Minor Cold',
+      '\u5927\u5bd2': 'Major Cold',
+      '\u7acb\u6625': 'Start of Spring',
+      '\u96e8\u6c34': 'Rain Water',
+      '\u60ca\u86f0': 'Awakening of Insects',
+      '\u6625\u5206': 'Spring Equinox',
+      '\u6e05\u660e': 'Clear and Bright',
+      '\u8c37\u96e8': 'Grain Rain',
+      '\u7acb\u590f': 'Start of Summer',
+      '\u5c0f\u6ee1': 'Grain Buds',
+      '\u8292\u79cd': 'Grain in Ear',
+      '\u590f\u81f3': 'Summer Solstice',
+      '\u5c0f\u6691': 'Minor Heat',
+      '\u5927\u6691': 'Major Heat',
+      '\u7acb\u79cb': 'Start of Autumn',
+      '\u5904\u6691': 'End of Heat',
+      '\u767d\u9732': 'White Dew',
+      '\u79cb\u5206': 'Autumn Equinox',
+      '\u5bd2\u9732': 'Cold Dew',
+      '\u971c\u964d': 'Frost\'s Descent',
+      '\u7acb\u51ac': 'Start of Winter',
+      '\u5c0f\u96ea': 'Minor Snow',
+      '\u5927\u96ea': 'Major Snow',
+      '\u51ac\u81f3': 'Winter Solstice',
+    };
+    var lunarKe = Object.assign.apply(
+      Object, [ {},
+      {
+        0: '零',
+        7: '七',
+      } ].concat( baseFigure )
+    );
 
+    var weekDay = Object.assign.apply(
+      Object, [ {},
+      {
+        0: '日',
+      } ].concat( baseFigure )
+    );
+
+    var dateFigure = Object.assign.apply(
+      Object, [ {},
+      {
+        0: '〇', 7: '七', 8: '八', 9: '九', 10: '十',
+        20: '廿', 30: '卅',
+      } ].concat( baseFigure )
+    );
+    var lMonth = Object.assign.apply(
+      Object, [ {},
+      {
+        7: '七', 8: '八', 9: '九', 10: '十', 11: '冬', 12: '腊',
+      } ].concat( baseFigure )
+    );
+
+    // 取中文日期(廿七)
+    var textReplace = function (res) { return res.toString()
+        .split('')
+        .reverse()
+        .map(function (val, key) {
+          var v = Math.pow(10, key) * val;
+          return v ? dateFigure[v] : null;
+        })
+        .reverse()
+        .join(''); };
+
+    // 取中文日期2(例：一九八七)
+    var textReplace2 = function (succ) { return (succ + '').split('').map(function (res) { return dateFigure[res]; }).join(''); };
+
+    function defP(obj, key, val) {
+      Object.defineProperty(obj, key, {
+        get: function () { return val; },
+      });
+    }
+
+    /**
+     *
+     * 计算持续时长
+     * @param  {String} fmt 模板字符串
+     * @param {Number} timestamp 时间戳
+     * @param {Boolean} ms 是否是 含有毫秒
+     * @return 相印时间
+     */
+    function duration(fmt, timestamp, ms) {
+      if ( fmt === void 0 ) fmt = 'D天h:i:s';
+      if ( timestamp === void 0 ) timestamp = 0;
+      if ( ms === void 0 ) ms = true;
+
+      var conversion = {
+        y: 12,
+        m: 30.4375,
+        d: 24,
+        h: 60,
+        i: 60,
+        s: 1000,
+        v: 1000,
+      };
+      var tChars = {
+        y: function () { return tChars.Y(); }, // 当前剩余年数,
+        Y: function () { return Math.floor(tChars.M() / conversion.y); }, // 总剩余年数,
+
+        m: function () { return pad(tChars.n(), 2); }, // 当前剩余月数(有前导零)
+        n: function () { return tChars.M() % conversion.y; }, // 当前剩余月数(无前导零)
+        M: function () { return Math.floor(tChars.D() / conversion.m); }, // 总剩余月数
+
+        d: function () { return pad(tChars.j(), 2); }, // 当前剩余天数(有前导零)
+        j: function () { return Math.floor(tChars.D() % conversion.m); }, // 当前剩余天数(无前导零)。
+        D: function () { return Math.floor(tChars.H() / conversion.d); }, // 总剩余天数
+
+        h: function () { return pad(tChars.g(), 2); }, // 当前小时剩余数(有前导零)
+        g: function () { return Math.floor(tChars.H() % conversion.d); }, // 当前小时剩余数(无前导零)
+        H: function () { return Math.floor(tChars.I() / conversion.h); }, // 总剩余小时数
+
+        i: function () { return pad(Math.floor(tChars.I() % conversion.h),2); }, // 当前分钟剩余点数
+        I: function () { return Math.floor(tChars.S() / conversion.i); }, // 总剩余分钟数
+
+        s: function () { return pad(Math.floor((tChars.S() % conversion.i), 2)); }, // 当前秒钟剩余点数
+        S: function () { return Math.floor(tChars.V() / conversion.s); }, // 总剩余秒数
+
+        v: function () { return pad(Math.floor(tChars.V() % conversion.s), 3); }, // 当前毫秒剩余数
+        V: function () { return ms ? new Date(timestamp) : new Date(timestamp) * conversion.v; }, // 总剩余毫秒数
+      };
+
+      return fmt.replace(/(\\?([a-z]))/ig, function (res, key) {
+        var result = '';
+        if (res !== key) {
+          result = key;
+        } else {
+          if (tChars[key]) {
+            result = tChars[key]();
+          } else {
+            result = key.replace('\\', '');
+          }
+        }
+        return result;
+      });
+    }
+
+    /**
+     * 计算持续时间
+     * @param fmt
+     * @param timestamp1
+     * @param timestamp2
+     * @param ms
+     * @return 相印时间
+     */
+    function countTime(fmt, timestamp1, timestamp2, ms) {
+      if ( fmt === void 0 ) fmt = 'D天h:i:s';
+      if ( timestamp1 === void 0 ) timestamp1 = 0;
+      if ( timestamp2 === void 0 ) timestamp2 = 0;
+
+      var count = new Date(timestamp1) - new Date(timestamp2);
+      count = !!count ? count : 0;
+      return duration(fmt, Math.abs(count));
+    }
+    var count = {
+      duration: duration,
+      countTime: countTime
+    };
+
+    function getFestival(dateObj) {
       var dateArr = dateObj.match(/(\d{4})(\d{2})(\d{2})/);
       var curDate = new Date(((dateArr[1]) + "-" + (dateArr[2]) + "-" + (dateArr[3])));
 
@@ -642,45 +834,45 @@
         '@' + pad(Math.ceil((new Date(dateArr[1], dateArr[2]-1, dateArr[3]) - new Date(dateArr[1] + '/1/1')) / (60 * 60 * 24 * 1e3)) + 1, 4) ];
 
       var holiday = {
-        '0101': ['元旦节', 'New Year'],
-        '0214': ['情人节', "Valentine's Day"],
-        '0308': ['国际妇女节', "International Women's Day"],
-        '0315': ['国际消费者权益日', "International Consumer Rights Day"],
-        '0312': ['植树节', "Arbor Day"],
-        '0422': ['世界地球日', "Earth Day"],
-        '0501': ['国际劳动节', "International Labour Day"],
+        '0101': ['元旦节', 'New year'],
+        '0214': ['情人节', "Valentine's day"],
+        '0308': ['国际妇女节', "International women's day"],
+        '0315': ['国际消费者权益日', "International consumer rights day"],
+        '0312': ['植树节', "Arbor day"],
+        '0422': ['世界地球日', "Earth day"],
+        '0501': ['国际劳动节', "International labour day"],
         '0504': ['青年节', "Youth day"],
-        '0512': ['国际护士节', "International Nurses Day"],
-        '0518': ['国际博物馆日', "International Museum Day"],
-        '0601': ['国际儿童节', "International Children's Day"],
-        '0605': ['世界环境日', "World Environment Day"],
-        '0623': ['国际奥林匹克日', "International Olympic Day"],
-        '0624': ['世界骨质疏松日', "World Osteoporosis Day"],
-        '0701': ['建党节', "Founding day"],
-        '0801': ['建军节', "Army Day"],
-        '0910': ['教师节', "Teachers' Day"],
-        '1024': ['中国程序员节', "Chinese programmers day"],
+        '0512': ['国际护士节', "International nurses day"],
+        '0518': ['国际博物馆日', "International museum day"],
+        '0601': ['国际儿童节', "International children's day"],
+        '0605': ['世界环境日', "World environment day"],
+        '0623': ['国际奥林匹克日', "International olympic day"],
+        '0624': ['世界骨质疏松日', "World osteoporosis day"],
+        '0701': ['建党节', "Party's building day"],
+        '0801': ['建军节', "Army's day"],
+        '0910': ['教师节', "Teacher's day"],
+        '1024': ['中国程序员节', "Chinese programmer's day"],
         '1224': ['平安夜', "Christmas Eve"],
-        '1117': ['世界学生日', "World student day"],
-        '1201': ['世界艾滋病日', "World AIDS Day"],
-        '1001': ['国庆', 'National Day'],
-        '*0101': ['春节', 'Chinese Year'],
-        '*0115': ['元宵节', 'Lantern Festival'],
-        '*0202': ['龙头节', 'Dragon head festival'],
-        '*0505': ['端午节', 'Dragon Boat Festival'],
-        '*0707': ['乞巧节', 'Qi Qiao Festival'],
-        '*0715': ['中元节', 'Ghost Festival'],
-        '*0815': ['中秋节', 'Moon Festival'],
-        '*0909': ['重阳节', 'Chongyang Festival'],
-        '*1001': ['寒衣节', 'Winter clothing festival'],
-        '*1015': ['下元节', 'Xia Yuan Festival'],
-        '*1208': ['腊八节', 'Laba Festival'],
-        '*1223': ['祭灶节', 'Stove Festival'],
+        '1117': ['世界学生日', "World student's day"],
+        '1201': ['世界艾滋病日', "World AIDS day"],
+        '1001': ['国庆', 'National day'],
+        '*0101': ['春节', 'Chinese year'],
+        '*0115': ['元宵节', 'Lantern day'],
+        '*0202': ['龙头节', 'Dragon head day'],
+        '*0505': ['端午节', 'Dragon boat day'],
+        '*0707': ['乞巧节', 'Qi qiao day'],
+        '*0715': ['中元节', 'Ghost day'],
+        '*0815': ['中秋节', 'Moon day'],
+        '*0909': ['重阳节', 'Chongyang day'],
+        '*1001': ['寒衣节', 'Winter clothing day'],
+        '*1015': ['下元节', 'Xiayuan day'],
+        '*1208': ['腊八节', 'Laba day'],
+        '*1223': ['祭灶节', 'Stove day'],
         '*1229': lunarInfo.isLeap ? ['除夕', "Year's Eve"] : '',
         '*1230': lunarInfo.isLeap ? '' : ['除夕', "Year's Eve"],
-        '#0520': ['母亲节', "Mother's Day"],
+        '#0520': ['母亲节', "Mother's day"],
         '#0630': ['父亲节', "Father's day"],
-        '@0256': ['俄罗斯程序员节', "Russian Programmer's Day"],
+        '@0256': ['俄罗斯程序员节', "Russian programmer's day"]
       };
       if (date.replaceHolidayConf) { holiday = date.replaceHolidayConf; }
       if (date.editHolidayConf) { Object.assign(holiday, date.editHolidayConf); }
@@ -781,8 +973,7 @@
      * @param  {date}       now  要格式化的时间 [默认值: 默认为当前本地机器时间]
      * @return {string}     格式化的时间字符串
      */
-
-    var date$1 = function (fmt, now, config) {
+    var date$1 = function (fmt, now) {
       if ( fmt === void 0 ) fmt = 'Y-m-d';
       if ( now === void 0 ) now = new Date();
 
@@ -797,129 +988,7 @@
 
       now = this || (!isNaN(now - 0) ? new Date(now - 0) : new Date(now));
 
-      /**
-       * 补前导零(0)
-       * @param {number} str 字符
-       * @param {number} len 长度
-       * @param {string} placeholder 前导占位符
-       * @returns {string}
-       */
-      var pad = function (str, len, placeholder) {
-        if ( placeholder === void 0 ) placeholder = '0';
-
-        str += '';
-        if (str.length < len) {
-          return new Array(++len - str.length).join(placeholder) + str;
-        } else {
-          return str;
-        }
-      };
-      var longDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-      var txt_ordin = {
-        1: 'st',
-        2: 'nd',
-        3: 'rd',
-        21: 'st',
-        22: 'nd',
-        23: 'rd',
-        31: 'st',
-      };
-      var txt_months = ['', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-      var baseFigure = {
-        1: '一',
-        2: '二',
-        3: '三',
-        4: '四',
-        5: '五',
-        6: '六',
-      };
-      var lunarTime = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥'];
-      var ordinal = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth'];
-      var zodiac = { // 生宵英文速查表
-        '\u9f20': 'Rat',
-        '\u725b': 'OX',
-        '\u864e': 'Tiger',
-        '\u5154': 'Rabbit',
-        '\u9f99': 'Dragon',
-        '\u86c7': 'Snake',
-        '\u9a6c': 'Horse',
-        '\u7f8a': 'Sheep',
-        '\u7334': 'Monkey',
-        '\u9e21': 'Rooster',
-        '\u72d7': 'Dog',
-        '\u732a': 'Pig',
-      };
-      var solar = {
-        '\u5c0f\u5bd2': 'Minor Cold',
-        '\u5927\u5bd2': 'Major Cold',
-        '\u7acb\u6625': 'Start of Spring',
-        '\u96e8\u6c34': 'Rain Water',
-        '\u60ca\u86f0': 'Awakening of Insects',
-        '\u6625\u5206': 'Spring Equinox',
-        '\u6e05\u660e': 'Clear and Bright',
-        '\u8c37\u96e8': 'Grain Rain',
-        '\u7acb\u590f': 'Start of Summer',
-        '\u5c0f\u6ee1': 'Grain Buds',
-        '\u8292\u79cd': 'Grain in Ear',
-        '\u590f\u81f3': 'Summer Solstice',
-        '\u5c0f\u6691': 'Minor Heat',
-        '\u5927\u6691': 'Major Heat',
-        '\u7acb\u79cb': 'Start of Autumn',
-        '\u5904\u6691': 'End of Heat',
-        '\u767d\u9732': 'White Dew',
-        '\u79cb\u5206': 'Autumn Equinox',
-        '\u5bd2\u9732': 'Cold Dew',
-        '\u971c\u964d': 'Frost\'s Descent',
-        '\u7acb\u51ac': 'Start of Winter',
-        '\u5c0f\u96ea': 'Minor Snow',
-        '\u5927\u96ea': 'Major Snow',
-        '\u51ac\u81f3': 'Winter Solstice',
-      };
-
-      var lunarKe = Object.assign.apply(
-        Object, [ {},
-        {
-          0: '零',
-          7: '七',
-        } ].concat( baseFigure )
-      );
-      var weekDay = Object.assign.apply(
-        Object, [ {},
-        {
-          0: '日',
-        } ].concat( baseFigure )
-      );
-      var dateFigure = Object.assign.apply(
-        Object, [ {},
-        {
-          0: '〇', 7: '七', 8: '八', 9: '九', 10: '十',
-          20: '廿', 30: '卅',
-        } ].concat( baseFigure )
-      );
-      var lMonth = Object.assign.apply(
-        Object, [ {},
-        {
-          7: '七', 8: '八', 9: '九', 10: '十', 11: '冬', 12: '腊',
-        } ].concat( baseFigure )
-      );
-
-      // 取中文日期(廿七)
-      var textReplace = function (res) {
-        return res.toString()
-          .split('')
-          .reverse()
-          .map(function (val, key) {
-            var v = Math.pow(10, key) * val;
-            return v ? dateFigure[v] : null;
-          })
-          .reverse()
-          .join('');
-      };
-
-      // 取中文日期2(例：一九八七)
-      var textReplace2 = function (succ) { return (succ + '').split('').map(function (res) { return dateFigure[res]; }).join(''); };
-
-      // 获取农历
+    // 获取农历
       var lunarInfo = function () { return calendar.solar2lunar(tChars.Y(), tChars.n(), tChars.j()); };
 
       // 模板字串替换函数
@@ -1069,17 +1138,16 @@
     };
 
     defP(Date.prototype, 'format', date$1);
-    defP(date$1, 'version', '1.6.3');
+
+    defP(date$1, 'version', '1.6.5-beta1');
     defP(date$1, 'description', function () { return (console.info('%cdate-php使用说明:\n' +
       '已经废弃，查看使用说明请移步这里\nhttps://github.com/toviLau/date-php/blob/master/README.md'
       , 'color:#c63'
     )); });
 
-    function defP(obj, key, val) {
-      Object.defineProperty(obj, key, {
-        get: function () { return val; },
-      });
-    }
+    Object.keys(count).forEach(function (res) {
+      defP(date$1, res, count[res]);
+    });
 
     return date$1;
 
