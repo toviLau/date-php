@@ -2,12 +2,14 @@
 ---
 [![issues](https://img.shields.io/github/issues/toviLau/date-php)](https://github.com/toviLau/date-php/issues)
 [![forks](https://img.shields.io/github/forks/toviLau/date-php)](https://github.com/toviLau/date-php)
+![github](https://img.shields.io/github/package-json/v/tovilau/date-php?logo=github)
+[![npm](https://img.shields.io/github/package-json/v/tovilau/date-php?logo=npm)](https://www.npmjs.com/package/date-php)
+[![downloads](https://img.shields.io/npm/dm/date-php?logo=npm)](https://www.npmjs.com/package/date-php)
 [![stars](https://img.shields.io/github/stars/toviLau/date-php)](https://github.com/toviLau/date-php)
-[![npm](https://img.shields.io/npm/v/date-php)](https://www.npmjs.com/package/date-php)
-[![downloads](https://img.shields.io/npm/dm/date-php.svg)](https://www.npmjs.com/package/date-php)
 [![npm bundle size](https://img.shields.io/bundlephobia/minzip/date-php)](https://www.npmjs.com/package/date-php)
-![github last commit](https://img.shields.io/github/last-commit/tovilau/date-php)
 ![license](https://img.shields.io/github/license/toviLau/date-php)
+![github last commit](https://img.shields.io/github/last-commit/tovilau/date-php)
+
 
 > 这是一个Javascript模仿类似于PHP日期时间格式化函数，使用方法和PHP非常类似，有丰富的模板字符，并在原来的基础上增强了一些模板字符。例如：中国的农历日期、用汉字来表示日期、十二生肖与星座。让转换日期时间更自由。  
 > This is a JavaScript implements date formatting functions similar to PHP. It is very similar to PHP, has rich template characters, and enhances some template characters on the basis of the original. For example: Chinese Lunar Date, Chinese Character Date, Chinese Zodiac and Constellation. Make the conversion datetimes more free. 
