@@ -41,7 +41,9 @@ npm i -S date-php;
 // CDN
 <script src="//unpkg.com/date-php"></script>
 ```
+
 <div id="use" name="use"></div>
+
 ### 使用(use)
  > 1、以下所有方式的入参都是可选参数。  
  > 　 Entry parameters in all of the following ways are optional.
@@ -213,10 +215,12 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 ```
 
 <div id="custom" name="custom"></div>
+
 ### 自定义节假日(Custom holidays)1.6.0+
 > **默认配置(default config)**
 
 ```javascript
+
 {
     '0101': ['元旦节', 'New year'],
     '0214': ['情人节', `Valentine's day`],
