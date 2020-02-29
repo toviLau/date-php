@@ -2,8 +2,8 @@
 ---
 [![issues](https://img.shields.io/github/issues/toviLau/date-php)](https://github.com/toviLau/date-php/issues)
 [![forks](https://img.shields.io/github/forks/toviLau/date-php)](https://github.com/toviLau/date-php)
-![github](https://img.shields.io/github/package-json/v/tovilau/date-php?logo=github)
-[![npm](https://img.shields.io/github/package-json/v/tovilau/date-php?logo=npm)](https://www.npmjs.com/package/date-php)
+[![github](https://img.shields.io/github/package-json/v/tovilau/date-php?logo=github)](https://github.com/toviLau/date-php)
+[![npm](https://img.shields.io/npm/v/date-php?logo=npm)](https://www.npmjs.com/package/date-php)
 [![downloads](https://img.shields.io/npm/dm/date-php?logo=npm)](https://www.npmjs.com/package/date-php)
 [![stars](https://img.shields.io/github/stars/toviLau/date-php)](https://github.com/toviLau/date-php)
 [![npm bundle size](https://img.shields.io/bundlephobia/minzip/date-php)](https://www.npmjs.com/package/date-php)
