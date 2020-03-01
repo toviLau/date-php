@@ -319,6 +319,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 ```
 
 <div id="use-duration" name="use-duration"></div>
+
 ### 格式化持续时长(duration)<sup>(1.6.5+)</sup>  
 > date.duration(‘模板字符’, 持续时长:时间戳, 是否十三位时间戳: true)
 
