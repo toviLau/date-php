@@ -347,11 +347,11 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 | g | 数字表示的小时数，无前导零。"0"到"24" <br />Numeric representation of a hours, without leading zeros. "0" to "24" |
 | H | 总小时数，"1"到"2400000000" <br />Total hours "1" to "2400000000" |
 | i | 数字表示的分钟数，有前导零。"00"到"59" <br />Numeric representation of a minutes, with leading zeros. "00" to "59" |
-| I | 总分钟数，"1"到"144000000000" <br />Total minutes "1" to "144000000000" |
+| I | 总分钟数，"0"到"144000000000" <br />Total minutes "0" to "144000000000" |
 | s | 数字表示的秒数，有前导零。"00"到"59" <br />Numeric representation of a seconds, with leading zeros. "00" to "59" |
-| S | 总秒数，"1"到"8640000000000000" <br />Total minutes "1" to "8640000000000000" |
-| v | 数字表示的毫秒数，有前导零。"00"到"999" <br />Numeric representation of a millisecond, with leading zeros. "00" to "999" |
-| V | 总毫秒数，"1"到"8640000000000000" <br />Total millisecond "1" to "8640000000000000" |
+| S | 总秒数，"0"到"8640000000000" <br />Total minutes "0" to "8640000000000" |
+| v | 数字表示的毫秒数，有前导零。"000"到"999" <br />Numeric representation of a millisecond, with leading zeros. "000" to "999" |
+| V | 总毫秒数，"0"到"8640000000000000" <br />Total millisecond "0" to "8640000000000000" |
 
 ### 黑科技的使用方式(Interesting to use)
 > 可以非常简单的实现一个时钟，就象下面的一样。  

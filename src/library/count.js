@@ -41,7 +41,7 @@ function duration(fmt = 'D天h:i:s', timestamp = 0, ms = true) {
     S: () => Math.floor(tChars.V() / conversion.s), // 总剩余秒数
 
     v: () => pad(Math.floor(tChars.V() % conversion.s), 3), // 当前毫秒剩余数
-    V: () => ms ? new Date(timestamp) : new Date(timestamp) * conversion.v, // 总剩余毫秒数
+    V: () => ms ? new Date(timestamp)-0 : new Date(timestamp) * conversion.v, // 总剩余毫秒数
   };
 
   return fmt.replace(/(\\?([a-z]))/ig, (res, key) => {

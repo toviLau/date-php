@@ -767,7 +767,7 @@
         S: function () { return Math.floor(tChars.V() / conversion.s); }, // 总剩余秒数
 
         v: function () { return pad(Math.floor(tChars.V() % conversion.s), 3); }, // 当前毫秒剩余数
-        V: function () { return ms ? new Date(timestamp) : new Date(timestamp) * conversion.v; }, // 总剩余毫秒数
+        V: function () { return ms ? new Date(timestamp)-0 : new Date(timestamp) * conversion.v; }, // 总剩余毫秒数
       };
 
       return fmt.replace(/(\\?([a-z]))/ig, function (res, key) {
