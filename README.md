@@ -365,22 +365,28 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 
 
 ```html
-示例代码(demo code)
-
-<div class="now">
-    <div class="clock"><span>当前时间：</span> <span class="date-time">--:--</span></div>
-    <div class="clock"><span>now time：</span> <span class="date-time">--:--</span></div>
-</div>
-<script src="//unpkg.com/date-php"></script>
-<script type="text/javascript">
-    var nowClock = document.getElementsByClassName('date-time')
-    
-    setInterval(function() {
-        for(let i=0; i<nowClock.length; i+=1){
-            nowClock[i].innerHTML=date('Y-m-d H:i:s.v')
-        }
-    }, 1000);
-</script>
+<!doctype html>
+<html>
+<head>
+	<title>test</title>
+</head>
+<body>
+	<div class=“now”>
+	    <div class=“clock”><span>当前时间：</span> <span class=“date-time”>--:--</span></div>
+	    <div class=“clock”><span>now time：</span> <span class=“date-time”>--:--</span></div>
+	</div>
+	<script src="//unpkg.com/date-php"></script>
+	<script type=“text/javascript”>
+	    var nowClock = document.getElementsByClassName(‘date-time’)
+	    
+	    setInterval(function() {
+	        for(let i=0; i<nowClock.length; i+=1){
+	            nowClock[i].innerHTML=date(‘Y-m-d H:i:s.v’)
+	        }
+	    }, 1000);
+	</script>
+</body>
+</html>
 ```
 
 ### 关于鸣谢(About)
