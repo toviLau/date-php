@@ -32,18 +32,23 @@ d.format('Y-m-d'); // "2019-07-15
 d.format('y-m-d'); // "2019-07-15
 d.format('m-d-Y H:i:s'); // "07-15-2019 15:38:56"
 d.format('m-d-y H:i:s'); // "07-15-20 15:38:56"
+```
 
-// 格式化持续时间(format duration) -- date.duration
+> 格式化持续时间(format duration) -- **date.duration**
+
+```javascript
+// 举个栗子(examples)
 // 这个时间戳是代表的持续时间
-date.duration('倒计时：D天h小时i分钟s秒',  13682958024 ) // 倒计时：158天08小时49分钟18秒
-date.duration('count down：D day h:i:s',  1591491612345 - 1577808654321 ) // count down：158 day 08:49:18
+date.duration('倒计时：D天h小时',  13682958024 ) // 倒计时：158天08小时
+date.duration('cou\\nt \\dow\\n：D \\d\\a\\y h \\hour\'\\s',  1591491612345 - 1577808654321 ) // "count down：158 day 08 hour's"
 date.duration('D天h小时i分钟s.v秒',  86400000 + 12345) // 1天00小时00分钟12.345秒
 date.duration('H小时i分钟s.v秒',  86400000 + 7654321) // 26小时07分钟34.321秒
 date.duration('D天h小时i分钟s.v秒',  86400000 - 12345) // 0天23小时59分钟47.655秒
 ```
 [_**更多date示例** 点这里(More date examples)_](#use-date) | [_**持续时长示例** 点这里(duration checked here)_](#use-duration)
+
 <br/>
-<br/>
+
 ### 安装(install)
 ```
 // npm
@@ -52,6 +57,8 @@ npm i -S date-php;
 // CDN
 <script src="//unpkg.com/date-php"></script>
 ```
+
+<br />
 
 <div id="use-date" name="use-date"></div>
 
@@ -101,6 +108,8 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 // 更多请自由发挥...
 // More please use your imagination...
 ```
+
+<br />
 
 ### 模板字符，默认值：{string} 'Y-m-d'(Template character, default: {string} 'Y-m-d')
 > 1、你也可以去<u> [_**PHP中文官网**_](https://www.php.net/manual/zh/function.date.php) </u>看看，使用方法类似。  
@@ -216,6 +225,8 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 | **其它** | | |
 | | <span style="color:#999">\*</span>all <sup style="color:#f33">1.6.0+</sup> | **{Object}** <br />输出所有模板字符串与对应的值。 <br />Output all template strings and corresponding values. |
 
+<br />
+
 ### 时间对象，默认值：{Date} 当前本地机器时间(Datetime object, default: {Date} local Datetime)
 > 可以是任意时间对象，例如：  
 > It can be any datetime object, Example:
@@ -298,6 +309,10 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 > **代码示例(DEMO)**
 
 ```javascript
+  /**
+   * 示例3
+   * demo 3
+   **/
   // 修改与新增节日配置(未被修改的节日依然有效)
   // Modified and added holiday config (unmodified holidays are still valid)
   date.editHolidayConf = {
@@ -325,10 +340,14 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 <div id="use-duration" name="use-duration"></div>
 
 ### 格式化持续时长(duration)<sup>(1.6.5+)</sup>  
-> date.duration(‘模板字符’, 持续时长:时间戳, 是否十三位时间戳: true)
+> date.duration(‘模板字符’, 持续时长:时间戳, 是否十三位时间戳{默认}: true)  
+> date.duration(‘emplate character’, duration:timestrap, thirteen-digit timestamp{default}: true)  
 
 ```javascript
-
+  /**
+   * 示例4 - date.duration(‘模板字符’, 持续时长:时间戳, 是否十三位时间戳{默认}: true)
+   * demo 4 - date.duration(‘emplate character’, duration:timestrap, thirteen-digit timestamp{default}: true)
+   **/
 	date.duration(‘n月j天 h小时i分钟s秒’,  314159265 ) //" 0月3天 15小时15分钟59秒"
 	date.duration(‘高考倒计时：D天h小时i分钟s秒’,  1591491612345 - 1577808654321 ) //" 高考倒计时：158天08小时49分钟18秒"
 	date.duration(‘倒计时：D天h小时i分钟s秒’,  13682958024 ) // 倒计时：158天08小时49分钟18秒
@@ -341,16 +360,16 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 
 | chars | Description |
 | :--- | :--- |
-| y<br/>Y | 数字表示的年。"1"到"273785" <br />Numeric representation of a years. "1" to "273785" |
+| y<br/>Y | 数字表示的年。"1"到"273785" <br />Numeric representation of a years. “0” to "273785" |
 | m | 数字表示的月份，有前导零。"00"到"12" <br />Numeric representation of a months, with leading zeros. "00" to "12"|
 | n | 数字表示的月份，无前导零。"0"到"12" <br />Numeric representation of a months, without leading zeros. "0" to "12" |
-| M | 总月数，"1"到"3285420" <br />Total months "1" to "3285420"|
+| M | 总月数，”0”到”3285420" <br />Total months “0” to "3285420"|
 | d | 数字表示的天数，有前导零。"00"到"12" <br />Numeric representation of a days, with leading zeros. "0" to "31" |
 | j | 数字表示的天数，无前导零。"0"到"12" <br />Numeric representation of a days, without leading zeros. "0" to "31" |
 | D | 总天数， "0"到"100000000" <br />Total days "0" to "100000000"|
 | h | 数字表示的小时数，有前导零。"00"到"24" <br />Numeric representation of a hours, with leading zeros. "00" to "24" |
 | g | 数字表示的小时数，无前导零。"0"到"24" <br />Numeric representation of a hours, without leading zeros. "0" to "24" |
-| H | 总小时数，"1"到"2400000000" <br />Total hours "1" to "2400000000" |
+| H | 总小时数，”0”到”2400000000" <br />Total hours “0” to "2400000000" |
 | i | 数字表示的分钟数，有前导零。"00"到"59" <br />Numeric representation of a minutes, with leading zeros. "00" to "59" |
 | I | 总分钟数，"0"到"144000000000" <br />Total minutes "0" to "144000000000" |
 | s | 数字表示的秒数，有前导零。"00"到"59" <br />Numeric representation of a seconds, with leading zeros. "00" to "59" |
