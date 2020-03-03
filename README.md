@@ -13,7 +13,7 @@
 
 > 这是一个Javascript模仿类似于PHP日期时间格式化函数，使用方法和PHP非常类似，有丰富的模板字符，并在原来的基础上增强了一些模板字符。例如：中国的农历日期、用汉字来表示日期、十二生肖与星座。让转换日期时间更自由。  
 > This is a JavaScript implements date formatting functions similar to PHP. It is very similar to PHP, has rich template characters, and enhances some template characters on the basis of the original. For example: Chinese Lunar Date, Chinese Character Date, Chinese Zodiac and Constellation. Make the conversion datetimes more free.   
-> https://tovilau.github.io/date-php/  
+> https://tovilau.github.io/date-php/ (点击这里查看更多例/ want see more examples clicked here)  
 
 
 ```javascript
@@ -39,14 +39,14 @@ d.format('m-d-y H:i:s'); // "07-15-20 15:38:56"
 
 ```javascript
 // 举个栗子(examples)
-// 这个时间戳是代表的持续时间
+// 这个时间戳是代表的持续时间持续时间
 date.duration('倒计时：D天h小时',  13682958024 ) // 倒计时：158天08小时
 date.duration('cou\\nt \\dow\\n：D \\d\\a\\y h \\hour\'\\s',  1591491612345 - 1577808654321 ) // "count down：158 day 08 hour's"
 date.duration('D天h小时i分钟s.v秒',  86400000 + 12345) // 1天00小时00分钟12.345秒
 date.duration('H小时i分钟s.v秒',  86400000 + 7654321) // 26小时07分钟34.321秒
 date.duration('D天h小时i分钟s.v秒',  86400000 - 12345) // 0天23小时59分钟47.655秒
 ```
-[_**更多date示例** 点这里(More date examples)_](#use-date) | [_**持续时长示例** 点这里(duration checked here)_](#use-duration)
+[_**更多date示例** 点这里(More date examples)_](#use-date) | [_**持续时间示例** 点这里(duration clicked here)_](#use-duration)
 
 <br/>
 
@@ -70,7 +70,7 @@ npm i -S date-php;
  > 2、以下`new Date()`或其它的日期时间的初始化的值，我们默许都是 `1563176336000` Unix时间戳对应的日期时间。  
  > 　 The following `new Date ()` or other date time initialization values, we acquiescence are `1563176336000` Unix timestamp corresponding Datetime.
  >
- > 3、[_**持续时长** 点这里(**duration** checked here)_](#use-duration)
+ > 3、[_**持续时间** 点这里(**duration** clicked here)_](#use-duration)
  
 ```javascript
 // ES6+ -- CDN方式跳过(CDN mode skip)
@@ -340,13 +340,13 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 
 <div id="use-duration" name="use-duration"></div>
 
-### 格式化持续时长(duration)<sup>(1.6.5+)</sup>  
-> date.duration(‘模板字符’, 持续时长:时间戳, 是否十三位时间戳{默认}: true)  
+### 格式化持续时间(duration)<sup>(1.6.5+)</sup>  
+> date.duration(‘模板字符’, 持续时间:时间戳, 是否十三位时间戳{默认}: true)  
 > date.duration(‘emplate character’, duration:timestrap, thirteen-digit timestamp{default}: true)  
 
 ```javascript
   /**
-   * 示例4 - date.duration(‘模板字符’, 持续时长:时间戳, 是否十三位时间戳{默认}: true)
+   * 示例4 - date.duration(‘模板字符’, 持续时间:时间戳, 是否十三位时间戳{默认}: true)
    * demo 4 - date.duration(‘emplate character’, duration:timestrap, thirteen-digit timestamp{default}: true)
    **/
 	date.duration(‘n月j天 h小时i分钟s秒’,  314159265 ) //" 0月3天 15小时15分钟59秒"
@@ -356,7 +356,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 	date.duration(‘D天h小时i分钟s.v秒’,  86400000 + 12345) // 1天00小时00分钟12.345秒
 	date.duration(‘H小时i分钟s.v秒’,  86400000 + 7654321) // 26小时07分钟34.321秒
 	date.duration(‘D天h小时i分钟s.v秒’,  86400000 - 12345) // 0天23小时59分钟47.655秒
-	date.duration(‘1970年至今D天h小时i分钟s.v秒’,  new Date()) // "从1970年至今已有18322天11小时20分钟15.092秒"
+	date.duration(‘1970年至今已有D天h小时i分钟s.v秒’,  new Date()) // "从1970年至今已有18322天11小时20分钟15.092秒"
 ```
 
 | chars | Description |
