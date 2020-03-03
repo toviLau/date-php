@@ -41,7 +41,7 @@ date.duration('D天h小时i分钟s.v秒',  86400000 + 12345) // 1天00小时00�
 date.duration('H小时i分钟s.v秒',  86400000 + 7654321) // 26小时07分钟34.321秒
 date.duration('D天h小时i分钟s.v秒',  86400000 - 12345) // 0天23小时59分钟47.655秒
 ```
-[更多date示例 点这里(More date examples)](#use-date) | [持续时长示例 点这里(duration checked here)](#use-duration)
+[_**更多date示例** 点这里(More date examples)_](#use-date) | [_**持续时长示例** 点这里(duration checked here)_](#use-duration)
 <br/>
 <br/>
 ### 安装(install)
@@ -62,7 +62,7 @@ npm i -S date-php;
  > 2、以下`new Date()`或其它的日期时间的初始化的值，我们默许都是 `1563176336000` Unix时间戳对应的日期时间。  
  > 　 The following `new Date ()` or other date time initialization values, we acquiescence are `1563176336000` Unix timestamp corresponding Datetime.
  >
- > 3、[**持续时长** 点这里(**duration** checked here)](#use-duration)
+ > 3、[_**持续时长** 点这里(**duration** checked here)_](#use-duration)
  
 ```javascript
 // ES6+ -- CDN方式跳过(CDN mode skip)
@@ -103,8 +103,8 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 ```
 
 ### 模板字符，默认值：{string} 'Y-m-d'(Template character, default: {string} 'Y-m-d')
-> 1、你也可以去<u> [**PHP中文官网**](https://www.php.net/manual/zh/function.date.php) </u>看看，使用方法类似。  
-> 　 You can also go to the <u> [**PHP english official website**](https://www.php.net/manual/en/function.date.php) </u>to see, the method is similar.  
+> 1、你也可以去<u> [_**PHP中文官网**_](https://www.php.net/manual/zh/function.date.php) </u>看看，使用方法类似。  
+> 　 You can also go to the <u> [_**PHP english official website**_](https://www.php.net/manual/en/function.date.php) </u>to see, the method is similar.  
 > 
 > 2、~~你也可以通过静态方法 `date.description` 在控制台打出所有模板字符。~~<sup>(1.3.2<sup> - </sup>)</sup>   
 > 　 ~~You can also output all template character in the console via the static method `date.description`.~~<sup>(1.3.2<sup> - </sup>)</sup>   
@@ -130,8 +130,8 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 > 
 > 7、支持节假日输出  
 > 　 Support festival output  
-> 　 需要自定义节假日请参考 [conf.replaceHolidayConf](#custom) 与 [conf.editHolidayConf](#custom)  
-> 　 For custom holidays, please refer to [conf.replaceHolidayConf](#custom)  & [conf.editHolidayConf](#custom)  
+> 　 需要自定义节假日请参考 [_conf.replaceHolidayConf_](#custom) 与 [_conf.editHolidayConf_](#custom)  
+> 　 For custom holidays, please refer to [_conf.replaceHolidayConf_](#custom)  & [_conf.editHolidayConf_](#custom)  
 
 | \# | chars | Description |
 | :--- | :--- | :--- |
@@ -146,8 +146,8 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 | | <span style="color:#999">\*</span>lg <sup style="color:#f33">1.5.0\*</sup> | 中国古代夜里更时(打更点，一晚五更)。从"1"到"5"。  <br />The "geng" in ancient Chinese night (tapping geng, one night five geng). "1" to "5" |
 | | <span style="color:#999">\*</span>lG <sup style="color:#f33">1.5.0+</sup> | 中国古代夜里更时(打更点，一晚五更)。从"一更"到"五更"。  <br />The "geng" in ancient Chinese night (tapping geng, one night five geng). "一更" to "五更" |
 | | <span style="color:#999">\*</span>lk  <sup style="color:#f33">1.5.0+</sup> | 中国古代计时单位中的刻(类似分钟，一时辰八刻钟)。从"零"到"七"。  <br />The 'ke' in the ancient Chinese timing unit(similar to minutes, 1 "shi cheng" of 8 "ke"). "零" to "七" |
-| | <span style="color:#999">\*</span>fh <sup style="color:#f33">1.6.0+</sup> | 节假日中文: 例如: 元旦节。  <br />holiday in chinese. e.g.: 元旦节  <br /> <br /> !需要自定义节假日请参考  [`conf.replaceHolidayConf`](#custom) 与 [`conf.editHolidayConf`](#custom) <br />!For custom holidays, please refer to  [`conf.replaceHolidayConf`](#custom) & [`conf.editHolidayConf`](#custom)|
-| | <span style="color:#999">\*</span>lh <sup style="color:#f33">1.6.0+</sup> | 节假日英文 例如: new Year  <br />holiday in english. e.g.: new Year  <br /> <br />!需要自定义节假日请参考 [`conf.replaceHolidayConf`](#custom) 与 [`conf.editHolidayConf`](#custom) <br />!For custom holidays, please refer to [`conf.replaceHolidayConf`](#custom) & [`conf.editHolidayConf`](#custom) |
+| | <span style="color:#999">\*</span>fh <sup style="color:#f33">1.6.0+</sup> | 节假日中文: 例如: 元旦节。  <br />holiday in chinese. e.g.: 元旦节  <br /> <br /> !需要自定义节假日请参考  [_`conf.replaceHolidayConf`_](#custom) 与 [_`conf.editHolidayConf`_](#custom) <br />!For custom holidays, please refer to  [_`conf.replaceHolidayConf`_](#custom) & [_`conf.editHolidayConf`_](#custom)|
+| | <span style="color:#999">\*</span>lh <sup style="color:#f33">1.6.0+</sup> | 节假日英文 例如: new Year  <br />holiday in english. e.g.: new Year  <br /> <br />!需要自定义节假日请参考 [_`conf.replaceHolidayConf`_](#custom) 与 [_`conf.editHolidayConf`_](#custom) <br />!For custom holidays, please refer to [_`conf.replaceHolidayConf`_](#custom) & [`_conf.editHolidayConf_`](#custom) |
 | | l | 星期几，完整的文本格式。从"Sunday"到"Saturday"。 <br />A full textual representation of the day of the week. "Sunday" to "Saturday". |
 | | N | ISO-8601格式的星期中的第几天。从"1"(表示星期一)到"7"(表示星期天)。  <br />ISO-8601 numeric representation of the day of the week. 1 (for Monday) to 7 (for Sunday). |
 | | S | 每月天数后面的英文后缀，2 个字符 st/nd/rd/th。可以与 j 很好的配合使用。 <br />English ordinal suffix for the day of the month, 2 characters. st, nd, rd or th. Works well with j. |
@@ -226,6 +226,8 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
     '2019-07-15 15:38:56' // 字符串日期(String datetime)
     '2019/07/15 15:38:56' // 字符串日期(String datetime)  
 ```
+
+<br>
 
 <div id="custom" name="custom"></div>
 
@@ -318,6 +320,8 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
   date('Y-m-d lh', new Date()) // -> 2019-07-15 demos day
 ```
 
+<br>
+
 <div id="use-duration" name="use-duration"></div>
 
 ### 格式化持续时长(duration)<sup>(1.6.5+)</sup>  
@@ -354,14 +358,16 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 | v | 数字表示的毫秒数，有前导零。"000"到"999" <br />Numeric representation of a millisecond, with leading zeros. "000" to "999" |
 | V | 总毫秒数，"0"到"8640000000000000" <br />Total millisecond "0" to "8640000000000000" |
 
+<br>
+
 ### 黑科技的使用方式(Interesting to use)
 > 可以非常简单的实现一个时钟，就象下面的一样。  
 > Coded a clock is so easy, just like the following.
 > 
 > ![time clock](https://raw.githubusercontent.com/toviLau/date-php/master/src/img-md/clock.gif)  
 >
-> 咦！这个时间的毫秒是不是有点怪？这是[**setInterval**](https://blog.csdn.net/acm765152844/article/details/51298915)的问题。(虽然这只是一张图片\^\_\^，但目的是抛出Javascript确实存在的问题。)  
-> What! Is the millisecond of this Datetime a bit strange? This is a problem with [**setInterval**](https://blog.csdn.net/acm765152844/article/details/51298915). (Although this is just a picture ^_^, the purpose is to throw the problem Javascript does exist.)
+> 咦！这个时间的毫秒是不是有点怪？这是[_**setInterval**_](https://blog.csdn.net/acm765152844/article/details/51298915)的问题。(虽然这只是一张图片\^\_\^，但目的是抛出Javascript确实存在的问题。)  
+> What! Is the millisecond of this Datetime a bit strange? This is a problem with [_**setInterval**_](https://blog.csdn.net/acm765152844/article/details/51298915). (Although this is just a picture ^_^, the purpose is to throw the problem Javascript does exist.)
 
 
 ```html
@@ -389,10 +395,12 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 </html>
 ```
 
+<br>
+
 ### 关于鸣谢(About)
-  [**Github**](http://www.github.com)
-  [**Npmjs**](http://www.npmjs.org)
-  [**rollup**](http://www.rollupjs.com) 
-  [**eslint**](https://eslint.org)
-  [**flow**](https://flow.org)
-  [**uglifyJs**](http://lisperator.net/uglifyjs/)  
+  [_**Github**_](http://www.github.com)
+  [_**Npmjs**_](http://www.npmjs.org)
+  [_**rollup**_](http://www.rollupjs.com) 
+  [_**eslint**_](https://eslint.org)
+  [_**flow**_](https://flow.org)
+  [_**uglifyJs**_](http://lisperator.net/uglifyjs/)  
