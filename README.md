@@ -14,6 +14,7 @@
 > 这是一个Javascript模仿类似于PHP日期时间格式化函数，使用方法和PHP非常类似，有丰富的模板字符，并在原来的基础上增强了一些模板字符。例如：中国的农历日期、用汉字来表示日期、十二生肖与星座。让转换日期时间更自由。  
 > This is a JavaScript implements date formatting functions similar to PHP. It is very similar to PHP, has rich template characters, and enhances some template characters on the basis of the original. For example: Chinese Lunar Date, Chinese Character Date, Chinese Zodiac and Constellation. Make the conversion datetimes more free.   
 > https://tovilau.github.io/date-php/ (点击这里查看更多例/ want see more examples clicked here)  
+> [如果你喜欢请 star 支持一下](https://www.npmjs.com/package/date-php)  
 
 
 ```javascript
@@ -157,7 +158,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 | | <span style="color:#999">\*</span>lG <sup style="color:#f33">1.5.0+</sup> | 中国古代夜里更时(打更点，一晚五更)。从"一更"到"五更"。  <br />The "geng" in ancient Chinese night (tapping geng, one night five geng). "一更" to "五更" |
 | | <span style="color:#999">\*</span>lk  <sup style="color:#f33">1.5.0+</sup> | 中国古代计时单位中的刻(类似分钟，一时辰八刻钟)。从"零"到"七"。  <br />The 'ke' in the ancient Chinese timing unit(similar to minutes, 1 "shi cheng" of 8 "ke"). "零" to "七" |
 | | <span style="color:#999">\*</span>fh <sup style="color:#f33">1.6.0+</sup> | 节假日中文: 例如: 元旦节。  <br />holiday in chinese. e.g.: 元旦节  <br /> <br /> !需要自定义节假日请参考  [_`conf.replaceHolidayConf`_](#custom) 与 [_`conf.editHolidayConf`_](#custom) <br />!For custom holidays, please refer to  [_`conf.replaceHolidayConf`_](#custom) & [_`conf.editHolidayConf`_](#custom)|
-| | <span style="color:#999">\*</span>lh <sup style="color:#f33">1.6.0+</sup> | 节假日英文 例如: new Year  <br />holiday in english. e.g.: new Year  <br /> <br />!需要自定义节假日请参考 [_`conf.replaceHolidayConf`_](#custom) 与 [_`conf.editHolidayConf`_](#custom) <br />!For custom holidays, please refer to [_`conf.replaceHolidayConf`_](#custom) & [`_conf.editHolidayConf_`](#custom) |
+| | <span style="color:#999">\*</span>lh <sup style="color:#f33">1.6.0+</sup> | 节假日英文 例如: new Year  <br />holiday in english. e.g.: new Year  <br /> <br />!需要自定义节假日请参考 [_`conf.replaceHolidayConf`_](#custom) 与 [_`conf.editHolidayConf`_](#custom) <br />!For custom holidays, please refer to [_`conf.replaceHolidayConf`_](#custom) & [_`conf.editHolidayConf`_](#custom) |
 | | l | 星期几，完整的文本格式。从"Sunday"到"Saturday"。 <br />A full textual representation of the day of the week. "Sunday" to "Saturday". |
 | | N | ISO-8601格式的星期中的第几天。从"1"(表示星期一)到"7"(表示星期天)。  <br />ISO-8601 numeric representation of the day of the week. 1 (for Monday) to 7 (for Sunday). |
 | | S | 每月天数后面的英文后缀，2 个字符 st/nd/rd/th。可以与 j 很好的配合使用。 <br />English ordinal suffix for the day of the month, 2 characters. st, nd, rd or th. Works well with j. |
@@ -184,7 +185,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 | | <span style="color:#999">\*</span>lq <sup style="color:#f33">1.6.0+</sup> | 季度数字 <br />Quarter Number |
 | | <span style="color:#999">\*</span>lQ <sup style="color:#f33">1.6.0+</sup> | 季度汉字 <br />Quarter Number Chinese Characters |
 | | <span style="color:#999">\*</span>q <sup style="color:#f33">1.6.0+</sup> | 季度英文缩写<br />Quarter abbreviations |
-| | <span style="color:#999">\*</span>Q <sup style="color:#f33">1.6.0+</sup> | 李度英文 <br />Quarter English |
+| | <span style="color:#999">\*</span>Q <sup style="color:#f33">1.6.0+</sup> | 季度英文 <br />Quarter English |
 | | | |
 | **年(Year)** | | |
 | | L | 是否为闰年。1:是，0:否。 <br />Whether it's a leap year. 1 leap year, 0 otherwise. |
