@@ -353,14 +353,13 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
   * 示例4 - date.duration(‘模板字符’, 持续时间:时间戳, 时间戳是毫秒{默认}: true)  
   * demo 4 - date.duration (‘template character’, duration: timestamp, timestamp is milliseconds {default}: true)
   **/
-  date.duration(‘n月j天 h小时i分钟s秒’,  314159265 ) //" 0月3天 15小时15分钟59秒"
-  date.duration(‘高考倒计时：D天h小时i分钟s秒’,  1591491612345 - 1577808654321 ) //" 高考倒计时：158天08小时49分钟18秒"
-  date.duration(‘倒计时：D天h小时i分钟s秒’,  13682958024 ) // 倒计时：158天08小时49分钟18秒
-  date.duration(‘count down：D day h:i:s’,  1591491612345 - 1577808654321 ) // count down：158 day 08:49:18
-  date.duration(‘D天h小时i分钟s.v秒’,  86400000 + 12345) // 1天00小时00分钟12.345秒
-  date.duration(‘H小时i分钟s.v秒’,  86400000 + 7654321) // 26小时07分钟34.321秒
-  date.duration(‘D天h小时i分钟s.v秒’,  86400000 - 12345) // 0天23小时59分钟47.655秒
-  date.duration(‘1970年至今已有D天h小时i分钟s.v秒’,  new Date()) // "从1970年至今已有18322天11小时20分钟15.092秒"
+  date.duration('n月j天 h小时i分钟s秒',  314159265 ) //" 0月3天 15小时15分钟59秒"
+  date.duration('高考倒计时：D天h小时i分钟s秒',  1591491612345 - 1577808654321 ) //" 高考倒计时：158天08小时49分钟18秒"
+  date.duration('倒计时：D天h小时i分钟s秒',  13682958024 ) // 倒计时：158天08小时49分钟18秒
+  date.duration('cou\\\\nt \\\\d\\\\ow\\\\n：D \\\\d\\\\a\\\\y h:i:s',  1591491612345 - 1577808654321 ) // count down：158 day 08:49:18  date.duration('D天h小时i分钟s.v秒',  86400000 + 12345) // 1天00小时00分钟12.345秒
+  date.duration('H小时i分钟s.v秒',  86400000 + 7654321) // 26小时07分钟34.321秒
+  date.duration('D天h小时i分钟s.v秒',  86400000 - 12345) // 0天23小时59分钟47.655秒
+  date.duration('1970年至今已有D天h小时i分钟s.v秒',  new Date()) // "从1970年至今已有18322天11小时20分钟15.092秒"
 ```
 
 | chars | Description |
