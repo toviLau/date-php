@@ -23,7 +23,8 @@
     "time format",
     "format date",
     "format time",
-    "format datetime"
+    "format datetime",
+    "format duration"
   ],
   "scripts": {
     "start": "node config/build.js",
