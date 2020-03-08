@@ -1,7 +1,6 @@
 /**
- * date-php.js v1.6.5-beta1
- *   这是一个Javascript模仿PHP日期时间格式化函数，使用方法和PHP非常类似，有丰富的模板字符，并在原来的基础上增强了一些
- *   模板字符。例如：中国的农历日期、用汉字来表示日期、十二生肖与星座。让转换日期时间更自由。
+ * date-php.js v1.7.0
+ *   date('Y-m-d', 1563148800000) - 这是一个Javascript模仿PHP日期时间格式化函数，使用方法和PHP非常类似，有丰富的模板字符，并在原来的基础上增强了一些模板字符。例如：中国的农历日期、用汉字来表示日期、十二生肖与星座。让转换日期时间更自由。
  *   This is a Javascript mimicking PHP datetime formatting function. It is very similar to PHP, has rich template 
  *   characters, and enhances some template characters on the basis of the original. For example: Chinese Lunar Date,
  *   Chinese Character Date, Chinese Zodiac and Constellation. Make the conversion datetimes more free.
@@ -851,11 +850,12 @@
         '0701': ['建党节', "Party's building day"],
         '0801': ['建军节', "Army's day"],
         '0910': ['教师节', "Teacher's day"],
+        '1001': ['国庆', 'National day'],
         '1024': ['中国程序员节', "Chinese programmer's day"],
         '1224': ['平安夜', "Christmas Eve"],
+        '1225': [' 圣诞节', "Christmas Day"],
         '1117': ['世界学生日', "World student's day"],
         '1201': ['世界艾滋病日', "World AIDS day"],
-        '1001': ['国庆', 'National day'],
         '*0101': ['春节', 'Chinese year'],
         '*0115': ['元宵节', 'Lantern day'],
         '*0202': ['龙头节', 'Dragon head day'],
@@ -973,12 +973,17 @@
      * @param  {date}       now  要格式化的时间 [默认值: 默认为当前本地机器时间]
      * @return {string}     格式化的时间字符串
      */
-    var date$1 = function (fmt, now) {
+    var date$1 = function (fmt, now, ms) {
       if ( fmt === void 0 ) fmt = 'Y-m-d';
       if ( now === void 0 ) now = new Date();
+      if ( ms === void 0 ) ms = true;
 
-      fmt = fmt ? fmt : 'Y-m-d';
-      if (!(new Date(now - 0).getTime() || new Date(now).getTime())) { throw Error((function (D) {
+      // fmt = fmt ? fmt : 'Y-m-d';
+      now = this || (now - 0 ? new Date(now - 0) : new Date(now));
+
+      if( ms === false ) { now = new Date(now * 1000 ); }
+
+      if (isNaN(now.getTime())) { throw Error((function (D) {
         return '' +
           '参数2不正确，须传入 “日期时间对象”，或 “Unix时间戳” 或 “时间戳字符串”。\n可以参考以下值：\n' +
           "  \"" + D + "\"\n" +
@@ -986,9 +991,7 @@
           "  " + (D.getTime()) + "  -- 推荐\n";
       })(new Date())); }
 
-      now = this || (!isNaN(now - 0) ? new Date(now - 0) : new Date(now));
-
-    // 获取农历
+      // 获取农历
       var lunarInfo = function () { return calendar.solar2lunar(tChars.Y(), tChars.n(), tChars.j()); };
 
       // 模板字串替换函数
@@ -1139,7 +1142,7 @@
 
     defP(Date.prototype, 'format', date$1);
 
-    defP(date$1, 'version', '1.6.5-beta1');
+    defP(date$1, 'version', '1.7.0');
     defP(date$1, 'description', function () { return (console.info('%cdate-php使用说明:\n' +
       '已经废弃，查看使用说明请移步这里\nhttps://github.com/toviLau/date-php/blob/master/README.md'
       , 'color:#c63'

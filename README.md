@@ -36,11 +36,12 @@ d.format('m-d-Y H:i:s'); // "07-15-2019 15:38:56"
 d.format('m-d-y H:i:s'); // "07-15-20 15:38:56"
 ```
 
+
 > 格式化持续时间(format duration) -- **date.duration**
 
 ```javascript
 // 举个栗子(examples)
-// 这个时间戳是代表的持续时间持续时间
+// 这里时间戳是代表的持续时间持续时间
 date.duration('倒计时：D天h小时',  13682958024 ) // 倒计时：158天08小时
 date.duration('cou\\nt \\dow\\n：D \\d\\a\\y h \\hour\'\\s',  1591491612345 - 1577808654321 ) // "count down：158 day 08 hour's"
 date.duration('D天h小时i分钟s.v秒',  86400000 + 12345) // 1天00小时00分钟12.345秒
@@ -124,11 +125,11 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 > 　 About the escaped template character, here is different from PHP **[Note!!!]** <sup>(1.3.0 + )</sup>  
 >> **如果在date里想输出模板本来的字符，请用转义符--双反斜杠"\\\\"(PHP是一个单反斜杠"\\")。**   
 >> **If you want to output the original character of the template on the date, use the escape character – double backslash "\\\\" (PHP is a single backslash "\\").**  
->>   举个栗子：date("\\\\I <sup>(大写的i)</sup> \\\\l <sup>(小写的L)</sup>\\\\o\\\\v\\\\e \\\\y\\\\o\\\\u: y-m-d H:i", new Date()) // 输出 "I love you: 19-07-15 15:38"    
->>    Example: date("\\\\I <sup>(Uppercase i)</sup> \\\\ l <sup>(lowercase L)</sup>\\\\o\\\\v\\\\e \\\\y\\\\o\\\\u: y-m-d H:i", new Date()) // Output "I love you: 19-07-15 15:38"  
+>>   举个栗子：   date("\\\\I \\\\l\\\\o\\\\v\\\\e \\\\y\\\\o\\\\u: y-m-d H:i", new Date()) // 输出 "I love you: 19-07-15 15:38"    
+>>    Example: date("\\\\I \\\\l\\\\o\\\\v\\\\e \\\\y\\\\o\\\\u: y-m-d H:i", new Date()) // Output "I love you: 19-07-15 15:38"  
 >>
->>   上面栗子中，'I'、'l'、'o'、'v'、'e'、'y'、'u' 都是模板字符，所以前面加双反斜杠(\\\\)转义，这样字符就会输出本来的值。  
->>   In the previous example, 'I', 'l', 'o', 'e', 'y', 'u' are all template character, so add an double backslash (\\\\\) in front of the template character to escape , Character will output the original value.
+>>   上面栗子中，'I'<sup>(大写的i)</sup>、'l'<sup>(小写的L)</sup>、'o'、'v'、'e'、'y'、'u' 都是模板字符，所以前面加双反斜杠(\\\\)转义，这样字符就会输出本来的值。  
+>>   In the previous example, 'I'<sup>(Uppercase i)</sup>, 'l'<sup>(lowercase L)</sup>, 'o', 'e', 'y', 'u' are all template character, so add an double backslash (\\\\\) in front of the template character to escape , Character will output the original value.
 >
 > 4、加"\*"号的为PHP语言中没有的功能，是`date-php.js`特有的功能。  
 > 　 Add the "\*" in front is a function not available in the PHP language, and is a feature unique to `date-php.js`.
@@ -267,11 +268,12 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
     '0701': ['建党节', `Party's building day`],
     '0801': ['建军节', `Army's day`],
     '0910': ['教师节', `Teacher's day`],
+    '1001': ['国庆', 'National day'],
     '1024': ['中国程序员节', `Chinese programmer's day`],
     '1224': ['平安夜', `Christmas Eve`],
+    '1225': [' 圣诞节', `Christmas Day`],
     '1117': ['世界学生日', `World student's day`],
     '1201': ['世界艾滋病日', `World AIDS day`],
-    '1001': ['国庆', 'National day'],
     '*0101': ['春节', 'Chinese year'],
     '*0115': ['元宵节', 'Lantern day'],
     '*0202': ['龙头节', 'Dragon head day'],
@@ -341,28 +343,29 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 
 <div id="use-duration" name="use-duration"></div>
 
-### 格式化持续时间(duration)<sup>(1.6.5+)</sup>  
-> date.duration(‘模板字符’, 持续时间:时间戳, 是否十三位时间戳{默认}: true)  
-> date.duration(‘emplate character’, duration:timestrap, thirteen-digit timestamp{default}: true)  
+### 格式化持续时间(duration)<sup>(1.7.0+)</sup>  
+> date.duration(‘模板字符’, 持续时间:时间戳, 时间戳是毫秒{默认}: true)  
+> date.duration (‘template character’, duration: timestamp, timestamp is milliseconds {default}: true)
+
 
 ```javascript
-  /**
-   * 示例4 - date.duration(‘模板字符’, 持续时间:时间戳, 是否十三位时间戳{默认}: true)
-   * demo 4 - date.duration(‘emplate character’, duration:timestrap, thirteen-digit timestamp{default}: true)
-   **/
-	date.duration(‘n月j天 h小时i分钟s秒’,  314159265 ) //" 0月3天 15小时15分钟59秒"
-	date.duration(‘高考倒计时：D天h小时i分钟s秒’,  1591491612345 - 1577808654321 ) //" 高考倒计时：158天08小时49分钟18秒"
-	date.duration(‘倒计时：D天h小时i分钟s秒’,  13682958024 ) // 倒计时：158天08小时49分钟18秒
-	date.duration(‘count down：D day h:i:s’,  1591491612345 - 1577808654321 ) // count down：158 day 08:49:18
-	date.duration(‘D天h小时i分钟s.v秒’,  86400000 + 12345) // 1天00小时00分钟12.345秒
-	date.duration(‘H小时i分钟s.v秒’,  86400000 + 7654321) // 26小时07分钟34.321秒
-	date.duration(‘D天h小时i分钟s.v秒’,  86400000 - 12345) // 0天23小时59分钟47.655秒
-	date.duration(‘1970年至今已有D天h小时i分钟s.v秒’,  new Date()) // "从1970年至今已有18322天11小时20分钟15.092秒"
+ /**
+  * 示例4 - date.duration(‘模板字符’, 持续时间:时间戳, 时间戳是毫秒{默认}: true)  
+  * demo 4 - date.duration (‘template character’, duration: timestamp, timestamp is milliseconds {default}: true)
+  **/
+  date.duration(‘n月j天 h小时i分钟s秒’,  314159265 ) //" 0月3天 15小时15分钟59秒"
+  date.duration(‘高考倒计时：D天h小时i分钟s秒’,  1591491612345 - 1577808654321 ) //" 高考倒计时：158天08小时49分钟18秒"
+  date.duration(‘倒计时：D天h小时i分钟s秒’,  13682958024 ) // 倒计时：158天08小时49分钟18秒
+  date.duration(‘count down：D day h:i:s’,  1591491612345 - 1577808654321 ) // count down：158 day 08:49:18
+  date.duration(‘D天h小时i分钟s.v秒’,  86400000 + 12345) // 1天00小时00分钟12.345秒
+  date.duration(‘H小时i分钟s.v秒’,  86400000 + 7654321) // 26小时07分钟34.321秒
+  date.duration(‘D天h小时i分钟s.v秒’,  86400000 - 12345) // 0天23小时59分钟47.655秒
+  date.duration(‘1970年至今已有D天h小时i分钟s.v秒’,  new Date()) // "从1970年至今已有18322天11小时20分钟15.092秒"
 ```
 
 | chars | Description |
 | :--- | :--- |
-| y<br/>Y | 数字表示的年。"1"到"273785" <br />Numeric representation of a years. “0” to "273785" |
+| y<br/>Y | 数字表示的年。”0”到”273785" <br />Numeric representation of a years. “0” to "273785" |
 | m | 数字表示的月份，有前导零。"00"到"12" <br />Numeric representation of a months, with leading zeros. "00" to "12"|
 | n | 数字表示的月份，无前导零。"0"到"12" <br />Numeric representation of a months, without leading zeros. "0" to "12" |
 | M | 总月数，”0”到”3285420" <br />Total months “0” to "3285420"|
@@ -378,7 +381,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 | S | 总秒数，"0"到"8640000000000" <br />Total minutes "0" to "8640000000000" |
 | v | 数字表示的毫秒数，有前导零。"000"到"999" <br />Numeric representation of a millisecond, with leading zeros. "000" to "999" |
 | V | 总毫秒数，"0"到"8640000000000000" <br />Total millisecond "0" to "8640000000000000" |
-
+| <span style="color:#999">\*</span>all <sup style="color:#f33">1.7.0+</sup> | **{Object}** <br />输出所有模板字符串与对应的值。 <br />Output all template strings and corresponding values. |
 <br>
 
 ### 黑科技的使用方式(Interesting to use)
