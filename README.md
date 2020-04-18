@@ -36,20 +36,18 @@ d.format('m-d-Y H:i:s'); // "07-15-2019 15:38:56"
 d.format('m-d-y H:i:s'); // "07-15-20 15:38:56"
 ```
 
-
-> 格式化持续时间(format duration) -- **date.duration**
+> 格式化持续时间/剩余时间/倒计时(duration/count down) -- **date.duration**
 
 ```javascript
 // 举个栗子(examples)
-// 这里时间戳是代表的持续时间持续时间
+// 这里时间戳是代表的持续时间/剩余时间/倒计时(duration/count down)
 date.duration('倒计时：D天h小时',  13682958024 ) // 倒计时：158天08小时
 date.duration('cou\\nt \\dow\\n：D \\d\\a\\y h \\hour\'\\s',  1591491612345 - 1577808654321 ) // "count down：158 day 08 hour's"
 date.duration('D天h小时i分钟s.v秒',  86400000 + 12345) // 1天00小时00分钟12.345秒
 date.duration('H小时i分钟s.v秒',  86400000 + 7654321) // 26小时07分钟34.321秒
 date.duration('D天h小时i分钟s.v秒',  86400000 - 12345) // 0天23小时59分钟47.655秒
 ```
-[_**更多date示例** 点这里(More date examples)_](#use-date) | [_**持续时间示例** 点这里(duration clicked here)_](#use-duration)
-
+[_**更多date示例** 点这里(More date examples)_](#use-date) | [_**持续时间/剩余时间/倒计时示例** 点这里(duration & count down clicked here)_](#use-duration)
 <br/>
 
 ### 安装(install)
@@ -72,7 +70,7 @@ npm i -S date-php;
  > 2、以下`new Date()`或其它的日期时间的初始化的值，我们默许都是 `1563176336000` Unix时间戳对应的日期时间。  
  > 　 The following `new Date ()` or other date time initialization values, we acquiescence are `1563176336000` Unix timestamp corresponding Datetime.
  >
- > 3、[_**持续时间** 点这里(**duration** clicked here)_](#use-duration)
+ > 3、[_**持续时间/剩余时间/倒计时** 点这里(**duration/count down** clicked here)_](#use-duration)
  
 ```javascript
 // ES6+ -- CDN方式跳过(CDN mode skip)
@@ -343,7 +341,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 
 <div id="use-duration" name="use-duration"></div>
 
-### 格式化持续时间(duration)<sup>(1.7.0+)</sup>  
+### 格式化持续时间/剩余时间/倒计时(duration/count down)<sup>(1.7.0+)</sup>  
 > date.duration(‘模板字符’, 持续时间:时间戳, 时间戳是毫秒{默认}: true)  
 > date.duration (‘template character’, duration: timestamp, timestamp is milliseconds {default}: true)
 
