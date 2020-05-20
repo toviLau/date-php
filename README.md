@@ -13,9 +13,14 @@
 
 > 这是一个Javascript模仿类似于PHP日期时间格式化函数，使用方法和PHP非常类似，有丰富的模板字符，并在原来的基础上增强了一些模板字符。例如：中国的农历日期、用汉字来表示日期、十二生肖与星座。让转换日期时间更自由。  
 > This is a JavaScript implements date formatting functions similar to PHP. It is very similar to PHP, has rich template characters, and enhances some template characters on the basis of the original. For example: Chinese Lunar Date, Chinese Character Date, Chinese Zodiac and Constellation. Make the conversion datetimes more free.   
-> https://tovilau.github.io/date-php/ (点击这里查看更多例/ want see more examples clicked here)
-> 兼容 TypeScript (1.7.6) 
-> [如果你喜欢请 star 支持一下](https://www.npmjs.com/package/date-php)  
+>  
+> https://tovilau.github.io/date-php/ (点击这里查看更多例/ want see more examples clicked here)  
+>  
+> 兼容 TypeScript (1.7.6)
+> TypeScript compatible (1.7.6)
+>  
+> [如果你喜欢请 star 支持一下](https://www.npmjs.com/package/date-php)    
+> [Please star support if you like] (https://www.npmjs.com/package/date-php)  
 
 
 ```javascript
