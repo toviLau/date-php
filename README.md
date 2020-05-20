@@ -16,8 +16,8 @@
 >  
 > https://tovilau.github.io/date-php/ (点击这里查看更多例/ want see more examples clicked here)  
 >  
-> 兼容 TypeScript (1.7.6)
-> TypeScript compatible (1.7.6)
+> 兼容 TypeScript(.ts)<sup style="color:#f33">(1.7.6+)</sup>  
+> TypeScript(.ts) compatible <sup style="color:#f33">(1.7.6+)</sup>  
 >  
 > [如果你喜欢请 star 支持一下](https://www.npmjs.com/package/date-php)    
 > [Please star support if you like] (https://www.npmjs.com/package/date-php)  
@@ -122,11 +122,11 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 > 1、你也可以去<u> [_**PHP中文官网**_](https://www.php.net/manual/zh/function.date.php) </u>看看，使用方法类似。  
 > 　 You can also go to the <u> [_**PHP english official website**_](https://www.php.net/manual/en/function.date.php) </u>to see, the method is similar.  
 > 
-> 2、~~你也可以通过静态方法 `date.description` 在控制台打出所有模板字符。~~<sup>(1.3.2<sup> - </sup>)</sup>   
-> 　 ~~You can also output all template character in the console via the static method `date.description`.~~<sup>(1.3.2<sup> - </sup>)</sup>   
+> 2、~~你也可以通过静态方法 `date.description` 在控制台打出所有模板字符。~~<sup style="color:#f33">(1.3.2 - )</sup>   
+> 　 ~~You can also output all template character in the console via the static method `date.description`.~~<sup style="color:#f33">(1.3.2 - )</sup>   
 >
-> 3、关于转义模板字符，这里与PHP不同 **【敲黑板！！！】** <sup>(1.3.0+)</sup>  
-> 　 About the escaped template character, here is different from PHP **[Note!!!]** <sup>(1.3.0 + )</sup>  
+> 3、关于转义模板字符，这里与PHP不同 **【敲黑板！！！】** <sup style="color:#f33">(1.3.0 + )</sup>  
+> 　 About the escaped template character, here is different from PHP **[Note!!!]** <sup style="color:#f33">(1.3.0 + )</sup>  
 >> **如果在date里想输出模板本来的字符，请用转义符--双反斜杠"\\\\"(PHP是一个单反斜杠"\\")。**   
 >> **If you want to output the original character of the template on the date, use the escape character – double backslash "\\\\" (PHP is a single backslash "\\").**  
 >>   举个栗子：   date("\\\\I \\\\l\\\\o\\\\v\\\\e \\\\y\\\\o\\\\u: y-m-d H:i", new Date()) // 输出 "I love you: 19-07-15 15:38"    
@@ -249,7 +249,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 
 <div id="custom" name="custom"></div>
 
-### 自定义节假日(Custom holidays)1.6.0+
+### 自定义节假日(Custom holidays)<sup style="color:#f33">1.6.0+</sup>
 > **默认配置(default config)**
 
 ```javascript
@@ -347,7 +347,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 
 <div id="use-duration" name="use-duration"></div>
 
-### 格式化持续时间/剩余时间/倒计时(duration/count down)<sup>(1.7.0+)</sup>  
+### 格式化持续时间/剩余时间/倒计时(duration/count down)<sup style="color:#f33">(1.7.0+)</sup>  
 > date.duration(‘模板字符’, 持续时间:时间戳, 时间戳是毫秒{默认}: true)  
 > date.duration (‘template character’, duration: timestamp, timestamp is milliseconds {default}: true)
 
@@ -384,7 +384,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 | S | 总秒数，"0"到"8640000000000" <br />Total minutes "0" to "8640000000000" |
 | v | 数字表示的毫秒数，有前导零。"000"到"999" <br />Numeric representation of a millisecond, with leading zeros. "000" to "999" |
 | V | 总毫秒数，"0"到"8640000000000000" <br />Total millisecond "0" to "8640000000000000" |
-| <span style="color:#999">\*</span>all <sup style="color:#f33">1.7.0+</sup> | **{Object}** <br />输出所有模板字符串与对应的值。 <br />Output all template strings and corresponding values. |
+| all | **{Object}** <br />输出所有模板字符串与对应的值。 <br />Output all template strings and corresponding values. |
 <br>
 
 ### 黑科技的使用方式(Interesting to use)
