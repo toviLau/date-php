@@ -13,7 +13,8 @@
 
 > 这是一个Javascript模仿类似于PHP日期时间格式化函数，使用方法和PHP非常类似，有丰富的模板字符，并在原来的基础上增强了一些模板字符。例如：中国的农历日期、用汉字来表示日期、十二生肖与星座。让转换日期时间更自由。  
 > This is a JavaScript implements date formatting functions similar to PHP. It is very similar to PHP, has rich template characters, and enhances some template characters on the basis of the original. For example: Chinese Lunar Date, Chinese Character Date, Chinese Zodiac and Constellation. Make the conversion datetimes more free.   
-> https://tovilau.github.io/date-php/ (点击这里查看更多例/ want see more examples clicked here)  
+> https://tovilau.github.io/date-php/ (点击这里查看更多例/ want see more examples clicked here)
+> 兼容 TypeScript (1.7.6) 
 > [如果你喜欢请 star 支持一下](https://www.npmjs.com/package/date-php)  
 
 
@@ -385,7 +386,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 > 可以非常简单的实现一个时钟，就象下面的一样。  
 > Coded a clock is so easy, just like the following.
 > 
-> ![time clock](https://raw.githubusercontent.com/toviLau/date-php/master/src/img-md/clock.gif)  
+> ![time clock](https://tovilau.github.io/date-php/img.md/clock.gif)  
 >
 > 咦！这个时间的毫秒是不是有点怪？这是[_**setInterval**_](https://blog.csdn.net/acm765152844/article/details/51298915)的问题。(虽然这只是一张图片\^\_\^，但目的是抛出Javascript确实存在的问题。)  
 > What! Is the millisecond of this Datetime a bit strange? This is a problem with [_**setInterval**_](https://blog.csdn.net/acm765152844/article/details/51298915). (Although this is just a picture ^_^, the purpose is to throw the problem Javascript does exist.)
