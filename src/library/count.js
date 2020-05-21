@@ -68,9 +68,8 @@ function duration(fmt = 'D天h:i:s', timestamp = 0, ms = true) {
  * @return 相印时间
  */
 function countTime(fmt = 'D天h:i:s', timestamp1 = 0, timestamp2 = 0, ms = true) {
-  let count = new Date(timestamp1) - new Date(timestamp2);
-  count = !!count ? count : 0;
-  return duration(fmt, Math.abs(count));
+  let count = new Date(timestamp1) - new Date(timestamp2) || 0;
+  return duration(fmt, Math.abs(count), ms);
 }
 
 export {
