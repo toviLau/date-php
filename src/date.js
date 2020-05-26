@@ -248,7 +248,7 @@ const date = function (fmt = 'Y-m-d', now = new Date(), ms = true) {
     Object.keys(tChars).forEach((res, idx) => json[res] = tChars[res]());
     return json;
   }
-  return fmt.replace(/(\\?([lf][a-z])|([a-z]))/ig, (res, key) => {
+  return fmt.replace(/\\?(([lf][a-z])|([a-z]))/ig, (res, key) => {
     let result = '';
     if (res !== key) {
       result = key;
