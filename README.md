@@ -14,10 +14,12 @@
 > 这是一个Javascript模仿类似于PHP日期时间格式化函数，使用方法和PHP非常类似，有丰富的模板字符，并在原来的基础上增强了一些模板字符。例如：中国的农历日期、用汉字来表示日期、十二生肖与星座。让转换日期时间更自由。  
 > This is a JavaScript implements date formatting functions similar to PHP. It is very similar to PHP, has rich template characters, and enhances some template characters on the basis of the original. For example: Chinese Lunar Date, Chinese Character Date, Chinese Zodiac and Constellation. Make the conversion datetimes more free.   
 >  
-> https://tovilau.github.io/date-php/ (点击这里查看更多例/ want see more examples clicked here)  
->  
 > 兼容 TypeScript(.ts)<sup style="color:#f33">(1.7.6+)</sup>  
-> TypeScript(.ts) compatible <sup style="color:#f33">(1.7.6+)</sup>  
+> TypeScript(.ts) compatible <sup style="color:#f33">(1.7.6+)</sup> 
+>  
+> https://tovilau.github.io/date-php/ (点击这里查看更多例/ want see more examples clicked here)  
+> 
+> [试一试(try)](https://tovilau.github.io/date-php/) 
 >  
 > [如果你喜欢请 star 支持一下](https://www.npmjs.com/package/date-php)    
 > [Please star support if you like] (https://www.npmjs.com/package/date-php)  
@@ -115,8 +117,9 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 // 更多请自由发挥...
 // More please use your imagination...
 ```
+[试一试(try)](https://tovilau.github.io/date-php/) 
+<br /><br /><br />
 
-<br />
 
 ### 模板字符，默认值：{string} 'Y-m-d'(Template character, default: {string} 'Y-m-d')
 > 1、你也可以去<u> [_**PHP中文官网**_](https://www.php.net/manual/zh/function.date.php) </u>看看，使用方法类似。  
@@ -232,11 +235,14 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 | **其它** | | |
 | | <span style="color:#999">\*</span>all <sup style="color:#f33">1.6.0+</sup> | **{Object}** <br />输出所有模板字符串与对应的值。 <br />Output all template strings and corresponding values. |
 
-<br />
+[试一试(try)](https://tovilau.github.io/date-php/) 
+<br /><br /><br />
+
 
 ### 时间对象，默认值：{Date} 当前本地机器时间(Datetime object, default: {Date} local Datetime)
 > 可以是任意时间对象，例如：  
 > It can be any datetime object, Example:
+
 
 ```javascript
     1563176336000 // 时间戳(Unix timestamp)
@@ -244,8 +250,9 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
     '2019-07-15 15:38:56' // 字符串日期(String datetime)
     '2019/07/15 15:38:56' // 字符串日期(String datetime)  
 ```
+[试一试(try)](https://tovilau.github.io/date-php/) 
+<br /><br /><br />
 
-<br>
 
 <div id="custom" name="custom"></div>
 
@@ -343,7 +350,8 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
   date('Y-m-d lh', new Date()) // -> 2019-07-15 demos day
 ```
 
-<br>
+[试一试(try)](https://tovilau.github.io/date-php/) 
+<br /><br /><br />
 
 <div id="use-duration" name="use-duration"></div>
 
@@ -385,7 +393,9 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 | v | 数字表示的毫秒数，有前导零。"000"到"999" <br />Numeric representation of a millisecond, with leading zeros. "000" to "999" |
 | V | 总毫秒数，"0"到"8640000000000000" <br />Total millisecond "0" to "8640000000000000" |
 | all | **{Object}** <br />输出所有模板字符串与对应的值。 <br />Output all template strings and corresponding values. |
-<br>
+
+[试一试(try)](https://tovilau.github.io/date-php/) 
+<br /><br /><br />
 
 ### 黑科技的使用方式(Interesting to use)
 > 可以非常简单的实现一个时钟，就象下面的一样。  
