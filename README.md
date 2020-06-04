@@ -22,7 +22,7 @@
 > [试一试(try)](https://tovilau.github.io/date-php/) 
 >  
 > [如果你喜欢请 star 支持一下](https://www.npmjs.com/package/date-php)    
-> [Please star support if you like] (https://www.npmjs.com/package/date-php)  
+> [Please star support if you like](https://www.npmjs.com/package/date-php)  
 
 
 ```javascript
@@ -282,7 +282,8 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
     '1001': ['国庆', 'National day'],
     '1024': ['中国程序员节', `Chinese programmer's day`],
     '1224': ['平安夜', `Christmas Eve`],
-    '1225': [' 圣诞节', `Christmas Day`],
+    '1225': ['圣诞节', `Christmas Day`],
+    '1226': ['毛泽东诞辰', `Zedong Mao birthday`],
     '1117': ['世界学生日', `World student's day`],
     '1201': ['世界艾滋病日', `World AIDS day`],
     '*0101': ['春节', 'Chinese year'],
@@ -368,7 +369,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
   date.duration('n月j天 h小时i分钟s秒',  314159265 ) //" 0月3天 15小时15分钟59秒"
   date.duration('高考倒计时：D天h小时i分钟s秒',  1591491612345 - 1577808654321 ) //" 高考倒计时：158天08小时49分钟18秒"
   date.duration('倒计时：D天h小时i分钟s秒',  13682958024 ) // 倒计时：158天08小时49分钟18秒
-  date.duration('cou\\\\nt \\\\d\\\\ow\\\\n：D \\\\d\\\\a\\\\y h:i:s',  1591491612345 - 1577808654321 ) // count down：158 day 08:49:18  date.duration('D天h小时i分钟s.v秒',  86400000 + 12345) // 1天00小时00分钟12.345秒
+  date.duration('cou\\nt \\d\\ow\\n：D \\d\\a\\y h:i:s',  1591491612345 - 1577808654321 ) // count down：158 day 08:49:18  date.duration('D天h小时i分钟s.v秒',  86400000 + 12345) // 1天00小时00分钟12.345秒
   date.duration('H小时i分钟s.v秒',  86400000 + 7654321) // 26小时07分钟34.321秒
   date.duration('D天h小时i分钟s.v秒',  86400000 - 12345) // 0天23小时59分钟47.655秒
   date.duration('1970年至今已有D天h小时i分钟s.v秒',  new Date()) // "从1970年至今已有18322天11小时20分钟15.092秒"
