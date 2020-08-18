@@ -105,7 +105,11 @@ const isDate = function (d) {
     return new Date(d).toString() !== 'Invalid Date';
 };
 const date = function (fmt = 'Y-m-d', now = new Date, ms = true) {
-    now = this || (isDate(now) ? new Date(now) : new Date());
+    now = isDate(this)
+      ? this
+      : isDate(now)
+        ? new Date(now)
+        : new Date;
     if (ms === false) now = new Date(now * 1000);
 
     if (isDate(now)) throw Error((D => {
