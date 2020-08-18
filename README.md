@@ -17,9 +17,7 @@
 > 兼容 TypeScript(.ts)<sup style="color:#f33">(1.7.6+)</sup>  
 > TypeScript(.ts) compatible <sup style="color:#f33">(1.7.6+)</sup> 
 >  
-> https://tovilau.github.io/date-php/ (点击这里查看更多例/ want see more examples clicked here)  
-> 
-> [试一试(try)](https://tovilau.github.io/date-php/) 
+> [点击这里查看更多例/ want see more examples clicked here](https://tovilau.github.io/date-php/)  
 >  
 > [如果你喜欢请 star 支持一下](https://www.npmjs.com/package/date-php)    
 > [Please star support if you like](https://www.npmjs.com/package/date-php)  
