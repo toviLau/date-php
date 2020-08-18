@@ -1,5 +1,5 @@
 /**
- * date-php.js v1.7.13
+ * date-php.js v1.7.15
  *   :-) date('Y-m-d', 1563148800000) - 这是一个Javascript模仿PHP日期时间格式化函数，使用方法和PHP非常类似，有丰富的模板字符，并在原来的基础上增强了一些模板字符。例如：中国的农历日期、用汉字来表示日期、十二生肖与星座。让转换日期时间更自由。
  *   This is a Javascript mimicking PHP datetime formatting function. It is very similar to PHP, has rich template 
  *   characters, and enhances some template characters on the basis of the original. For example: Chinese Lunar Date,
@@ -990,7 +990,7 @@
             : new Date;
         if (ms === false) { now = new Date(now * 1000); }
 
-        if (isDate(now)) { throw Error((function (D) {
+        if (!isDate(now)) { throw Error((function (D) {
             return '' +
               '参数2不正确，须传入 “日期时间对象”，或 “Unix时间戳” 或 “时间戳字符串”。\n可以参考以下值：\n' +
               "  \"" + D + "\"\n" +
@@ -1149,7 +1149,7 @@
 
     defP(Date.prototype, 'format', date$1);
 
-    defP(date$1, 'version', '1.7.13');
+    defP(date$1, 'version', '1.7.15');
     defP(date$1, 'description', function () { return (console.info('%cdate-php使用说明:\n' +
       '已经废弃，查看使用说明请移步这里\nhttps://github.com/toviLau/date-php/blob/master/README.md'
       , 'color:#c63'

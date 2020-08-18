@@ -112,7 +112,7 @@ const date = function (fmt = 'Y-m-d', now = new Date, ms = true) {
         : new Date;
     if (ms === false) now = new Date(now * 1000);
 
-    if (isDate(now)) throw Error((D => {
+    if (!isDate(now)) throw Error((D => {
         return '' +
           '参数2不正确，须传入 “日期时间对象”，或 “Unix时间戳” 或 “时间戳字符串”。\n可以参考以下值：\n' +
           `  "${ D }"\n` +
