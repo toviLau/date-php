@@ -37,7 +37,7 @@ function duration(fmt = 'D天h:i:s', timestamp = 0, ms = true) {
     i: () => pad(Math.floor(tChars.I() % conversion.h),2), // 当前分钟剩余点数
     I: () => Math.floor(tChars.S() / conversion.i), // 总剩余分钟数
 
-    s: () => pad(Math.floor((tChars.S() % conversion.i), 2)), // 当前秒钟剩余点数
+    s: () => pad(Math.floor(tChars.S() % conversion.i), 2), // 当前秒钟剩余点数
     S: () => Math.floor(tChars.V() / conversion.s), // 总剩余秒数
 
     v: () => pad(Math.floor(tChars.V() % conversion.s), 3), // 当前毫秒剩余数
