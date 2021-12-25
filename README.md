@@ -74,7 +74,7 @@ npm i -S date-php;
   > 用法 / usage：
 
   date(tplChars:string, dateTimeObj:dateTime|number [,isMs: boolean])
-  date(字符模板, 日期时间对象:  [,是否毫秒])
+  date(字符模板, 日期时间对象 [,是否毫秒])
  ```
 
  > 1、以下所有方式的入参都是可选参数。  
