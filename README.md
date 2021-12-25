@@ -70,6 +70,13 @@ npm i -S date-php;
 <div id="use-date" name="use-date"></div>
 
 ### 使用(use)
+ ```
+  > 用法 / usage：
+
+  date(tplChars:string, dateTimeObj:dateTime|number [,isMs: boolean])
+  date(字符模板, 日期时间对象:  [,是否毫秒])
+ ```
+
  > 1、以下所有方式的入参都是可选参数。  
  > 　 Entry parameters in all of the following ways are optional.
  >
@@ -85,10 +92,6 @@ import date from 'date-php'; // 引入date-php(import date-php)
 // CommonJS && AMD -- CDN方式跳过(CDN mode skip)
 const date = require('date-php'); // 引入date-php(require date-php)
 
-/**
- * 示例1 - date('模板字符', 日期时间对象)
- * demo 1 - date ('Template character', Datetime object);
- **/
 date('Y-m-d H:i:s', new Date()); // "2019-07-15 15:38:56"
 date('y-m-d h:i[a]', new Date()); // "19-07-15 03:38[pm]"
 date('星期K', "2019-07-15 15:38:56"); // "星期一" (1.3.2+)
@@ -355,9 +358,12 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 <div id="use-duration" name="use-duration"></div>
 
 ### 格式化持续时间/剩余时间/倒计时(duration/count down)<sup style="color:#f33">(1.7.0+)</sup>  
-> date.duration(‘模板字符’, 持续时间:时间戳, 时间戳是毫秒{默认}: true)  
-> date.duration (‘template character’, duration: timestamp, timestamp is milliseconds {default}: true)
+ ```
+ > 用法 / usage：
 
+ date.duration(tplChars:string, duration:number [,isMs: boolean])
+ date.duration(‘模板字符’, 持续时间:时间戳 [,是否毫秒: true])  
+ ```
 
 ```javascript
  /**
