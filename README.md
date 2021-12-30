@@ -73,8 +73,8 @@ npm i -S date-php;
  ```
   > 用法 / usage：
 
-  date(tplChars:string, dateTimeObj:dateTime|number [,isMs: boolean])
-  date(字符模板, 日期时间对象 [,是否毫秒])
+  date([tplChars:string='Y-m-d'[, dateTimeObj:dateTime|number=new Date() [,isMs: boolean=true]]])
+  date([字符模板[, 日期时间对象 [,是否毫秒]]])
  ```
 
  > 1、以下所有方式的入参都是可选参数。  
@@ -360,16 +360,11 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 ### 格式化持续时间/剩余时间/倒计时(duration/count down)<sup style="color:#f33">(1.7.0+)</sup>  
  ```
  > 用法 / usage：
-
- date.duration(tplChars:string, duration:number [,isMs: boolean])
- date.duration(‘模板字符’, 持续时间:时间戳 [,是否毫秒: true])  
+ date.duration([tplChars:string='D天h:i:s'[, duration:number=0 [,isMs: boolean=true]]])
+ date.duration([‘模板字符’[, 持续时间:时间戳 [,是否毫秒: true]]])  
  ```
 
 ```javascript
- /**
-  * 示例4 - date.duration(‘模板字符’, 持续时间:时间戳, 时间戳是毫秒{默认}: true)  
-  * demo 4 - date.duration (‘template character’, duration: timestamp, timestamp is milliseconds {default}: true)
-  **/
   date.duration('n月j天 h小时i分钟s秒',  314159265 ) //" 0月3天 15小时15分钟59秒"
   date.duration('高考倒计时：D天h小时i分钟s秒',  1591491612345 - 1577808654321 ) //" 高考倒计时：158天08小时49分钟18秒"
   date.duration('倒计时：D天h小时i分钟s秒',  13682958024 ) // 倒计时：158天08小时49分钟18秒

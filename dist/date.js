@@ -1,5 +1,5 @@
 /**
- * date-php.js v1.7.16
+ * date-php.js v1.7.17
  *   :-) date('Y-m-d', 1563148800000) - 这是一个Javascript模仿PHP日期时间格式化函数，使用方法和PHP非常类似，有丰富的模板字符，并在原来的基础上增强了一些模板字符。例如：中国的农历日期、用汉字来表示日期、十二生肖与星座。让转换日期时间更自由。
  *   This is a Javascript mimicking PHP datetime formatting function. It is very similar to PHP, has rich template 
  *   characters, and enhances some template characters on the basis of the original. For example: Chinese Lunar Date,
@@ -730,58 +730,63 @@
      * @return 相印时间
      */
     function duration(fmt, timestamp, ms) {
-      if ( fmt === void 0 ) fmt = 'D天h:i:s';
-      if ( timestamp === void 0 ) timestamp = 0;
-      if ( ms === void 0 ) ms = true;
+        if ( fmt === void 0 ) fmt = 'D天h:i:s';
+        if ( timestamp === void 0 ) timestamp = 0;
+        if ( ms === void 0 ) ms = true;
 
-      var conversion = {
-        y: 12,
-        m: 30.4375,
-        d: 24,
-        h: 60,
-        i: 60,
-        s: 1000,
-        v: 1000,
-      };
-      var tChars = {
-        y: function () { return tChars.Y(); }, // 当前剩余年数,
-        Y: function () { return Math.floor(tChars.M() / conversion.y); }, // 总剩余年数,
-
-        m: function () { return pad(tChars.n(), 2); }, // 当前剩余月数(有前导零)
-        n: function () { return tChars.M() % conversion.y; }, // 当前剩余月数(无前导零)
-        M: function () { return Math.floor(tChars.D() / conversion.m); }, // 总剩余月数
-
-        d: function () { return pad(tChars.j(), 2); }, // 当前剩余天数(有前导零)
-        j: function () { return Math.floor(tChars.D() % conversion.m); }, // 当前剩余天数(无前导零)。
-        D: function () { return Math.floor(tChars.H() / conversion.d); }, // 总剩余天数
-
-        h: function () { return pad(tChars.g(), 2); }, // 当前小时剩余数(有前导零)
-        g: function () { return Math.floor(tChars.H() % conversion.d); }, // 当前小时剩余数(无前导零)
-        H: function () { return Math.floor(tChars.I() / conversion.h); }, // 总剩余小时数
-
-        i: function () { return pad(Math.floor(tChars.I() % conversion.h),2); }, // 当前分钟剩余点数
-        I: function () { return Math.floor(tChars.S() / conversion.i); }, // 总剩余分钟数
-
-        s: function () { return pad(Math.floor(tChars.S() % conversion.i), 2); }, // 当前秒钟剩余点数
-        S: function () { return Math.floor(tChars.V() / conversion.s); }, // 总剩余秒数
-
-        v: function () { return pad(Math.floor(tChars.V() % conversion.s), 3); }, // 当前毫秒剩余数
-        V: function () { return ms ? new Date(timestamp)-0 : new Date(timestamp) * conversion.v; }, // 总剩余毫秒数
-      };
-
-      return fmt.replace(/(\\?([a-z]))/ig, function (res, key) {
-        var result = '';
-        if (res !== key) {
-          result = key;
-        } else {
-          if (tChars[key]) {
-            result = tChars[key]();
-          } else {
-            result = key.replace('\\', '');
-          }
+        var conversion = {
+            y: 12,
+            m: 30.4375,
+            d: 24,
+            h: 60,
+            i: 60,
+            s: 1000,
+            v: 1000,
+        };
+        var tChars = {
+            y: function () { return tChars.Y(); }, // 当前剩余年数,
+            Y: function () { return Math.floor(tChars.M() / conversion.y); }, // 总剩余年数,
+            
+            m: function () { return pad(tChars.n(), 2); }, // 当前剩余月数(有前导零)
+            n: function () { return tChars.M() % conversion.y; }, // 当前剩余月数(无前导零)
+            M: function () { return Math.floor(tChars.D() / conversion.m); }, // 总剩余月数
+            
+            d: function () { return pad(tChars.j(), 2); }, // 当前剩余天数(有前导零)
+            j: function () { return Math.floor(tChars.D() % conversion.m); }, // 当前剩余天数(无前导零)。
+            D: function () { return Math.floor(tChars.H() / conversion.d); }, // 总剩余天数
+            
+            h: function () { return pad(tChars.g(), 2); }, // 当前小时剩余数(有前导零)
+            g: function () { return Math.floor(tChars.H() % conversion.d); }, // 当前小时剩余数(无前导零)
+            H: function () { return Math.floor(tChars.I() / conversion.h); }, // 总剩余小时数
+            
+            i: function () { return pad(Math.floor(tChars.I() % conversion.h), 2); }, // 当前分钟剩余点数
+            I: function () { return Math.floor(tChars.S() / conversion.i); }, // 总剩余分钟数
+            
+            s: function () { return pad(Math.floor(tChars.S() % conversion.i), 2); }, // 当前秒钟剩余点数
+            S: function () { return Math.floor(tChars.V() / conversion.s); }, // 总剩余秒数
+            
+            v: function () { return pad(Math.floor(tChars.V() % conversion.s), 3); }, // 当前毫秒剩余数
+            V: function () { return ms ? new Date(timestamp) - 0 : new Date(timestamp) * conversion.v; }, // 总剩余毫秒数
+        };
+        
+        if (fmt === 'json' || fmt === 'all' || fmt === -1 || fmt === '-1') {
+            var json = {};
+            Object.keys(tChars).forEach(function (res, idx) { return json[res] = tChars[res](); });
+            return json;
         }
-        return result;
-      });
+        return fmt.replace(/(\\?([a-z]))/ig, function (res, key) {
+            var result = '';
+            if (res !== key) {
+                result = key;
+            } else {
+                if (tChars[key]) {
+                    result = tChars[key]();
+                } else {
+                    result = key.replace('\\', '');
+                }
+            }
+            return result;
+        });
     }
 
     /**
@@ -793,17 +798,17 @@
      * @return 相印时间
      */
     function countTime(fmt, timestamp1, timestamp2, ms) {
-      if ( fmt === void 0 ) fmt = 'D天h:i:s';
-      if ( timestamp1 === void 0 ) timestamp1 = 0;
-      if ( timestamp2 === void 0 ) timestamp2 = 0;
-      if ( ms === void 0 ) ms = true;
+        if ( fmt === void 0 ) fmt = 'D天h:i:s';
+        if ( timestamp1 === void 0 ) timestamp1 = 0;
+        if ( timestamp2 === void 0 ) timestamp2 = 0;
+        if ( ms === void 0 ) ms = true;
 
-      var count = new Date(timestamp1) - new Date(timestamp2) || 0;
-      return duration(fmt, Math.abs(count), ms);
+        var count = new Date(timestamp1) - new Date(timestamp2) || 0;
+        return duration(fmt, Math.abs(count), ms);
     }
     var count = {
-      duration: duration,
-      countTime: countTime
+        duration: duration,
+        countTime: countTime,
     };
 
     function getFestival(dateObj) {
@@ -1149,7 +1154,7 @@
 
     defP(Date.prototype, 'format', date$1);
 
-    defP(date$1, 'version', '1.7.16');
+    defP(date$1, 'version', '1.7.17');
     defP(date$1, 'description', function () { return (console.info('%cdate-php使用说明:\n' +
       '已经废弃，查看使用说明请移步这里\nhttps://github.com/toviLau/date-php/blob/master/README.md'
       , 'color:#c63'
