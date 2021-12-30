@@ -1,5 +1,5 @@
 /**
- * date-php.js v1.7.17
+ * date-php.js v1.7.18
  *   :-) date('Y-m-d', 1563148800000) - 这是一个Javascript模仿PHP日期时间格式化函数，使用方法和PHP非常类似，有丰富的模板字符，并在原来的基础上增强了一些模板字符。例如：中国的农历日期、用汉字来表示日期、十二生肖与星座。让转换日期时间更自由。
  *   This is a Javascript mimicking PHP datetime formatting function. It is very similar to PHP, has rich template 
  *   characters, and enhances some template characters on the basis of the original. For example: Chinese Lunar Date,
@@ -811,7 +811,7 @@
         countTime: countTime,
     };
 
-    function getFestival(dateObj) {
+    function getFestival(dateObj, date) {
       var dateArr = dateObj.match(/(\d{4})(\d{2})(\d{2})/);
       var curDate = new Date(((dateArr[1]) + "-" + (dateArr[2]) + "-" + (dateArr[3])));
 
@@ -983,7 +983,7 @@
     var isDate = function (d) {
         return new Date(d).toString() !== 'Invalid Date';
     };
-    var date$1 = function (fmt, now, ms) {
+    var date = function (fmt, now, ms) {
         if ( fmt === void 0 ) fmt = 'Y-m-d';
         if ( now === void 0 ) now = new Date;
         if ( ms === void 0 ) ms = true;
@@ -1019,8 +1019,8 @@
             lg: function () { return tChars.G() > 18 || tChars.G() < 5 ? Math.ceil((tChars.G() < 19 ? tChars.G() + 24 : tChars.G()) / 2) - 9 : ''; },
             lG: function () { return ("" + (tChars.lg() ? baseFigure[tChars.lg()] + '更' : '')); },
             lk: function () { return lunarKe[Math.floor(((tChars.U() + 60 * 60) % (60 * 60 * 2)) / 60 / 15)]; },
-            fh: function () { return (getFestival(tChars.Y() + tChars.m() + tChars.d()).cn || []).join(); },
-            lh: function () { return (getFestival(tChars.Y() + tChars.m() + tChars.d()).en || []).join(); },
+            fh: function () { return (getFestival(tChars.Y() + tChars.m() + tChars.d(), date).cn || []).join(); },
+            lh: function () { return (getFestival(tChars.Y() + tChars.m() + tChars.d(), date).en || []).join(); },
             l: function () { return longDays[tChars.w()]; },
             N: function () { return tChars.w() === 0 ? 7 : tChars.w(); },
             S: function () { return txt_ordin[tChars.j()] ? txt_ordin[tChars.j()] : 'th'; },
@@ -1152,18 +1152,18 @@
         });
     };
 
-    defP(Date.prototype, 'format', date$1);
+    defP(Date.prototype, 'format', date);
 
-    defP(date$1, 'version', '1.7.17');
-    defP(date$1, 'description', function () { return (console.info('%cdate-php使用说明:\n' +
+    defP(date, 'version', '1.7.18');
+    defP(date, 'description', function () { return (console.info('%cdate-php使用说明:\n' +
       '已经废弃，查看使用说明请移步这里\nhttps://github.com/toviLau/date-php/blob/master/README.md'
       , 'color:#c63'
     )); });
 
     Object.keys(count).forEach(function (res) {
-        defP(date$1, res, count[res]);
+        defP(date, res, count[res]);
     });
 
-    return date$1;
+    return date;
 
 }));

@@ -1,6 +1,6 @@
 export default date_php;
 
-declare function date_php(tplChars: string, dateTime: string | number | object, isMs?: boolean): string;
+declare function date_php(tplChars?: string, dateTime?: string | number | object, isMs?: boolean): string | object;
 
 declare namespace date_php {
 
@@ -9,5 +9,5 @@ declare namespace date_php {
 
     function countTime(tplChars?: string, startDatetime?: number, endDatetime?: number, isMs?: boolean): string;
 
-    function duration(tplChars?: string, duration?: number, isMs?: boolean): string;
+    function duration(tplChars?: string, duration?: number, isMs?: boolean): string | object;
 }

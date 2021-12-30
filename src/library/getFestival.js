@@ -1,7 +1,7 @@
 import getLunar from './getLunar';
 import { pad } from './module'
 
-export default function getFestival(dateObj) {
+export default function getFestival(dateObj, date) {
   const dateArr = dateObj.match(/(\d{4})(\d{2})(\d{2})/);
   const curDate = new Date(`${ dateArr[1] }-${ dateArr[2] }-${ dateArr[3] }`);
 
