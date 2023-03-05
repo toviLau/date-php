@@ -7,7 +7,7 @@
  *   
  *     -- repository https://github.com/toviLau/date-php.git
  *
- *   (c) 2019-2021 ToviLau. Released under the MIT License. 
+ *   (c) 2019-2023 ToviLau. Released under the MIT License. 
  **/
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
