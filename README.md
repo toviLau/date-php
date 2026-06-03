@@ -13,12 +13,12 @@
 
 > 这是一个Javascript模仿类似于PHP日期时间格式化函数，使用方法和PHP非常类似，有丰富的模板字符，并在原来的基础上增强了一些模板字符。例如：中国的农历日期、用汉字来表示日期、十二生肖与星座。让转换日期时间更自由。  
 > This is a JavaScript implements date formatting functions similar to PHP. It is very similar to PHP, has rich template characters, and enhances some template characters on the basis of the original. For example: Chinese Lunar Date, Chinese Character Date, Chinese Zodiac and Constellation. Make the conversion datetimes more free.   
->  
+>
 > 兼容 TypeScript(.ts)<sup style="color:#f33">(1.7.6+)</sup>  
 > TypeScript(.ts) compatible <sup style="color:#f33">(1.7.6+)</sup> 
->  
+>
 > [点击这里查看更多例/ want see more examples clicked here](https://tovilau.github.io/date-php/)  
->  
+>
 > [如果你喜欢请 star 支持一下](https://www.npmjs.com/package/date-php)    
 > [Please star support if you like](https://www.npmjs.com/package/date-php)  
 
@@ -61,6 +61,9 @@ date.duration('D天h小时i分钟s.v秒',  86400000 - 12345) // 0天23小时59�
 // npm
 npm i -S date-php;
 
+// yarn
+yarn add date-php
+
 // CDN
 <script src=“http://unpkg.com/date-php"></script>
 ```
@@ -84,7 +87,7 @@ npm i -S date-php;
  > 　 The following `new Date ()` or other date time initialization values, we acquiescence are `1563176336000` Unix timestamp corresponding Datetime.
  >
  > 3、[_**持续时间/剩余时间/倒计时** 点这里(**duration/count down** clicked here)_](#use-duration)
- 
+
 ```javascript
 // ES6+ -- CDN方式跳过(CDN mode skip)
 import date from 'date-php'; // 引入date-php(import date-php)
@@ -201,12 +204,12 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 | | o | ISO-8601格式年份数字。这和 Y 的值类似，星期数（W）属于前一年或下一年，则用那一年。 <br />ISO-8601 week-numbering year. This has the same value as Y, except that if the ISO week number (W) belongs to the previous or next year, that year is used instead. |
 | | Y | 4 位数字完整表示的年份。 <br />A full numeric representation of a year, 4 digits. |
 | | y | 2 位数字表示的年份。 <br />A two digit representation of a year. |
-| | <span style="color:#999">\*</span>ly <sup style="color:#f33">1.5.0+</sup> | 农历记年法(天干地支，60年一循环)。从"甲子"到"癸亥" 。<br />The ancient Chinese lunar calendar year method (the tian gan and the di zhi, cycle of 60 years). |
-| | <span style="color:#999">\*</span>C <sup style="color:#f33">1.3.2+</sup> | 4 个汉字表示的年份。 <br />Year indicated by 4 Chinese characters. |
-| | <span style="color:#999">\*</span>lc <sup style="color:#f33">1.6.0+</sup> | 生肖 (12年一循环)。从"鼠"到"猪" <br />Chinese zodiac (12-year cycle). From "rat" to "pig" |
-| | <span style="color:#999">\*</span>lC <sup style="color:#f33">1.6.0+</sup> | 农历年汉字。 <br />Chinese character for the lunar calendar. |
-| | <span style="color:#999">\*</span>lz <sup style="color:#f33">1.6.0+</sup> | 生肖汉字 。<br />Zodiac Chinese Characters. |
-| | <span style="color:#999">\*</span>lZ <sup style="color:#f33">1.6.0+</sup> | 生肖英文。 <br />Zodiac English. |
+| | <span style="color:#999">\*</span>ly <sup style="color:#f33">1.5.0+</sup> | 农历记年法(天干地支，60年一循环)。从"甲子"到"癸亥" 。<br />Chinese lunar calendar dating system (Heavenly Stems and Earthly Branches, a 60-year cycle). From "Jia Zi" to "Gui Hai". |
+| | <span style="color:#999">\*</span>C <sup style="color:#f33">1.3.2+</sup> | 4 个汉字表示的公历年份。 例: 公历1月1日前: 二〇一九 公历1月1日后: 二〇二〇 <br />Gregorian calendar year represented by 4 Chinese characters. Example: Before January 1st: 二〇一九 (2019); After January 1st: 二〇二〇 (2020).. |
+| | <span style="color:#999">\*</span>lc <sup style="color:#f33">1.6.0+</sup> | 农历年数字 <br />Numeric representation of a lunar year (using 4 Chinese characters). |
+| | <span style="color:#999">\*</span>lC <sup style="color:#f33">1.6.0+</sup> | 4 个汉字表示的农历年汉字。例: 春节前: 二〇一九 春节后: 二〇二〇 <br />Lunar year represented by 4 Chinese characters. Example: Before the Spring Festival: 二〇一九; After the Spring Festival: 二〇二〇. |
+| | <span style="color:#999">\*</span>lz <sup style="color:#f33">1.6.0+</sup> | 生肖 (12年一循环)汉字。从"鼠"到"猪" <br />Chinese Zodiac characters (12-year cycle). From "鼠" to "猪" |
+| | <span style="color:#999">\*</span>lZ <sup style="color:#f33">1.6.0+</sup> | 生肖 (12年一循环)英文。从"Rat"到"Pig" <br />Chinese Zodiac (12-year cycle) in English. From "Rat" to "Pig". |
 | | | |
 | **时间(Time)** | | |
 | | a | 小写的上午和下午值。"am"或"pm" 。 <br />Lowercase Ante meridiem and Post meridiem. "am" or "pm". |
@@ -218,8 +221,8 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 | | H | 24 小时格式，有前导零。"00"到"23"。 <br />24-hour format of an hour with leading zeros. "00" to "23" . |
 | | i | 有前导零的分钟数。"00"到"59"。 <br />Minutes with leading zeros. "00" to "59". |
 | | s | 有前导零的秒数。"00"到"59"。 <br />Seconds with leading zeros. "00" to "59". |
-| | <span style="color:#999">\*</span>u <sup style="color:#f33">1.5.2\*</sup> | 有前导零的微秒。"000000"到"999999"。由于Javascript暂时不支持微秒，所以微秒只能模拟来实现。返回带前导0的3位随机数。(这个并不是真正的微秒，不精确，建议使用v--毫秒。)。 <br />Microseconds with leading zeros. "000000" to "999999". Since Javascript does not support microseconds for a while, microseconds can only be implemented by simulation. Returns a 3 chars random number with leading 0. |
-| | <span style="color:#999">\*</span>v <sup style="color:#f33">1.5.0+</sup> | 有前导零的毫秒。"000"到"999"。 <br />Millisecond with leading zeros. "000" to "999". |
+| | <span style="color:#999">\*</span>u <sup style="color:#f33">1.7.19\*</sup> | 微秒。"0"到"999999"。 <br />Microsecond value range: "0" to "999999". |
+| | <span style="color:#999">\*</span>v <sup style="color:#f33">1.5.0+</sup> | 毫秒。"0"到"999"。 <br />Millisecond value range: "0" to "999". |
 | | | |
 | **时区(Timezone)** | | |
 | | e | 时区标识。UTC，GMT，Atlantic/Azores。 <br />Timezone identifier.Examples: UTC, GMT, Atlantic/Azores |
@@ -380,8 +383,8 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 | m | 数字表示的月份，有前导零。"00"到"12" <br />Numeric representation of a months, with leading zeros. "00" to "12"|
 | n | 数字表示的月份，无前导零。"0"到"12" <br />Numeric representation of a months, without leading zeros. "0" to "12" |
 | M | 总月数，”0”到”3285420" <br />Total months “0” to "3285420"|
-| d | 数字表示的天数，有前导零。"00"到"12" <br />Numeric representation of a days, with leading zeros. "0" to "31" |
-| j | 数字表示的天数，无前导零。"0"到"12" <br />Numeric representation of a days, without leading zeros. "0" to "31" |
+| d | 数字表示的天数，有前导零。"00"到"31" <br />Numeric representation of a days, with leading zeros. "0" to "31" |
+| j | 数字表示的天数，无前导零。"0"到"31   " <br />Numeric representation of a days, without leading zeros. "0" to "31" |
 | D | 总天数， "0"到"100000000" <br />Total days "0" to "100000000"|
 | h | 数字表示的小时数，有前导零。"00"到"24" <br />Numeric representation of a hours, with leading zeros. "00" to "24" |
 | g | 数字表示的小时数，无前导零。"0"到"24" <br />Numeric representation of a hours, without leading zeros. "0" to "24" |

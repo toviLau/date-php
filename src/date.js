@@ -80,9 +80,9 @@
  * @param  {date}       now  要格式化的时间 [默认值: 默认为当前本地机器时间]
  * @return {string}     格式化的时间字符串
  */
-import count from './library/count';
-import getLunar from './library/getLunar';
-import getFestival from './library/getFestival';
+import count from "./library/count";
+import getLunar from "./library/getLunar";
+import getFestival from "./library/getFestival";
 import {
     pad,
     longDays,
@@ -99,29 +99,31 @@ import {
     textReplace,
     textReplace2,
     defP,
-} from './library/module';
+} from "./library/module";
 
 const isDate = function (d) {
-    return new Date(d).toString() !== 'Invalid Date';
+    return new Date(d).toString() !== "Invalid Date";
 };
-const date = function (fmt = 'Y-m-d', now = new Date, ms = true) {
-    now = isDate(this)
-      ? this
-      : isDate(now)
-        ? new Date(now)
-        : new Date;
+const date = function (fmt = "Y-m-d", now = new Date(), ms = true) {
+    now = isDate(this) ? this : isDate(now) ? new Date(now) : new Date();
     if (ms === false) now = new Date(now * 1000);
 
-    if (!isDate(now)) throw Error((D => {
-        return '' +
-          '参数2不正确，须传入 “日期时间对象”，或 “Unix时间戳” 或 “时间戳字符串”。\n可以参考以下值：\n' +
-          `  "${ D }"\n` +
-          `  "${ D.toUTCString() }"\n` +
-          `  ${ D.getTime() }  -- 推荐\n`;
-    })(new Date()));
+    if (!isDate(now))
+        throw Error(
+            ((D) => {
+                return (
+                    "" +
+                    "参数2不正确，须传入 “日期时间对象”，或 “Unix时间戳” 或 “时间戳字符串”。\n可以参考以下值：\n" +
+                    `  "${D}"\n` +
+                    `  "${D.toUTCString()}"\n` +
+                    `  ${D.getTime()}  -- 推荐\n`
+                );
+            })(new Date()),
+        );
 
     // 获取农历
-    const lunarInfo = () => getLunar.solar2lunar(tChars.Y(), tChars.n(), tChars.j());
+    const lunarInfo = () =>
+        getLunar.solar2lunar(tChars.Y(), tChars.n(), tChars.j());
 
     // 模板字串替换函数
     const tChars = {
@@ -132,23 +134,41 @@ const date = function (fmt = 'Y-m-d', now = new Date, ms = true) {
         j: () => now.getDate(),
         lj: () => lunarInfo().gzDay, // 干支日(1.6.0+)
         ld: () => lunarInfo().IDayCn,
-        lt: () => lunarTime[Math.floor((tChars.G() >= 23 ? 0 : tChars.G() + 1) / 2)],
-        lg: () => tChars.G() > 18 || tChars.G() < 5 ? Math.ceil((tChars.G() < 19 ? tChars.G() + 24 : tChars.G()) / 2) - 9 : '',
-        lG: () => `${ tChars.lg() ? baseFigure[tChars.lg()] + '更' : '' }`,
-        lk: () => lunarKe[Math.floor(((tChars.U() + 60 * 60) % (60 * 60 * 2)) / 60 / 15)],
-        fh: () => (getFestival(tChars.Y() + tChars.m() + tChars.d(), date).cn || []).join(),
-        lh: () => (getFestival(tChars.Y() + tChars.m() + tChars.d(), date).en || []).join(),
+        lt: () =>
+            lunarTime[Math.floor((tChars.G() >= 23 ? 0 : tChars.G() + 1) / 2)],
+        lg: () =>
+            tChars.G() > 18 || tChars.G() < 5
+                ? Math.ceil(
+                      (tChars.G() < 19 ? tChars.G() + 24 : tChars.G()) / 2,
+                  ) - 9
+                : "",
+        lG: () => `${tChars.lg() ? baseFigure[tChars.lg()] + "更" : ""}`,
+        lk: () =>
+            lunarKe[
+                Math.floor(((tChars.U() + 60 * 60) % (60 * 60 * 2)) / 60 / 15)
+            ],
+        fh: () =>
+            (
+                getFestival(tChars.Y() + tChars.m() + tChars.d(), date).cn || []
+            ).join(),
+        lh: () =>
+            (
+                getFestival(tChars.Y() + tChars.m() + tChars.d(), date).en || []
+            ).join(),
         l: () => longDays[tChars.w()],
-        N: () => tChars.w() === 0 ? 7 : tChars.w(),
-        S: () => txt_ordin[tChars.j()] ? txt_ordin[tChars.j()] : 'th',
+        N: () => (tChars.w() === 0 ? 7 : tChars.w()),
+        S: () => (txt_ordin[tChars.j()] ? txt_ordin[tChars.j()] : "th"),
         w: () => now.getDay(),
         K: () => weekDay[tChars.w()], // 中文周(1.3.2+)
-        z: () => Math.ceil((now - new Date(tChars.Y() + '/1/1')) / (60 * 60 * 24 * 1e3)),
+        z: () =>
+            Math.ceil(
+                (now - new Date(tChars.Y() + "/1/1")) / (60 * 60 * 24 * 1e3),
+            ),
 
         // 周
         W: () => {
             const inYearDay = tChars.z(); // 当前年份中的第n天
-            const yDay = new Date(tChars.Y() + '1/1').getDay(); // 第一天周几
+            const yDay = new Date(tChars.Y() + "1/1").getDay(); // 第一天周几
             const diffDay = (yDay > 0) - 0;
             return Math.ceil((inYearDay - yDay) / 7) + diffDay;
         },
@@ -172,24 +192,31 @@ const date = function (fmt = 'Y-m-d', now = new Date, ms = true) {
             return new Date(year, nextMonth, 0).getDate();
         },
         la: () => lunarInfo().astro,
-        ls: () => lunarInfo().Term || '', // 24节气汉字(1.6.0+)
-        lS: () => solar[lunarInfo().Term] || '', // 24节气英文(1.6.0+)
+        ls: () => lunarInfo().Term || "", // 24节气汉字(1.6.0+)
+        lS: () => solar[lunarInfo().Term] || "", // 24节气英文(1.6.0+)
         lq: () => Math.ceil((tChars.n() - 0) / 3), // 季度数字
         lQ: () => baseFigure[tChars.lq()], // 季度汉字(1.6.0+)
-        q: () => txt_ordin[tChars.lq()] ? tChars.lq() + '' + txt_ordin[tChars.lq()] : tChars.lq() + 'th', // 季度英文缩写
+        q: () =>
+            txt_ordin[tChars.lq()]
+                ? tChars.lq() + "" + txt_ordin[tChars.lq()]
+                : tChars.lq() + "th", // 季度英文缩写
         Q: () => ordinal[tChars.lq() - 1], // 李度英文(1.6.0+)
 
         // 年
-        L: () => Number(tChars.Y() % 400 === 0 || (tChars.Y() % 100 !== 0 && tChars.Y() % 4 === 0)),
+        L: () =>
+            Number(
+                tChars.Y() % 400 === 0 ||
+                    (tChars.Y() % 100 !== 0 && tChars.Y() % 4 === 0),
+            ),
         o: () => {
             const yearWeek = new Date(tChars.Y(), 0, 1).getDay();
             const diffTime = 60 * 60 * 24 * 1000 * (7 - yearWeek);
-            const timestramp = yearWeek > 3 ? now.getTime() - diffTime : now.getTime();
+            const timestramp =
+                yearWeek > 3 ? now.getTime() - diffTime : now.getTime();
             return new Date(timestramp).getFullYear();
-
         },
         Y: () => now.getFullYear(),
-        y: () => (tChars.Y() + '').slice(2),
+        y: () => (tChars.Y() + "").slice(2),
         ly: () => lunarInfo().gzYear, // 干支年(1.6.0*)
         C: () => textReplace2(tChars.Y()), // 中文年(1.3.2+), PHP中无此功能
         lc: () => lunarInfo().lYear, // 农历年数字(1.6.0+)
@@ -198,11 +225,15 @@ const date = function (fmt = 'Y-m-d', now = new Date, ms = true) {
         lZ: () => zodiac[lunarInfo().Animal], // 生肖英文(1.6.0+)
 
         // 时间
-        a: () => tChars.G() > 11 ? 'pm' : 'am',
+        a: () => (tChars.G() > 11 ? "pm" : "am"),
         A: () => tChars.a().toUpperCase(),
         B: () => {
             const off = (now.getTimezoneOffset() + 60) * 60;
-            const theSeconds = (tChars.G() * 3600) + (now.getMinutes() * 60) + now.getSeconds() + off;
+            const theSeconds =
+                tChars.G() * 3600 +
+                now.getMinutes() * 60 +
+                now.getSeconds() +
+                off;
             let beat = Math.floor(theSeconds / 86.4);
             // beat > 1000 ? beat -= 1000 : beat += 1000
             if (beat > 1000) beat -= 1000;
@@ -216,8 +247,9 @@ const date = function (fmt = 'Y-m-d', now = new Date, ms = true) {
         H: () => pad(tChars.G(), 2),
         i: () => pad(now.getMinutes(), 2),
         s: () => pad(now.getSeconds(), 2),
-        u: () => tChars.v() + pad(Math.floor(Math.random() * 1000), 3),
-        v: () => (now.getTime() + '').substr(-3),
+        // u: () => tChars.v() + pad(Math.floor(Math.random() * 1000), 3),
+        u: () => tChars.v() * 1000 + ~~((performance.now() % 1) * 1000),
+        v: () => (now.getTime() + "").substr(-3) - 0,
 
         // 时区
         e: () => Intl.DateTimeFormat().resolvedOptions().timeZone,
@@ -235,49 +267,74 @@ const date = function (fmt = 'Y-m-d', now = new Date, ms = true) {
             }
             return (now.getTimezoneOffset() === DST) | 0;
         },
-        O: () => (now.getTimezoneOffset() > 0 ? '-' : '+') + pad(Math.abs(now.getTimezoneOffset() / 60 * 100), 4),
-        P: () => tChars.O().match(/[+-]?\d{2}/g).join(':'),
+        O: () =>
+            (now.getTimezoneOffset() > 0 ? "-" : "+") +
+            pad(Math.abs((now.getTimezoneOffset() / 60) * 100), 4),
+        P: () =>
+            tChars
+                .O()
+                .match(/[+-]?\d{2}/g)
+                .join(":"),
         T: () => {
-            const tz = now.toLocaleTimeString(navigator.language, { timeZoneName: 'short' }).split(/\s/);
+            const tz = now
+                .toLocaleTimeString(navigator.language, {
+                    timeZoneName: "short",
+                })
+                .split(/\s/);
             return tz[tz.length - 1];
         },
         Z: () => -(now.getTimezoneOffset() * 60),
 
         // 完整日期时间
-        c: () => tChars.Y() + '-' + tChars.m() + '-' + tChars.d() + 'T' + tChars.h() + ':' + tChars.i() + ':' + tChars.s() + tChars.P(),
+        c: () =>
+            tChars.Y() +
+            "-" +
+            tChars.m() +
+            "-" +
+            tChars.d() +
+            "T" +
+            tChars.h() +
+            ":" +
+            tChars.i() +
+            ":" +
+            tChars.s() +
+            tChars.P(),
         r: () => now.toString(),
         U: () => Math.round(now.getTime() / 1000),
     };
 
-    if (fmt === 'json' || fmt === 'all' || fmt === -1 || fmt === '-1') {
+    if (fmt === "json" || fmt === "all" || fmt === -1 || fmt === "-1") {
         const json = {};
-        Object.keys(tChars).forEach((res, idx) => json[res] = tChars[res]());
+        Object.keys(tChars).forEach((res, idx) => (json[res] = tChars[res]()));
         return json;
     }
-    return fmt.replace(/\\?(([lf][a-z])|([a-z]))/ig, (res, key) => {
-        let result = '';
+    return fmt.replace(/\\?(([lf][a-z])|([a-z]))/gi, (res, key) => {
+        let result = "";
         if (res !== key) {
             result = key;
         } else {
             if (tChars[key]) {
                 result = tChars[key]();
             } else {
-                result = key.replace('\\', '');
+                result = key.replace("\\", "");
             }
         }
         return result;
     });
 };
 
-defP(Date.prototype, 'format', date);
+defP(Date.prototype, "format", date);
 
-defP(date, 'version', '__VERSION__');
-defP(date, 'description', () => (console.info('%cdate-php使用说明:\n' +
-  '已经废弃，查看使用说明请移步这里\nhttps://github.com/toviLau/date-php/blob/master/README.md'
-  , 'color:#c63',
-)));
+defP(date, "version", "__VERSION__");
+defP(date, "description", () =>
+    console.info(
+        "%cdate-php使用说明:\n" +
+            "已经废弃，查看使用说明请移步这里\nhttps://github.com/toviLau/date-php/blob/master/README.md",
+        "color:#c63",
+    ),
+);
 
-Object.keys(count).forEach(res => {
+Object.keys(count).forEach((res) => {
     defP(date, res, count[res]);
 });
 export default date;
