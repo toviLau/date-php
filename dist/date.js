@@ -13,7 +13,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
     typeof define === 'function' && define.amd ? define(factory) :
     (global = global || self, global.date = factory());
-}(this, function () { 'use strict';
+}(this, (function () { 'use strict';
 
     /**
      * 1900-2100区间内的公历、农历互转
@@ -1210,4 +1210,4 @@
 
     return date;
 
-}));
+})));
