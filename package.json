@@ -50,7 +50,7 @@
   "homepage": "https://tovilau.github.io/date-php/",
   "devDependencies": {
     "eslint-plugin-flowtype": "^3.12.1",
-    "lodash": "^4.17.21",
+    "lodash": "^4.18.1",
     "minimist": "^1.2.6",
     "path-parse": "^1.0.7",
     "rollup": "^1.17.0",
