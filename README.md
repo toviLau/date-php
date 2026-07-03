@@ -3,7 +3,7 @@
 [![issues](https://img.shields.io/github/issues/toviLau/date-php)](https://github.com/toviLau/date-php/issues)
 [![forks](https://img.shields.io/github/forks/toviLau/date-php)](https://github.com/toviLau/date-php)
 [![github](https://img.shields.io/github/package-json/v/tovilau/date-php?logo=github)](https://github.com/toviLau/date-php)
-[![npm](https://img.shields.io/npm/v/date-php?label=versoin&logo=npm)](https://www.npmjs.com/package/date-php)
+[![npm](https://img.shields.io/npm/v/date-php?label=version&logo=npm)](https://www.npmjs.com/package/date-php)
 [![downloads](https://img.shields.io/npm/dm/date-php?logo=npm)](https://www.npmjs.com/package/date-php)
 [![stars](https://img.shields.io/github/stars/toviLau/date-php)](https://github.com/toviLau/date-php)
 [![npm bundle size](https://img.shields.io/bundlephobia/minzip/date-php)](https://www.npmjs.com/package/date-php)
@@ -30,14 +30,14 @@ import date from 'date-php';
 var d = new Date(); // 1563148800000 or 'Mon Jul 15 2019 15:38:56 GMT+0800 (中国标准时间)'
 
 // 然后(Second)
-date('Y-m-d', d); // "2019-07-15
-date('y-m-d', d); // "19-07-15
+date('Y-m-d', d); // "2019-07-15"
+date('y-m-d', d); // "19-07-15"
 date('m-d-Y H:i:s', d); // "07-15-2019 15:38:56"
 date('y-m-d H:i:s[a] D', d); // "07-15-20 15:38:56[pm] Mon"
 
 // 或者这样(Or)
-d.format('Y-m-d'); // "2019-07-15
-d.format('y-m-d'); // "2019-07-15
+d.format('Y-m-d'); // "2019-07-15"
+d.format('y-m-d'); // "2019-07-15"
 d.format('m-d-Y H:i:s'); // "07-15-2019 15:38:56"
 d.format('m-d-y H:i:s'); // "07-15-20 15:38:56"
 ```
@@ -73,9 +73,9 @@ yarn add date-php
 <div id="use-date" name="use-date"></div>
 
 ### 使用(use)
- ```
   > 用法 / usage：
 
+ ```
   date([tplChars:string='Y-m-d'[, dateTimeObj:dateTime|number=new Date() [,isMs: boolean=true]]])
   date([字符模板[, 日期时间对象 [,是否毫秒]]])
  ```
@@ -314,17 +314,17 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 
 |  Api  |  说明(description)  |
 | --- | --- |
-| replaceHolidayConf | 替换默认节假日配置。 <br />Replace the default holiday preparation. |
-| editHolidayConf | 修改或新增节假日配置。 <br />Modify or add holiday preparation |
+| replaceHolidayConf | 替换默认节假日配置。 <br />Replace the default holiday **configuration** |
+| editHolidayConf | 修改或新增节假日配置。 <br />Modify or add holiday **configuration**. |
 
 > **key值说明(Key description)**
 
-|  Key  |  说明(description)  |
-| --- | --- |
-| 0101 | 4位数字表示公历日期，此key值表示：公历1月1日。 <br />4 digits indicate the Gregorian date, this key value means: January 1st of the Gregorian calendar. |
-| *0101 | (`*` 前缀)<br />* + 4位数字表示农历日期，此key值表示：农历正月初一。 <br />* + 4 digits represent the date of the lunar calendar, This key value means: the first day of the first lunar month |
-| #0520 | (`#` 前缀)<br /># + 4位数字表示公历某月第几个星期几，此key值表示：五月第2个星期日，(星期从0到6分别表示：日一二三四五六)。 <br /># + 4 digits indicate in the Gregorian calendar how many weeks at this month and How many day at this week. This key value means: 2nd Sunday in May (the weeks from 0 to 6:  Mon Tues Wed Thur Fri Sat Sun) |
-| @0256 <sup style="color:#f33">(1.6.3+)</sup> | (`@` 前缀)<br />@ + 4位数字表示公历年份中的第几天，此key值表示：一年中的第256天。 <br />@ + 4 digits indicate the day of the year in the Gregorian calendar, This key value means: 256th day of the year. |
+| Key 格式                                      | 说明(description)                                            | 示例(demo)                                             |
+| :-------------------------------------------- | :----------------------------------------------------------- | :----------------------------------------------------- |
+| `MMDD`                                        | **公历**日期<br />**Gregorian** date                         | `0101` = 1月1日<br />`0101` = January 1                |
+| `*MMDD`                                       | **农历**日期(`*` 前缀)<br />**lunar** date (prefixed with *) | `*0101` = 正月初一<br />`*0101` = Lunar 1/1            |
+| `#MMNW`                                       | **公历**某月第几个星期几(`#` 前缀)<br />Gregorian Nth weekday of a given month.(prefixed with `#`)<br /><br />星期`W`从0到6分别表示：(日一二三四五六)。 <br />Weekday: 0-6 (Sun Mon Tue Wed Thu Fri Sat)<br /><br />第几个`N` 1~5 <br />Ordinal`N`: 1–5.<br /> | `#0520` = 5月第2个星期日<br />`#0520` = 2nd Sun in May |
+| `@DDDD`<sup style="color:#f33">(1.6.3+)</sup> | **公历一年中的第几天**(`@` 前缀 + 4 位天)<br />day of the **Gregorian** year (prefixed with `@`) | `@0256` = 第256天<br />`@0256` = day 256               |
 
 > **代码示例(DEMO)**
 
@@ -338,21 +338,21 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
   date.editHolidayConf = {
     '0214': ['小三节', 'Other woman day'], // 修改(edit)
     '0715': ['示例节', `Demo's day`], // 修改(edit)
-    '#0836': ['纪念日', 'Acommemoration day'], // 新增(add)
+    '#0836': ['纪念日', 'Anniversary day'], // 新增(add)
     '*1213': ['作者生日', `Author's birthday`] // 新增(add)
   }
   
   // 替换节日配置(默认配置的节日全部失效)
-  // Replace the holiday config (the default preparation of the holiday is all invalid)
+  // Replace the holiday config (the default holiday config is completely overridden).
   date.replaceHolidayConf = { // 替换(replace)
     '0214': ['小三节', 'Other woman day'],
     '0715': ['示例节', `Demo's day`],
-    '#0836': ['纪念日', 'Acommemoration day'],
+    '#0836': ['纪念日', 'Anniversary day'],
     '*1213': ['作者生日', `Author's birthday`]
   }
   
   date('Y-m-d fh', new Date()) // -> 2019-07-15 示例节
-  date('Y-m-d lh', new Date()) // -> 2019-07-15 demos day
+  date('Y-m-d lh', new Date()) // -> 2019-07-15 demo's day
 ```
 
 [试一试(try)](https://tovilau.github.io/date-php/) 
@@ -361,7 +361,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 <div id="use-duration" name="use-duration"></div>
 
 ### 格式化持续时间/剩余时间/倒计时(duration/count down)<sup style="color:#f33">(1.7.0+)</sup>  
- ```
+ ```tex
  > 用法 / usage：
  date.duration([tplChars:string='D天h:i:s'[, duration:number=0 [,isMs: boolean=true]]])
  date.duration([‘模板字符’[, 持续时间:时间戳 [,是否毫秒: true]]])  
@@ -371,7 +371,8 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
   date.duration('n月j天 h小时i分钟s秒',  314159265 ) //" 0月3天 15小时15分钟59秒"
   date.duration('高考倒计时：D天h小时i分钟s秒',  1591491612345 - 1577808654321 ) //" 高考倒计时：158天08小时49分钟18秒"
   date.duration('倒计时：D天h小时i分钟s秒',  13682958024 ) // 倒计时：158天08小时49分钟18秒
-  date.duration('cou\\nt \\d\\ow\\n：D \\d\\a\\y h:i:s',  1591491612345 - 1577808654321 ) // count down：158 day 08:49:18  date.duration('D天h小时i分钟s.v秒',  86400000 + 12345) // 1天00小时00分钟12.345秒
+  date.duration('cou\\nt \\d\\ow\\n：D \\d\\a\\y h:i:s',  1591491612345 - 1577808654321 ) // count down：158 day 08:49:18
+  date.duration('D天h小时i分钟s.v秒',  86400000 + 12345) // 1天00小时00分钟12.345秒
   date.duration('H小时i分钟s.v秒',  86400000 + 7654321) // 26小时07分钟34.321秒
   date.duration('D天h小时i分钟s.v秒',  86400000 - 12345) // 0天23小时59分钟47.655秒
   date.duration('1970年至今已有D天h小时i分钟s.v秒',  new Date()) // "从1970年至今已有18322天11小时20分钟15.092秒"
@@ -379,23 +380,23 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 
 | chars | Description |
 | :--- | :--- |
-| y<br/>Y | 数字表示的年。”0”到”273785" <br />Numeric representation of a years. “0” to "273785" |
-| m | 数字表示的月份，有前导零。"00"到"12" <br />Numeric representation of a months, with leading zeros. "00" to "12"|
-| n | 数字表示的月份，无前导零。"0"到"12" <br />Numeric representation of a months, without leading zeros. "0" to "12" |
+| y<br/>Y | 数字表示的年。”0”到”273785" <br />Numeric year (0 – 273785)  |
+| m | 数字表示的月份，有前导零。"00"到"12" <br />Months with leading zeros. "00" to "12" |
+| n | 数字表示的月份，无前导零。"0"到"12" <br /> Months without leading zeros. "0" to "12" |
 | M | 总月数，”0”到”3285420" <br />Total months “0” to "3285420"|
-| d | 数字表示的天数，有前导零。"00"到"31" <br />Numeric representation of a days, with leading zeros. "0" to "31" |
-| j | 数字表示的天数，无前导零。"0"到"31   " <br />Numeric representation of a days, without leading zeros. "0" to "31" |
+| d | 数字表示的天数，有前导零。"00"到"31" <br />Days with leading zeros. "00" to "31" |
+| j | 数字表示的天数，无前导零。"0"到"31" <br />Days without leading zeros. "0" to "31" |
 | D | 总天数， "0"到"100000000" <br />Total days "0" to "100000000"|
-| h | 数字表示的小时数，有前导零。"00"到"24" <br />Numeric representation of a hours, with leading zeros. "00" to "24" |
-| g | 数字表示的小时数，无前导零。"0"到"24" <br />Numeric representation of a hours, without leading zeros. "0" to "24" |
+| h | 数字表示的小时数，有前导零。"00"到"24" <br />Hours with leading zeros. "00" to "24" |
+| g | 数字表示的小时数，无前导零。"0"到"24" <br />Hours without leading zeros. "0" to "24" |
 | H | 总小时数，”0”到”2400000000" <br />Total hours “0” to "2400000000" |
-| i | 数字表示的分钟数，有前导零。"00"到"59" <br />Numeric representation of a minutes, with leading zeros. "00" to "59" |
-| I | 总分钟数，"0"到"144000000000" <br />Total minutes "0" to "144000000000" |
-| s | 数字表示的秒数，有前导零。"00"到"59" <br />Numeric representation of a seconds, with leading zeros. "00" to "59" |
-| S | 总秒数，"0"到"8640000000000" <br />Total minutes "0" to "8640000000000" |
-| v | 数字表示的毫秒数，有前导零。"000"到"999" <br />Numeric representation of a millisecond, with leading zeros. "000" to "999" |
-| V | 总毫秒数，"0"到"8640000000000000" <br />Total millisecond "0" to "8640000000000000" |
-| all | **{Object}** <br />输出所有模板字符串与对应的值。 <br />Output all template strings and corresponding values. |
+| i | 数字表示的分钟数，有前导零。"00"到"59" <br />Minutes with leading zeros. "00" to "59" |
+| I | 总分钟数，"0"到"144000000000" <br />Total minutes. "0" to "144000000000" |
+| s | 数字表示的秒数，有前导零。"00"到"59" <br />Seconds with leading zeros. "00" to "59" |
+| S | 总秒数，"0"到"8640000000000" <br />Total seconds "0" to "8640000000000" |
+| v | 数字表示的毫秒数，有前导零。"000"到"999" <br />Milliseconds with leading zeros. "000" to "999" |
+| V | 总毫秒数，"0"到"8640000000000000" <br />Total milliseconds "0" to "8640000000000000" |
+| all | **{Object}** <br />输出所有模板字符串与对应的值。 <br />Output all template strings with their values. |
 
 [试一试(try)](https://tovilau.github.io/date-php/) 
 <br /><br /><br />
@@ -438,9 +439,9 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 <br>
 
 ### 关于鸣谢(About)
-  [_**Github**_](http://www.github.com)
-  [_**Npmjs**_](http://www.npmjs.org)
-  [_**rollup**_](http://www.rollupjs.com) 
+  [_**Github**_](https://www.github.com)
+  [_**Npmjs**_](https://www.npmjs.org)
+  [_**rollup**_](https://www.rollupjs.com) 
   [_**eslint**_](https://eslint.org)
   [_**flow**_](https://flow.org)
   [_**uglifyJs**_](http://lisperator.net/uglifyjs/)  
