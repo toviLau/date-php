@@ -12,7 +12,7 @@
 
 
 > 这是一个Javascript模仿类似于PHP日期时间格式化函数，使用方法和PHP非常类似，有丰富的模板字符，并在原来的基础上增强了一些模板字符。例如：中国的农历日期、用汉字来表示日期、十二生肖与星座。让转换日期时间更自由。  
-> This is a JavaScript implements date formatting functions similar to PHP. It is very similar to PHP, has rich template characters, and enhances some template characters on the basis of the original. For example: Chinese Lunar Date, Chinese Character Date, Chinese Zodiac and Constellation. Make the conversion datetimes more free.   
+> This JavaScript library implements date formatting functions similar to PHP. It is very similar to PHP, has rich template characters, and enhances some template characters on the basis of the original. For example: Chinese Lunar Date, Chinese Character Date, Chinese Zodiac and Constellation. Making datetime conversion more flexible.   
 >
 > 兼容 TypeScript(.ts)<sup style="color:#f33">(1.7.6+)</sup>  
 > TypeScript(.ts) compatible <sup style="color:#f33">(1.7.6+)</sup> 
@@ -42,30 +42,30 @@ d.format('m-d-Y H:i:s'); // "07-15-2019 15:38:56"
 d.format('m-d-y H:i:s'); // "07-15-20 15:38:56"
 ```
 
-> 格式化持续时间/剩余时间/倒计时(duration/count down) -- **date.duration**
+> 格式化持续时间/剩余时间/倒计时(duration/countdown) -- **date.duration**
 
 ```javascript
 // 举个栗子(examples)
-// 这里时间戳是代表的持续时间/剩余时间/倒计时(duration/count down)
+// 这里时间戳是代表的持续时间/剩余时间/倒计时(duration/countdown)
 date.duration('倒计时：D天h小时',  13682958024 ) // 倒计时：158天08小时
-date.duration('cou\\nt \\dow\\n：D \\d\\a\\y h \\hour\'\\s',  1591491612345 - 1577808654321 ) // "count down：158 day 08 hour's"
+date.duration('cou\\nt \\dow\\n：D \\d\\a\\y h \\hour\'\\s',  1591491612345 - 1577808654321 ) // "countdown：158 day 08 hour's"
 date.duration('D天h小时i分钟s.v秒',  86400000 + 12345) // 1天00小时00分钟12.345秒
 date.duration('H小时i分钟s.v秒',  86400000 + 7654321) // 26小时07分钟34.321秒
 date.duration('D天h小时i分钟s.v秒',  86400000 - 12345) // 0天23小时59分钟47.655秒
 ```
-[_**更多date示例** 点这里(More date examples)_](#use-date) | [_**持续时间/剩余时间/倒计时示例** 点这里(duration & count down clicked here)_](#use-duration)
+[_**更多date示例** 点这里(More date examples)_](#use-date) | [_**持续时间/剩余时间/倒计时示例** 点这里(duration & countdown clicked here)_](#use-duration)
 <br/>
 
 ### 安装(install)
-```
-// npm
+```shell
+# npm
 npm i -S date-php;
 
-// yarn
+# yarn
 yarn add date-php
 
-// CDN
-<script src=“http://unpkg.com/date-php"></script>
+# CDN
+<script src="http://unpkg.com/date-php" />
 ```
 
 <br />
@@ -73,20 +73,21 @@ yarn add date-php
 <div id="use-date" name="use-date"></div>
 
 ### 使用(use)
+
   > 用法 / usage：
-
- ```
-  date([tplChars:string='Y-m-d'[, dateTimeObj:dateTime|number=new Date() [,isMs: boolean=true]]])
-  date([字符模板[, 日期时间对象 [,是否毫秒]]])
- ```
-
- > 1、以下所有方式的入参都是可选参数。  
- > 　 Entry parameters in all of the following ways are optional.
- >
- > 2、以下`new Date()`或其它的日期时间的初始化的值，我们默许都是 `1563176336000` Unix时间戳对应的日期时间。  
- > 　 The following `new Date ()` or other date time initialization values, we acquiescence are `1563176336000` Unix timestamp corresponding Datetime.
- >
- > 3、[_**持续时间/剩余时间/倒计时** 点这里(**duration/count down** clicked here)_](#use-duration)
+  >
+  >  date([字符模板:string='Y-m-d'[, 日期时间对象:dateTime|number=new Date() [,是否毫秒: boolean=true]]])
+  >  date([tplChars:string='Y-m-d'[, dateTimeObj:dateTime|number=new Date() [,isMs: boolean=true]]])
+  >
+  > 
+  >
+  > 1、以下所有方式的入参都是可选参数。  
+  > 　 Entry parameters in all of the following ways are optional.
+  >
+  > 2、以下`new Date()`或其它的日期时间的初始化的值，我们默许都是 `1563176336000` Unix时间戳对应的日期时间。  
+  > 　 The following `new Date ()` or other date time initialization values, we acquiescence are `1563176336000` Unix timestamp corresponding Datetime.
+  >
+  > 3、[_**持续时间/剩余时间/倒计时** 点这里(**duration/countdown** clicked here)_](#use-duration)
 
 ```javascript
 // ES6+ -- CDN方式跳过(CDN mode skip)
@@ -113,7 +114,7 @@ date('y.m.d H:i', new Date()); // "19.07.15 15:38"
 
 /**
  * 示例2 - 日期时间对象.format('模板字符');
- * demo 2 - datetimeObject.format('Template character');
+ * demo 2 - datetimeObject.format('Template characters');
  */
 new Date('2019-07-15 15:38:56').format('Y-m-d H:i:s'); // "2019-07-15 15:38:56" 
 new Date(1563176336000).format('Y-m-d H:ia'); // "2019-07-15 15:38pm"
@@ -125,22 +126,22 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 <br /><br /><br />
 
 
-### 模板字符，默认值：{string} 'Y-m-d'(Template character, default: {string} 'Y-m-d')
+### 模板字符，默认值：{string} 'Y-m-d'(Template characters, default: {string} 'Y-m-d')
 > 1、你也可以去<u> [_**PHP中文官网**_](https://www.php.net/manual/zh/function.date.php) </u>看看，使用方法类似。  
 > 　 You can also go to the <u> [_**PHP english official website**_](https://www.php.net/manual/en/function.date.php) </u>to see, the method is similar.  
 > 
 > 2、~~你也可以通过静态方法 `date.description` 在控制台打出所有模板字符。~~<sup style="color:#f33">(1.3.2 - )</sup>   
-> 　 ~~You can also output all template character in the console via the static method `date.description`.~~<sup style="color:#f33">(1.3.2 - )</sup>   
+> 　 ~~You can also output all template characters in the console via the static method `date.description`.~~<sup style="color:#f33">(1.3.2 - )</sup>   
 >
 > 3、关于转义模板字符，这里与PHP不同 **【敲黑板！！！】** <sup style="color:#f33">(1.3.0 + )</sup>  
-> 　 About the escaped template character, here is different from PHP **[Note!!!]** <sup style="color:#f33">(1.3.0 + )</sup>  
+> 　 About the escaped template characters, here is different from PHP **[Note!!!]** <sup style="color:#f33">(1.3.0 + )</sup>  
 >> **如果在date里想输出模板本来的字符，请用转义符--双反斜杠"\\\\"(PHP是一个单反斜杠"\\")。**   
 >> **If you want to output the original character of the template on the date, use the escape character – double backslash "\\\\" (PHP is a single backslash "\\").**  
 >>   举个栗子：   date("\\\\I \\\\l\\\\o\\\\v\\\\e \\\\y\\\\o\\\\u: y-m-d H:i", new Date()) // 输出 "I love you: 19-07-15 15:38"    
 >>    Example: date("\\\\I \\\\l\\\\o\\\\v\\\\e \\\\y\\\\o\\\\u: y-m-d H:i", new Date()) // Output "I love you: 19-07-15 15:38"  
 >>
 >>   上面栗子中，'I'<sup>(大写的i)</sup>、'l'<sup>(小写的L)</sup>、'o'、'v'、'e'、'y'、'u' 都是模板字符，所以前面加双反斜杠(\\\\)转义，这样字符就会输出本来的值。  
->>   In the previous example, 'I'<sup>(Uppercase i)</sup>, 'l'<sup>(lowercase L)</sup>, 'o', 'e', 'y', 'u' are all template character, so add an double backslash (\\\\\) in front of the template character to escape , Character will output the original value.
+>>   In the previous example, 'I'<sup>(Uppercase i)</sup>, 'l'<sup>(lowercase L)</sup>, 'o', 'e', 'y', 'u' are all template characters, so add a double backslash (\\\\\) in front of the template characters to escape , characters will output the original value.
 >
 > 4、加"\*"号的为PHP语言中没有的功能，是`date-php.js`特有的功能。  
 > 　 Add the "\*" in front is a function not available in the PHP language, and is a feature unique to `date-php.js`.
@@ -323,7 +324,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 | :-------------------------------------------- | :----------------------------------------------------------- | :----------------------------------------------------- |
 | `MMDD`                                        | **公历**日期<br />**Gregorian** date                         | `0101` = 1月1日<br />`0101` = January 1                |
 | `*MMDD`                                       | **农历**日期(`*` 前缀)<br />**lunar** date (prefixed with *) | `*0101` = 正月初一<br />`*0101` = Lunar 1/1            |
-| `#MMNW`                                       | **公历**某月第几个星期几(`#` 前缀)<br />Gregorian Nth weekday of a given month.(prefixed with `#`)<br /><br />星期`W`从0到6分别表示：(日一二三四五六)。 <br />Weekday: 0-6 (Sun Mon Tue Wed Thu Fri Sat)<br /><br />第几个`N` 1~5 <br />Ordinal`N`: 1–5.<br /> | `#0520` = 5月第2个星期日<br />`#0520` = 2nd Sun in May |
+| `#MMOW`                                       | **公历**某月第几个星期几(`#` 前缀)<br />Gregorian Nth weekday of a given month.(prefixed with `#`)<br /><br />第几个`O` 1~5 <br />Ordinal`O`: 1–5.<br /><br />星期`W`从0到6分别表示：(日一二三四五六)。 <br />Weekday: 0-6 (Sun Mon Tue Wed Thu Fri Sat)<br /> | `#0520` = 5月第2个星期日<br />`#0520` = 2nd Sun in May |
 | `@DDDD`<sup style="color:#f33">(1.6.3+)</sup> | **公历一年中的第几天**(`@` 前缀 + 4 位天)<br />day of the **Gregorian** year (prefixed with `@`) | `@0256` = 第256天<br />`@0256` = day 256               |
 
 > **代码示例(DEMO)**
@@ -336,7 +337,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
   // 修改与新增节日配置(未被修改的节日依然有效)
   // Modified and added holiday config (unmodified holidays are still valid)
   date.editHolidayConf = {
-    '0214': ['小三节', 'Other woman day'], // 修改(edit)
+    '0214': ['小三节', 'Mistress day'], // 修改(edit)
     '0715': ['示例节', `Demo's day`], // 修改(edit)
     '#0836': ['纪念日', 'Anniversary day'], // 新增(add)
     '*1213': ['作者生日', `Author's birthday`] // 新增(add)
@@ -345,7 +346,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
   // 替换节日配置(默认配置的节日全部失效)
   // Replace the holiday config (the default holiday config is completely overridden).
   date.replaceHolidayConf = { // 替换(replace)
-    '0214': ['小三节', 'Other woman day'],
+    '0214': ['小三节', 'Mistress day'],
     '0715': ['示例节', `Demo's day`],
     '#0836': ['纪念日', 'Anniversary day'],
     '*1213': ['作者生日', `Author's birthday`]
@@ -356,22 +357,21 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 ```
 
 [试一试(try)](https://tovilau.github.io/date-php/) 
-<br /><br /><br />
 
 <div id="use-duration" name="use-duration"></div>
 
-### 格式化持续时间/剩余时间/倒计时(duration/count down)<sup style="color:#f33">(1.7.0+)</sup>  
- ```tex
+### 格式化持续时间/剩余时间/倒计时(duration/countdown)<sup style="color:#f33">(1.7.0+)</sup>
+
+
  > 用法 / usage：
  date.duration([tplChars:string='D天h:i:s'[, duration:number=0 [,isMs: boolean=true]]])
- date.duration([‘模板字符’[, 持续时间:时间戳 [,是否毫秒: true]]])  
- ```
+ date.duration(['模板字符'[, 持续时间:时间戳 [,是否毫秒: true]]])  
 
 ```javascript
   date.duration('n月j天 h小时i分钟s秒',  314159265 ) //" 0月3天 15小时15分钟59秒"
   date.duration('高考倒计时：D天h小时i分钟s秒',  1591491612345 - 1577808654321 ) //" 高考倒计时：158天08小时49分钟18秒"
   date.duration('倒计时：D天h小时i分钟s秒',  13682958024 ) // 倒计时：158天08小时49分钟18秒
-  date.duration('cou\\nt \\d\\ow\\n：D \\d\\a\\y h:i:s',  1591491612345 - 1577808654321 ) // count down：158 day 08:49:18
+  date.duration('cou\\nt \\d\\ow\\n：D \\d\\a\\y h:i:s',  1591491612345 - 1577808654321 ) // countdown：158 day 08:49:18
   date.duration('D天h小时i分钟s.v秒',  86400000 + 12345) // 1天00小时00分钟12.345秒
   date.duration('H小时i分钟s.v秒',  86400000 + 7654321) // 26小时07分钟34.321秒
   date.duration('D天h小时i分钟s.v秒',  86400000 - 12345) // 0天23小时59分钟47.655秒
@@ -403,12 +403,12 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 
 ### 黑科技的使用方式(Interesting to use)
 > 可以非常简单的实现一个时钟，就象下面的一样。  
-> Coded a clock is so easy, just like the following.
+> Coding a clock is so easy, just like the following.
 > 
 > ![time clock](https://tovilau.github.io/date-php/img.md/clock.gif)  
 >
 > 咦！这个时间的毫秒是不是有点怪？这是[_**setInterval**_](https://blog.csdn.net/acm765152844/article/details/51298915)的问题。(虽然这只是一张图片\^\_\^，但目的是抛出Javascript确实存在的问题。)  
-> What! Is the millisecond of this Datetime a bit strange? This is a problem with [_**setInterval**_](https://blog.csdn.net/acm765152844/article/details/51298915). (Although this is just a picture ^_^, the purpose is to throw the problem Javascript does exist.)
+> What! Is the millisecond of this Datetime a bit strange? This is a problem with [_**setInterval**_](https://blog.csdn.net/acm765152844/article/details/51298915). (Although this is just a picture ^_^, the purpose is to highlight a problem that does exist in JavaScript.)
 
 
 ```html
@@ -418,17 +418,17 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 	<title>test</title>
 </head>
 <body>
-	<div class=“now”>
-	    <div class=“clock”><span>当前时间：</span> <span class=“date-time”>--:--</span></div>
-	    <div class=“clock”><span>now time：</span> <span class=“date-time”>--:--</span></div>
+	<div class="now">
+	    <div class="clock"><span>当前时间：</span> <span class="date-time">--:--</span></div>
+	    <div class="clock"><span>now time：</span> <span class="date-time">--:--</span></div>
 	</div>
 	<script src="//unpkg.com/date-php"></script>
-	<script type=“text/javascript”>
-	    var nowClock = document.getElementsByClassName(‘date-time’)
+	<script type="text/javascript">
+	    var nowClock = document.getElementsByClassName('date-time')
 	    
 	    setInterval(function() {
 	        for(let i=0; i<nowClock.length; i+=1){
-	            nowClock[i].innerHTML=date(‘Y-m-d H:i:s.v’)
+	            nowClock[i].innerHTML=date('Y-m-d H:i:s.v')
 	        }
 	    }, 1000);
 	</script>
@@ -440,7 +440,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 
 ### 关于鸣谢(About)
   [_**Github**_](https://www.github.com)
-  [_**Npmjs**_](https://www.npmjs.org)
+  [_**npm**_](https://www.npmjs.org)
   [_**rollup**_](https://www.rollupjs.com) 
   [_**eslint**_](https://eslint.org)
   [_**flow**_](https://flow.org)
