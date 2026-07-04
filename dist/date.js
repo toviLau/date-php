@@ -746,29 +746,29 @@
         var tChars = {
             y: function () { return tChars.Y(); }, // 当前剩余年数,
             Y: function () { return Math.floor(tChars.M() / conversion.y); }, // 总剩余年数,
-            
+
             m: function () { return pad(tChars.n(), 2); }, // 当前剩余月数(有前导零)
             n: function () { return tChars.M() % conversion.y; }, // 当前剩余月数(无前导零)
             M: function () { return Math.floor(tChars.D() / conversion.m); }, // 总剩余月数
-            
+
             d: function () { return pad(tChars.j(), 2); }, // 当前剩余天数(有前导零)
             j: function () { return Math.floor(tChars.D() % conversion.m); }, // 当前剩余天数(无前导零)。
             D: function () { return Math.floor(tChars.H() / conversion.d); }, // 总剩余天数
-            
+
             h: function () { return pad(tChars.g(), 2); }, // 当前小时剩余数(有前导零)
             g: function () { return Math.floor(tChars.H() % conversion.d); }, // 当前小时剩余数(无前导零)
             H: function () { return Math.floor(tChars.I() / conversion.h); }, // 总剩余小时数
-            
+
             i: function () { return pad(Math.floor(tChars.I() % conversion.h), 2); }, // 当前分钟剩余点数
             I: function () { return Math.floor(tChars.S() / conversion.i); }, // 总剩余分钟数
-            
+
             s: function () { return pad(Math.floor(tChars.S() % conversion.i), 2); }, // 当前秒钟剩余点数
             S: function () { return Math.floor(tChars.V() / conversion.s); }, // 总剩余秒数
-            
+
             v: function () { return pad(Math.floor(tChars.V() % conversion.s), 3); }, // 当前毫秒剩余数
             V: function () { return ms ? new Date(timestamp) - 0 : new Date(timestamp) * conversion.v; }, // 总剩余毫秒数
         };
-        
+
         if (fmt === 'json' || fmt === 'all' || fmt === -1 || fmt === '-1') {
             var json = {};
             Object.keys(tChars).forEach(function (res, idx) { return json[res] = tChars[res](); });
@@ -792,19 +792,19 @@
     /**
      * 计算持续时间
      * @param fmt
-     * @param timestamp1
-     * @param timestamp2
-     * @param ms
+     * @param timestamp1 开始时间戳
+     * @param timestamp2 结束时间戳
+     * @param isMs 是否是 含有毫秒
      * @return 相印时间
      */
-    function countTime(fmt, timestamp1, timestamp2, ms) {
-        if ( fmt === void 0 ) fmt = 'D天h:i:s';
+    function countTime(templateChars, timestamp1, timestamp2, isMs) {
+        if ( templateChars === void 0 ) templateChars = 'D天h:i:s';
         if ( timestamp1 === void 0 ) timestamp1 = 0;
         if ( timestamp2 === void 0 ) timestamp2 = 0;
-        if ( ms === void 0 ) ms = true;
+        if ( isMs === void 0 ) isMs = true;
 
         var count = new Date(timestamp1) - new Date(timestamp2) || 0;
-        return duration(fmt, Math.abs(count), ms);
+        return duration(templateChars, Math.abs(count), isMs);
     }
     var count = {
         duration: duration,

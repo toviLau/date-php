@@ -1,4 +1,7 @@
-### JavaScript模仿类似于PHP的日期格式功能JavaScript implements date formatting functions similar to PHP
+### JavaScript模仿类似于PHP的日期格式功能
+
+JavaScript implements date formatting functions similar to PHP
+
 ---
 [![issues](https://img.shields.io/github/issues/toviLau/date-php)](https://github.com/toviLau/date-php/issues)
 [![forks](https://img.shields.io/github/forks/toviLau/date-php)](https://github.com/toviLau/date-php)
@@ -27,7 +30,7 @@
 // 举个栗子(examples)
 // 首先(First)
 import date from 'date-php';
-var d = new Date(); // 1563148800000 or 'Mon Jul 15 2019 15:38:56 GMT+0800 (中国标准时间)'
+const d = new Date(); // 1563148800000 or 'Mon Jul 15 2019 15:38:56 GMT+0800 (中国标准时间)'
 
 // 然后(Second)
 date('Y-m-d', d); // "2019-07-15"
@@ -141,7 +144,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 >>    Example: date("\\\\I \\\\l\\\\o\\\\v\\\\e \\\\y\\\\o\\\\u: y-m-d H:i", new Date()) // Output "I love you: 19-07-15 15:38"  
 >>
 >>   上面栗子中，'I'<sup>(大写的i)</sup>、'l'<sup>(小写的L)</sup>、'o'、'v'、'e'、'y'、'u' 都是模板字符，所以前面加双反斜杠(\\\\)转义，这样字符就会输出本来的值。  
->>   In the previous example, 'I'<sup>(Uppercase i)</sup>, 'l'<sup>(lowercase L)</sup>, 'o', 'e', 'y', 'u' are all template characters, so add a double backslash (\\\\\) in front of the template characters to escape , characters will output the original value.
+>>   In the previous example, 'I'<sup>(Uppercase i)</sup>, 'l'<sup>(lowercase L)</sup>, 'o', 'e', 'y', 'u' are all template characters, so add a double backslash (\\) in front of the template characters to escape them, and the characters will output their literal value.
 >
 > 4、加"\*"号的为PHP语言中没有的功能，是`date-php.js`特有的功能。  
 > 　 Add the "\*" in front is a function not available in the PHP language, and is a feature unique to `date-php.js`.
@@ -365,7 +368,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 
  > 用法 / usage：
  date.duration([tplChars:string='D天h:i:s'[, duration:number=0 [,isMs: boolean=true]]])
- date.duration(['模板字符'[, 持续时间:时间戳 [,是否毫秒: true]]])  
+ date.duration(['模板字符'[, 持续时间:时间戳 [,是否毫秒: true]]]) 
 
 ```javascript
   date.duration('n月j天 h小时i分钟s秒',  314159265 ) //" 0月3天 15小时15分钟59秒"
@@ -439,7 +442,8 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 <br>
 
 ### 关于鸣谢(About)
-  [_**Github**_](https://www.github.com)
+
+  [_**GitHub**_](https://www.github.com)
   [_**npm**_](https://www.npmjs.org)
   [_**rollup**_](https://www.rollupjs.com) 
   [_**eslint**_](https://eslint.org)
