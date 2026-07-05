@@ -1,5 +1,5 @@
 /**
- * date-php.js v1.7.21
+ * date-php.js v1.7.22
  *   :-) date('Y-m-d', 1563148800000) - 这是一个Javascript模仿PHP日期时间格式化函数，使用方法和PHP非常类似，有丰富的模板字符，并在原来的基础上增强了一些模板字符。例如：中国的农历日期、用汉字来表示日期、十二生肖与星座。让转换日期时间更自由。
  *   This is a Javascript mimicking PHP datetime formatting function. It is very similar to PHP, has rich template 
  *   characters, and enhances some template characters on the basis of the original. For example: Chinese Lunar Date,
@@ -961,7 +961,9 @@
      *     H: 24 小时格式，有前导零。"00"到"23"
      *     i: 有前导零的分钟数。"00"到"59"
      *     s: 有前导零的秒数。"00"到"59"
-     *     u: 有前导零的毫秒。"000"到"999"
+     *     v: 有前导零的毫秒。"000"到"999"
+     *     u: 有前导零的微秒。"000000"到"999999" (1.6.0+)
+     *     R: 相对时间，如 "3分钟前"、"2小时后"、"刚刚" (1.7.22+)
      *
      *   时区
      *     e: 时区标识。UTC，GMT，Atlantic/Azores
@@ -976,7 +978,7 @@
      *     r: RFC 822 格式的日期。例如：Thu, 15 Jul 2019 15:38:56 +0800
      *     U: 从 Unix 纪元开始至今的秒数(Unix时间戳)。
      *
-     * @param  {date}       now  要格式化的时间 [默认值: 默认为当前本地机器时间]
+     * @param  {Date|string|number}       now  要格式化的时间 [默认值: 默认为当前本地机器时间]
      * @return {string}     格式化的时间字符串
      */
 
@@ -1003,6 +1005,20 @@
                     );
                 })(new Date())
             ); }
+        date.rowUnitConf = Object.assign(
+            {
+                Year: "年",
+                Month: "月",
+                Week: "周",
+                Day: "天",
+                Hour: "小时",
+                Minute: "分钟",
+                justNow: "刚刚",
+                before: "前",
+                after: "后",
+            },
+            date.rowUnitConf
+        );
 
         // 获取农历
         var lunarInfo = function () { return calendar.solar2lunar(tChars.Y(), tChars.n(), tChars.j()); };
@@ -1018,28 +1034,18 @@
             ld: function () { return lunarInfo().IDayCn; },
             lt: function () { return lunarTime[Math.floor((tChars.G() >= 23 ? 0 : tChars.G() + 1) / 2)]; },
             lg: function () { return tChars.G() > 18 || tChars.G() < 5
-                    ? Math.ceil(
-                          (tChars.G() < 19 ? tChars.G() + 24 : tChars.G()) / 2
-                      ) - 9
+                    ? Math.ceil((tChars.G() < 19 ? tChars.G() + 24 : tChars.G()) / 2) - 9
                     : ""; },
             lG: function () { return ("" + (tChars.lg() ? baseFigure[tChars.lg()] + "更" : "")); },
-            lk: function () { return lunarKe[
-                    Math.floor(((tChars.U() + 60 * 60) % (60 * 60 * 2)) / 60 / 15)
-                ]; },
-            fh: function () { return (
-                    getFestival(tChars.Y() + tChars.m() + tChars.d(), date).cn || []
-                ).join(); },
-            lh: function () { return (
-                    getFestival(tChars.Y() + tChars.m() + tChars.d(), date).en || []
-                ).join(); },
+            lk: function () { return lunarKe[Math.floor(((tChars.U() + 60 * 60) % (60 * 60 * 2)) / 60 / 15)]; },
+            fh: function () { return (getFestival(tChars.Y() + tChars.m() + tChars.d(), date).cn || []).join(); },
+            lh: function () { return (getFestival(tChars.Y() + tChars.m() + tChars.d(), date).en || []).join(); },
             l: function () { return longDays[tChars.w()]; },
             N: function () { return (tChars.w() === 0 ? 7 : tChars.w()); },
             S: function () { return (txt_ordin[tChars.j()] ? txt_ordin[tChars.j()] : "th"); },
             w: function () { return now.getDay(); },
             K: function () { return weekDay[tChars.w()]; }, // 中文周(1.3.2+)
-            z: function () { return Math.ceil(
-                    (now - new Date(tChars.Y() + "/1/1")) / (60 * 60 * 24 * 1e3)
-                ); },
+            z: function () { return Math.ceil((now - new Date(tChars.Y() + "/1/1")) / (60 * 60 * 24 * 1e3)); },
 
             // 周
             W: function () {
@@ -1072,21 +1078,15 @@
             lS: function () { return solar[lunarInfo().Term] || ""; }, // 24节气英文(1.6.0+)
             lq: function () { return Math.ceil((tChars.n() - 0) / 3); }, // 季度数字
             lQ: function () { return baseFigure[tChars.lq()]; }, // 季度汉字(1.6.0+)
-            q: function () { return txt_ordin[tChars.lq()]
-                    ? tChars.lq() + "" + txt_ordin[tChars.lq()]
-                    : tChars.lq() + "th"; }, // 季度英文缩写
+            q: function () { return (txt_ordin[tChars.lq()] ? tChars.lq() + "" + txt_ordin[tChars.lq()] : tChars.lq() + "th"); }, // 季度英文缩写
             Q: function () { return ordinal[tChars.lq() - 1]; }, // 李度英文(1.6.0+)
 
             // 年
-            L: function () { return Number(
-                    tChars.Y() % 400 === 0 ||
-                        (tChars.Y() % 100 !== 0 && tChars.Y() % 4 === 0)
-                ); },
+            L: function () { return Number(tChars.Y() % 400 === 0 || (tChars.Y() % 100 !== 0 && tChars.Y() % 4 === 0)); },
             o: function () {
                 var yearWeek = new Date(tChars.Y(), 0, 1).getDay();
                 var diffTime = 60 * 60 * 24 * 1000 * (7 - yearWeek);
-                var timestramp =
-                    yearWeek > 3 ? now.getTime() - diffTime : now.getTime();
+                var timestramp = yearWeek > 3 ? now.getTime() - diffTime : now.getTime();
                 return new Date(timestramp).getFullYear();
             },
             Y: function () { return now.getFullYear(); },
@@ -1103,11 +1103,7 @@
             A: function () { return tChars.a().toUpperCase(); },
             B: function () {
                 var off = (now.getTimezoneOffset() + 60) * 60;
-                var theSeconds =
-                    tChars.G() * 3600 +
-                    now.getMinutes() * 60 +
-                    now.getSeconds() +
-                    off;
+                var theSeconds = tChars.G() * 3600 + now.getMinutes() * 60 + now.getSeconds() + off;
                 var beat = Math.floor(theSeconds / 86.4);
                 // beat > 1000 ? beat -= 1000 : beat += 1000
                 if (beat > 1000) { beat -= 1000; }
@@ -1141,8 +1137,7 @@
                 }
                 return (now.getTimezoneOffset() === DST) | 0;
             },
-            O: function () { return (now.getTimezoneOffset() > 0 ? "-" : "+") +
-                pad(Math.abs((now.getTimezoneOffset() / 60) * 100), 4); },
+            O: function () { return (now.getTimezoneOffset() > 0 ? "-" : "+") + pad(Math.abs((now.getTimezoneOffset() / 60) * 100), 4); },
             P: function () { return tChars
                     .O()
                     .match(/[+-]?\d{2}/g)
@@ -1172,6 +1167,31 @@
                 tChars.P(); },
             r: function () { return now.toString(); },
             U: function () { return Math.round(now.getTime() / 1000); },
+            R: function () {
+                var now = Date.now();
+                var template = tChars.U() * 1000;
+                var diff = ms ? now - template : ~~((now - template) / 1000);
+                var absDiff = Math.abs(diff);
+                var intervals = {};
+                intervals[date.rowUnitConf.Year] = 31536000000;
+                intervals[date.rowUnitConf.Month] = 2592000000;
+                intervals[date.rowUnitConf.Week] = 604800000;
+                intervals[date.rowUnitConf.Day] = 86400000;
+                intervals[date.rowUnitConf.Hour] = 3600000;
+                intervals[date.rowUnitConf.Minute] = 60000;
+
+                if (absDiff < (ms ? 30000 : 30)) { return date.rowUnitConf.justNow; }
+
+                var suffix = diff > 0 ? date.rowUnitConf.before : date.rowUnitConf.after;
+
+                for (var unit in intervals) {
+                    var _ms = ms ? intervals[unit] : ~~(intervals[unit] / 1000);
+
+                    if (absDiff >= _ms) {
+                        return Math.floor(absDiff / _ms) + unit + suffix;
+                    }
+                }
+            },
         };
 
         if (fmt === "json" || fmt === "all" || fmt === -1 || fmt === "-1") {
@@ -1196,7 +1216,7 @@
 
     defP(Date.prototype, "format", date);
 
-    defP(date, "version", "1.7.21");
+    defP(date, "version", "1.7.22");
     defP(date, "description", function () { return console.info(
             "%cdate-php使用说明:\n" +
                 "已经废弃，查看使用说明请移步这里\nhttps://github.com/toviLau/date-php/blob/master/README.md",

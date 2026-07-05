@@ -62,7 +62,9 @@
  *     H: 24 小时格式，有前导零。"00"到"23"
  *     i: 有前导零的分钟数。"00"到"59"
  *     s: 有前导零的秒数。"00"到"59"
- *     u: 有前导零的毫秒。"000"到"999"
+ *     v: 有前导零的毫秒。"000"到"999"
+ *     u: 有前导零的微秒。"000000"到"999999" (1.6.0+)
+ *     R: 相对时间，如 "3分钟前"、"2小时后"、"刚刚" (1.7.22+)
  *
  *   时区
  *     e: 时区标识。UTC，GMT，Atlantic/Azores
@@ -77,7 +79,7 @@
  *     r: RFC 822 格式的日期。例如：Thu, 15 Jul 2019 15:38:56 +0800
  *     U: 从 Unix 纪元开始至今的秒数(Unix时间戳)。
  *
- * @param  {date}       now  要格式化的时间 [默认值: 默认为当前本地机器时间]
+ * @param  {Date|string|number}       now  要格式化的时间 [默认值: 默认为当前本地机器时间]
  * @return {string}     格式化的时间字符串
  */
 import count from "./library/count";
@@ -120,10 +122,23 @@ const date = function (fmt = "Y-m-d", now = new Date(), ms = true) {
                 );
             })(new Date()),
         );
+    date.rowUnitConf = Object.assign(
+        {
+            Year: "年",
+            Month: "月",
+            Week: "周",
+            Day: "天",
+            Hour: "小时",
+            Minute: "分钟",
+            justNow: "刚刚",
+            before: "前",
+            after: "后",
+        },
+        date.rowUnitConf,
+    );
 
     // 获取农历
-    const lunarInfo = () =>
-        getLunar.solar2lunar(tChars.Y(), tChars.n(), tChars.j());
+    const lunarInfo = () => getLunar.solar2lunar(tChars.Y(), tChars.n(), tChars.j());
 
     // 模板字串替换函数
     const tChars = {
@@ -134,36 +149,21 @@ const date = function (fmt = "Y-m-d", now = new Date(), ms = true) {
         j: () => now.getDate(),
         lj: () => lunarInfo().gzDay, // 干支日(1.6.0+)
         ld: () => lunarInfo().IDayCn,
-        lt: () =>
-            lunarTime[Math.floor((tChars.G() >= 23 ? 0 : tChars.G() + 1) / 2)],
+        lt: () => lunarTime[Math.floor((tChars.G() >= 23 ? 0 : tChars.G() + 1) / 2)],
         lg: () =>
             tChars.G() > 18 || tChars.G() < 5
-                ? Math.ceil(
-                      (tChars.G() < 19 ? tChars.G() + 24 : tChars.G()) / 2,
-                  ) - 9
+                ? Math.ceil((tChars.G() < 19 ? tChars.G() + 24 : tChars.G()) / 2) - 9
                 : "",
         lG: () => `${tChars.lg() ? baseFigure[tChars.lg()] + "更" : ""}`,
-        lk: () =>
-            lunarKe[
-                Math.floor(((tChars.U() + 60 * 60) % (60 * 60 * 2)) / 60 / 15)
-            ],
-        fh: () =>
-            (
-                getFestival(tChars.Y() + tChars.m() + tChars.d(), date).cn || []
-            ).join(),
-        lh: () =>
-            (
-                getFestival(tChars.Y() + tChars.m() + tChars.d(), date).en || []
-            ).join(),
+        lk: () => lunarKe[Math.floor(((tChars.U() + 60 * 60) % (60 * 60 * 2)) / 60 / 15)],
+        fh: () => (getFestival(tChars.Y() + tChars.m() + tChars.d(), date).cn || []).join(),
+        lh: () => (getFestival(tChars.Y() + tChars.m() + tChars.d(), date).en || []).join(),
         l: () => longDays[tChars.w()],
         N: () => (tChars.w() === 0 ? 7 : tChars.w()),
         S: () => (txt_ordin[tChars.j()] ? txt_ordin[tChars.j()] : "th"),
         w: () => now.getDay(),
         K: () => weekDay[tChars.w()], // 中文周(1.3.2+)
-        z: () =>
-            Math.ceil(
-                (now - new Date(tChars.Y() + "/1/1")) / (60 * 60 * 24 * 1e3),
-            ),
+        z: () => Math.ceil((now - new Date(tChars.Y() + "/1/1")) / (60 * 60 * 24 * 1e3)),
 
         // 周
         W: () => {
@@ -196,23 +196,15 @@ const date = function (fmt = "Y-m-d", now = new Date(), ms = true) {
         lS: () => solar[lunarInfo().Term] || "", // 24节气英文(1.6.0+)
         lq: () => Math.ceil((tChars.n() - 0) / 3), // 季度数字
         lQ: () => baseFigure[tChars.lq()], // 季度汉字(1.6.0+)
-        q: () =>
-            txt_ordin[tChars.lq()]
-                ? tChars.lq() + "" + txt_ordin[tChars.lq()]
-                : tChars.lq() + "th", // 季度英文缩写
+        q: () => (txt_ordin[tChars.lq()] ? tChars.lq() + "" + txt_ordin[tChars.lq()] : tChars.lq() + "th"), // 季度英文缩写
         Q: () => ordinal[tChars.lq() - 1], // 李度英文(1.6.0+)
 
         // 年
-        L: () =>
-            Number(
-                tChars.Y() % 400 === 0 ||
-                    (tChars.Y() % 100 !== 0 && tChars.Y() % 4 === 0),
-            ),
+        L: () => Number(tChars.Y() % 400 === 0 || (tChars.Y() % 100 !== 0 && tChars.Y() % 4 === 0)),
         o: () => {
             const yearWeek = new Date(tChars.Y(), 0, 1).getDay();
             const diffTime = 60 * 60 * 24 * 1000 * (7 - yearWeek);
-            const timestramp =
-                yearWeek > 3 ? now.getTime() - diffTime : now.getTime();
+            const timestramp = yearWeek > 3 ? now.getTime() - diffTime : now.getTime();
             return new Date(timestramp).getFullYear();
         },
         Y: () => now.getFullYear(),
@@ -229,11 +221,7 @@ const date = function (fmt = "Y-m-d", now = new Date(), ms = true) {
         A: () => tChars.a().toUpperCase(),
         B: () => {
             const off = (now.getTimezoneOffset() + 60) * 60;
-            const theSeconds =
-                tChars.G() * 3600 +
-                now.getMinutes() * 60 +
-                now.getSeconds() +
-                off;
+            const theSeconds = tChars.G() * 3600 + now.getMinutes() * 60 + now.getSeconds() + off;
             let beat = Math.floor(theSeconds / 86.4);
             // beat > 1000 ? beat -= 1000 : beat += 1000
             if (beat > 1000) beat -= 1000;
@@ -267,9 +255,7 @@ const date = function (fmt = "Y-m-d", now = new Date(), ms = true) {
             }
             return (now.getTimezoneOffset() === DST) | 0;
         },
-        O: () =>
-            (now.getTimezoneOffset() > 0 ? "-" : "+") +
-            pad(Math.abs((now.getTimezoneOffset() / 60) * 100), 4),
+        O: () => (now.getTimezoneOffset() > 0 ? "-" : "+") + pad(Math.abs((now.getTimezoneOffset() / 60) * 100), 4),
         P: () =>
             tChars
                 .O()
@@ -301,6 +287,32 @@ const date = function (fmt = "Y-m-d", now = new Date(), ms = true) {
             tChars.P(),
         r: () => now.toString(),
         U: () => Math.round(now.getTime() / 1000),
+        R: () => {
+            const now = Date.now();
+            const template = tChars.U() * 1000;
+            const diff = ms ? now - template : ~~((now - template) / 1000);
+            const absDiff = Math.abs(diff);
+            const intervals = {
+                [date.rowUnitConf.Year]: 31536000000,
+                [date.rowUnitConf.Month]: 2592000000,
+                [date.rowUnitConf.Week]: 604800000,
+                [date.rowUnitConf.Day]: 86400000,
+                [date.rowUnitConf.Hour]: 3600000,
+                [date.rowUnitConf.Minute]: 60000,
+            };
+
+            if (absDiff < (ms ? 30000 : 30)) return date.rowUnitConf.justNow;
+
+            const suffix = diff > 0 ? date.rowUnitConf.before : date.rowUnitConf.after;
+
+            for (const unit in intervals) {
+                const _ms = ms ? intervals[unit] : ~~(intervals[unit] / 1000);
+
+                if (absDiff >= _ms) {
+                    return Math.floor(absDiff / _ms) + unit + suffix;
+                }
+            }
+        },
     };
 
     if (fmt === "json" || fmt === "all" || fmt === -1 || fmt === "-1") {

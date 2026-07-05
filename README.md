@@ -227,6 +227,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 | | s | 有前导零的秒数。"00"到"59"。 <br />Seconds with leading zeros. "00" to "59". |
 | | <span style="color:#999">\*</span>u <sup style="color:#f33">1.7.19\*</sup> | 微秒。"0"到"999999"。 <br />Microsecond value range: "0" to "999999". |
 | | <span style="color:#999">\*</span>v <sup style="color:#f33">1.5.0+</sup> | 毫秒。"0"到"999"。 <br />Millisecond value range: "0" to "999". |
+| | <span style="color:#999">\*</span>R <sup style="color:#f33">1.7.22+</sup> | 相对时间。如 "3分钟前"、"2小时后"、"刚刚"。<br />Relative time. E.g.: "3分钟前", "2小时后", "刚刚".<br /><br />默认是中文: 如果想换英文或其它国家地区文字, 修改配置项([rowUnitConf](#rowUnitConf))<br />Default: Chinese. Modify config for other languages.[rowUnitConf](#rowUnitConf))<br /> |
 | | | |
 | **时区(Timezone)** | | |
 | | e | 时区标识。UTC，GMT，Atlantic/Azores。 <br />Timezone identifier.Examples: UTC, GMT, Atlantic/Azores |
@@ -246,8 +247,8 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 [试一试(try)](https://tovilau.github.io/date-php/) 
 <br /><br /><br />
 
-
 ### 时间对象，默认值：{Date} 当前本地机器时间(Datetime object, default: {Date} local Datetime)
+
 > 可以是任意时间对象，例如：  
 > It can be any datetime object, Example:
 
@@ -261,10 +262,67 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 [试一试(try)](https://tovilau.github.io/date-php/) 
 <br /><br /><br />
 
+### 配置模板字符 `R` (相对时间) 的单位名称 `rowUnitConf`<sup style="color:#f33">1.7.22+</sup>
+
+```js
+// ES6+ -- CDN方式跳过(CDN mode skip)
+import date from 'date-php'; // 引入date-php(import date-php)
+
+// CommonJS && AMD -- CDN方式跳过(CDN mode skip)
+const date = require('date-php'); // 引入date-php(require date-php)
+
+/*
+// 这是默认值
+date.rowUnitConf={
+    Year: "年",
+    Month: "月",
+    Week: "周",
+    Day: "天",
+    Hour: "小时",
+    Minute: "分钟",
+    justNow: "刚刚",
+    before: "前",
+    after: "后",
+},
+*/
+
+// 修改它
+// 示例 1: 完整修改
+date.rowUnitConf = {
+    Year: "Years",
+    Month: "Months",
+    Week: "Weeks",
+    Day: "Days",
+    Hour: "Hours",
+    Minute: "Minutes",
+    justNow: "just now",
+    before: "before",
+    after: "after",
+}
+
+// 示例 2: 只修改部分单位，其他保持默认
+date.rowUnitConf = {
+    Year: "년",
+    Month: "월",
+    Week: "주",
+    Day: "일",
+    Hour: "시간",
+    // Minute 未配置，保持默认 "分钟"
+    // justNow 未配置，保持默认 "刚刚"
+    before: "전",
+    after: "후",
+};
+```
+
+
+
+
+
 
 <div id="custom" name="custom"></div>
 
 ### 自定义节假日(Custom holidays)<sup style="color:#f33">1.6.0+</sup>
+
 > **默认配置(default config)**
 
 ```javascript
@@ -326,7 +384,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 | Key 格式                                      | 说明(description)                                            | 示例(demo)                                             |
 | :-------------------------------------------- | :----------------------------------------------------------- | :----------------------------------------------------- |
 | `MMDD`                                        | **公历**日期<br />**Gregorian** date                         | `0101` = 1月1日<br />`0101` = January 1                |
-| `*MMDD`                                       | **农历**日期(`*` 前缀)<br />**lunar** date (prefixed with *) | `*0101` = 正月初一<br />`*0101` = Lunar 1/1            |
+| `*MMDD`                                       | **农历**日期(`*` 前缀)<br />**Lunar** date (prefixed with *) | `*0101` = 正月初一<br />`*0101` = Lunar 1/1            |
 | `#MMOW`                                       | **公历**某月第几个星期几(`#` 前缀)<br />Gregorian Nth weekday of a given month.(prefixed with `#`)<br /><br />第几个`O` 1~5 <br />Ordinal`O`: 1–5.<br /><br />星期`W`从0到6分别表示：(日一二三四五六)。 <br />Weekday: 0-6 (Sun Mon Tue Wed Thu Fri Sat)<br /> | `#0520` = 5月第2个星期日<br />`#0520` = 2nd Sun in May |
 | `@DDDD`<sup style="color:#f33">(1.6.3+)</sup> | **公历一年中的第几天**(`@` 前缀 + 4 位天)<br />day of the **Gregorian** year (prefixed with `@`) | `@0256` = 第256天<br />`@0256` = day 256               |
 
@@ -402,9 +460,9 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 | all | **{Object}** <br />输出所有模板字符串与对应的值。 <br />Output all template strings with their values. |
 
 [试一试(try)](https://tovilau.github.io/date-php/) 
-<br /><br /><br />
 
 ### 黑科技的使用方式(Interesting to use)
+
 > 可以非常简单的实现一个时钟，就象下面的一样。  
 > Coding a clock is so easy, just like the following.
 > 
