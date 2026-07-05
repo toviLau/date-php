@@ -35,12 +35,14 @@ const d = new Date(); // 1563148800000 or 'Mon Jul 15 2019 15:38:56 GMT+0800 (�
 // 然后(Second)
 date('Y-m-d', d); // "2019-07-15"
 date('y-m-d', d); // "19-07-15"
+date('y-m-d R', new Date() + 60 * 2000); // "2026-07-05 2分钟前" (1.7.22+)
 date('m-d-Y H:i:s', d); // "07-15-2019 15:38:56"
 date('y-m-d H:i:s[a] D', d); // "07-15-20 15:38:56[pm] Mon"
 
 // 或者这样(Or)
 d.format('Y-m-d'); // "2019-07-15"
 d.format('y-m-d'); // "2019-07-15"
+d.format('y-m-d R', new Date() + 60 * 2000); // "2026-07-05 2分钟前"
 d.format('m-d-Y H:i:s'); // "07-15-2019 15:38:56"
 d.format('m-d-y H:i:s'); // "07-15-20 15:38:56"
 ```
@@ -101,6 +103,11 @@ const date = require('date-php'); // 引入date-php(require date-php)
 
 date('Y-m-d H:i:s', new Date()); // "2019-07-15 15:38:56"
 date('y-m-d h:i[a]', new Date()); // "19-07-15 03:38[pm]"
+date('y-m-d R', new Date() - 60 * 2000); // "2026-07-05 2分钟前" (1.7.22+)
+date('y-m-d R', new Date() - 60 * 60 * 5000); // "2026-07-05 5小时前" (1.7.22+)
+date('y-m-d R', new Date() + 60 * 60 * 5000); // "2026-07-05 5小时后" (1.7.22+)
+date('y-m-d R', new Date() - 60 * 60 * 24 * 365 * 1000); // "2026-07-05 12个月前" (1.7.22+)
+date('y-m-d R', new Date() - 60 * 60 * 24 * 365 * 1000 - 1000); // "2026-07-05 1年前" (1.7.22+)
 date('星期K', "2019-07-15 15:38:56"); // "星期一" (1.3.2+)
 date('C年f月k日 星期K', 1563176336000); // "二〇一九年七月十五日 星期一" (1.3.2+)
 date('Y-m-d H:i 第W周', 'Mon Jul 15 2019 15:38:56 GMT+0800 (中国标准时间)'); // "2019-07-15 15:38 第29周"
@@ -261,6 +268,8 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 ```
 [试一试(try)](https://tovilau.github.io/date-php/) 
 <br /><br /><br />
+
+###### rowUnitConf
 
 ### 配置模板字符 `R` (相对时间) 的单位名称 `rowUnitConf`<sup style="color:#f33">1.7.22+</sup>
 
