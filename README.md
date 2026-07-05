@@ -285,9 +285,13 @@ import date from 'date-php'; // 引入date-php(import date-php)
 
 // CommonJS && AMD -- CDN方式跳过(CDN mode skip)
 const date = require('date-php'); // 引入date-php(require date-php)
+```
 
-/*
-// 这是默认值
+
+
+> **默认配置(default config)**
+
+```js
 date.rowUnitConf={
     Year: "年",
     Month: "月",
@@ -298,9 +302,12 @@ date.rowUnitConf={
     justNow: "刚刚",
     before: "前",
     after: "后",
-},
-*/
+}
+```
 
+
+
+```js
 // 修改它
 // 示例 1: 完整修改
 date.rowUnitConf = {

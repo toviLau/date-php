@@ -1180,7 +1180,7 @@
                 intervals[date.rowUnitConf.Hour] = 3600000;
                 intervals[date.rowUnitConf.Minute] = 60000;
 
-                if (absDiff < (ms ? 30000 : 30)) { return date.rowUnitConf.justNow; }
+                if (absDiff <= (ms ? 60000 : 60)) { return date.rowUnitConf.justNow; }
 
                 var suffix = diff > 0 ? date.rowUnitConf.before : date.rowUnitConf.after;
 

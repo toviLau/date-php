@@ -301,7 +301,7 @@ const date = function (fmt = "Y-m-d", now = new Date(), ms = true) {
                 [date.rowUnitConf.Minute]: 60000,
             };
 
-            if (absDiff < (ms ? 30000 : 30)) return date.rowUnitConf.justNow;
+            if (absDiff <= (ms ? 60000 : 60)) return date.rowUnitConf.justNow;
 
             const suffix = diff > 0 ? date.rowUnitConf.before : date.rowUnitConf.after;
 
