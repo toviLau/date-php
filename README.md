@@ -15,15 +15,21 @@ JavaScript implements date formatting functions similar to PHP
 
 
 > 这是一个Javascript模仿类似于PHP日期时间格式化函数，使用方法和PHP非常类似，有丰富的模板字符，并在原来的基础上增强了一些模板字符。例如：中国的农历日期、用汉字来表示日期、十二生肖与星座。让转换日期时间更自由。  
-> This JavaScript library implements date formatting functions similar to PHP. It is very similar to PHP, has rich template characters, and enhances some template characters on the basis of the original. For example: Chinese Lunar Date, Chinese Character Date, Chinese Zodiac and Constellation. Making datetime conversion more flexible.   
+> This is a JavaScript library that imitates PHP's date and time formatting functions. It is very similar to PHP in usage, provides rich template characters, and extends them with additional features such as Chinese lunar dates, Chinese character date representation, Chinese zodiac signs, and constellations — giving you more flexibility in date and time conversion.  
+>
+> 
 >
 > 兼容 TypeScript(.ts)<sup style="color:#f33">(1.7.6+)</sup>  
 > TypeScript(.ts) compatible <sup style="color:#f33">(1.7.6+)</sup> 
 >
-> [点击这里查看更多例/ want see more examples clicked here](https://tovilau.github.io/date-php/)  
+> 
+>
+> [点击这里查看更多示例/Click here for more examples](https://tovilau.github.io/date-php/)  
+>
+> 
 >
 > [如果你喜欢请 star 支持一下](https://www.npmjs.com/package/date-php)    
-> [Please star support if you like](https://www.npmjs.com/package/date-php)  
+> [If you like this project, please star it.](https://www.npmjs.com/package/date-php)  
 
 
 ```javascript
@@ -234,7 +240,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 | | s | 有前导零的秒数。"00"到"59"。 <br />Seconds with leading zeros. "00" to "59". |
 | | <span style="color:#999">\*</span>u <sup style="color:#f33">1.7.19\*</sup> | 微秒。"0"到"999999"。 <br />Microsecond value range: "0" to "999999". |
 | | <span style="color:#999">\*</span>v <sup style="color:#f33">1.5.0+</sup> | 毫秒。"0"到"999"。 <br />Millisecond value range: "0" to "999". |
-| | <span style="color:#999">\*</span>R <sup style="color:#f33">1.7.22+</sup> | 相对时间。如 "3分钟前"、"2小时后"、"刚刚"。<br />Relative time. E.g.: "3分钟前", "2小时后", "刚刚".<br /><br />默认是中文: 如果想换英文或其它国家地区文字, 修改配置项([rowUnitConf](#rowUnitConf))<br />Default: Chinese. Modify config for other languages.[rowUnitConf](#rowUnitConf))<br /> |
+| | <span style="color:#999">\*</span>R <sup style="color:#f33">1.7.22+</sup> | 相对时间。如 "3分钟前"、"2小时后"、"刚刚"。<br />Relative time. E.g.: "3分钟前", "2小时后", "刚刚".<br /><br />默认是中文: 如果想换英文或其它国家地区文字, 修改配置项([rowUnitConf](#rowUnitConf))<br />Default: Chinese. Modify config for other languages.([rowUnitConf](#rowUnitConf)) |
 | | | |
 | **时区(Timezone)** | | |
 | | e | 时区标识。UTC，GMT，Atlantic/Azores。 <br />Timezone identifier.Examples: UTC, GMT, Atlantic/Azores |
