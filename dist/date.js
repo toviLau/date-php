@@ -987,45 +987,10 @@
         return new Date(d).toString() !== "Invalid Date";
     };
 
-    date.timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-
-    var lang =
-        typeof navigator !== "undefined"
-            ? navigator.language || "zh-CN"
-            : typeof process !== "undefined"
-              ? process.env.LANG || process.env.LC_ALL
-                  ? (process.env.LANG || process.env.LC_ALL).split(".")[0].replace("_", "-")
-                  : "zh-CN"
-              : "zh-CN";
-
-    date.rowUnitConf = Object.assign(
-        {
-            threshold: 3e4, // 相差多少毫秒以内算刚刚
-            Year: "年",
-            Month: "月",
-            Week: "周",
-            Day: "天",
-            Hour: "小时",
-            Minute: "分钟",
-            Second: "秒",
-            justNow: "刚刚",
-            before: "前",
-            after: "后",
-        },
-        date.rowUnitConf || {}
-    );
     var date = function (fmt, now, ms) {
         if ( fmt === void 0 ) fmt = "Y-m-d";
         if ( now === void 0 ) now = new Date();
         if ( ms === void 0 ) ms = true;
-
-        now = new Date(isDate(this) ? this : isDate(now) ? new Date(now) : new Date()).toLocaleString(lang, {
-            timeZone: date.timeZone,
-        });
-        if (ms === false)
-            { now = new Date(now * 1000).toLocaleString(lang, {
-                timeZone: date.timeZone,
-            }); }
 
         if (!isDate(now))
             { throw Error(
@@ -1033,11 +998,24 @@
                     return (
                         "" +
                         "参数2不正确，须传入 “日期时间对象”，或 “Unix时间戳” 或 “时间戳字符串”。\n可以参考以下值：\n" +
-                        "  \"" + D + "\"\n" +
-                        "  \"" + (D.toUTCString()) + "\"\n" +
-                        "  " + (D.getTime()) + "  -- 推荐\n"
+                        "  1. \"" + D + "\"\n" +
+                        "  2. \"" + (D.toUTCString()) + "\"\n" +
+                        "  3. \"" + (date('Y-m-d H:i:s', D)) + "\"\n" +
+                        "  4. \"new Date()\"\n" +
+                        "  5. " + (D.getTime()) + "\n"
                     );
                 })(new Date())
+            ); }
+        now = new Date(
+            new Date(isDate(this) ? this : isDate(now) ? new Date(now) : new Date()).toLocaleString(lang, {
+                timeZone: date.timeZone,
+            })
+        );
+        if (ms === false)
+            { now = new Date(
+                new Date(now.getTime() * 1000).toLocaleString(lang, {
+                    timeZone: date.timeZone,
+                })
             ); }
 
         // 获取农历
@@ -1236,6 +1214,33 @@
         });
     };
 
+    date.timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+    var lang =
+        typeof navigator !== "undefined"
+            ? navigator.language || "zh-CN"
+            : typeof process !== "undefined"
+              ? process.env.LANG || process.env.LC_ALL
+                  ? (process.env.LANG || process.env.LC_ALL).split(".")[0].replace("_", "-")
+                  : "zh-CN"
+              : "zh-CN";
+
+    date.rowUnitConf = Object.assign(
+        {
+            threshold: 3e4, // 相差多少毫秒以内算刚刚
+            Year: "年",
+            Month: "月",
+            Week: "周",
+            Day: "天",
+            Hour: "小时",
+            Minute: "分钟",
+            Second: "秒",
+            justNow: "刚刚",
+            before: "前",
+            after: "后",
+        },
+        date.rowUnitConf || {}
+    );
     defP(Date.prototype, "format", date);
 
     defP(date, "version", "1.7.23");
