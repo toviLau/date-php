@@ -240,7 +240,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 | | s | 有前导零的秒数。"00"到"59"。 <br />Seconds with leading zeros. "00" to "59". |
 | | <span style="color:#999">\*</span>u <sup style="color:#f33">1.7.19\*</sup> | 微秒。"0"到"999999"。 <br />Microsecond value range: "0" to "999999". |
 | | <span style="color:#999">\*</span>v <sup style="color:#f33">1.5.0+</sup> | 毫秒。"0"到"999"。 <br />Millisecond value range: "0" to "999". |
-| | <span style="color:#999">\*</span>R <sup style="color:#f33">1.7.22+</sup> | 相对时间。如 "3分钟前"、"2小时后"、"刚刚"。<br />Relative time. E.g.: "3分钟前", "2小时后", "刚刚".<br /><br />默认是中文: 如果想换英文或其它国家地区文字, 修改配置项([rowUnitConf](#rowUnitConf))<br />Default: Chinese. Modify config for other languages.([rowUnitConf](#rowUnitConf)) |
+| | <span style="color:#999">\*</span>R <sup style="color:#f33">1.7.22+</sup>  <sup style="color:#f33">1.7.23*</sup> | 相对时间。如 "3分钟前"、"2小时后"、"刚刚"。<br />Relative time. E.g.: "3分钟前", "2小时后", "刚刚".<br /><br />默认是中文: 如果想换英文或其它国家地区文字, 修改配置项([rowUnitConf](#rowUnitConf))<br />Default: Chinese. Modify config for other languages.([rowUnitConf](#rowUnitConf))<br /><br /><sup style="color:#f33">1.7.23*</sup><br />"刚刚"的默认阈值是 `30` 秒(阈值可在配置项[rowUnitConf](#rowUnitConf)里配置)<br />"just now" threshold defaults to `30` seconds (configurable via [rowUnitConf](#rowUnitConf)). |
 | | | |
 | **时区(Timezone)** | | |
 | | e | 时区标识。UTC，GMT，Atlantic/Azores。 <br />Timezone identifier.Examples: UTC, GMT, Atlantic/Azores |
@@ -275,9 +275,28 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 [试一试(try)](https://tovilau.github.io/date-php/) 
 <br /><br /><br />
 
+### 时区配置/Timezone Configuration `date.timeZone`<sup style="color:#f33">1.7.23+</sup>
+
+>默认为当前浏览环境所在时区
+>Defaults to the time zone of the current browser environment.
+
+你可以修改它/You can customize it.
+
+```js
+date.timeZone = 'Atlantic/Azores'
+```
+
+
+
+
+
 ###### rowUnitConf
 
 ### 配置模板字符 `R` (相对时间) 的单位名称 `rowUnitConf`<sup style="color:#f33">1.7.22+</sup>
+
+> ps: 只有过去的历史时间会显示“刚刚”，未来时间精确显示到秒<br/>PS: "just now" for past times; future times show exact seconds.<br /><br />默认阈值(date.rowUnitConf.threshold)是 `30` 秒<br />
+>
+> > 5 秒前 → "刚刚"<br />25 秒前 → "刚刚"<br/>35 秒前 → "35秒前"<br/>5 秒后 → "5秒后"（不会显示"刚刚"）<br/>25 秒后 → "25秒后"（不会显示"刚刚"）
 
 ```js
 // ES6+ -- CDN方式跳过(CDN mode skip)
@@ -289,28 +308,30 @@ const date = require('date-php'); // 引入date-php(require date-php)
 
 
 
-> **默认配置(default config)**
+> **默认配置/default config**
 
 ```js
 date.rowUnitConf={
+    threshold: 30000, // 30秒算刚刚阈值
     Year: "年",
     Month: "月",
     Week: "周",
     Day: "天",
     Hour: "小时",
     Minute: "分钟",
+    Second: "秒",
     justNow: "刚刚",
     before: "前",
     after: "后",
 }
 ```
 
-
+> 修改配置/Modify the configuration.
 
 ```js
-// 修改它
 // 示例 1: 完整修改
 date.rowUnitConf = {
+    threshold: 10000, // 10秒算刚刚阈值
     Year: "Years",
     Month: "Months",
     Week: "Weeks",
@@ -324,6 +345,7 @@ date.rowUnitConf = {
 
 // 示例 2: 只修改部分单位，其他保持默认
 date.rowUnitConf = {
+    // threshold 未配置，保持默认 "30000"
     Year: "년",
     Month: "월",
     Week: "주",
@@ -335,10 +357,6 @@ date.rowUnitConf = {
     after: "후",
 };
 ```
-
-
-
-
 
 
 <div id="custom" name="custom"></div>
@@ -447,8 +465,20 @@ date.rowUnitConf = {
 
 
  > 用法 / usage：
- date.duration([tplChars:string='D天h:i:s'[, duration:number=0 [,isMs: boolean=true]]])
- date.duration(['模板字符'[, 持续时间:时间戳 [,是否毫秒: true]]]) 
+ > date.duration([tplChars:string='D天h:i:s'[, duration:number=0 [,isMs: boolean=true]]])
+ > date.duration(['模板字符'[, 持续时间:时间戳 [,是否毫秒: true]]]) 
+ >
+ > 
+ >
+ > 参数 duration<sup style="color:#f33">(1.7.23*)</sup>
+ >
+ > ​    更新为绝对值，以下输出结果是一样的
+ >
+ > ​    date.duration('d天 h小时i分种s秒', 186400000):   // 02天 03小时46分种40秒
+ >
+ > ​    date.duration('d天 h小时i分种s秒', -186400000):  // 02天 03小时46分种40秒
+ >
+ > ​    date.duration('d天 h小时i分种s秒', +186400000):  // 02天 03小时46分种40秒
 
 ```javascript
   date.duration('n月j天 h小时i分钟s秒',  314159265 ) //" 0月3天 15小时15分钟59秒"
@@ -490,8 +520,8 @@ date.rowUnitConf = {
 > 
 > ![time clock](https://tovilau.github.io/date-php/img.md/clock.gif)  
 >
-> 咦！这个时间的毫秒是不是有点怪？这是[_**setInterval**_](https://blog.csdn.net/acm765152844/article/details/51298915)的问题。(虽然这只是一张图片\^\_\^，但目的是抛出Javascript确实存在的问题。)  
-> What! Is the millisecond of this Datetime a bit strange? This is a problem with [_**setInterval**_](https://blog.csdn.net/acm765152844/article/details/51298915). (Although this is just a picture ^_^, the purpose is to highlight a problem that does exist in JavaScript.)
+> 咦！这个时间的毫秒是不是有点怪？这是[_**setInterval**_](https://developer.mozilla.org/en-US/docs/Web/API/Window/setTimeout#reasons_for_longer_delays_than_specified) 的问题 ([_**MDN**_](https://developer.mozilla.org/en-US/docs/Web/API/Window/setTimeout#reasons_for_longer_delays_than_specified) 上有说明)。(虽然这只是一张图片\^\_\^，但目的是抛出Javascript确实存在的问题。) 简单的讲这与`事件循环`或 `cpu 时间片`的执行有关
+> Hmm, is the millisecond part of this time looking a bit off? That's a known quirk of [_**setInterval**_](https://developer.mozilla.org/en-US/docs/Web/API/Window/setTimeout#reasons_for_longer_delays_than_specified)  ([_**MDN**_](https://developer.mozilla.org/en-US/docs/Web/API/Window/setTimeout#reasons_for_longer_delays_than_specified) has a detailed explanation). Although this is just a static image ^_^, it highlights a real issue that exists in JavaScript. In simple terms, it all comes down to the `event loop` and `CPU time slice` scheduling.
 
 
 ```html

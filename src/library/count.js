@@ -1,4 +1,4 @@
-import { pad } from './module';
+import { pad } from "./module";
 
 /**
  *
@@ -8,10 +8,10 @@ import { pad } from './module';
  * @param {Boolean} ms 是否是 含有毫秒
  * @return 相印时间
  */
-function duration(fmt = 'D天h:i:s', timestamp = 0, ms = true) {
+function duration(fmt = "D天h:i:s", timestamp = 0, ms = true) {
     const conversion = {
         y: 12,
-        m: 30.4375,
+        m: 30.436875,
         d: 24,
         h: 60,
         i: 60,
@@ -41,23 +41,23 @@ function duration(fmt = 'D天h:i:s', timestamp = 0, ms = true) {
         S: () => Math.floor(tChars.V() / conversion.s), // 总剩余秒数
 
         v: () => pad(Math.floor(tChars.V() % conversion.s), 3), // 当前毫秒剩余数
-        V: () => ms ? new Date(timestamp) - 0 : new Date(timestamp) * conversion.v, // 总剩余毫秒数
+        V: () => Math.abs(ms ? new Date(timestamp) - 0 : new Date(timestamp) * conversion.v), // 总剩余毫秒数
     };
 
-    if (fmt === 'json' || fmt === 'all' || fmt === -1 || fmt === '-1') {
+    if (fmt === "json" || fmt === "all" || fmt === -1 || fmt === "-1") {
         const json = {};
-        Object.keys(tChars).forEach((res, idx) => json[res] = tChars[res]());
+        Object.keys(tChars).forEach((res, idx) => (json[res] = tChars[res]()));
         return json;
     }
-    return fmt.replace(/(\\?([a-z]))/ig, (res, key) => {
-        let result = '';
+    return fmt.replace(/(\\?([a-z]))/gi, (res, key) => {
+        let result = "";
         if (res !== key) {
             result = key;
         } else {
             if (tChars[key]) {
                 result = tChars[key]();
             } else {
-                result = key.replace('\\', '');
+                result = key.replace("\\", "");
             }
         }
         return result;
@@ -72,15 +72,12 @@ function duration(fmt = 'D天h:i:s', timestamp = 0, ms = true) {
  * @param isMs 是否是 含有毫秒
  * @return 相印时间
  */
-function countTime(templateChars = 'D天h:i:s', timestamp1 = 0, timestamp2 = 0, isMs = true) {
+function countTime(templateChars = "D天h:i:s", timestamp1 = 0, timestamp2 = 0, isMs = true) {
     let count = new Date(timestamp1) - new Date(timestamp2) || 0;
     return duration(templateChars, Math.abs(count), isMs);
 }
 
-export {
-    duration,
-    countTime,
-};
+export { duration, countTime };
 export default {
     duration,
     countTime,

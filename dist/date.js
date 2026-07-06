@@ -1,5 +1,5 @@
 /**
- * date-php.js v1.7.22
+ * date-php.js v1.7.23
  *   :-) date('Y-m-d', 1563148800000) - 这是一个Javascript模仿PHP日期时间格式化函数，使用方法和PHP非常类似，有丰富的模板字符，并在原来的基础上增强了一些模板字符。例如：中国的农历日期、用汉字来表示日期、十二生肖与星座。让转换日期时间更自由。
  *   This is a Javascript mimicking PHP datetime formatting function. It is very similar to PHP, has rich template 
  *   characters, and enhances some template characters on the basis of the original. For example: Chinese Lunar Date,
@@ -730,13 +730,13 @@
      * @return 相印时间
      */
     function duration(fmt, timestamp, ms) {
-        if ( fmt === void 0 ) fmt = 'D天h:i:s';
+        if ( fmt === void 0 ) fmt = "D天h:i:s";
         if ( timestamp === void 0 ) timestamp = 0;
         if ( ms === void 0 ) ms = true;
 
         var conversion = {
             y: 12,
-            m: 30.4375,
+            m: 30.436875,
             d: 24,
             h: 60,
             i: 60,
@@ -766,23 +766,23 @@
             S: function () { return Math.floor(tChars.V() / conversion.s); }, // 总剩余秒数
 
             v: function () { return pad(Math.floor(tChars.V() % conversion.s), 3); }, // 当前毫秒剩余数
-            V: function () { return ms ? new Date(timestamp) - 0 : new Date(timestamp) * conversion.v; }, // 总剩余毫秒数
+            V: function () { return Math.abs(ms ? new Date(timestamp) - 0 : new Date(timestamp) * conversion.v); }, // 总剩余毫秒数
         };
 
-        if (fmt === 'json' || fmt === 'all' || fmt === -1 || fmt === '-1') {
+        if (fmt === "json" || fmt === "all" || fmt === -1 || fmt === "-1") {
             var json = {};
-            Object.keys(tChars).forEach(function (res, idx) { return json[res] = tChars[res](); });
+            Object.keys(tChars).forEach(function (res, idx) { return (json[res] = tChars[res]()); });
             return json;
         }
-        return fmt.replace(/(\\?([a-z]))/ig, function (res, key) {
-            var result = '';
+        return fmt.replace(/(\\?([a-z]))/gi, function (res, key) {
+            var result = "";
             if (res !== key) {
                 result = key;
             } else {
                 if (tChars[key]) {
                     result = tChars[key]();
                 } else {
-                    result = key.replace('\\', '');
+                    result = key.replace("\\", "");
                 }
             }
             return result;
@@ -798,7 +798,7 @@
      * @return 相印时间
      */
     function countTime(templateChars, timestamp1, timestamp2, isMs) {
-        if ( templateChars === void 0 ) templateChars = 'D天h:i:s';
+        if ( templateChars === void 0 ) templateChars = "D天h:i:s";
         if ( timestamp1 === void 0 ) timestamp1 = 0;
         if ( timestamp2 === void 0 ) timestamp2 = 0;
         if ( isMs === void 0 ) isMs = true;
@@ -982,16 +982,50 @@
      * @return {string}     格式化的时间字符串
      */
 
+    // 校验日期是否有效
     var isDate = function (d) {
         return new Date(d).toString() !== "Invalid Date";
     };
+
+    date.timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+    var lang =
+        typeof navigator !== "undefined"
+            ? navigator.language || "zh-CN"
+            : typeof process !== "undefined"
+              ? process.env.LANG || process.env.LC_ALL
+                  ? (process.env.LANG || process.env.LC_ALL).split(".")[0].replace("_", "-")
+                  : "zh-CN"
+              : "zh-CN";
+
+    date.rowUnitConf = Object.assign(
+        {
+            threshold: 3e4, // 相差多少毫秒以内算刚刚
+            Year: "年",
+            Month: "月",
+            Week: "周",
+            Day: "天",
+            Hour: "小时",
+            Minute: "分钟",
+            Second: "秒",
+            justNow: "刚刚",
+            before: "前",
+            after: "后",
+        },
+        date.rowUnitConf || {}
+    );
     var date = function (fmt, now, ms) {
         if ( fmt === void 0 ) fmt = "Y-m-d";
         if ( now === void 0 ) now = new Date();
         if ( ms === void 0 ) ms = true;
 
-        now = isDate(this) ? this : isDate(now) ? new Date(now) : new Date();
-        if (ms === false) { now = new Date(now * 1000); }
+        now = new Date(isDate(this) ? this : isDate(now) ? new Date(now) : new Date()).toLocaleString(lang, {
+            timeZone: date.timeZone,
+        });
+        if (ms === false)
+            { now = new Date(now * 1000).toLocaleString(lang, {
+                timeZone: date.timeZone,
+            }); }
 
         if (!isDate(now))
             { throw Error(
@@ -1005,20 +1039,6 @@
                     );
                 })(new Date())
             ); }
-        date.rowUnitConf = Object.assign(
-            {
-                Year: "年",
-                Month: "月",
-                Week: "周",
-                Day: "天",
-                Hour: "小时",
-                Minute: "分钟",
-                justNow: "刚刚",
-                before: "前",
-                after: "后",
-            },
-            date.rowUnitConf
-        );
 
         // 获取农历
         var lunarInfo = function () { return calendar.solar2lunar(tChars.Y(), tChars.n(), tChars.j()); };
@@ -1085,7 +1105,7 @@
             L: function () { return Number(tChars.Y() % 400 === 0 || (tChars.Y() % 100 !== 0 && tChars.Y() % 4 === 0)); },
             o: function () {
                 var yearWeek = new Date(tChars.Y(), 0, 1).getDay();
-                var diffTime = 60 * 60 * 24 * 1000 * (7 - yearWeek);
+                var diffTime = 60 * 60 * 24 * 1e3 * (7 - yearWeek);
                 var timestramp = yearWeek > 3 ? now.getTime() - diffTime : now.getTime();
                 return new Date(timestramp).getFullYear();
             },
@@ -1106,8 +1126,8 @@
                 var theSeconds = tChars.G() * 3600 + now.getMinutes() * 60 + now.getSeconds() + off;
                 var beat = Math.floor(theSeconds / 86.4);
                 // beat > 1000 ? beat -= 1000 : beat += 1000
-                if (beat > 1000) { beat -= 1000; }
-                if (beat < 0) { beat += 1000; }
+                if (beat > 1e3) { beat -= 1e3; }
+                if (beat < 0) { beat += 1e3; }
 
                 return pad(beat, 3);
             },
@@ -1118,7 +1138,7 @@
             i: function () { return pad(now.getMinutes(), 2); },
             s: function () { return pad(now.getSeconds(), 2); },
             // u: () => tChars.v() + pad(Math.floor(Math.random() * 1000), 3),
-            u: function () { return tChars.v() * 1000 + ~~((performance.now() % 1) * 1000); },
+            u: function () { return tChars.v() * 1e3 + ~~(((performance ? performance.now() : Date.now()) % 1) * 1e3); },
             v: function () { return (now.getTime() + "").substr(-3) - 0; },
 
             // 时区
@@ -1166,26 +1186,28 @@
                 tChars.s() +
                 tChars.P(); },
             r: function () { return now.toString(); },
-            U: function () { return Math.round(now.getTime() / 1000); },
+            U: function () { return Math.round(now.getTime() / 1e3); },
             R: function () {
                 var now = Date.now();
-                var template = tChars.U() * 1000;
-                var diff = ms ? now - template : ~~((now - template) / 1000);
+                var template = tChars.U() * 1e3;
+                var diff = ms ? now - template : ~~((now - template) / 1e3);
                 var absDiff = Math.abs(diff);
                 var intervals = {};
-                intervals[date.rowUnitConf.Year] = 31536000000;
-                intervals[date.rowUnitConf.Month] = 2592000000;
-                intervals[date.rowUnitConf.Week] = 604800000;
-                intervals[date.rowUnitConf.Day] = 86400000;
-                intervals[date.rowUnitConf.Hour] = 3600000;
-                intervals[date.rowUnitConf.Minute] = 60000;
+                intervals[date.rowUnitConf.Year] = 31536e6;
+                intervals[date.rowUnitConf.Month] = 2592e6;
+                intervals[date.rowUnitConf.Week] = 6048e5;
+                intervals[date.rowUnitConf.Day] = 864e5;
+                intervals[date.rowUnitConf.Hour] = 36e5;
+                intervals[date.rowUnitConf.Minute] = 6e4;
+                intervals[date.rowUnitConf.Second] = 1e3;
 
-                if (absDiff <= (ms ? 60000 : 60)) { return date.rowUnitConf.justNow; }
+                if (diff > 0 && absDiff <= (ms ? date.rowUnitConf.threshold : date.rowUnitConf.threshold / 1e3))
+                    { return date.rowUnitConf.justNow; }
 
                 var suffix = diff > 0 ? date.rowUnitConf.before : date.rowUnitConf.after;
 
                 for (var unit in intervals) {
-                    var _ms = ms ? intervals[unit] : ~~(intervals[unit] / 1000);
+                    var _ms = ms ? intervals[unit] : ~~(intervals[unit] / 1e3);
 
                     if (absDiff >= _ms) {
                         return Math.floor(absDiff / _ms) + unit + suffix;
@@ -1216,7 +1238,7 @@
 
     defP(Date.prototype, "format", date);
 
-    defP(date, "version", "1.7.22");
+    defP(date, "version", "1.7.23");
     defP(date, "description", function () { return console.info(
             "%cdate-php使用说明:\n" +
                 "已经废弃，查看使用说明请移步这里\nhttps://github.com/toviLau/date-php/blob/master/README.md",

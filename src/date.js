@@ -103,12 +103,46 @@ import {
     defP,
 } from "./library/module";
 
+// 校验日期是否有效
 const isDate = function (d) {
     return new Date(d).toString() !== "Invalid Date";
 };
+
+date.timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+const lang =
+    typeof navigator !== "undefined"
+        ? navigator.language || "zh-CN"
+        : typeof process !== "undefined"
+          ? process.env.LANG || process.env.LC_ALL
+              ? (process.env.LANG || process.env.LC_ALL).split(".")[0].replace("_", "-")
+              : "zh-CN"
+          : "zh-CN";
+
+date.rowUnitConf = Object.assign(
+    {
+        threshold: 3e4, // 相差多少毫秒以内算刚刚
+        Year: "年",
+        Month: "月",
+        Week: "周",
+        Day: "天",
+        Hour: "小时",
+        Minute: "分钟",
+        Second: "秒",
+        justNow: "刚刚",
+        before: "前",
+        after: "后",
+    },
+    date.rowUnitConf || {},
+);
 const date = function (fmt = "Y-m-d", now = new Date(), ms = true) {
-    now = isDate(this) ? this : isDate(now) ? new Date(now) : new Date();
-    if (ms === false) now = new Date(now * 1000);
+    now = new Date(isDate(this) ? this : isDate(now) ? new Date(now) : new Date()).toLocaleString(lang, {
+        timeZone: date.timeZone,
+    });
+    if (ms === false)
+        now = new Date(now * 1000).toLocaleString(lang, {
+            timeZone: date.timeZone,
+        });
 
     if (!isDate(now))
         throw Error(
@@ -122,20 +156,6 @@ const date = function (fmt = "Y-m-d", now = new Date(), ms = true) {
                 );
             })(new Date()),
         );
-    date.rowUnitConf = Object.assign(
-        {
-            Year: "年",
-            Month: "月",
-            Week: "周",
-            Day: "天",
-            Hour: "小时",
-            Minute: "分钟",
-            justNow: "刚刚",
-            before: "前",
-            after: "后",
-        },
-        date.rowUnitConf,
-    );
 
     // 获取农历
     const lunarInfo = () => getLunar.solar2lunar(tChars.Y(), tChars.n(), tChars.j());
@@ -203,7 +223,7 @@ const date = function (fmt = "Y-m-d", now = new Date(), ms = true) {
         L: () => Number(tChars.Y() % 400 === 0 || (tChars.Y() % 100 !== 0 && tChars.Y() % 4 === 0)),
         o: () => {
             const yearWeek = new Date(tChars.Y(), 0, 1).getDay();
-            const diffTime = 60 * 60 * 24 * 1000 * (7 - yearWeek);
+            const diffTime = 60 * 60 * 24 * 1e3 * (7 - yearWeek);
             const timestramp = yearWeek > 3 ? now.getTime() - diffTime : now.getTime();
             return new Date(timestramp).getFullYear();
         },
@@ -224,8 +244,8 @@ const date = function (fmt = "Y-m-d", now = new Date(), ms = true) {
             const theSeconds = tChars.G() * 3600 + now.getMinutes() * 60 + now.getSeconds() + off;
             let beat = Math.floor(theSeconds / 86.4);
             // beat > 1000 ? beat -= 1000 : beat += 1000
-            if (beat > 1000) beat -= 1000;
-            if (beat < 0) beat += 1000;
+            if (beat > 1e3) beat -= 1e3;
+            if (beat < 0) beat += 1e3;
 
             return pad(beat, 3);
         },
@@ -236,7 +256,7 @@ const date = function (fmt = "Y-m-d", now = new Date(), ms = true) {
         i: () => pad(now.getMinutes(), 2),
         s: () => pad(now.getSeconds(), 2),
         // u: () => tChars.v() + pad(Math.floor(Math.random() * 1000), 3),
-        u: () => tChars.v() * 1000 + ~~((performance.now() % 1) * 1000),
+        u: () => tChars.v() * 1e3 + ~~(((performance ? performance.now() : Date.now()) % 1) * 1e3),
         v: () => (now.getTime() + "").substr(-3) - 0,
 
         // 时区
@@ -286,27 +306,29 @@ const date = function (fmt = "Y-m-d", now = new Date(), ms = true) {
             tChars.s() +
             tChars.P(),
         r: () => now.toString(),
-        U: () => Math.round(now.getTime() / 1000),
+        U: () => Math.round(now.getTime() / 1e3),
         R: () => {
             const now = Date.now();
-            const template = tChars.U() * 1000;
-            const diff = ms ? now - template : ~~((now - template) / 1000);
+            const template = tChars.U() * 1e3;
+            const diff = ms ? now - template : ~~((now - template) / 1e3);
             const absDiff = Math.abs(diff);
             const intervals = {
-                [date.rowUnitConf.Year]: 31536000000,
-                [date.rowUnitConf.Month]: 2592000000,
-                [date.rowUnitConf.Week]: 604800000,
-                [date.rowUnitConf.Day]: 86400000,
-                [date.rowUnitConf.Hour]: 3600000,
-                [date.rowUnitConf.Minute]: 60000,
+                [date.rowUnitConf.Year]: 31536e6,
+                [date.rowUnitConf.Month]: 2592e6,
+                [date.rowUnitConf.Week]: 6048e5,
+                [date.rowUnitConf.Day]: 864e5,
+                [date.rowUnitConf.Hour]: 36e5,
+                [date.rowUnitConf.Minute]: 6e4,
+                [date.rowUnitConf.Second]: 1e3,
             };
 
-            if (absDiff <= (ms ? 60000 : 60)) return date.rowUnitConf.justNow;
+            if (diff > 0 && absDiff <= (ms ? date.rowUnitConf.threshold : date.rowUnitConf.threshold / 1e3))
+                return date.rowUnitConf.justNow;
 
             const suffix = diff > 0 ? date.rowUnitConf.before : date.rowUnitConf.after;
 
             for (const unit in intervals) {
-                const _ms = ms ? intervals[unit] : ~~(intervals[unit] / 1000);
+                const _ms = ms ? intervals[unit] : ~~(intervals[unit] / 1e3);
 
                 if (absDiff >= _ms) {
                     return Math.floor(absDiff / _ms) + unit + suffix;
