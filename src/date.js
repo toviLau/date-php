@@ -108,6 +108,95 @@ const isDate = function (d) {
     return new Date(d).toString() !== "Invalid Date";
 };
 
+
+// 时区映射表
+const TIMEZONE_MAP = {
+    // ==================== GMT 格式 ====================
+    // UTC+ 区域（GMT 符号相反）
+    "GMT-12": "Etc/GMT+12",
+    "GMT-11": "Pacific/Midway",
+    "GMT-10": "Pacific/Honolulu",
+    "GMT-9": "America/Anchorage",
+    "GMT-8": "Asia/Shanghai",
+    "GMT-7": "Asia/Bangkok",
+    "GMT-6": "Asia/Dhaka",
+    "GMT-5": "Asia/Karachi",
+    "GMT-4": "Asia/Baku",
+    "GMT-3": "Europe/Moscow",
+    "GMT-2": "Europe/Kiev",
+    "GMT-1": "Europe/Paris",
+    "GMT+0": "Europe/London",
+    // UTC- 区域（GMT 符号相反）
+    "GMT+1": "Atlantic/Azores",
+    "GMT+2": "Atlantic/South_Georgia",
+    "GMT+3": "America/Montevideo",
+    "GMT+4": "America/Halifax",
+    "GMT+5": "America/New_York",
+    "GMT+6": "America/Chicago",
+    "GMT+7": "America/Denver",
+    "GMT+8": "America/Los_Angeles",
+    "GMT+9": "America/Anchorage",
+    "GMT+10": "Pacific/Honolulu",
+    "GMT+11": "Pacific/Midway",
+    "GMT+12": "Etc/GMT+12",
+
+    // GMT 半时区
+    "GMT-3:30": "Asia/Tehran",
+    "GMT-4:30": "Asia/Kabul",
+    "GMT-5:30": "Asia/Kolkata",
+    "GMT-5:45": "Asia/Kathmandu",
+    "GMT-6:30": "Asia/Rangoon",
+    "GMT-8:45": "Australia/Eucla",
+    "GMT-9:30": "Australia/Adelaide",
+    "GMT-10:30": "Australia/Lord_Howe",
+    "GMT+3:30": "Canada/Newfoundland",
+    "GMT+4:30": "America/La_Paz",
+    "GMT+5:30": "America/Indianapolis",
+    "GMT+9:30": "Pacific/Marquesas",
+
+    // ==================== UTC 格式 ====================
+    // UTC+ 区域
+    "UTC+12": "Etc/GMT+12",
+    "UTC+11": "Pacific/Midway",
+    "UTC+10": "Pacific/Honolulu",
+    "UTC+9": "America/Anchorage",
+    "UTC+8": "Asia/Shanghai",
+    "UTC+7": "Asia/Bangkok",
+    "UTC+6": "Asia/Dhaka",
+    "UTC+5": "Asia/Karachi",
+    "UTC+4": "Asia/Baku",
+    "UTC+3": "Europe/Moscow",
+    "UTC+2": "Europe/Kiev",
+    "UTC+1": "Europe/Paris",
+    "UTC+0": "Europe/London",
+    // UTC- 区域
+    "UTC-1": "Atlantic/Azores",
+    "UTC-2": "Atlantic/South_Georgia",
+    "UTC-3": "America/Montevideo",
+    "UTC-4": "America/Halifax",
+    "UTC-5": "America/New_York",
+    "UTC-6": "America/Chicago",
+    "UTC-7": "America/Denver",
+    "UTC-8": "America/Los_Angeles",
+    "UTC-9": "America/Anchorage",
+    "UTC-10": "Pacific/Honolulu",
+    "UTC-11": "Pacific/Midway",
+    "UTC-12": "Etc/GMT+12",
+
+    // UTC 半时区
+    "UTC+3:30": "Asia/Tehran",
+    "UTC+4:30": "Asia/Kabul",
+    "UTC+5:30": "Asia/Kolkata",
+    "UTC+5:45": "Asia/Kathmandu",
+    "UTC+6:30": "Asia/Rangoon",
+    "UTC+8:45": "Australia/Eucla",
+    "UTC+9:30": "Australia/Adelaide",
+    "UTC+10:30": "Australia/Lord_Howe",
+    "UTC-3:30": "Canada/Newfoundland",
+    "UTC-4:30": "America/La_Paz",
+    "UTC-5:30": "America/Indianapolis",
+    "UTC-9:30": "Pacific/Marquesas",
+};
 const date = function (fmt = "Y-m-d", now = new Date(), ms = true) {
     if (!isDate(now))
         throw Error(
@@ -117,23 +206,20 @@ const date = function (fmt = "Y-m-d", now = new Date(), ms = true) {
                     "参数2不正确，须传入 “日期时间对象”，或 “Unix时间戳” 或 “时间戳字符串”。\n可以参考以下值：\n" +
                     `  1. "${D}"\n` +
                     `  2. "${D.toUTCString()}"\n` +
-                    `  3. "${date('Y-m-d H:i:s', D)}"\n` +
+                    `  3. "${date("Y-m-d H:i:s", Date.now())}"\n` +
                     `  4. "new Date()"\n` +
                     `  5. ${D.getTime()}\n`
                 );
             })(new Date()),
         );
+
+    const _now = isDate(this) ? this : isDate(now) ? new Date(now) : new Date();
     now = new Date(
-        new Date(isDate(this) ? this : isDate(now) ? new Date(now) : new Date()).toLocaleString(lang, {
-            timeZone: date.timeZone,
+        new Date(_now).toLocaleString(lang, {
+            timeZone: TIMEZONE_MAP[date.timeZone] || date.timeZone,
         }),
     );
-    if (ms === false)
-        now = new Date(
-            new Date(now.getTime() * 1000).toLocaleString(lang, {
-                timeZone: date.timeZone,
-            }),
-        );
+    if (ms === false) now = new Date(now * 1000);
 
     // 获取农历
     const lunarInfo = () => getLunar.solar2lunar(tChars.Y(), tChars.n(), tChars.j());
@@ -235,10 +321,10 @@ const date = function (fmt = "Y-m-d", now = new Date(), ms = true) {
         s: () => pad(now.getSeconds(), 2),
         // u: () => tChars.v() + pad(Math.floor(Math.random() * 1000), 3),
         u: () => tChars.v() * 1e3 + ~~(((performance ? performance.now() : Date.now()) % 1) * 1e3),
-        v: () => (now.getTime() + "").substr(-3) - 0,
+        v: () => (_now.getTime() + "").substr(-3) - 0,
 
         // 时区
-        e: () => Intl.DateTimeFormat().resolvedOptions().timeZone,
+        e: () => TIMEZONE_MAP[date.timeZone] || date.timeZone || Intl.DateTimeFormat().resolvedOptions().timeZone,
         I: () => {
             let DST = null;
             for (var i = 0; i < 12; ++i) {
@@ -260,12 +346,13 @@ const date = function (fmt = "Y-m-d", now = new Date(), ms = true) {
                 .match(/[+-]?\d{2}/g)
                 .join(":"),
         T: () => {
-            const tz = now
-                .toLocaleTimeString(navigator.language, {
-                    timeZoneName: "short",
-                })
-                .split(/\s/);
-            return tz[tz.length - 1];
+            const parts = new Intl.DateTimeFormat(lang, {
+                timeZoneName: "short",
+                timeZone: TIMEZONE_MAP[date.timeZone] || date.timeZone,
+            })
+                .formatToParts(now)
+                .find((part) => part.type === "timeZoneName")
+                return parts ? parts.value : "";
         },
         Z: () => -(now.getTimezoneOffset() * 60),
 
@@ -282,6 +369,7 @@ const date = function (fmt = "Y-m-d", now = new Date(), ms = true) {
             tChars.i() +
             ":" +
             tChars.s() +
+            '.' +tChars.v() +
             tChars.P(),
         r: () => now.toString(),
         U: () => Math.round(now.getTime() / 1e3),

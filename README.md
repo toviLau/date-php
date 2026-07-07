@@ -283,11 +283,96 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 你可以修改它/You can customize it.
 
 ```js
-date.timeZone = 'Atlantic/Azores'
+date.timeZone = 'America/New_York' // 纽约
+date.timeZone = 'Asia/Shanghai' // 东8区(北京时间)
+
+// ---------- 或/or ----------
+date.timeZone = 'GMT-8' // 东8区(北京时间)
+date.timeZone = 'UTC+8' // 东8区(北京时间)
+
+date.timeZone = 'GMT+5' // 西8区 - 纽约
+date.timeZone = 'UTC-5' // 西8区 - 纽约
 ```
 
+|GMT时区/timezone| IANA 时区标识符 |
+|---|---|
+|GMT-12|Etc/GMT+12|
+|GMT-11 | Pacific/Midway |
+|GMT-10 | Pacific/Honolulu |
+|GMT-9 | America/Anchorage |
+|GMT-8 | Asia/Shanghai |
+|GMT-7 | Asia/Bangkok |
+|GMT-6 | Asia/Dhaka |
+|GMT-5 | Asia/Karachi |
+|GMT-4 | Asia/Baku |
+|GMT-3 | Europe/Moscow |
+|GMT-2 | Europe/Kiev |
+|GMT-1 | Europe/Paris |
+|GMT+0 | Europe/London |
+|GMT+1 | Atlantic/Azores |
+|GMT+2 | Atlantic/South_Georgia |
+|GMT+3 | America/Montevideo |
+|GMT+4 | America/Halifax |
+|GMT+5 | America/New_York |
+|GMT+6 | America/Chicago |
+|GMT+7 | America/Denver |
+|GMT+8 | America/Los_Angeles |
+|GMT+9 | America/Anchorage |
+|GMT+10 | Pacific/Honolulu |
+|GMT+11 | Pacific/Midway |
+|GMT+12 | Etc/GMT+12 |
+|GMT-3:30 | Asia/Tehran |
+|GMT-4:30 | Asia/Kabul |
+|GMT-5:30 | Asia/Kolkata |
+|GMT-5:45 | Asia/Kathmandu |
+|GMT-6:30 | Asia/Rangoon |
+|GMT-8:45 | Australia/Eucla |
+|GMT-9:30 | Australia/Adelaide |
+|GMT-10:30 | Australia/Lord_Howe |
+|GMT+3:30 | Canada/Newfoundland |
+|GMT+4:30 | America/La_Paz |
+|GMT+5:30 | America/Indianapolis |
+|GMT+9:30 | Pacific/Marquesas |
 
-
+|GMT时区/timezone| IANA 时区标识符 |
+|---|---|
+|UTC+12 | Etc/GMT+12 |
+|UTC+11 | Pacific/Midway |
+|UTC+10 | Pacific/Honolulu |
+|UTC+9 | America/Anchorage |
+|UTC+8 | Asia/Shanghai |
+|UTC+7 | Asia/Bangkok |
+|UTC+6 | Asia/Dhaka |
+|UTC+5 | Asia/Karachi |
+|UTC+4 | Asia/Baku |
+|UTC+3 | Europe/Moscow |
+|UTC+2 | Europe/Kiev |
+|UTC+1 | Europe/Paris |
+|UTC+0 | Europe/London |
+|UTC-1 | Atlantic/Azores |
+|UTC-2 | Atlantic/South_Georgia |
+|UTC-3 | America/Montevideo |
+|UTC-4 | America/Halifax |
+|UTC-5 | America/New_York |
+|UTC-6 | America/Chicago |
+|UTC-7 | America/Denver |
+|UTC-8 | America/Los_Angeles |
+|UTC-9 | America/Anchorage |
+|UTC-10 | Pacific/Honolulu |
+|UTC-11 | Pacific/Midway |
+|UTC-12 | Etc/GMT+12 |
+|UTC+3:30 | Asia/Tehran |
+|UTC+4:30 | Asia/Kabul |
+|UTC+5:30 | Asia/Kolkata |
+|UTC+5:45 | Asia/Kathmandu |
+|UTC+6:30 | Asia/Rangoon |
+|UTC+8:45 | Australia/Eucla |
+|UTC+9:30 | Australia/Adelaide |
+|UTC+10:30 | Australia/Lord_Howe |
+|UTC-3:30 | Canada/Newfoundland |
+|UTC-4:30 | America/La_Paz |
+|UTC-5:30 | America/Indianapolis |
+|UTC-9:30 | Pacific/Marquesas |
 
 
 ###### rowUnitConf
@@ -511,10 +596,10 @@ date.rowUnitConf = {
 
 > 可以非常简单的实现一个时钟，就象下面的一样。  
 > Coding a clock is so easy, just like the following.
-> 
+>
 > ![time clock](https://tovilau.github.io/date-php/img.md/clock.gif)  
 >
-> 咦！这个时间的毫秒是不是有点怪？这是[_**setInterval**_](https://developer.mozilla.org/en-US/docs/Web/API/Window/setTimeout#reasons_for_longer_delays_than_specified) 的问题 ([_**MDN**_](https://developer.mozilla.org/en-US/docs/Web/API/Window/setTimeout#reasons_for_longer_delays_than_specified) 上有说明)。(虽然这只是一张图片\^\_\^，但目的是抛出Javascript确实存在的问题。) 简单的讲这与`事件循环`或 `cpu 时间片`的执行有关
+> 咦！这个时间的毫秒是不是有点怪？这是所有基于“事件循环”的定时器（包括 `setInterval` 和 `setTimeout`）共有的特性，并非代码有 BUG ([_**MDN**_](https://developer.mozilla.org/en-US/docs/Web/API/Window/setTimeout#reasons_for_longer_delays_than_specified) 上有说明)。(虽然这只是一张图片^\_^，但目的是抛出Javascript确实存在的问题。) 简单的讲这与`事件循环`或 `cpu 时间片`的执行有关
 > Hmm, is the millisecond part of this time looking a bit off? That's a known quirk of [_**setInterval**_](https://developer.mozilla.org/en-US/docs/Web/API/Window/setTimeout#reasons_for_longer_delays_than_specified)  ([_**MDN**_](https://developer.mozilla.org/en-US/docs/Web/API/Window/setTimeout#reasons_for_longer_delays_than_specified) has a detailed explanation). Although this is just a static image ^_^, it highlights a real issue that exists in JavaScript. In simple terms, it all comes down to the `event loop` and `CPU time slice` scheduling.
 
 
