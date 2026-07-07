@@ -294,7 +294,7 @@ date.timeZone = 'Atlantic/Azores'
 
 ### 配置模板字符 `R` (相对时间) 的单位名称 `rowUnitConf`<sup style="color:#f33">1.7.22+</sup>
 
-> ps: 只有过去的历史时间会显示“刚刚”，未来时间精确显示到秒<br/>PS: "just now" for past times; future times show exact seconds.<br /><br />默认阈值(date.rowUnitConf.threshold)是 `30` 秒<br />
+> ps: 只有过去的历史时间会显示“刚刚”，未来时间精确显示到秒<sup style="color:#f33">1.7.23*</sup><br/>PS: "just now" for past times; future times show exact seconds.<br /><br />默认阈值(date.rowUnitConf.threshold)是 `30` 秒<br />
 >
 > > 5 秒前 → "刚刚" / 5 secs ago → "just now"<br />25 秒前 → "刚刚" / 25 secs ago → "just now"<br/>35 秒前 → "35秒前" / 35 secs ago → "35 secs ago"<br/>5 秒后 → "5秒后"（不会显示"刚刚"）/ 5 secs later → "5 secs later" (not "just now")<br/>25 秒后 → "25秒后"（不会显示"刚刚"）/ 25 secs later → "25 secs later" (not "just now")
 
@@ -302,7 +302,7 @@ date.timeZone = 'Atlantic/Azores'
 
 ```js
 date.rowUnitConf={
-    threshold: 30000, // 30秒算刚刚(阈值)/"just now" means within the last 30 seconds.
+    threshold: 30000, // 30秒算刚刚(阈值)/"just now" means within the last 30 seconds. 1.7.23*
     Year: "年",
     Month: "月",
     Week: "周",
@@ -321,7 +321,7 @@ date.rowUnitConf={
 ```js
 // 示例 1: 完整修改/demo 1: Full customization.
 date.rowUnitConf = {
-    threshold: 10000, // 10秒算刚刚(阈值)/"just now" means within the last 10 seconds.
+    threshold: 10000, // 10秒算刚刚(阈值)/"just now" means within the last 10 seconds. 1.7.23*
     Year: "Years",
     Month: "Months",
     Week: "Weeks",
@@ -333,7 +333,7 @@ date.rowUnitConf = {
     after: "after",
 }
 
-// 示例 2: 只修改部分单位，其他保持默认/demo 2: Modify only some units, keep others as default.
+// 示例 2: 只修改部分单位，其他保持默认/demo 2: Modify only some units, keep others as default. 
 date.rowUnitConf = {
     // threshold 未配置，保持默认 "30000"
     Year: "년",
