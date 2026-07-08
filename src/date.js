@@ -252,13 +252,14 @@ function getOffsetInfo(d, tz) {
 
 const date = function (fmt = "Y-m-d", now = new Date(), ms = true) {
     if (typeof fmt !== "string") {
-        console.warn("参数1必须为字符串类型/Param 1 must be string.");
+        log("参数1必须为字符串类型/Param 1 must be string.");
         fmt = "Y-m-d H:i:s";
     }
     if (!isDate(now)) {
         var receivedType = typeof now; // ← 先保存原始类型
-        now = new Date(); // ← 再回退
-        console.warn(
+        now = new Date(); // 回退
+
+        log(
             ((D, type) => {
                 return (
                     "" +
@@ -544,13 +545,21 @@ date.rowUnitConf = Object.assign(
 defP(Date.prototype, "format", date);
 
 defP(date, "version", "__VERSION__");
-defP(date, "description", () =>
-    console.info(
-        "%cdate-php使用说明:\n" +
-            "已经废弃，查看使用说明请移步这里\nhttps://github.com/toviLau/date-php/blob/master/README.md",
-        "color:#c63",
-    ),
+defP(
+    date,
+    "description",
+    () =>
+        log(
+            "此 API 已经废弃，查看使用说明请移步这里\nhttps://github.com/toviLau/date-php/blob/master/README.md",
+            "warn",
+        ),
+    "info",
+    "color:#c30",
 );
+function log(msg, type, color) {
+    if (type === void 0) type = "warn";
+    color ? console[type]("%c[date-php] " + msg, color) : console[type]("[date-php] " + msg);
+}
 
 Object.keys(count).forEach((res) => {
     defP(date, res, count[res]);

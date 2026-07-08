@@ -1135,13 +1135,14 @@
         if ( ms === void 0 ) ms = true;
 
         if (typeof fmt !== "string") {
-            console.warn("参数1必须为字符串类型/Param 1 must be string.");
+            log("参数1必须为字符串类型/Param 1 must be string.");
             fmt = "Y-m-d H:i:s";
         }
         if (!isDate(now)) {
             var receivedType = typeof now; // ← 先保存原始类型
-            now = new Date(); // ← 再回退
-            console.warn(
+            now = new Date(); // 回退
+
+            log(
                 (function (D, type) {
                     return (
                         "" +
@@ -1424,12 +1425,17 @@
     defP(Date.prototype, "format", date);
 
     defP(date, "version", "1.7.24");
-    defP(date, "description", function () { return console.info(
-            "%cdate-php使用说明:\n" +
-                "已经废弃，查看使用说明请移步这里\nhttps://github.com/toviLau/date-php/blob/master/README.md",
-            "color:#c63"
-        ); }
-    );
+    defP(
+        date,
+        "description",
+        function () { return log(
+                "此 API 已经废弃，查看使用说明请移步这里\nhttps://github.com/toviLau/date-php/blob/master/README.md",
+                "warn"
+            ); });
+    function log(msg, type, color) {
+        if (type === void 0) { type = "warn"; }
+        color ? console[type]("%c[date-php] " + msg, color) : console[type]("[date-php] " + msg);
+    }
 
     Object.keys(count).forEach(function (res) {
         defP(date, res, count[res]);

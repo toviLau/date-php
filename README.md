@@ -88,6 +88,7 @@ yarn add date-php
   > 用法 / usage：
   >
   >  date([字符模板:string='Y-m-d'[, 日期时间对象:dateTime|number=new Date() [,是否毫秒: boolean=true]]])
+  >  
   >  date([tplChars:string='Y-m-d'[, dateTimeObj:dateTime|number=new Date() [,isMs: boolean=true]]])
   >
   > 
