@@ -240,15 +240,15 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 | | s | 有前导零的秒数。"00"到"59"。 <br />Seconds with leading zeros. "00" to "59". |
 | | <span style="color:#999">\*</span>u <sup style="color:#f33">1.7.19\*</sup> | 微秒。"0"到"999999"。 <br />Microsecond value range: "0" to "999999". |
 | | <span style="color:#999">\*</span>v <sup style="color:#f33">1.5.0+</sup> | 毫秒。"0"到"999"。 <br />Millisecond value range: "0" to "999". |
-| | <span style="color:#999">\*</span>R <sup style="color:#f33">1.7.22+</sup>  <sup style="color:#f33">1.7.23*</sup> | 相对时间。如 "3分钟前"、"2小时后"、"刚刚"。<br />Relative time. E.g.: "3分钟前", "2小时后", "刚刚".<br /><br />默认是中文: 如果想换英文或其它国家地区文字, 修改配置项([rowUnitConf](#rowUnitConf))<br />Default: Chinese. Modify config for other languages.([rowUnitConf](#rowUnitConf))<br /><br /><sup style="color:#f33">1.7.23*</sup><br />"刚刚"的默认阈值是 `30` 秒(阈值可在配置项[rowUnitConf](#rowUnitConf)里配置)<br />"just now" threshold defaults to `30` seconds (configurable via [rowUnitConf](#rowUnitConf)). |
+| | <span style="color:#999">\*</span>R <sup style="color:#f33">1.7.22+</sup> <sup style="color:#f33">1.7.23*</sup> | 相对时间。如 "3分钟前"、"2小时后"、"刚刚"。<br />Relative time. E.g.: "3分钟前", "2小时后", "刚刚".<br /><br />默认是中文: 如果想换英文或其它国家地区文字, 修改配置项([rowUnitConf](#rowUnitConf))<br />Default: Chinese. Modify config for other languages.([rowUnitConf](#rowUnitConf))<br /><br /><sup style="color:#f33">1.7.23*</sup><br />"刚刚"的默认阈值是 `30` 秒(阈值可在配置项[rowUnitConf](#rowUnitConf)里配置)<br />"just now" threshold defaults to `30` seconds (configurable via [rowUnitConf](#rowUnitConf)). |
 | | | |
 | **时区(Timezone)** | | |
 | | e | 时区标识。UTC，GMT，Atlantic/Azores。 <br />Timezone identifier.Examples: UTC, GMT, Atlantic/Azores |
 | | I | 是否为夏令时。1:是，0:否 。 <br />Whether or not the date is in daylight saving time. 1 Daylight Saving Time, 0 otherwise. |
-| | O | 与格林威治时间相差的小时数。例如：+0800。 <br />Difference to Greenwich time (GMT) in hours. Example: +0800. |
-| | P | 与格林威治时间的差别，小时和分钟之间有冒号分隔。例如：+08:00。 <br />Difference to Greenwich time (GMT) with colon between hours and minutes. Example: +08:00. |
+| | O<br /><sup style="color:#f33">1.7.24*</sup> | 与格林威治时间相差的小时数。例如：+0800。 <br />Difference to Greenwich time (GMT) in hours. Example: +0800.<br />跟随 `date.timeZone` 配置。<sup style="color:#f33">1.7.24*</sup> |
+| | P<br /><sup style="color:#f33">1.7.24*</sup> | 与格林威治时间的差别，小时和分钟之间有冒号分隔。例如：+08:00。<br />Difference to Greenwich time (GMT) with colon between hours and minutes. Example: +08:00.<br />跟随 `date.timeZone` 配置。<sup style="color:#f33">1.7.24*</sup><br />Follows the `date.timeZone` configuration.<br /> |
 | | T | 本机所在的时区。例如：EST，MDT。 <br />Timezone abbreviation.  Examples: EST, MDT, |
-| | Z | 时差偏移量的秒数。UTC 西边的时区偏移量总是负的，UTC 东边的时区偏移量总是正的。-43200 到 43200。 <br />Timezone offset in seconds. The offset for timezones west of UTC is always negative, and for those east of UTC is always positive. -43200 to 43200. |
+| | Z<br /><sup style="color:#f33">1.7.24*</sup> | 时差偏移量的秒数。<br />Timezone offset in seconds.<br />跟随 `date.timeZone` 配置。<sup style="color:#f33">1.7.24*</sup><br />Follows the `date.timeZone` configuration.<br /> |
 | | | |
 | **完整的日期／时间<br />(Full Date/Time)** | | |
 | | c | ISO 8601 格式的日期。例如：2019-07-15T15:38:56+08:00。 <br />ISO 8601 date. Example: 2004-02-12T15:19:21+00:00. |
@@ -275,10 +275,10 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 [试一试(try)](https://tovilau.github.io/date-php/) 
 <br /><br /><br />
 
-### 时区配置/Timezone Configuration `date.timeZone`<sup style="color:#f33">1.7.23+</sup>
+### 时区配置/Timezone Configuration <sup style="color:#f33">1.7.23+</sup>
 
->默认为当前浏览环境所在时区
->Defaults to the time zone of the current browser environment.
+>默认为当前浏览/系统环境所在时区
+>Defaults to the time zone of the current environment (browser or system).
 
 你可以修改它/You can customize it.
 
@@ -294,85 +294,46 @@ date.timeZone = 'GMT+5' // 西8区 - 纽约
 date.timeZone = 'UTC-5' // 西8区 - 纽约
 ```
 
-|GMT时区/timezone| IANA 时区标识符 |
-|---|---|
-|GMT-12|Etc/GMT+12|
-|GMT-11 | Pacific/Midway |
-|GMT-10 | Pacific/Honolulu |
-|GMT-9 | America/Anchorage |
-|GMT-8 | Asia/Shanghai |
-|GMT-7 | Asia/Bangkok |
-|GMT-6 | Asia/Dhaka |
-|GMT-5 | Asia/Karachi |
-|GMT-4 | Asia/Baku |
-|GMT-3 | Europe/Moscow |
-|GMT-2 | Europe/Kiev |
-|GMT-1 | Europe/Paris |
-|GMT+0 | Europe/London |
-|GMT+1 | Atlantic/Azores |
-|GMT+2 | Atlantic/South_Georgia |
-|GMT+3 | America/Montevideo |
-|GMT+4 | America/Halifax |
-|GMT+5 | America/New_York |
-|GMT+6 | America/Chicago |
-|GMT+7 | America/Denver |
-|GMT+8 | America/Los_Angeles |
-|GMT+9 | America/Anchorage |
-|GMT+10 | Pacific/Honolulu |
-|GMT+11 | Pacific/Midway |
-|GMT+12 | Etc/GMT+12 |
-|GMT-3:30 | Asia/Tehran |
-|GMT-4:30 | Asia/Kabul |
-|GMT-5:30 | Asia/Kolkata |
-|GMT-5:45 | Asia/Kathmandu |
-|GMT-6:30 | Asia/Rangoon |
-|GMT-8:45 | Australia/Eucla |
-|GMT-9:30 | Australia/Adelaide |
-|GMT-10:30 | Australia/Lord_Howe |
-|GMT+3:30 | Canada/Newfoundland |
-|GMT+4:30 | America/La_Paz |
-|GMT+5:30 | America/Indianapolis |
-|GMT+9:30 | Pacific/Marquesas |
+| GMT时区 / GMT timezone | UTC时区 / UTC timezone | IANA 时区名称/IANA time zone name |
+|---| --- | --- |
+|GMT-12 | UTC+12 | Etc/GMT+12|
+|GMT-11 | UTC+11 | Pacific/Midway |
+|GMT-10 | UTC+10 | Pacific/Honolulu |
+|GMT-9 | UTC+9 | America/Anchorage |
+|GMT-8 | UTC+8 | Asia/Shanghai |
+|GMT-7 | UTC+7 | Asia/Bangkok |
+|GMT-6 | UTC+6 | Asia/Dhaka |
+|GMT-5 | UTC+5 | Asia/Karachi |
+|GMT-4 | UTC+4 | Asia/Baku |
+|GMT-3 | UTC+3 | Europe/Moscow |
+|GMT-2 | UTC+2 | Europe/Kiev |
+|GMT-1 | UTC+1 | Europe/Paris |
+|GMT+0 | UTC+0 | Europe/London |
+|GMT+1 | UTC-1 | Atlantic/Azores |
+|GMT+2 | UTC-2 | Atlantic/South_Georgia |
+|GMT+3 | UTC-3 | America/Montevideo |
+|GMT+4 | UTC-4 | America/Halifax |
+|GMT+5 | UTC-5 | America/New_York |
+|GMT+6 | UTC-6 | America/Chicago |
+|GMT+7 | UTC-7 | America/Denver |
+|GMT+8 | UTC-8 | America/Los_Angeles |
+|GMT+9 | UTC-9 | America/Anchorage |
+|GMT+10 | UTC-10 | Pacific/Honolulu |
+|GMT+11 | UTC-11 | Pacific/Midway |
+|GMT+12 | UTC-12 | Etc/GMT+12 |
+|GMT-3:30 | UTC+3:30 | Asia/Tehran |
+|GMT-4:30 | UTC+4:30 | Asia/Kabul |
+|GMT-5:30 | UTC+5:30 | Asia/Kolkata |
+|GMT-5:45 | UTC+5:45 | Asia/Kathmandu |
+|GMT-6:30 | UTC+6:30 | Asia/Rangoon |
+|GMT-8:45 | UTC+8:45 | Australia/Eucla |
+|GMT-9:30 | UTC+9:30 | Australia/Adelaide |
+|GMT-10:30 | UTC+10:30 | Australia/Lord_Howe |
+|GMT+3:30 | UTC-3:30 | Canada/Newfoundland |
+|GMT+4:30 | UTC-4:30 | America/La_Paz |
+|GMT+5:30 | UTC-5:30 | America/Indianapolis |
+|GMT+9:30 | UTC-9:30 | Pacific/Marquesas |
 
-|GMT时区/timezone| IANA 时区标识符 |
-|---|---|
-|UTC+12 | Etc/GMT+12 |
-|UTC+11 | Pacific/Midway |
-|UTC+10 | Pacific/Honolulu |
-|UTC+9 | America/Anchorage |
-|UTC+8 | Asia/Shanghai |
-|UTC+7 | Asia/Bangkok |
-|UTC+6 | Asia/Dhaka |
-|UTC+5 | Asia/Karachi |
-|UTC+4 | Asia/Baku |
-|UTC+3 | Europe/Moscow |
-|UTC+2 | Europe/Kiev |
-|UTC+1 | Europe/Paris |
-|UTC+0 | Europe/London |
-|UTC-1 | Atlantic/Azores |
-|UTC-2 | Atlantic/South_Georgia |
-|UTC-3 | America/Montevideo |
-|UTC-4 | America/Halifax |
-|UTC-5 | America/New_York |
-|UTC-6 | America/Chicago |
-|UTC-7 | America/Denver |
-|UTC-8 | America/Los_Angeles |
-|UTC-9 | America/Anchorage |
-|UTC-10 | Pacific/Honolulu |
-|UTC-11 | Pacific/Midway |
-|UTC-12 | Etc/GMT+12 |
-|UTC+3:30 | Asia/Tehran |
-|UTC+4:30 | Asia/Kabul |
-|UTC+5:30 | Asia/Kolkata |
-|UTC+5:45 | Asia/Kathmandu |
-|UTC+6:30 | Asia/Rangoon |
-|UTC+8:45 | Australia/Eucla |
-|UTC+9:30 | Australia/Adelaide |
-|UTC+10:30 | Australia/Lord_Howe |
-|UTC-3:30 | Canada/Newfoundland |
-|UTC-4:30 | America/La_Paz |
-|UTC-5:30 | America/Indianapolis |
-|UTC-9:30 | Pacific/Marquesas |
 
 
 ###### rowUnitConf

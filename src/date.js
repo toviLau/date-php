@@ -108,7 +108,6 @@ const isDate = function (d) {
     return new Date(d).toString() !== "Invalid Date";
 };
 
-
 // 时区映射表
 const TIMEZONE_MAP = {
     // ==================== GMT 格式 ====================
@@ -197,21 +196,89 @@ const TIMEZONE_MAP = {
     "UTC-5:30": "America/Indianapolis",
     "UTC-9:30": "Pacific/Marquesas",
 };
+
+// 创建一个获取偏移量的辅助函数
+function getOffsetInfo(d, tz) {
+    // 用 formatToParts 获取带时区偏移的完整时间
+    const parts = new Intl.DateTimeFormat("en-US", {
+        timeZone: tz,
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false,
+        timeZoneName: "longOffset", // 获取完整偏移量
+    }).formatToParts(d);
+
+    // 提取偏移量部分 (例如 "+08:00")
+    const offsetPart = parts.find(function (p) {
+        return p.type === "timeZoneName";
+    });
+    const offsetStr = offsetPart ? offsetPart.value : "";
+
+    // 如果是 "+08:00" 格式，提取数字部分
+    var match = offsetStr.match(/([+-])(\d{2}):?(\d{2})/);
+    if (match) {
+        const sign = match[1];
+        const hours = parseInt(match[2], 10);
+        const minutes = parseInt(match[3], 10);
+        return {
+            sign: sign,
+            hours: hours,
+            minutes: minutes,
+            offsetStr: offsetStr,
+            // O 格式: +0800
+            O: sign + pad(hours, 2) + pad(minutes, 2),
+            // P 格式: +08:00
+            P: sign + pad(hours, 2) + ":" + pad(minutes, 2),
+        };
+    }
+    // 如果匹配失败，回退到系统时区
+    const fallbackOffset = -d.getTimezoneOffset();
+    const fallbackSign = fallbackOffset >= 0 ? "+" : "-";
+    const fallbackHours = Math.floor(Math.abs(fallbackOffset) / 60);
+    const fallbackMinutes = Math.abs(fallbackOffset) % 60;
+    return {
+        sign: fallbackSign,
+        hours: fallbackHours,
+        minutes: fallbackMinutes,
+        offsetStr: fallbackSign + pad(fallbackHours, 2) + ":" + pad(fallbackMinutes, 2),
+        O: fallbackSign + pad(fallbackHours, 2) + pad(fallbackMinutes, 2),
+        P: fallbackSign + pad(fallbackHours, 2) + ":" + pad(fallbackMinutes, 2),
+    };
+}
+
 const date = function (fmt = "Y-m-d", now = new Date(), ms = true) {
-    if (!isDate(now))
-        throw Error(
-            ((D) => {
+    if (typeof fmt !== "string") {
+        console.warn("参数1必须为字符串类型/Param 1 must be string.");
+        fmt = "Y-m-d H:i:s";
+    }
+    if (!isDate(now)) {
+        var receivedType = typeof now; // ← 先保存原始类型
+        now = new Date(); // ← 再回退
+        console.warn(
+            ((D, type) => {
                 return (
                     "" +
-                    "参数2不正确，须传入 “日期时间对象”，或 “Unix时间戳” 或 “时间戳字符串”。\n可以参考以下值：\n" +
+                    "参数2有误请传入/Invalid parameter 2.\n" +
+                    "预期类型/Expected: Date | string | number (timestamp)\n" +
+                    `接到类型/Received: ${type}\n` +
+                    "参考值/Examples:\n" +
                     `  1. "${D}"\n` +
                     `  2. "${D.toUTCString()}"\n` +
                     `  3. "${date("Y-m-d H:i:s", Date.now())}"\n` +
                     `  4. "new Date()"\n` +
                     `  5. ${D.getTime()}\n`
                 );
-            })(new Date()),
+            })(new Date(), receivedType),
         );
+    }
+
+    // 在 date 函数内部，先获取当前时区
+    const currentTimeZone =
+        TIMEZONE_MAP[date.timeZone] || date.timeZone || Intl.DateTimeFormat().resolvedOptions().timeZone;
 
     const _now = isDate(this) ? this : isDate(now) ? new Date(now) : new Date();
     now = new Date(
@@ -325,36 +392,59 @@ const date = function (fmt = "Y-m-d", now = new Date(), ms = true) {
 
         // 时区
         e: () => TIMEZONE_MAP[date.timeZone] || date.timeZone || Intl.DateTimeFormat().resolvedOptions().timeZone,
-        I: () => {
-            let DST = null;
-            for (var i = 0; i < 12; ++i) {
-                const d = new Date(tChars.Y(), i, 1);
-                const offset = d.getTimezoneOffset();
+        // I: () => {
+        //     let DST = null;
+        //     for (var i = 0; i < 12; ++i) {
+        //         const d = new Date(tChars.Y(), i, 1);
+        //         const offset = d.getTimezoneOffset();
 
-                if (DST === null) DST = offset;
-                else if (offset < DST) {
-                    DST = offset;
-                    break;
-                } else if (offset > DST) break;
+        //         if (DST === null) DST = offset;
+        //         else if (offset < DST) {
+        //             DST = offset;
+        //             break;
+        //         } else if (offset > DST) break;
+        //     }
+        //     return (now.getTimezoneOffset() === DST) | 0;
+        // },
+        // O: () => (now.getTimezoneOffset() > 0 ? "-" : "+") + pad(Math.abs((now.getTimezoneOffset() / 60) * 100), 4),
+        // P: () =>
+        //     tChars
+        //         .O()
+        //         .match(/[+-]?\d{2}/g)
+        //         .join(":"),
+        O: () => getOffsetInfo(now, currentTimeZone).O,
+        P: () => getOffsetInfo(now, currentTimeZone).P,
+        I: () => {
+            // 判断夏令时：比较 1 月和 7 月的偏移量
+            const tz = currentTimeZone;
+            const jan = new Date(now.getFullYear(), 0, 1);
+            const jul = new Date(now.getFullYear(), 6, 1);
+
+            const infoJan = getOffsetInfo(jan, tz);
+            const infoJul = getOffsetInfo(jul, tz);
+
+            // 如果偏移量不同，说明有夏令时
+            if (infoJan.O !== infoJul.O) {
+                // 检查当前时间是否处于夏令时（即偏移量等于 7 月的偏移量）
+                const infoNow = getOffsetInfo(now, tz);
+                return infoNow.O === infoJul.O ? 1 : 0;
             }
-            return (now.getTimezoneOffset() === DST) | 0;
+            return 0;
         },
-        O: () => (now.getTimezoneOffset() > 0 ? "-" : "+") + pad(Math.abs((now.getTimezoneOffset() / 60) * 100), 4),
-        P: () =>
-            tChars
-                .O()
-                .match(/[+-]?\d{2}/g)
-                .join(":"),
         T: () => {
             const parts = new Intl.DateTimeFormat(lang, {
                 timeZoneName: "short",
                 timeZone: TIMEZONE_MAP[date.timeZone] || date.timeZone,
             })
                 .formatToParts(now)
-                .find((part) => part.type === "timeZoneName")
-                return parts ? parts.value : "";
+                .find((part) => part.type === "timeZoneName");
+            return parts ? parts.value : "";
         },
-        Z: () => -(now.getTimezoneOffset() * 60),
+        Z: function () {
+            const info = getOffsetInfo(now, currentTimeZone);
+            const totalMinutes = info.hours * 60 + info.minutes;
+            return (info.sign === "+" ? 1 : -1) * totalMinutes * 60;
+        },
 
         // 完整日期时间
         c: () =>
@@ -369,7 +459,8 @@ const date = function (fmt = "Y-m-d", now = new Date(), ms = true) {
             tChars.i() +
             ":" +
             tChars.s() +
-            '.' +tChars.v() +
+            "." +
+            tChars.v() +
             tChars.P(),
         r: () => now.toString(),
         U: () => Math.round(now.getTime() / 1e3),
