@@ -92,6 +92,8 @@ date.duration('H小时i分钟s.v秒',  86400000 + 7654321) // 26小时07分钟34
 date.duration('D天h小时i分钟s.v秒',  86400000 - 12345) // 0天23小时59分钟47.655秒
 ```
 
+[去演练场试一试(try)](https://codepen.io/editor/toviLau/pen/019f47ff-2005-7e2a-bb3d-410fca70ab64/)
+
 ### 安装(install)
 
 ```shell
@@ -164,6 +166,8 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 // More please use your imagination...
 ```
 
+[去演练场试一试(try)](https://codepen.io/editor/toviLau/pen/019f47ff-2005-7e2a-bb3d-410fca70ab64/)
+
 
 
 ### 导入方式
@@ -213,6 +217,8 @@ date.use([
 ]);
 date.use(astroPlugin);
 ```
+
+[去演练场试一试(try)](https://codepen.io/editor/toviLau/pen/019f47ff-2005-7e2a-bb3d-410fca70ab64/)
 
 ### 独立工具库
 
@@ -268,6 +274,8 @@ date(
 
 ```
 
+[去演练场试一试(try)](https://codepen.io/editor/toviLau/pen/019f47ff-2005-7e2a-bb3d-410fca70ab64/)
+
 
 
 格式化日期时间。
@@ -295,6 +303,8 @@ date('json', new Date()); // 返回所有模板字符的键值对对象
 new Date().format('Y-m-d H:i:s'); // "2026-07-09 15:38:56"
 new Date(1563148800000).format('Y-m-d'); // "2019-07-15"
 ```
+
+[去演练场试一试(try)](https://codepen.io/editor/toviLau/pen/019f47ff-2005-7e2a-bb3d-410fca70ab64/)
 
 ### date.use(plugin)
 
@@ -327,6 +337,8 @@ date('Y-m-d H:i:s O', new Date()); // 东京时间，输出 +0900
 date.timeZone = 'GMT-8';
 date('Y-m-d H:i P', new Date()); // 支持GMT格式
 ```
+
+[去演练场试一试(try)](https://codepen.io/editor/toviLau/pen/019f47ff-2005-7e2a-bb3d-410fca70ab64/)
 
 ### date.rowUnitConf
 
@@ -381,6 +393,8 @@ date.rowUnitConf = {
 date('Y-m-d R', new Date() - 60 * 2000); // "2026-07-09 2 minute ago"
 ```
 
+[去演练场试一试(try)](https://codepen.io/editor/toviLau/pen/019f47ff-2005-7e2a-bb3d-410fca70ab64/)
+
 ### date.duration(templeate, timestamp, ms)
 
 格式化持续时间 / 倒计时。
@@ -406,8 +420,10 @@ date.duration('高考倒计时：D天h小时i分钟s秒', 1591491612345 - 157780
 当前版本号。
 
 ```javascript
-date.version; // "2.0.0-beta.1"
+date.version;
 ```
+
+[去演练场试一试(try)](https://codepen.io/editor/toviLau/pen/019f47ff-2005-7e2a-bb3d-410fca70ab64/)
 
 ---
 
