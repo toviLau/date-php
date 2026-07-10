@@ -1,5 +1,5 @@
 /**
- * date-php.js v1.7.24
+ * date-php.js v1.7.25
  *   :-) date('Y-m-d', 1563148800000) - 这是一个Javascript模仿PHP日期时间格式化函数，使用方法和PHP非常类似，有丰富的模板字符，并在原来的基础上增强了一些模板字符。例如：中国的农历日期、用汉字来表示日期、十二生肖与星座。让转换日期时间更自由。
  *   This is a Javascript mimicking PHP datetime formatting function. It is very similar to PHP, has rich template 
  *   characters, and enhances some template characters on the basis of the original. For example: Chinese Lunar Date,
@@ -12,8 +12,8 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
     typeof define === 'function' && define.amd ? define(factory) :
-    (global = global || self, global.date = factory());
-}(this, (function () { 'use strict';
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.date = factory());
+})(this, (function () { 'use strict';
 
     /**
      * 1900-2100区间内的公历、农历互转
@@ -546,7 +546,7 @@
         lunar2solar: function (y, m, d, isLeapMonth) {   //参数区间1900.1.31~2100.12.1
             var isLeapMonth = !!isLeapMonth;
             var leapMonth = this.leapMonth(y);
-            var leapDay = this.leapDays(y);
+            this.leapDays(y);
             if (isLeapMonth && (leapMonth != m)) {
                 return -1;
             }//传参要求计算该闰月公历 但该年得出的闰月与传参的月份并不同
@@ -1424,7 +1424,7 @@
     );
     defP(Date.prototype, "format", date);
 
-    defP(date, "version", "1.7.24");
+    defP(date, "version", "1.7.25");
     defP(
         date,
         "description",
@@ -1443,4 +1443,4 @@
 
     return date;
 
-})));
+}));

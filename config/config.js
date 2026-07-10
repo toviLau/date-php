@@ -6,7 +6,7 @@ const node = require('rollup-plugin-node-resolve');
 const flow = require('rollup-plugin-flow-no-whitespace');
 const replace = require('rollup-plugin-replace');
 const buble = require('rollup-plugin-buble');
-const { uglify } = require('rollup-plugin-uglify');
+const { terser } = require('rollup-plugin-terser');
 
 
 const resolve = dir => {
@@ -80,17 +80,16 @@ const dists = {
         output: resolve('./dist/date.min.js'),
         env: 'production',
         plugins: [
-            uglify({
+            terser({
                 output: {
                     comments: /Released under the MIT License/,
-                    quote_style: 1, // 使用单引号
+                    quote_style: 1,
                 },
                 compress: {
-                    properties: true, // 用 . 来重写属性引用
-                    dead_code: true, // 移除没被引用的代码
-                    drop_debugger: true, // 移除debugger
-                    unused: true, // 移除没有引用的变量
-                    // passes: 3, // 运行压缩的次数
+                    properties: true,
+                    dead_code: true,
+                    drop_debugger: true,
+                    unused: true,
                 },
                 ie8: true,
             }),

@@ -1,4 +1,4 @@
-### JavaScript模仿类似于PHP的日期格式功能
+### JavaScript模仿类似于PHP的日期格式功能_v1
 
 JavaScript implements date formatting functions similar to PHP
 
@@ -146,7 +146,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 // 更多请自由发挥...
 // More please use your imagination...
 ```
-[试一试(try)](https://tovilau.github.io/date-php/) 
+[去演练场试一试(try)](https://codepen.io/editor/toviLau/pen/019f47ff-2005-7e2a-bb3d-410fca70ab64/) 
 <br /><br /><br />
 
 
@@ -265,7 +265,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 | **其它** | | |
 | | <span style="color:#999">\*</span>all <sup style="color:#f33">1.6.0+</sup> | **{Object}** <br />输出所有模板字符串与对应的值。 <br />Output all template strings and corresponding values. |
 
-[试一试(try)](https://tovilau.github.io/date-php/) 
+[去演练场试一试(try)](https://codepen.io/editor/toviLau/pen/019f47ff-2005-7e2a-bb3d-410fca70ab64/) 
 <br /><br /><br />
 
 ### 时间对象，默认值：{Date} 当前本地机器时间(Datetime object, default: {Date} local Datetime)
@@ -280,7 +280,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
     '2019-07-15 15:38:56' // 字符串日期(String datetime)
     '2019/07/15 15:38:56' // 字符串日期(String datetime)  
 ```
-[试一试(try)](https://tovilau.github.io/date-php/) 
+[去演练场试一试(try)](https://codepen.io/editor/toviLau/pen/019f47ff-2005-7e2a-bb3d-410fca70ab64/) 
 <br /><br /><br />
 
 ### 时区配置/Timezone Configuration <sup style="color:#f33">1.7.23+</sup>
@@ -301,6 +301,10 @@ date.timeZone = 'UTC+8' // 东8区(北京时间)
 date.timeZone = 'GMT+5' // 西8区 - 纽约
 date.timeZone = 'UTC-5' // 西8区 - 纽约
 ```
+
+
+
+[去演练场试一试(try)](https://codepen.io/editor/toviLau/pen/019f47ff-2005-7e2a-bb3d-410fca70ab64/) 
 
 | GMT时区 / GMT timezone | UTC时区 / UTC timezone | IANA 时区名称/IANA time zone name |
 |---| --- | --- |
@@ -403,6 +407,10 @@ date.rowUnitConf = {
 ```
 
 
+
+[去演练场试一试(try)](https://codepen.io/editor/toviLau/pen/019f47ff-2005-7e2a-bb3d-410fca70ab64/) 
+
+
 <div id="custom" name="custom"></div>
 
 ### 自定义节假日(Custom holidays)<sup style="color:#f33">1.6.0+</sup>
@@ -456,7 +464,7 @@ date.rowUnitConf = {
 }
 ```
 
-> **配置 Api(C )**
+> **配置 Api(Configuration )**
 
 |  Api  |  说明(description)  |
 | --- | --- |
@@ -501,7 +509,7 @@ date.rowUnitConf = {
   date('Y-m-d lh', new Date()) // -> 2019-07-15 demo's day
 ```
 
-[试一试(try)](https://tovilau.github.io/date-php/) 
+[去演练场试一试(try)](https://codepen.io/editor/toviLau/pen/019f47ff-2005-7e2a-bb3d-410fca70ab64/) 
 
 <div id="use-duration" name="use-duration"></div>
 
@@ -559,7 +567,7 @@ date.rowUnitConf = {
 | V | 总毫秒数，"0"到"8640000000000000" <br />Total milliseconds "0" to "8640000000000000" |
 | all | **{Object}** <br />输出所有模板字符串与对应的值。 <br />Output all template strings with their values. |
 
-[试一试(try)](https://tovilau.github.io/date-php/) 
+[去演练场试一试(try)](https://codepen.io/editor/toviLau/pen/019f47ff-2005-7e2a-bb3d-410fca70ab64/) 
 
 ### 黑科技的使用方式(Interesting to use)
 
