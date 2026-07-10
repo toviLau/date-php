@@ -1,12 +1,9 @@
 const path = require('path');
-// const fs = require('fs');
-// const rollup = require('rollup');
-const cjs = require('rollup-plugin-commonjs');
-const node = require('rollup-plugin-node-resolve');
-const flow = require('rollup-plugin-flow-no-whitespace');
-const replace = require('rollup-plugin-replace');
-const buble = require('rollup-plugin-buble');
-const { uglify } = require('rollup-plugin-uglify');
+const commonjs = require('@rollup/plugin-commonjs');
+const { nodeResolve } = require('@rollup/plugin-node-resolve');
+const replace = require('@rollup/plugin-replace');
+const typescript = require('@rollup/plugin-typescript');
+const terser = require('@rollup/plugin-terser').default;
 
 
 const resolve = dir => {
@@ -26,7 +23,6 @@ const {
  * 头注释文本换行计算;
  */
 const bannerBescription = () => {
-    // 注释换行字符长度
     let splitLen = 110;
     let desc = '';
     const cPunctuation = /[^\x00-\xff]/ig;
@@ -37,7 +33,7 @@ const bannerBescription = () => {
             desc += str;
             if (tmpLen % splitLen === 0) {
                 if (cPunctuation.test(res[idx + 1])) {
-                    tmpLen = tmpLen - 2; // : tmpLen;
+                    tmpLen = tmpLen - 2;
                 } else if (/[a-z\-]/ig.test(res[idx])) {
                     let i = 0;
                     while (/\s/g.test(res[idx - i])) {
@@ -64,33 +60,86 @@ let banner =
     '/**\n' +
     ` * ${ oName }.js v${ version }\n` +
     `${ bannerBescription() }` +
-    ` *     -- repository ${ repository.url.substr(4) }\n` +
+    ` *     -- repository ${ repository.url.slice(4) }\n` +
     ' *\n' +
     ` *   (c) 2019-${ new Date().getFullYear() } ${ author }. Released under the ${ license } License. \n` +
     ' **/';
 
-const input = resolve('./src/date.js');
+const input = resolve('./src/index.ts');
+
+const plugins = [
+    { name: 'lunarPlugin', dir: 'lunar' },
+    { name: 'ganzhiPlugin', dir: 'lunar' },
+    { name: 'zodiacPlugin', dir: 'lunar' },
+    { name: 'shiKePlugin', dir: 'lunar' },
+    { name: 'solarTermPlugin', dir: 'lunar' },
+    { name: 'astroPlugin', dir: 'lunar' },
+    { name: 'holidayPlugin', dir: 'holiday' },
+];
+const libraries = [
+    { name: 'getGanZhi', dir: 'lunar' },
+    { name: 'getZodiac', dir: 'lunar' },
+    { name: 'getAstro', dir: 'lunar' },
+    { name: 'getSolarTerm', dir: 'lunar' },
+    { name: 'getLunar', dir: 'lunar' },
+    { name: 'chineseUtils', dir: 'utils' },
+    { name: 'timezone', dir: 'timezone' },
+    { name: 'duration', dir: 'duration' },
+];
 
 const dists = {
     full: {
         output: resolve('./dist/date.js'),
         env: 'development',
     },
+    esm: {
+        output: resolve('./dist/date.esm.js'),
+        env: 'production',
+    },
     min: {
         output: resolve('./dist/date.min.js'),
         env: 'production',
         plugins: [
-            uglify({
+            terser({
                 output: {
                     comments: /Released under the MIT License/,
-                    quote_style: 1, // 使用单引号
+                    quote_style: 1,
                 },
                 compress: {
-                    properties: true, // 用 . 来重写属性引用
-                    dead_code: true, // 移除没被引用的代码
-                    drop_debugger: true, // 移除debugger
-                    unused: true, // 移除没有引用的变量
-                    // passes: 3, // 运行压缩的次数
+                    properties: true,
+                    dead_code: true,
+                    drop_debugger: true,
+                    unused: true,
+                },
+                ie8: true,
+            }),
+        ],
+    },
+    core: {
+        input: resolve('./src/core/date.ts'),
+        output: resolve('./dist/date.core.js'),
+        env: 'production',
+    },
+    coreEsm: {
+        input: resolve('./src/core/date.ts'),
+        output: resolve('./dist/date.core.esm.js'),
+        env: 'production',
+    },
+    coreMin: {
+        input: resolve('./src/core/date.ts'),
+        output: resolve('./dist/date.core.min.js'),
+        env: 'production',
+        plugins: [
+            terser({
+                output: {
+                    comments: /Released under the MIT License/,
+                    quote_style: 1,
+                },
+                compress: {
+                    properties: true,
+                    dead_code: true,
+                    drop_debugger: true,
+                    unused: true,
                 },
                 ie8: true,
             }),
@@ -98,31 +147,77 @@ const dists = {
     },
 };
 
+plugins.forEach(function (p) {
+    dists['plugin_' + p.name] = {
+        input: resolve('./src/' + p.dir + '/' + p.name + '.ts'),
+        output: resolve('./dist/plugins/' + p.name + '.js'),
+        env: 'production',
+        sub: true,
+    };
+    dists['plugin_' + p.name + '_esm'] = {
+        input: resolve('./src/' + p.dir + '/' + p.name + '.ts'),
+        output: resolve('./dist/plugins/' + p.name + '.esm.js'),
+        env: 'production',
+        sub: true,
+        esm: true,
+    };
+});
+
+libraries.forEach(function (l) {
+    dists['lib_' + l.name] = {
+        input: resolve('./src/' + l.dir + '/' + l.name + '.ts'),
+        output: resolve('./dist/library/' + l.name + '.js'),
+        env: 'production',
+        sub: true,
+    };
+    dists['lib_' + l.name + '_esm'] = {
+        input: resolve('./src/' + l.dir + '/' + l.name + '.ts'),
+        output: resolve('./dist/library/' + l.name + '.esm.js'),
+        env: 'production',
+        sub: true,
+        esm: true,
+    };
+});
+
 function rollupConf(name) {
     const opts = dists[name];
     let { plugins } = opts;
 
+    const isEsm = name === 'esm' || name === 'coreEsm' || opts.esm;
+    const isCore = name === 'core' || name === 'coreEsm' || name === 'coreMin';
+    const isSub = opts.sub;
+    const rollupInput = (isCore || isSub) ? opts.input : input;
+
     const conf = {
-        input,
+        input: rollupInput,
+        treeshake: {
+            moduleSideEffects: false,
+            preset: 'recommended',
+        },
         plugins: [
-            buble(),
-            flow(),
-            node(),
-            cjs(),
-            ...plugins || '',
+            typescript({
+                tsconfig: resolve('./tsconfig.json'),
+                declaration: false,
+                outDir: undefined,
+            }),
+            nodeResolve(),
+            commonjs(),
+            ...plugins || [],
         ],
         output: {
             banner,
             indent: '    ',
             file: opts.output,
-            format: 'umd',
-            name: 'date',
+            format: isEsm ? 'es' : 'umd',
+            name: isEsm ? undefined : 'date',
+            exports: 'auto',
         },
     };
     if (opts.env) {
         conf.plugins.push(replace({
             'process.env.NODE_ENV': JSON.stringify(opts.env),
             '__VERSION__': version,
+            preventAssignment: true,
         }));
     }
     return conf;

@@ -1,0 +1,17 @@
+declare const pad: (str: string | number, len: number, placeholder?: string) => string;
+declare const longDays: string[];
+declare const txt_ordin: Record<number, string>;
+declare const txt_months: string[];
+declare const ordinal: string[];
+declare const defP: (obj: object, key: string | symbol, val: any) => void;
+declare const baseFigure: Record<number, string>;
+declare const lunarTime: string[];
+declare const zodiac: Record<string, string>;
+declare const solar: Record<string, string>;
+declare const lunarKe: Record<number, string | number>;
+declare const weekDay: Record<number, string | number>;
+declare const dateFigure: Record<number, string | number>;
+declare const lMonth: Record<number, string | number>;
+declare const textReplace: (res: string | number) => string;
+declare const textReplace2: (succ: string | number) => string;
+export { pad, longDays, txt_ordin, txt_months, ordinal, defP, baseFigure, lunarTime, zodiac, solar, lunarKe, weekDay, dateFigure, lMonth, textReplace, textReplace2, };

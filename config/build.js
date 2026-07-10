@@ -15,6 +15,12 @@ const buildList = config.dists;
 if (!fs.existsSync('dist')) {
     fs.mkdirSync('dist');
 }
+if (!fs.existsSync('dist/plugins')) {
+    fs.mkdirSync('dist/plugins');
+}
+if (!fs.existsSync('dist/library')) {
+    fs.mkdirSync('dist/library');
+}
 
 const build = res => {
     const conf = rollupConf(res);

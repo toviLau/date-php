@@ -1,11 +1,89 @@
 {
   "name": "date-php",
-  "version": "1.7.25",
+  "version": "2.0.0-alpha.1",
   "description": ":-) date('Y-m-d', 1563148800000) - 这是一个Javascript模仿PHP日期时间格式化函数，使用方法和PHP非常类似，有丰富的模板字符，并在原来的基础上增强了一些模板字符。例如：中国的农历日期、用汉字来表示日期、十二生肖与星座。让转换日期时间更自由。\nThis is a Javascript mimicking PHP datetime formatting function. It is very similar to PHP, has rich template characters, and enhances some template characters on the basis of the original. For example: Chinese Lunar Date, Chinese Character Date, Chinese Zodiac and Constellation. Make the conversion datetimes more free.",
   "author": "ToviLau",
-  "main": "./run-entry.js",
+  "main": "./dist/date.js",
+  "module": "./dist/date.esm.js",
   "unpkg": "./dist/date.js",
-  "types": "./@types/date.d.ts",
+  "core": "./dist/date.core.js",
+  "core:esm": "./dist/date.core.esm.js",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/date.esm.js",
+      "require": "./dist/date.js"
+    },
+    "./core": {
+      "types": "./dist/types/core/date.d.ts",
+      "import": "./dist/date.core.esm.js",
+      "require": "./dist/date.core.js"
+    },
+    "./core/min": {
+      "types": "./dist/types/core/date.d.ts",
+      "require": "./dist/date.core.min.js"
+    },
+    "./lunar": {
+      "types": "./dist/types/lunar/index.d.ts",
+      "import": "./dist/plugins/lunarPlugin.esm.js",
+      "require": "./dist/plugins/lunarPlugin.js"
+    },
+    "./holiday": {
+      "types": "./dist/types/holiday/index.d.ts",
+      "import": "./dist/plugins/holidayPlugin.esm.js",
+      "require": "./dist/plugins/holidayPlugin.js"
+    },
+    "./timezone": {
+      "types": "./dist/types/timezone/index.d.ts",
+      "import": "./dist/library/timezone.esm.js",
+      "require": "./dist/library/timezone.js"
+    },
+    "./duration": {
+      "types": "./dist/types/duration/index.d.ts",
+      "import": "./dist/library/duration.esm.js",
+      "require": "./dist/library/duration.js"
+    },
+    "./utils": {
+      "types": "./dist/types/utils/chineseUtils.d.ts",
+      "import": "./dist/library/chineseUtils.esm.js",
+      "require": "./dist/library/chineseUtils.js"
+    },
+    "./ganzhi": {
+      "types": "./dist/types/lunar/ganzhiPlugin.d.ts",
+      "import": "./dist/plugins/ganzhiPlugin.esm.js",
+      "require": "./dist/plugins/ganzhiPlugin.js"
+    },
+    "./zodiac": {
+      "types": "./dist/types/lunar/zodiacPlugin.d.ts",
+      "import": "./dist/plugins/zodiacPlugin.esm.js",
+      "require": "./dist/plugins/zodiacPlugin.js"
+    },
+    "./shike": {
+      "types": "./dist/types/lunar/shiKePlugin.d.ts",
+      "import": "./dist/plugins/shiKePlugin.esm.js",
+      "require": "./dist/plugins/shiKePlugin.js"
+    },
+    "./solarterm": {
+      "types": "./dist/types/lunar/solarTermPlugin.d.ts",
+      "import": "./dist/plugins/solarTermPlugin.esm.js",
+      "require": "./dist/plugins/solarTermPlugin.js"
+    },
+    "./astro": {
+      "types": "./dist/types/lunar/astroPlugin.d.ts",
+      "import": "./dist/plugins/astroPlugin.esm.js",
+      "require": "./dist/plugins/astroPlugin.js"
+    }
+  },
+  "types": "./dist/types/index.d.ts",
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "sideEffects": [
+    "./dist/date.js",
+    "./dist/date.esm.js"
+  ],
   "keywords": [
     "日期时间格式化",
     "时间格式化",
@@ -35,8 +113,10 @@
     "format duration"
   ],
   "scripts": {
-    "start": "node config/build.js",
+    "build": "node config/build.js",
+    "build:types": "tsc --emitDeclarationOnly --declaration --declarationDir ./dist/types",
     "dev:full": "rollup -w -c ./config/config.js --environment TARGET:full",
+    "dev:esm": "rollup -w -c ./config/config.js --environment TARGET:esm",
     "dev:min": "rollup -w -c ./config/config.js --environment TARGET:min"
   },
   "license": "MIT",
@@ -49,17 +129,16 @@
   },
   "homepage": "https://tovilau.github.io/date-php/",
   "devDependencies": {
-    "eslint-plugin-flowtype": "^3.12.1",
+    "@rollup/plugin-commonjs": "^29.0.3",
+    "@rollup/plugin-node-resolve": "^16.0.3",
+    "@rollup/plugin-replace": "^6.0.3",
+    "@rollup/plugin-terser": "^1.0.0",
+    "@rollup/plugin-typescript": "^12.3.0",
     "lodash": "^4.18.1",
     "minimist": "^1.2.6",
     "path-parse": "^1.0.7",
-    "rollup": "^2.80.0",
-    "rollup-plugin-buble": "^0.19.8",
-    "rollup-plugin-commonjs": "^10.0.1",
-    "rollup-plugin-flow-no-whitespace": "^1.0.0",
-    "rollup-plugin-node-resolve": "^5.2.0",
-    "rollup-plugin-replace": "^2.2.0",
-    "rollup-plugin-uglify": "^6.0.2",
-    "uglify-js": "^3.6.0"
+    "rollup": "^4.62.2",
+    "tslib": "^2.8.1",
+    "typescript": "^5.9.3"
   }
 }

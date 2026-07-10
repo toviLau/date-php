@@ -1,0 +1,38 @@
+/**
+ * date-php.js v2.0.0-alpha.1
+ *   :-) date('Y-m-d', 1563148800000) - 这是一个Javascript模仿PHP日期时间格式化函数，使用方法和PHP非常类似，有丰富的模板字符，并在原来的基础上增强了一些模板字符。例如：中国的农历日期、用汉字来表示日期、十二生肖与星座。让转换日期时间更自由。
+ *   This is a Javascript mimicking PHP datetime formatting function. It is very similar to PHP, has rich template 
+ *   characters, and enhances some template characters on the basis of the original. For example: Chinese Lunar Date,
+ *   Chinese Character Date, Chinese Zodiac and Constellation. Make the conversion datetimes more free.
+ *   
+ *     -- repository https://github.com/toviLau/date-php.git
+ *
+ *   (c) 2019-2026 ToviLau. Released under the MIT License. 
+ **/
+(function (global, factory) {
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
+    typeof define === 'function' && define.amd ? define(['exports'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.date = {}));
+})(this, (function (exports) { 'use strict';
+
+    /*
+     * @Author       : ToviLau 46134256@qq.com
+     * @Date         : 2026-07-09 07:45:57
+     * @LastEditors  : ToviLau 46134256@qq.com
+     * @LastEditTime : 2026-07-09 08:59:20
+     */
+    const Gan = ['\u7532', '\u4e59', '\u4e19', '\u4e01', '\u620a', '\u5df1', '\u5e9a', '\u8f9b', '\u58ec', '\u7678'];
+    const Zhi = ['\u5b50', '\u4e11', '\u5bc5', '\u536f', '\u8fb0', '\u5df3', '\u5348', '\u672a', '\u7533', '\u9149', '\u620c', '\u4ea5'];
+    const toGanZhiYear = (lYear) => {
+        const ganKey = (lYear - 3) % 10 || 10;
+        const zhiKey = (lYear - 3) % 12 || 12;
+        return Gan[ganKey - 1] + Zhi[zhiKey - 1];
+    };
+    const toGanZhi = (offset) => Gan[offset % 10] + Zhi[offset % 12];
+
+    exports.Gan = Gan;
+    exports.Zhi = Zhi;
+    exports.toGanZhi = toGanZhi;
+    exports.toGanZhiYear = toGanZhiYear;
+
+}));
