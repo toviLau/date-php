@@ -1,24 +1,18 @@
-## JavaScript模仿类似于PHP的日期格式功能_v1
+### JavaScript模仿类似于PHP的日期格式功能
 
-JavaScript implements date formatting functions similar to PHP (v1)
+JavaScript implements date formatting functions similar to PHP
 
 ---
-> 您现在正在阅读的是 v1.0 文档 [v2文档在这里](https://github.com/toviLau/date-php/blob/next/README.md)
->
-> You are viewing v1.0 docs. [v2 docs here.](https://github.com/toviLau/date-php/blob/next/README.md)
-
-[![issues](https://img.shields.io/github/issues/toviLau/date-php?logo=github)](https://github.com/toviLau/date-php/issues)
+[![issues](https://img.shields.io/github/issues/toviLau/date-php)](https://github.com/toviLau/date-php/issues)
 [![forks](https://img.shields.io/github/forks/toviLau/date-php)](https://github.com/toviLau/date-php)
-[![github](https://img.shields.io/github/package-json/v/tovilau/date-php?logo=github&ref=master&label=master)](https://github.com/toviLau/date-php)
-[![github](https://img.shields.io/github/package-json/v/tovilau/date-php?logo=github&ref=dev&label=dev)](https://github.com/toviLau/date-php)
-![github last commit](https://img.shields.io/github/last-commit/tovilau/date-php?logo=github)
+[![github](https://img.shields.io/github/package-json/v/tovilau/date-php?logo=github)](https://github.com/toviLau/date-php)
 [![stars](https://img.shields.io/github/stars/toviLau/date-php)](https://github.com/toviLau/date-php)
-![license](https://img.shields.io/github/license/toviLau/date-php?logo=npm)
-[![npm](https://img.shields.io/npm/v/date-php?label=latest&logo=npm)](https://www.npmjs.com/package/date-php) 
+![license](https://img.shields.io/github/license/toviLau/date-php)
+![github last commit](https://img.shields.io/github/last-commit/tovilau/date-php)
+[![npm](https://img.shields.io/npm/v/date-php?label=version&logo=npm)](https://www.npmjs.com/package/date-php) 
 [![npm](https://img.shields.io/npm/v/date-php/alpha?color=orange&logo=npm&label=alpha)](https://www.npmjs.com/package/date-php)  
 [![downloads](https://img.shields.io/npm/dm/date-php?logo=npm)](https://www.npmjs.com/package/date-php)
 [![npm bundle size](https://img.shields.io/bundlephobia/minzip/date-php)](https://www.npmjs.com/package/date-php)
-
 
 
 > 这是一个Javascript模仿类似于PHP日期时间格式化函数，使用方法和PHP非常类似，有丰富的模板字符，并在原来的基础上增强了一些模板字符。例如：中国的农历日期、用汉字来表示日期、十二生肖与星座。让转换日期时间更自由。  
@@ -37,6 +31,12 @@ JavaScript implements date formatting functions similar to PHP (v1)
 >
 > [如果你喜欢请 star 支持一下](https://www.npmjs.com/package/date-php)    
 > [If you like this project, please star it.](https://www.npmjs.com/package/date-php)  
+>
+> 
+>
+> **您现在正在阅读的是 v1.0 文档 [v2文档在这里](https://github.com/toviLau/date-php/blob/next/README.md)**
+>
+> **You are viewing v1.0 docs. [v2 docs here.](https://github.com/toviLau/date-php/blob/next/README.md)**
 
 
 ```javascript
@@ -75,13 +75,12 @@ date.duration('D天h小时i分钟s.v秒',  86400000 - 12345) // 0天23小时59�
 <br/>
 
 ### 安装(install)
-
 ```shell
 # npm
-npm i -S date-php@1;
+npm i -S date-php;
 
 # yarn
-yarn add date-php@1
+yarn add date-php
 
 # CDN
 <script src="http://unpkg.com/date-php" />
@@ -147,7 +146,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 // 更多请自由发挥...
 // More please use your imagination...
 ```
-[去演练场试一试(try)](https://codepen.io/editor/toviLau/pen/019f47ff-2005-7e2a-bb3d-410fca70ab64/) 
+[试一试(try)](https://tovilau.github.io/date-php/) 
 <br /><br /><br />
 
 
@@ -216,7 +215,6 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 | | n | 数字表示的月份，没有前导零。"1"到"12" <br />Numeric representation of a month, without leading zeros. "1" to "12" |
 | | <span style="color:#999">\*</span>lM <sup style="color:#f33">1.6.0+</sup> | 农历月份。从"1"到"12" <br />Month of the lunar month. "1" to "12" |
 | | <span style="color:#999">\*</span>lm <sup style="color:#f33">1.5.0+</sup> | 农历月份。从"一"到"十二" <br />Month of the lunar month. "一" to "十二" |
-| | <span style="color:#999">\*</span>lF <sup style="color:#f33">2.0.0+</sup> | 农历月份（汉字，含"闰"前缀）。例：闰正月 <br />Lunar month with "leap" prefix. E.g.: 闰正月 (Leap January) |
 | | t | 给定月份所应有的天数。 "28"到"31" <br />Number of days in the given month |
 | | <span style="color:#999">\*</span>la <sup style="color:#f33">1.6.0+</sup> | 12星座 <br />12 Constellation |
 | | <span style="color:#999">\*</span>ls <sup style="color:#f33">1.6.0+</sup> | 24节气汉字 <br />24 solar terms Chinese Characters |
@@ -225,14 +223,13 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 | | <span style="color:#999">\*</span>lQ <sup style="color:#f33">1.6.0+</sup> | 季度汉字 <br />Quarter Number Chinese Characters |
 | | <span style="color:#999">\*</span>q <sup style="color:#f33">1.6.0+</sup> | 季度英文缩写<br />Quarter abbreviations |
 | | <span style="color:#999">\*</span>Q <sup style="color:#f33">1.6.0+</sup> | 季度英文 <br />Quarter English |
-| |                                                              |                                                              |
+| | | |
 | **年(Year)** | | |
 | | L | 是否为闰年。1:是，0:否。 <br />Whether it's a leap year. 1 leap year, 0 otherwise. |
 | | o | ISO-8601格式年份数字。这和 Y 的值类似，星期数（W）属于前一年或下一年，则用那一年。 <br />ISO-8601 week-numbering year. This has the same value as Y, except that if the ISO week number (W) belongs to the previous or next year, that year is used instead. |
 | | Y | 4 位数字完整表示的年份。 <br />A full numeric representation of a year, 4 digits. |
 | | y | 2 位数字表示的年份。 <br />A two digit representation of a year. |
 | | <span style="color:#999">\*</span>ly <sup style="color:#f33">1.5.0+</sup> | 农历记年法(天干地支，60年一循环)。从"甲子"到"癸亥" 。<br />Chinese lunar calendar dating system (Heavenly Stems and Earthly Branches, a 60-year cycle). From "Jia Zi" to "Gui Hai". |
-| | <span style="color:#999">\*</span>lY<sup style="color:#f33">2.0.0+</sup> | 农历年数字(如: 2019 2020 2026) |
 | | <span style="color:#999">\*</span>C <sup style="color:#f33">1.3.2+</sup> | 4 个汉字表示的公历年份。 例: 公历1月1日前: 二〇一九 公历1月1日后: 二〇二〇 <br />Gregorian calendar year represented by 4 Chinese characters. Example: Before January 1st: 二〇一九 (2019); After January 1st: 二〇二〇 (2020).. |
 | | <span style="color:#999">\*</span>lc <sup style="color:#f33">1.6.0+</sup> | 农历年数字 <br />Numeric representation of a lunar year (using 4 Chinese characters). |
 | | <span style="color:#999">\*</span>lC <sup style="color:#f33">1.6.0+</sup> | 4 个汉字表示的农历年汉字。例: 春节前: 二〇一九 春节后: 二〇二〇 <br />Lunar year represented by 4 Chinese characters. Example: Before the Spring Festival: 二〇一九; After the Spring Festival: 二〇二〇. |
@@ -278,12 +275,12 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 
 
 ```javascript
-1563176336000 // 时间戳(Unix timestamp)
-new Date() // 当前本机日期和时间(Local datetime)
-'2019-07-15 15:38:56' // 字符串日期(String datetime)
-'2019/07/15 15:38:56' // 字符串日期(String datetime)  
+    1563176336000 // 时间戳(Unix timestamp)
+    new Date() // 当前本机日期和时间(Local datetime)
+    '2019-07-15 15:38:56' // 字符串日期(String datetime)
+    '2019/07/15 15:38:56' // 字符串日期(String datetime)  
 ```
-[试一试(try)](https://codepen.io/editor/toviLau/pen/019f47ff-2005-7e2a-bb3d-410fca70ab64/) 
+[试一试(try)](https://tovilau.github.io/date-php/) 
 <br /><br /><br />
 
 ### 时区配置/Timezone Configuration <sup style="color:#f33">1.7.23+</sup>
@@ -298,14 +295,14 @@ date.timeZone = 'America/New_York' // 纽约
 date.timeZone = 'Asia/Shanghai' // 东8区(北京时间)
 
 // ---------- 或/or ----------
-date.timeZone = 'GMT-8' // 东8区(北京时间)/GMT+8 (Beijing Time)
-date.timeZone = 'UTC+8' // 东8区(北京时间)/UTC+8 (Beijing Time)
+date.timeZone = 'GMT-8' // 东8区(北京时间)
+date.timeZone = 'UTC+8' // 东8区(北京时间)
 
-date.timeZone = 'GMT+5' // 西8区 - 纽约/GMT-5 (New York Time)
-date.timeZone = 'UTC-5' // 西8区 - 纽约/UTC-5 (New York Time)
+date.timeZone = 'GMT+5' // 西8区 - 纽约
+date.timeZone = 'UTC-5' // 西8区 - 纽约
 ```
 
-| GMT时区 / GMT timezone | UTC时区 / UTC timezone | 常用 IANA 时区名称/Common IANA time zone names |
+| GMT时区 / GMT timezone | UTC时区 / UTC timezone | IANA 时区名称/IANA time zone name |
 |---| --- | --- |
 |GMT-12 | UTC+12 | Etc/GMT+12|
 |GMT-11 | UTC+11 | Pacific/Midway |
@@ -609,4 +606,4 @@ date.rowUnitConf = {
   [_**rollup**_](https://www.rollupjs.com) 
   [_**eslint**_](https://eslint.org)
   [_**flow**_](https://flow.org)
-  [_**uglifyJs**_](http://lisperator.net/uglifyjs/)
+  [_**uglifyJs**_](http://lisperator.net/uglifyjs/)  
