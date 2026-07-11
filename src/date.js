@@ -281,13 +281,13 @@ const date = function (fmt = "Y-m-d", now = new Date(), ms = true) {
     const currentTimeZone =
         TIMEZONE_MAP[date.timeZone] || date.timeZone || Intl.DateTimeFormat().resolvedOptions().timeZone;
 
+    if (ms === false && typeof now === 'number') now = now * 1000;
     const _now = isDate(this) ? this : isDate(now) ? new Date(now) : new Date();
     now = new Date(
         new Date(_now).toLocaleString(lang, {
             timeZone: TIMEZONE_MAP[date.timeZone] || date.timeZone,
         }),
     );
-    if (ms === false) now = new Date(now * 1000);
 
     // 获取农历
     const lunarInfo = () => getLunar.solar2lunar(tChars.Y(), tChars.n(), tChars.j());
@@ -466,9 +466,8 @@ const date = function (fmt = "Y-m-d", now = new Date(), ms = true) {
         r: () => now.toString(),
         U: () => Math.round(now.getTime() / 1e3),
         R: () => {
-            const now = Date.now();
-            const template = tChars.U() * 1e3;
-            const diff = ms ? now - template : ~~((now - template) / 1e3);
+            const _now = Date.now();
+            const diff = _now - now;
             const absDiff = Math.abs(diff);
             const intervals = {
                 [date.rowUnitConf.Year]: 31536e6,
@@ -480,13 +479,13 @@ const date = function (fmt = "Y-m-d", now = new Date(), ms = true) {
                 [date.rowUnitConf.Second]: 1e3,
             };
 
-            if (diff > 0 && absDiff <= (ms ? date.rowUnitConf.threshold : date.rowUnitConf.threshold / 1e3))
+            if (diff > 0 && absDiff <= date.rowUnitConf.threshold)
                 return date.rowUnitConf.justNow;
 
             const suffix = diff > 0 ? date.rowUnitConf.before : date.rowUnitConf.after;
 
             for (const unit in intervals) {
-                const _ms = ms ? intervals[unit] : ~~(intervals[unit] / 1e3);
+                const _ms = intervals[unit];
 
                 if (absDiff >= _ms) {
                     return Math.floor(absDiff / _ms) + unit + suffix;

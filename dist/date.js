@@ -1164,13 +1164,13 @@
         var currentTimeZone =
             TIMEZONE_MAP[date.timeZone] || date.timeZone || Intl.DateTimeFormat().resolvedOptions().timeZone;
 
+        if (ms === false && typeof now === 'number') { now = now * 1000; }
         var _now = isDate(this) ? this : isDate(now) ? new Date(now) : new Date();
         now = new Date(
             new Date(_now).toLocaleString(lang, {
                 timeZone: TIMEZONE_MAP[date.timeZone] || date.timeZone,
             })
         );
-        if (ms === false) { now = new Date(now * 1000); }
 
         // 获取农历
         var lunarInfo = function () { return calendar.solar2lunar(tChars.Y(), tChars.n(), tChars.j()); };
@@ -1347,9 +1347,8 @@
             r: function () { return now.toString(); },
             U: function () { return Math.round(now.getTime() / 1e3); },
             R: function () {
-                var now = Date.now();
-                var template = tChars.U() * 1e3;
-                var diff = ms ? now - template : ~~((now - template) / 1e3);
+                var _now = Date.now();
+                var diff = _now - now;
                 var absDiff = Math.abs(diff);
                 var intervals = {};
                 intervals[date.rowUnitConf.Year] = 31536e6;
@@ -1360,13 +1359,13 @@
                 intervals[date.rowUnitConf.Minute] = 6e4;
                 intervals[date.rowUnitConf.Second] = 1e3;
 
-                if (diff > 0 && absDiff <= (ms ? date.rowUnitConf.threshold : date.rowUnitConf.threshold / 1e3))
+                if (diff > 0 && absDiff <= date.rowUnitConf.threshold)
                     { return date.rowUnitConf.justNow; }
 
                 var suffix = diff > 0 ? date.rowUnitConf.before : date.rowUnitConf.after;
 
                 for (var unit in intervals) {
-                    var _ms = ms ? intervals[unit] : ~~(intervals[unit] / 1e3);
+                    var _ms = intervals[unit];
 
                     if (absDiff >= _ms) {
                         return Math.floor(absDiff / _ms) + unit + suffix;
