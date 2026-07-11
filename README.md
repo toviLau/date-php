@@ -8,11 +8,11 @@ JavaScript implements date formatting functions similar to PHP
 [![github](https://img.shields.io/github/package-json/v/tovilau/date-php?logo=github)](https://github.com/toviLau/date-php)
 [![stars](https://img.shields.io/github/stars/toviLau/date-php)](https://github.com/toviLau/date-php)
 ![license](https://img.shields.io/github/license/toviLau/date-php)
-![github last commit](https://img.shields.io/github/last-commit/tovilau/date-php)
-[![npm](https://img.shields.io/npm/v/date-php?label=version&logo=npm)](https://www.npmjs.com/package/date-php) 
+![github last commit](https://img.shields.io/github/last-commit/tovilau/date-php?logo=github)
+[![npm](https://img.shields.io/npm/v/date-php?label=latest&logo=npm)](https://www.npmjs.com/package/date-php) 
 [![npm](https://img.shields.io/npm/v/date-php/alpha?color=orange&logo=npm&label=alpha)](https://www.npmjs.com/package/date-php)  
 [![downloads](https://img.shields.io/npm/dm/date-php?logo=npm)](https://www.npmjs.com/package/date-php)
-[![npm bundle size](https://img.shields.io/bundlephobia/minzip/date-php)](https://www.npmjs.com/package/date-php)
+[![npm bundle size](https://img.shields.io/bundlephobia/minzip/date-php?logo=npm)](https://www.npmjs.com/package/date-php)
 
 
 > 这是一个Javascript模仿类似于PHP日期时间格式化函数，使用方法和PHP非常类似，有丰富的模板字符，并在原来的基础上增强了一些模板字符。例如：中国的农历日期、用汉字来表示日期、十二生肖与星座。让转换日期时间更自由。  
