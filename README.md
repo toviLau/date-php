@@ -97,14 +97,15 @@ date.duration('D天h小时i分钟s.v秒',  86400000 - 12345) // 0天23小时59�
 ### 安装(install)
 
 ```shell
-# npm
-npm i -S date-php
+# npm（安装 alpha 版本, 请勿用于生产环境, 些版本 API 可能会调整）
+npm i date-php@alpha
 
-# yarn
-yarn add date-php
+# yarn（安装 alpha 版本, 请勿用于生产环境, 些版本 API 可能会调整）
+yarn add date-php@alpha
 
-# CDN
-<script src="http://unpkg.com/date-php" />
+# CDN（注意：CDN 无法直接指定 "alpha" 标签，需指定具体版本号，例如 2.0.0-alpha.1）
+# 查看最新 alpha 版本：https://www.npmjs.com/package/date-php?activeTab=versions
+<script src="https://unpkg.com/date-php@2.0.0-alpha.1" />
 ```
 
 
