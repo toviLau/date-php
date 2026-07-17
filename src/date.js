@@ -523,6 +523,13 @@ const date = function (fmt = "Y-m-d", now = new Date(), ms = true) {
 
 date.timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
+function _throwError(msg) {
+    throw new Error("[date-php] " + msg);
+}
+function _hasUnit(unit) {
+    return ["year", "month", "week", "day", "hour", "minute", "second", "millisecond"].includes(unit);
+}
+
 class DateChain {
     /**
      *
@@ -542,79 +549,290 @@ class DateChain {
 
     /**
      * 日期计算
-     * @param {number} num 时间数量
+     * @param {number} num 时间数量，正数为加，负数为减
      * @param {string} unit 时间单位 'year' | 'month' | 'week' | 'day' | 'hour' | 'minute' | 'second' | 'millisecond'
      * @returns {DateChain}
      */
     add(num, unit) {
-        const originDate = date("all", this._date);
-        if (
-            unit === undefined &&
-            ["year", "month", "week", "day", "hour", "minute", "second", "millisecond"].includes(num)
-        ) {
+        const _unit = ["year", "month", "week", "day", "hour", "minute", "second", "millisecond"];
+        if (num !== null && typeof num === "object") {
+            let objValue;
+            Object.entries(num).forEach(([key, value]) => {
+                if (_unit.includes(key)) return this.add(value, key);
+            });
+            return this;
+        }
+        if (typeof num === "string" && _unit.includes(num)) {
             unit = num;
             num = 1;
         }
+        if (num === null || num === undefined || isNaN(num)) {
+            _throwError("add 方法参数错误: num 必须是有效数字");
+        }
+
+        const d = this._date;
+        const Y = d.getFullYear();
+        const n = d.getMonth();
+        const j = d.getDate();
 
         switch (unit) {
-            case "year": // 年
-                originDate.Y += num;
+            case "year": {
+                // 年
+                const targetY = Y + num;
+                const maxDay = new Date(targetY, n + 1, 0).getDate();
+                d.setFullYear(targetY, n, Math.min(j, maxDay));
                 break;
-            case "month": // 月
-                originDate.n += num;
+            }
+            case "month": {
+                // 月
+                const targetN = n + num;
+                const maxDay = new Date(Y, targetN + 1, 0).getDate();
+                d.setFullYear(Y, targetN, Math.min(j, maxDay));
                 break;
+            }
             case "week": // 周
-                originDate.j += num * 7;
+                d.setDate(j + num * 7);
                 break;
             case "day": // 日
-                originDate.j += num;
+                d.setDate(j + num);
                 break;
             case "hour": // 时
-                originDate.G += num;
+                d.setHours(d.getHours() + num);
                 break;
-            case "minute": // 分�
-                originDate.i = (originDate.i - 0) + num;
+            case "minute": // 分
+                d.setMinutes(d.getMinutes() + num);
                 break;
             case "second": // 秒
-                originDate.s = (originDate.s - 0) + num;
+                d.setSeconds(d.getSeconds() + num);
                 break;
             case "millisecond": // 毫秒
-                originDate.v = (originDate.v - 0) + num;
+                d.setMilliseconds(d.getMilliseconds() + num);
                 break;
             default:
         }
-        this._date = new Date(
-            originDate.Y,
-            originDate.n - 1,
-            originDate.j - 0,
-            originDate.G - 0,
-            originDate.i - 0,
-            originDate.s - 0,
-            originDate.v - 0,
-        );
         return this;
     }
 
+    /**
+     * 日期计算 - 上一个相关日期(add 语法糖)
+     * @param {number} num 时间数量(内部会转绝对值)
+     * @param {string} unit 时间单位 'year' | 'month' | 'week' | 'day' | 'hour' | 'minute' | 'second' | 'millisecond'
+     * @returns {DateChain}
+     */
     prev(num, unit) {
+        if (typeof num !== "number") _throwError("prev 方法参数 num 必须为数字");
+        if (typeof unit === "string" && !_hasUnit(unit))
+            _throwError("prev 方法参数 unit 必须为有效的时间单位");
         return this.add(-Math.abs(num), unit);
     }
+
+    /**
+     * 日期计算 - 下一个相关日期(add 语法糖)
+     * @param {number} num 时间数量(内部会转绝对值)
+     * @param {string} unit 时间单位 'year' | 'month' | 'week' | 'day' | 'hour' | 'minute' | 'second' | 'millisecond'
+     * @returns {DateChain}
+     */
     next(num, unit) {
+        if (typeof num !== "number") _throwError("next 方法参数 num 必须为数字");
+        if (typeof unit === "string" && !_hasUnit(unit))
+            _throwError("next 方法参数 unit 必须为有效的时间单位");
         return this.add(Math.abs(num), unit);
     }
 
+    /**
+     * 日期计算 - 当天开始时间(00:00:00.000)
+     * @returns {DateChain}
+     */
+    startOfDay() {
+        const d = this._date;
+        d.setHours(0, 0, 0, 0);
+        return this;
+    }
+
+    /**
+     * 日期计算 - 当天结束时间(23:59:59.999)
+     * @returns {DateChain}
+     */
+    endOfDay() {
+        const d = this._date;
+        d.setHours(23, 59, 59, 999);
+        return this;
+    }
+
+    /**
+     * 日期计算 - 当周开始时间(周日00:00:00.000)
+     * @returns {DateChain}
+     */
+    startOfWeek() {
+        const d = this._date;
+        const day = d.getDay();
+        d.setDate(d.getDate() - day);
+        d.setHours(0, 0, 0, 0);
+        return this;
+    }
+
+    /**
+     * 日期计算 - 当周结束时间(周六23:59:59.999)
+     * @returns {DateChain}
+     */
+    endOfWeek() {
+        const d = this._date;
+        const day = d.getDay();
+        d.setDate(d.getDate() + (6 - day));
+        d.setHours(23, 59, 59, 999);
+        return this;
+    }
+
+    /**
+     * 日期计算 - 当月开始时间(1号00:00:00.000)
+     * @returns {DateChain}
+     */
+    startOfMonth() {
+        const d = this._date;
+        d.setDate(1);
+        d.setHours(0, 0, 0, 0);
+        return this;
+    }
+
+    /**
+     * 日期计算 - 当月结束时间(最后一天23:59:59.999)
+     * @returns {DateChain}
+     */
+    endOfMonth() {
+        const d = this._date;
+        d.setMonth(d.getMonth() + 1, 0);
+        d.setHours(23, 59, 59, 999);
+        return this;
+    }
+
+    /**
+     * 日期计算 - 当年开始时间(1月1日00:00:00.000)
+     * @returns {DateChain}
+     */
+    startOfYear() {
+        const d = this._date;
+        d.setMonth(0, 1);
+        d.setHours(0, 0, 0, 0);
+        return this;
+    }
+
+    /**
+     * 日期计算 - 当年结束时间(12月31日23:59:59.999)
+     * @returns {DateChain}
+     */
+    endOfYear() {
+        const d = this._date;
+        d.setMonth(11, 31);
+        d.setHours(23, 59, 59, 999);
+        return this;
+    }
+
+    /**
+     * 日期计算 - 是否在指定时间之前
+     * @param {string|number|Date} dateTime dateTime 时间
+     * @returns {boolean}
+     */
+    isBefore(dateTime) {
+        return this._date.getTime() < new Date(dateTime).getTime();
+    }
+
+    /**
+     * 日期计算 - 是否在指定时间之后
+     * @param {string|number|Date} dateTime dateTime 时间
+     * @returns {boolean}
+     */
+    isAfter(dateTime) {
+        return this._date.getTime() > new Date(dateTime).getTime();
+    }
+
+    /**
+     * 日期计算 - 是否在指定时间相同
+     * @param {string|number|Date} dateTime dateTime 时间
+     * @param {*} unit 时间单位 'year' | 'month' | 'week' | 'day' | 'hour' | 'minute' | 'second' | 'millisecond'
+     * @returns {boolean}
+     */
+    isSame(dateTime, unit = "day") {
+        const a = date("all", this._date);
+        const b = date("all", new Date(dateTime));
+        switch (unit) {
+            case "year":
+                return a.Y === b.Y;
+            case "month":
+                return a.Y === b.Y && a.n === b.n;
+            case "week":
+                // 判断是否在同一周（周日为一周开始）
+                const aStart = new Date(this._date);
+                aStart.setDate(aStart.getDate() - aStart.getDay());
+                aStart.setHours(0, 0, 0, 0);
+
+                const bStart = new Date(dateTime);
+                bStart.setDate(bStart.getDate() - bStart.getDay());
+                bStart.setHours(0, 0, 0, 0);
+
+                return aStart.getTime() === bStart.getTime();
+
+            case "day":
+                return a.Y === b.Y && a.n === b.n && a.j === b.j;
+            case "hour":
+                return a.Y === b.Y && a.n === b.n && a.j === b.j && a.G === b.G;
+            case "minute":
+                return a.Y === b.Y && a.n === b.n && a.j === b.j && a.G === b.G && a.i === b.i;
+            case "second":
+                return a.Y === b.Y && a.n === b.n && a.j === b.j && a.G === b.G && a.i === b.i && a.s === b.s;
+            default:
+                return this._date.getTime() === new Date(dateTime).getTime();
+        }
+    }
+
+    /**
+     * 日期计算 - 是否在指定时间同月
+     * @param {string|number|Date} dateTime dateTime 时间
+     * @returns {boolean}
+     */
+    isSameMonth(dateTime) {
+        return this.isSame(dateTime, "month");
+    }
+
+    /**
+     * 日期计算 - 是否在指定时间同年
+     * @param {string|number|Date} dateTime dateTime 时间
+     * @returns {boolean}
+     */
+    isSameYear(dateTime) {
+        return this.isSame(dateTime, "year");
+    }
+
+    /**
+     * 日期格式化
+     * @param {string} tplChars 模板字符
+     * @returns {string}
+     */
     format(tplChars = "Y-m-d") {
         return date(tplChars, this._date);
     }
 
+    /**
+     * 转换为 Date 对象
+     * @returns {Date}
+     */
     toDate() {
         return new Date(this._date);
     }
 
+    /**
+     * 转换为字符串
+     * @returns {string}
+     */
     toString() {
         return this.valueOf().toString();
     }
 }
 
+/**
+ * 日期格式化 - 链式
+ * @param {*} dateTime dateTime 时间
+ * @returns {DateChain}
+ */
 date.chain = (dateTime) => new DateChain(dateTime);
 const lang =
     typeof navigator !== "undefined"
@@ -625,6 +843,7 @@ const lang =
               : "zh-CN"
           : "zh-CN";
 
+// R 字符配置
 date.rowUnitConf = Object.assign(
     {
         threshold: 3e4, // 相差多少毫秒以内算刚刚

@@ -25,7 +25,9 @@ JavaScript implements date formatting functions similar to PHP
 >
 > 
 >
-> 支持[链式](#DateChain)操作<sup style="color:#f33">(1.8.0 + )</sup>
+> 支持[链式](#DateChain)操作<sup style="color:#f33">(1.8.0+)</sup>
+>
+> Supports [chainable](#DateChain) operations <sup style="color:#f33">(1.8.0+)</sup>
 >
 > 
 >
@@ -38,9 +40,9 @@ JavaScript implements date formatting functions similar to PHP
 >
 > 
 >
-> **您现在正在阅读的是 v1.0 文档 [v2文档在这里(TS重构)](https://github.com/toviLau/date-php/blob/next/README.md) 目前优先维护 1.x 系列 **
+> **您现在正在阅读的是 v1.x 文档 [v2文档在这里(TS重构)](https://github.com/toviLau/date-php/blob/next/README.md) 目前优先维护 1.x 系列 **
 >
-> **You are viewing v1.0 docs. [v2 docs here.(TS rewrite)](https://github.com/toviLau/date-php/blob/next/README.md) Currently focusing on 1.x.**
+> **You are viewing v1.x docs. [v2 docs here.(TS rewrite)](https://github.com/toviLau/date-php/blob/next/README.md) Currently focusing on 1.x.**
 
 
 ```javascript
@@ -112,7 +114,7 @@ yarn add date-php
   >
   > 3. [_**持续时间/剩余时间/倒计时** 点这里(**duration/countdown** clicked here)_](#use-duration)
   >
-  > 4. 支持[链式](#DateChain)操作<sup style="color:#f33">(1.8.0 + )</sup>
+  > 4. 支持[链式](#DateChain)操作<sup style="color:#f33">(1.8.0+)</sup>
 
 ```javascript
 // ES6+ -- CDN方式跳过(CDN mode skip)
@@ -175,20 +177,22 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 > >   In the previous example, 'I'<sup>(Uppercase i)</sup>, 'l'<sup>(lowercase L)</sup>, 'o', 'e', 'y', 'u' are all template characters, so add a double backslash (\\) in front of the template characters to escape them, and the characters will output their literal value.
 >
 > 4. 加"\*"号的为PHP语言中没有的功能，是`date-php.js`特有的功能。  
->    　 Add the "\*" in front is a function not available in the PHP language, and is a feature unique to `date-php.js`.
+>      Add the "\*" in front is a function not available in the PHP language, and is a feature unique to `date-php.js`.
 >
 > 5. 转农历正常只能转1900-2100之间的200年份。  
->    　 The conversion to the lunar calendar can only be transferred to 200 years between 1900-2100.
+>      The conversion to the lunar calendar can only be transferred to 200 years between 1900-2100.
 >
 > 6. 模板字符区分大小写。  
->    　 Template characters are case sensitive.
+>      Template characters are case sensitive.
 >
 > 7. 支持节假日输出  
->    　 Support festival output  
->    　 需要自定义节假日请参考 [_conf.replaceHolidayConf_](#custom) 与 [_conf.editHolidayConf_](#custom)  
->    　 For custom holidays, please refer to [_conf.replaceHolidayConf_](#custom)  & [_conf.editHolidayConf_](#custom)  
+>      Support festival output  
+>      需要自定义节假日请参考 [_conf.replaceHolidayConf_](#custom) 与 [_conf.editHolidayConf_](#custom)  
+>      For custom holidays, please refer to [_conf.replaceHolidayConf_](#custom)  & [_conf.editHolidayConf_](#custom)  
 >
-> 8. 支持[链式](#DateChain)操作<sup style="color:#f33">(1.8.0 + )</sup>
+> 8. 支持[链式](#DateChain)操作<sup style="color:#f33">(1.8.0+)</sup>
+>
+>      Supports [chainable](#DateChain) operations <sup style="color:#f33">(1.8.0+)</sup>
 
 | \# | chars | Description |
 | :--- | :--- | :--- |
@@ -261,8 +265,8 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 | | | |
 | **时区(Timezone)** | | |
 | | e | 时区名。Atlantic/Azores <br />Timezone identifier.Examples: Atlantic/Azores |
-| | \*eU<br /><sup style="color:#f33">1.8.0</sup> | UTC时区名 例:UTC+8<br />UTC timezone name. e.g. UTC-8 |
-| | \*eG<br /><sup style="color:#f33">1.8.0</sup> | GMT时区名 例:GMT-8<br />GMT timezone name. e.g. GMT-8 |
+| | \*eU<br /><sup style="color:#f33">1.8.0+</sup> | UTC时区名 例:UTC+8<br />UTC timezone name. e.g. UTC-8 |
+| | \*eG<br /><sup style="color:#f33">1.8.0+</sup> | GMT时区名 例:GMT-8<br />GMT timezone name. e.g. GMT-8 |
 | | I | 是否为夏令时。1:是，0:否 。 <br />Whether or not the date is in daylight saving time. 1 Daylight Saving Time, 0 otherwise. |
 | | O<br /><sup style="color:#f33">1.7.24*</sup> | 与格林威治时间相差的小时数。例如：+0800。 <br />Difference to Greenwich time (GMT) in hours. Example: +0800.<br />跟随 `date.timeZone` 配置。<sup style="color:#f33">1.7.24*</sup> |
 | | P<br /><sup style="color:#f33">1.7.24*</sup> | 与格林威治时间的差别，小时和分钟之间有冒号分隔。例如：+08:00。<br />Difference to Greenwich time (GMT) with colon between hours and minutes. Example: +08:00.<br />跟随 `date.timeZone` 配置。<sup style="color:#f33">1.7.24*</sup><br />Follows the `date.timeZone` configuration.<br /> |
@@ -296,106 +300,393 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 
 ###### DateChain
 
-### 链式日期操作 (chain) <sup style="color:#f33">(1.8.0+)</sup>
+### 链式日期操作 (chain) / Chainable date operations (chain) <sup style="color:#f33">(1.8.0+)</sup>
 
 > 用法 / usage：
 >
 > date.chain([dateTime: Date | string | number = Date.now()])
 
-#### 新增 
+#### 新增
 
-1. `date.chain()` 链式日期操作入口
+1. `date.chain()` 链式日期操作入口 / Entry point for chainable date operations.
 
-2. `DateChain.prototype.add()` 日期加减运算
+2. `DateChain.prototype.add()` 日期加减运算(核心方法) / Date arithmetic (core method)
 
-   > 签名
+   ###### add 
 
-   ```ts
-   add(
-     num: number, // 时间数量, 正值加时, 负值减时
-     unit: 'year'|'month'|'week'|'day'|'hour'|'minute'|'second'|'millisecond' // 时间单位
-   )
-   ```
-
-3. `DateChain.prototype.prev()` 日期向前推(`add` 的语法糖)
-
-   > 签名
+   > **注意: `add(obj: AddObject)` AddObject里的 key:value 的先后顺序决定执行顺序**
+   > **Note: `add(obj: AddObject)` executes keys in order.**
 
    ```ts
-   prev(
-     num: number, // 最终转为绝对值
-     unit: 'year'|'month'|'week'|'day'|'hour'|'minute'|'second'|'millisecond' // 时间单位
-   )
+   type TimeUnit = "year" | "month" | "week" | "day" | "hour" | "minute" | "second" | "millisecond";
+   interface AddObject {
+       year?: number;
+       month?: number;
+       week?: number;
+       day?: number;
+       hour?: number;
+       minute?: number;
+       second?: number;
+       millisecond?: number;
+   }
+   // 单次操作 / Single execution 1.8.0+
+   date.chain().add(num: number, unit: TimeUnit): this;
+   date.chain().add(unit: TimeUnit): this; // 简写，等同于 `add(1, unit)
+   
+   // 批量操作/Batch execution 1.8.1+
+   date.chain().add(obj: AddObject): this; 
    ```
 
-4. `DateChain.prototype.next()` 日期向后推(`add` 的语法糖)
+3. `DateChain.prototype.prev()` 日期向前推([add](#add) 的语法糖) / Moves date backward. Sugar for `add()`.
 
-   > 签名
+   > 同 add(num: number, unit: TimeUnit): this;
+   >
+   > Same as `add(num: number, unit: TimeUnit): this;`
+   >
+   > `num`: **number**, // 最终转为绝对值 / Converts to absolute value.
 
    ```ts
-   prev(
-     num: number, // 最终转为绝对值
-     unit: 'year'|'month'|'week'|'day'|'hour'|'minute'|'second'|'millisecond' // 时间单位
-   )
+   type TimeUnit = "year" | "month" | "week" | "day" | "hour" | "minute" | "second" | "millisecond";
+   interface AddObject {
+       year?: number;
+       month?: number;
+       week?: number;
+       day?: number;
+       hour?: number;
+       minute?: number;
+       second?: number;
+       millisecond?: number;
+   }
+   // 批量操作/Batch execution 1.8.1+
+   
+   // 单次操作 / Single execution
+   date.chain().prev(num: number, unit: TimeUnit): this;
    ```
 
-5. `DateChain.prototype.format()` 链式格式化
+   
 
-6. `DateChain.prototype.toDate()` 返回原生 Date
+4. `DateChain.prototype.next()` 日期向后推([add](#add) 的语法糖) / Moves forward. Syntactic sugar for `add()`.
 
-#### 调用示例
+   > 同 add(num: number, unit: TimeUnit): this;
+   >
+   > Same as `add(num: number, unit: TimeUnit): this;`
+   >
+   > `num`: **number**, // 最终转为绝对值 / Converts to absolute value.
+
+   ```ts
+   type TimeUnit = "year" | "month" | "week" | "day" | "hour" | "minute" | "second" | "millisecond";
+   interface AddObject {
+       year?: number;
+       month?: number;
+       week?: number;
+       day?: number;
+       hour?: number;
+       minute?: number;
+       second?: number;
+       millisecond?: number;
+   }
+   
+   // 单次操作 / Single execution
+   date.chain().prev(num: number, unit: TimeUnit): this;
+   ```
+
+   
+
+5. `DateChain.prototype.format(tplChars?)` 链式格式化 / Chainable formatting.
+
+   > format(tplChars?):string|{Object}
+   >
+   > templeate: 支持所有 date 模板字符
+
+   ```ts
+   date.chain().format(tplchars): string;
+   ```
+
+   
+
+6. `DateChain.prototype.toDate()` 返回原生 Date / Returns native Date.
+
+   > toDate():Date
+
+   ```ts
+   date.chain().toDate(): Date;
+   ```
+
+   
+
+7. `DateChain.prototype.startOfDay()` 
+
+   当天开始时间 / Beginning of day (00:00:00.000)<sup style="color:#f33">(1.8.1+)</sup>
+
+   > startOfDay():DateChain
+
+   ```ts
+   date.chain().startOfDay():DateChain;
+   ```
+
+   
+
+8. `DateChain.prototype.endOfDay()` 
+
+   当天结束时间 / End of day (23:59:59.999)<sup style="color:#f33">(1.8.1+)</sup>
+
+   > endOfDay():DateChain
+
+   ```ts
+   date.chain().endOfDay():DateChain;
+   ```
+
+   
+
+9. `DateChain.prototype.startOfWeek()` 
+
+   当周开始时间 / Start of the week (周日 / sun. 00:00:00.000)<sup style="color:#f33">(1.8.1+)</sup>
+
+   > 默认首周: 周日 / Default week start: Sun.
+   > startOfWeek():DateChain
+
+   ```ts
+   date.chain().startOfWeek():DateChain;
+   ```
+
+   
+
+10. `DateChain.prototype.endOfWeek()` 
+
+    当周结束时间 / Start of the week (周六 / Sat. 23:59:59.999)<sup style="color:#f33">(1.8.1+)</sup>
+
+    > 默认首周: 周日 / Default week start: Sun.
+    > endOfWeek():DateChain
+
+    ```ts
+    date.chain().endOfWeek():DateChain;
+    ```
+
+    
+
+11. `DateChain.prototype.startOfMonth()` 
+
+    当月开始时间 / Start of the month (1号 / 1# 00:00:00.000)<sup style="color:#f33">(1.8.1+)</sup>
+
+    > 当月第一天 / First day of the month
+    > startOfMonth():DateChain
+
+    ```ts
+    date.chain().startOfMonth():DateChain;
+    ```
+
+    
+
+12. `DateChain.prototype.endOfMonth()` 
+
+    当月结束时间/End of the month (最后一天 23:59:59.999)<sup style="color:#f33">(1.8.1+)</sup>
+
+    > 当月最后一天 / Last day of the month
+    >
+    > endOfMonth():DateChain
+
+    ```ts
+    date.chain().endOfMonth():DateChain;
+    ```
+
+    
+
+13. `DateChain.prototype.startOfYear()` 
+
+    当年开始时间 / Start of the year (1月1日 00:00:00.000)<sup style="color:#f33">(1.8.1+)</sup>
+
+    > startOfYear():DateChain
+
+    ```ts
+    date.chain().startOfYear():DateChain;
+    ```
+
+    
+
+14. `DateChain.prototype.endOfYear()` 
+
+    当年结束时间 / End of the year(12月31日 23:59:59.999)<sup style="color:#f33">(1.8.1+)</sup>
+
+    > endOfYear():DateChain
+
+    ```ts
+    date.chain().endOfYear():DateChain;
+    ```
+
+    
+
+15. `DateChain.prototype.isBefore(dateTime)` 
+
+    是否在指定时间之前 / Checks if before a specified time<sup style="color:#f33">(1.8.1+)</sup>
+
+    > isBefore(): boolean
+
+    ```ts
+    date.chain().isBefore():boolean;
+    ```
+
+    
+
+16. `DateChain.prototype.isAfter(dateTime)` 
+
+    是否在指定时间之后 / Checks if after a specified time<sup style="color:#f33">(1.8.1+)</sup>
+
+    > isAfter(): boolean
+
+    ```ts
+    date.chain().isAfter():boolean;
+    ```
+
+    
+
+17. `DateChain.prototype.isSame(dateTime, unit?:TimeUnit)` 
+
+    是否在指定时间相同 (支持粒度比较) / Same as target time (with granularity support).<sup style="color:#f33">(1.8.1+)</sup>
+
+    > isSame(): boolean
+
+    ```ts
+    date.chain().isSame():boolean;
+    ```
+
+    
+
+18. `DateChain.prototype.isSameMonth(dateTime)` 
+
+    是否在指定时间同月/Is in the same month as the target<sup style="color:#f33">(1.8.1+)</sup>
+
+    > isSameMonth(): boolean
+
+    ```ts
+    date.chain().isSameMonth():boolean;
+    ```
+
+    
+
+19. `DateChain.prototype.isSameYear(dateTime)` 
+
+    是否在指定时间同年 / Is in the same year as the target<sup style="color:#f33">(1.8.1+)</sup>
+
+    > isSameYear(): boolean
+
+    ```ts
+    date.chain().isSameYear():boolean;
+    ```
+
+    
+
+
+
+#### 链式调用示例(chain demo)
 
 ```js
 // 创建链式日期对象
-const dc = date.chain();                    // 当前时间
-const dc2 = date.chain('2026-07-17');       // 指定日期
-const dc3 = date.chain(1752681600000);      // 时间戳
+const dc = date.chain();                    // 当前时间/Current time.
+const dc2 = date.chain('2026-07-17');       // 指定日期/Given date
+const dc3 = date.chain(1752681600000);      // 时间戳/timestamp
 const dc4 = date.chain('Fri Jul 17 2026 09:57:05 GMT+0800 (中国标准时间)');
 
 
 // 日期加减
-dc.add(3, 'day')           // 加3天
-dc.add(-1, 'month')        // 减1个月（负数表示减）
-dc.add(2, 'year')          // 加2年
-dc.add(-10, 'year')        // 减2年
-dc.add(1, 'week')          // 加1周
-dc.add(30, 'minute')       // 加30分钟
-dc.add(500, 'millisecond') // 加500毫秒
+dc.add(3, 'day')           // 加3天 / +3 days
+dc.add(16, 'week')         // 加16周 / +16 week
+dc.add(-1, 'month')        // 减1个月（负数表示减）/ Subtract 1 month (negative value subtracts)
+dc.add(100, 'month')       // 加100个月 / +100 month
+dc.add(2, 'year')          // 加2年 / Add 2 years
+dc.add(-10, 'year')        // 减2年 / Subtract 2 years
+dc.add(1, 'week')          // 加1周 / Add 1 week
+dc.add(30, 'minute')       // 加30分钟 / Add 30 minutes
+dc.add(500, 'millisecond') // 加500毫秒 / Add 500 millisecond
 
-// 语义化别名
-dc.prev(2, 'day')         // 向前推2天（等同于 add(-2, 'day')）
-dc.next(1, 'week')        // 向后推1周（等同于 add(1, 'week')）
+dc.add('year')             // 简写: 加1年/Shorthand: Add 1 year
 
-// 格式化输出
+// 批量加减 / Batch operations
+// 注意: add(obj: AddObject) AddObject里的 key:value 的先后顺序决定执行顺序
+// Note: add(obj: AddObject) executes keys in order.
+dc.add({ // "2027-09-14"
+    year: 1,
+    month: 2,
+    day: -3
+}).format('Y-m-d') // 不要忘记 format()/Don't forget format()!
+
+// 链式调用示例2 / chain demo 1
+// 注意: add(obj: AddObject) AddObject里的 key:value 的先后顺序决定执行顺序
+// Note: add(obj: AddObject) executes keys in order.
+date.chain('2026-07-17')
+    .next(2 ** 32, 'second') // +4294967296 秒/second
+    .prev(2 ** 6, 'day') // -64 day/天 
+    .prev(2 ** 3, 'week') // -8 week/周
+    .prev(2, 'month') // -2month/月
+    .format('Y-m-d H:i:s')   // 2162-02-25 14:28:16
+
+// 链式调用示例3 /  chain demo 2
+// 注意: add(obj: AddObject) AddObject里的 key:value 的先后顺序决定执行顺序
+// Note: add(obj: AddObject) executes keys in order.
+date.chain(1765432101234)
+  .prev(1, 'year') 
+  .next(2, 'month')
+  .prev(1, 'hour')
+  // more chain...
+  .format('Y-m-d H:i:s.v')  // 2025-02-11 12:48:21.234
+
+ // 链式调用示例3: 批量加减(等同: 链式调用示例2)
+date.chain(1765432101234)
+    .add({
+        year: -1, // 上一年
+        month: 2, // 下两个月
+        hour: -1 // 上一个小时
+       // more chain...
+    })
+    .format('Y-m-d H:i:s.v')  // 2025-02-11 12:48:21.234
+```
+**语义化别名 / Semantic aliases**
+
+```ts
+// 向前推2天（等同于 add(-2, 'day')）
+// Move backward 2 days (equivalent to `add(-2, 'day')`).
+dc.prev(2, 'day')    
+
+// 向后推1周（等同于 add(1, 'week')）
+// Move forward 1 week (equivalent to `add(1, 'week')`).
+dc.next(1, 'week')   
+```
+**格式化输出 / Format output**
+
+```ts
 dc.format('Y-m-d H:i:s')  // "2026-07-17 15:38:56"
 dc.format('C年f月k日')     // "二〇二六年七月十七日"
+```
+**转回原生 Date 对象 / Convert back to native Date object.**
 
-// 转回原生 Date 对象
-dc.toDate()               // Date 对象
+```ts
+dc.toDate()   // Date Object
+```
+**起点/终点 (Start/End)**
 
-// 链式调用示例1
-date.chain()
-  .add(3, 'day')
-  .format('Y-m-d')        // 三天后的日期
+```ts
+const dc = date.chain('2026-07-17 15:38:56.789')
 
-// 链式调用示例2
-date.chain('2026-07-17')
-  .prev(1, 'month')
-  .format('Y-m-d')  // '2026-06-17'
-
-
-// 链式调用示例3
-date.chain(1765432101234)
-  .prev(1, 'year')
-  .next(1, 'month')
-  .prev(1, 'hour')
-  .format('Y-m-d H:i:s.v') 
-'2025-01-11 12:48:21.234'
+dc.startOfDay().format('Y-m-d H:i:s.v')    // "2026-07-17 00:00:00.000"
+dc.endOfDay().format('Y-m-d H:i:s.v')      // "2026-07-17 23:59:59.999"
+dc.startOfMonth().format('Y-m-d')          // "2026-07-01"
+dc.endOfMonth().format('Y-m-d')            // "2026-07-31"
+dc.startOfYear().format('Y-m-d')           // "2026-01-01"
+dc.endOfYear().format('Y-m-d')             // "2026-12-31"
 ```
 
+**比较方法 (Comparison)**
 
+```javascript
+const a = date.chain('2026-07-17')
+const b = date.chain('2026-07-18')
 
-
+a.isBefore(b)        // a 在 b 之前 -> true
+a.isAfter(b)         // a 在 b 之后 -> false
+a.isSame(b, 'day')   // a 不在 b 同一天内 -> false
+a.isSame(b, 'month') // a 在 b 同一个月内 -> true
+a.isSameMonth(b)     // a 在 b 同一个月内 -> true
+a.isSameYear(b)      // a 在 b 同一年内 -> true
+```
 
 
 
@@ -646,11 +937,11 @@ date.rowUnitConf = {
  >
  > 
  >
- > ​    date.duration('d天 h小时i分种s秒', 186400000):   // 02天 03小时46分种40秒
+ > ​    date.duration('d天 h小时i分钟s秒', 186400000):   // 02天 03小时46分钟40秒
  >
- > ​    date.duration('d天 h小时i分种s秒', -186400000):  // 02天 03小时46分种40秒
+ > ​    date.duration('d天 h小时i分钟s秒', -186400000):  // 02天 03小时46分钟40秒
  >
- > ​    date.duration('d天 h小时i分种s秒', +186400000):  // 02天 03小时46分种40秒
+ > ​    date.duration('d天 h小时i分钟s秒', +186400000):  // 02天 03小时46分钟40秒
 
 ```javascript
   date.duration('n月j天 h小时i分钟s秒',  314159265 ) //" 0月3天 15小时15分钟59秒"

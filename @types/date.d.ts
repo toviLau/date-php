@@ -44,12 +44,38 @@ interface DurationFormatResult {
  */
 declare function date_php(tplChars?: string, dateTime?: DateTimeInput, isMs?: boolean): string | AllFormatResult;
 
-type TimeUnit = "year" | "month" | "week" | "day" | "hour" | "minute" | "second" | "ms";
+type TimeUnit = "year" | "month" | "week" | "day" | "hour" | "minute" | "second" | "millisecond";
+
+interface AddObject {
+    year?: number;
+    month?: number;
+    week?: number;
+    day?: number;
+    hour?: number;
+    minute?: number;
+    second?: number;
+    millisecond?: number;
+}
 
 declare class DateChain {
     constructor(dateTime?: DateTimeInput);
+    add(obj: AddObject): this;
     add(num: number, unit: TimeUnit): this;
+    add(unit: TimeUnit): this;
     sub(num: number, unit: TimeUnit): this;
+    startOfDay(): this;
+    endOfDay(): this;
+    startOfWeek(): this;
+    endOfWeek(): this;
+    startOfMonth(): this;
+    endOfMonth(): this;
+    startOfYear(): this;
+    endOfYear(): this;
+    isBefore(dateTime: DateTimeInput): boolean;
+    isAfter(dateTime: DateTimeInput): boolean;
+    isSame(dateTime: DateTimeInput, unit?: TimeUnit | "millisecond"): boolean;
+    isSameMonth(dateTime: DateTimeInput): boolean;
+    isSameYear(dateTime: DateTimeInput): boolean;
     format(tplChars?: string): string;
     toDate(): Date;
     valueOf(): number;
