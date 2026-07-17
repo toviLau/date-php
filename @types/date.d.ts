@@ -1,6 +1,40 @@
 type DateTimeInput = string | number | Date;
 type AllFormatResult = Record<string, string>;
 
+interface RowUnitConf {
+    threshold: number;
+    Year: string;
+    Month: string;
+    Week: string;
+    Day: string;
+    Hour: string;
+    Minute: string;
+    Second: string;
+    justNow: string;
+    before: string;
+    after: string;
+}
+
+interface DurationFormatResult {
+    y: string;
+    Y: number;
+    m: string;
+    n: number;
+    M: number;
+    d: string;
+    j: number;
+    D: number;
+    h: string;
+    g: number;
+    H: number;
+    i: string;
+    I: number;
+    s: string;
+    S: number;
+    v: string;
+    V: number;
+}
+
 /**
  * 格式化日期时间，类似 PHP 的 date() 函数
  * @param tplChars - 格式化模板，默认 'Y-m-d'；传入 'all' 返回所有模板字符值
@@ -9,6 +43,18 @@ type AllFormatResult = Record<string, string>;
  * @returns 格式化后的日期字符串，或当 tplChars 为 'all' 时返回完整配置对象
  */
 declare function date_php(tplChars?: string, dateTime?: DateTimeInput, isMs?: boolean): string | AllFormatResult;
+
+type TimeUnit = "year" | "month" | "week" | "day" | "hour" | "minute" | "second" | "ms";
+
+declare class DateChain {
+    constructor(dateTime?: DateTimeInput);
+    add(num: number, unit: TimeUnit): this;
+    sub(num: number, unit: TimeUnit): this;
+    format(tplChars?: string): string;
+    toDate(): Date;
+    valueOf(): number;
+    toString(): string;
+}
 
 declare namespace date_php {
     /**
@@ -34,7 +80,14 @@ declare namespace date_php {
      * @param isMs - 是否毫秒，默认 true
      * @returns 格式化后的持续时间字符串，或当 tplChars 为 'all' 时返回完整配置对象
      */
-    function duration(tplChars?: string, duration?: number, isMs?: boolean): string | AllFormatResult;
+    function duration(tplChars?: string, duration?: number, isMs?: boolean): string | DurationFormatResult;
+
+    /**
+     * 创建链式调用对象
+     * @param dateTime - 日期时间，默认当前时间
+     * @returns DateChain 实例，支持 add/sub/format 链式调用
+     */
+    function chain(dateTime?: DateTimeInput): DateChain;
 }
 
 export default date_php;

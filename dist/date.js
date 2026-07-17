@@ -1,5 +1,5 @@
 /**
- * date-php.js v1.7.26
+ * date-php.js v1.8.0
  *   :-) date('Y-m-d', 1563148800000) - 这是一个Javascript模仿PHP日期时间格式化函数，使用方法和PHP非常类似，有丰富的模板字符，并在原来的基础上增强了一些模板字符。例如：中国的农历日期、用汉字来表示日期、十二生肖与星座。让转换日期时间更自由。
  *   This is a Javascript mimicking PHP datetime formatting function. It is very similar to PHP, has rich template 
  *   characters, and enhances some template characters on the basis of the original. For example: Chinese Lunar Date,
@@ -1164,7 +1164,7 @@
         var currentTimeZone =
             TIMEZONE_MAP[date.timeZone] || date.timeZone || Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-        if (ms === false && typeof now === 'number') { now = now * 1000; }
+        if (ms === false && typeof now === "number") { now = now * 1000; }
         var _now = isDate(this) ? this : isDate(now) ? new Date(now) : new Date();
         now = new Date(
             new Date(_now).toLocaleString(lang, {
@@ -1174,6 +1174,24 @@
 
         // 获取农历
         var lunarInfo = function () { return calendar.solar2lunar(tChars.Y(), tChars.n(), tChars.j()); };
+
+        /**
+         * 格式化时区偏移量
+         * @param {UTC|GMT} prefix 前缀
+         * @param {boolean} reverseSign 是否反转符号
+         * @returns
+         */
+        var formatTimezoneOffset = function (prefix, reverseSign) {
+            var info = getOffsetInfo(now, currentTimeZone);
+            if (info.hours === 0 && info.minutes === 0) { return prefix; }
+            var sign = reverseSign ? (info.sign === "+" ? "-" : "+") : info.sign;
+            var hours = info.hours;
+            var minutes = info.minutes;
+            if (minutes > 0) {
+                return ("" + prefix + sign + hours + ":" + (pad(minutes, 2)));
+            }
+            return ("" + prefix + sign + hours);
+        };
 
         // 模板字串替换函数
         var tChars = {
@@ -1273,22 +1291,12 @@
             u: function () { return tChars.v() * 1e3 + ~~(((performance ? performance.now() : Date.now()) % 1) * 1e3); },
             v: function () { return (_now.getTime() + "").substr(-3) - 0; },
 
-            // 时区
-            e: function () { return TIMEZONE_MAP[date.timeZone] || date.timeZone || Intl.DateTimeFormat().resolvedOptions().timeZone; },
+            eU: function () { return formatTimezoneOffset("UTC", false); },
+            eG: function () { return formatTimezoneOffset("GMT", true); },
             // I: () => {
-            //     let DST = null;
-            //     for (var i = 0; i < 12; ++i) {
-            //         const d = new Date(tChars.Y(), i, 1);
-            //         const offset = d.getTimezoneOffset();
 
-            //         if (DST === null) DST = offset;
-            //         else if (offset < DST) {
-            //             DST = offset;
-            //             break;
-            //         } else if (offset > DST) break;
-            //     }
-            //     return (now.getTimezoneOffset() === DST) | 0;
-            // },
+            // 时区名称
+            e: function () { return TIMEZONE_MAP[date.timeZone] || date.timeZone || Intl.DateTimeFormat().resolvedOptions().timeZone; },
             // O: () => (now.getTimezoneOffset() > 0 ? "-" : "+") + pad(Math.abs((now.getTimezoneOffset() / 60) * 100), 4),
             // P: () =>
             //     tChars
@@ -1359,8 +1367,7 @@
                 intervals[date.rowUnitConf.Minute] = 6e4;
                 intervals[date.rowUnitConf.Second] = 1e3;
 
-                if (diff > 0 && absDiff <= date.rowUnitConf.threshold)
-                    { return date.rowUnitConf.justNow; }
+                if (diff > 0 && absDiff <= date.rowUnitConf.threshold) { return date.rowUnitConf.justNow; }
 
                 var suffix = diff > 0 ? date.rowUnitConf.before : date.rowUnitConf.after;
 
@@ -1379,7 +1386,7 @@
             Object.keys(tChars).forEach(function (res, idx) { return (json[res] = tChars[res]()); });
             return json;
         }
-        return fmt.replace(/\\?(([lf][a-z])|([a-z]))/gi, function (res, key) {
+        return fmt.replace(/\\?((e[UG])|([lf][a-z])|([a-z]))/gi, function (res, key) {
             var result = "";
             if (res !== key) {
                 result = key;
@@ -1396,6 +1403,96 @@
 
     date.timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
+    var DateChain = function DateChain(dateTime) {
+        var this$1$1 = this;
+
+        this._date = new Date(dateTime === undefined ? Date.now() : dateTime);
+        var _dateString = this._date.toLocaleString();
+        Object.defineProperty(this, "valueOf", {
+            get: function () {
+                return function () { return (_dateString === "Invalid Date" ? new Date() : this$1$1._date); };
+            },
+            set: function (val) { return new Date(val); },
+            // writable: true,
+        });
+    };
+
+    /**
+     * 日期计算
+     * @param {number} num 时间数量
+     * @param {string} unit 时间单位 'year' | 'month' | 'week' | 'day' | 'hour' | 'minute' | 'second' | 'millisecond'
+     * @returns {DateChain}
+     */
+    DateChain.prototype.add = function add (num, unit) {
+        var originDate = date("all", this._date);
+        if (
+            unit === undefined &&
+            ["year", "month", "week", "day", "hour", "minute", "second", "millisecond"].includes(num)
+        ) {
+            unit = num;
+            num = 1;
+        }
+
+        switch (unit) {
+            case "year": // 年
+                originDate.Y += num;
+                break;
+            case "month": // 月
+                originDate.n += num;
+                break;
+            case "week": // 周
+                originDate.j += num * 7;
+                break;
+            case "day": // 日
+                originDate.j += num;
+                break;
+            case "hour": // 时
+                originDate.G += num;
+                break;
+            case "minute": // 分�
+                originDate.i = (originDate.i - 0) + num;
+                break;
+            case "second": // 秒
+                originDate.s = (originDate.s - 0) + num;
+                break;
+            case "millisecond": // 毫秒
+                originDate.v = (originDate.v - 0) + num;
+                break;
+        }
+        this._date = new Date(
+            originDate.Y,
+            originDate.n - 1,
+            originDate.j - 0,
+            originDate.G - 0,
+            originDate.i - 0,
+            originDate.s - 0,
+            originDate.v - 0
+        );
+        return this;
+    };
+
+    DateChain.prototype.prev = function prev (num, unit) {
+        return this.add(-Math.abs(num), unit);
+    };
+    DateChain.prototype.next = function next (num, unit) {
+        return this.add(Math.abs(num), unit);
+    };
+
+    DateChain.prototype.format = function format (tplChars) {
+            if ( tplChars === void 0 ) tplChars = "Y-m-d";
+
+        return date(tplChars, this._date);
+    };
+
+    DateChain.prototype.toDate = function toDate () {
+        return new Date(this._date);
+    };
+
+    DateChain.prototype.toString = function toString () {
+        return this.valueOf().toString();
+    };
+
+    date.chain = function (dateTime) { return new DateChain(dateTime); };
     var lang =
         typeof navigator !== "undefined"
             ? navigator.language || "zh-CN"
@@ -1423,7 +1520,7 @@
     );
     defP(Date.prototype, "format", date);
 
-    defP(date, "version", "1.7.26");
+    defP(date, "version", "1.8.0");
     defP(
         date,
         "description",

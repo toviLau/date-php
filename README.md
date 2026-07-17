@@ -25,6 +25,10 @@ JavaScript implements date formatting functions similar to PHP
 >
 > 
 >
+> 支持[链式](#DateChain)操作<sup style="color:#f33">(1.8.0 + )</sup>
+>
+> 
+>
 > [点击这里查看更多示例/Click here for more examples](https://tovilau.github.io/date-php/)  
 >
 > 
@@ -34,9 +38,9 @@ JavaScript implements date formatting functions similar to PHP
 >
 > 
 >
-> **您现在正在阅读的是 v1.0 文档 [v2文档在这里](https://github.com/toviLau/date-php/blob/next/README.md)**
+> **您现在正在阅读的是 v1.0 文档 [v2文档在这里(TS重构)](https://github.com/toviLau/date-php/blob/next/README.md) 目前优先维护 1.x 系列 **
 >
-> **You are viewing v1.0 docs. [v2 docs here.](https://github.com/toviLau/date-php/blob/next/README.md)**
+> **You are viewing v1.0 docs. [v2 docs here.(TS rewrite)](https://github.com/toviLau/date-php/blob/next/README.md) Currently focusing on 1.x.**
 
 
 ```javascript
@@ -94,19 +98,21 @@ yarn add date-php
 
   > 用法 / usage：
   >
-  >  date([字符模板:string='Y-m-d'[, 日期时间对象:dateTime|number=new Date() [,是否毫秒: boolean=true]]])
-  >  
-  >  date([tplChars:string='Y-m-d'[, dateTimeObj:dateTime|number=new Date() [,isMs: boolean=true]]])
+  > date([字符模板:string='Y-m-d'[, 日期时间对象:dateTime|number=new Date() [,是否毫秒: boolean=true]]])
+  >
+  > date([tplChars:string='Y-m-d'[, dateTimeObj:dateTime|number=new Date() [,isMs: boolean=true]]])
   >
   > 
   >
-  > 1、以下所有方式的入参都是可选参数。  
-  > 　 Entry parameters in all of the following ways are optional.
+  > 1. 以下所有方式的入参都是可选参数。  
+  >    　 Entry parameters in all of the following ways are optional.
   >
-  > 2、以下`new Date()`或其它的日期时间的初始化的值，我们默许都是 `1563176336000` Unix时间戳对应的日期时间。  
-  > 　 The following `new Date ()` or other date time initialization values, we acquiescence are `1563176336000` Unix timestamp corresponding Datetime.
+  > 2. 以下`new Date()`或其它的日期时间的初始化的值，我们默许都是 `1563176336000` Unix时间戳对应的日期时间。  
+  >    　 The following `new Date ()` or other date time initialization values, we acquiescence are `1563176336000` Unix timestamp corresponding Datetime.
   >
-  > 3、[_**持续时间/剩余时间/倒计时** 点这里(**duration/countdown** clicked here)_](#use-duration)
+  > 3. [_**持续时间/剩余时间/倒计时** 点这里(**duration/countdown** clicked here)_](#use-duration)
+  >
+  > 4. 支持[链式](#DateChain)操作<sup style="color:#f33">(1.8.0 + )</sup>
 
 ```javascript
 // ES6+ -- CDN方式跳过(CDN mode skip)
@@ -151,35 +157,38 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 
 
 ### 模板字符，默认值：{string} 'Y-m-d'(Template characters, default: {string} 'Y-m-d')
-> 1、你也可以去<u> [_**PHP中文官网**_](https://www.php.net/manual/zh/function.date.php) </u>看看，使用方法类似。  
-> 　 You can also go to the <u> [_**PHP english official website**_](https://www.php.net/manual/en/function.date.php) </u>to see, the method is similar.  
-> 
-> 2、~~你也可以通过静态方法 `date.description` 在控制台打出所有模板字符。~~<sup style="color:#f33">(1.3.2 - )</sup>   
-> 　 ~~You can also output all template characters in the console via the static method `date.description`.~~<sup style="color:#f33">(1.3.2 - )</sup>   
+> 1. 你也可以去<u> [_**PHP中文官网**_](https://www.php.net/manual/zh/function.date.php) </u>看看，使用方法类似。  
+>    You can also go to the <u> [_**PHP english official website**_](https://www.php.net/manual/en/function.date.php) </u>to see, the method is similar.  
 >
-> 3、关于转义模板字符，这里与PHP不同 **【敲黑板！！！】** <sup style="color:#f33">(1.3.0 + )</sup>  
-> 　 About the escaped template characters, here is different from PHP **[Note!!!]** <sup style="color:#f33">(1.3.0 + )</sup>  
->> **如果在date里想输出模板本来的字符，请用转义符--双反斜杠"\\\\"(PHP是一个单反斜杠"\\")。**   
->> **If you want to output the original character of the template on the date, use the escape character – double backslash "\\\\" (PHP is a single backslash "\\").**  
->>   举个栗子：   date("\\\\I \\\\l\\\\o\\\\v\\\\e \\\\y\\\\o\\\\u: y-m-d H:i", new Date()) // 输出 "I love you: 19-07-15 15:38"    
->>    Example: date("\\\\I \\\\l\\\\o\\\\v\\\\e \\\\y\\\\o\\\\u: y-m-d H:i", new Date()) // Output "I love you: 19-07-15 15:38"  
->>
->>   上面栗子中，'I'<sup>(大写的i)</sup>、'l'<sup>(小写的L)</sup>、'o'、'v'、'e'、'y'、'u' 都是模板字符，所以前面加双反斜杠(\\\\)转义，这样字符就会输出本来的值。  
->>   In the previous example, 'I'<sup>(Uppercase i)</sup>, 'l'<sup>(lowercase L)</sup>, 'o', 'e', 'y', 'u' are all template characters, so add a double backslash (\\) in front of the template characters to escape them, and the characters will output their literal value.
+> 2. ~~你也可以通过静态方法 `date.description` 在控制台打出所有模板字符。~~<sup style="color:#f33">(1.3.2 - )</sup>   
+>    ~~You can also output all template characters in the console via the static method `date.description`.~~<sup style="color:#f33">(1.3.2 - )</sup>   
 >
-> 4、加"\*"号的为PHP语言中没有的功能，是`date-php.js`特有的功能。  
-> 　 Add the "\*" in front is a function not available in the PHP language, and is a feature unique to `date-php.js`.
-> 
-> 5、转农历正常只能转1900-2100之间的200年份。  
-> 　 The conversion to the lunar calendar can only be transferred to 200 years between 1900-2100.
-> 
-> 6、模板字符区分大小写。  
-> 　 Template characters are case sensitive.
-> 
-> 7、支持节假日输出  
-> 　 Support festival output  
-> 　 需要自定义节假日请参考 [_conf.replaceHolidayConf_](#custom) 与 [_conf.editHolidayConf_](#custom)  
-> 　 For custom holidays, please refer to [_conf.replaceHolidayConf_](#custom)  & [_conf.editHolidayConf_](#custom)  
+> 3. 关于转义模板字符，这里与PHP不同 **【敲黑板！！！】** <sup style="color:#f33">(1.3.0 + )</sup>  
+>    　 About the escaped template characters, here is different from PHP **[Note!!!]** <sup style="color:#f33">(1.3.0 + )</sup>  
+>
+> > **如果在date里想输出模板本来的字符，请用转义符--双反斜杠"\\\\"(PHP是一个单反斜杠"\\")。**   
+> > **If you want to output the original character of the template on the date, use the escape character – double backslash "\\\\" (PHP is a single backslash "\\").**  
+> >   举个栗子：   date("\\\\I \\\\l\\\\o\\\\v\\\\e \\\\y\\\\o\\\\u: y-m-d H:i", new Date()) // 输出 "I love you: 19-07-15 15:38"    
+> >    Example: date("\\\\I \\\\l\\\\o\\\\v\\\\e \\\\y\\\\o\\\\u: y-m-d H:i", new Date()) // Output "I love you: 19-07-15 15:38"  
+>
+> >   上面栗子中，'I'<sup>(大写的i)</sup>、'l'<sup>(小写的L)</sup>、'o'、'v'、'e'、'y'、'u' 都是模板字符，所以前面加双反斜杠(\\\\)转义，这样字符就会输出本来的值。  
+> >   In the previous example, 'I'<sup>(Uppercase i)</sup>, 'l'<sup>(lowercase L)</sup>, 'o', 'e', 'y', 'u' are all template characters, so add a double backslash (\\) in front of the template characters to escape them, and the characters will output their literal value.
+>
+> 4. 加"\*"号的为PHP语言中没有的功能，是`date-php.js`特有的功能。  
+>    　 Add the "\*" in front is a function not available in the PHP language, and is a feature unique to `date-php.js`.
+>
+> 5. 转农历正常只能转1900-2100之间的200年份。  
+>    　 The conversion to the lunar calendar can only be transferred to 200 years between 1900-2100.
+>
+> 6. 模板字符区分大小写。  
+>    　 Template characters are case sensitive.
+>
+> 7. 支持节假日输出  
+>    　 Support festival output  
+>    　 需要自定义节假日请参考 [_conf.replaceHolidayConf_](#custom) 与 [_conf.editHolidayConf_](#custom)  
+>    　 For custom holidays, please refer to [_conf.replaceHolidayConf_](#custom)  & [_conf.editHolidayConf_](#custom)  
+>
+> 8. 支持[链式](#DateChain)操作<sup style="color:#f33">(1.8.0 + )</sup>
 
 | \# | chars | Description |
 | :--- | :--- | :--- |
@@ -251,7 +260,9 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 | | <span style="color:#999">\*</span>R <sup style="color:#f33">1.7.22+</sup> <sup style="color:#f33">1.7.23*</sup> | 相对时间。如 "3分钟前"、"2小时后"、"刚刚"。<br />Relative time. E.g.: "3分钟前", "2小时后", "刚刚".<br /><br />默认是中文: 如果想换英文或其它国家地区文字, 修改配置项([rowUnitConf](#rowUnitConf))<br />Default: Chinese. Modify config for other languages.([rowUnitConf](#rowUnitConf))<br /><br /><sup style="color:#f33">1.7.23*</sup><br />"刚刚"的默认阈值是 `30` 秒(阈值可在配置项[rowUnitConf](#rowUnitConf)里配置)<br />"just now" threshold defaults to `30` seconds (configurable via [rowUnitConf](#rowUnitConf)). |
 | | | |
 | **时区(Timezone)** | | |
-| | e | 时区标识。UTC，GMT，Atlantic/Azores。 <br />Timezone identifier.Examples: UTC, GMT, Atlantic/Azores |
+| | e | 时区名。Atlantic/Azores <br />Timezone identifier.Examples: Atlantic/Azores |
+| | \*eU<br /><sup style="color:#f33">1.8.0</sup> | UTC时区名 例:UTC+8<br />UTC timezone name. e.g. UTC-8 |
+| | \*eG<br /><sup style="color:#f33">1.8.0</sup> | GMT时区名 例:GMT-8<br />GMT timezone name. e.g. GMT-8 |
 | | I | 是否为夏令时。1:是，0:否 。 <br />Whether or not the date is in daylight saving time. 1 Daylight Saving Time, 0 otherwise. |
 | | O<br /><sup style="color:#f33">1.7.24*</sup> | 与格林威治时间相差的小时数。例如：+0800。 <br />Difference to Greenwich time (GMT) in hours. Example: +0800.<br />跟随 `date.timeZone` 配置。<sup style="color:#f33">1.7.24*</sup> |
 | | P<br /><sup style="color:#f33">1.7.24*</sup> | 与格林威治时间的差别，小时和分钟之间有冒号分隔。例如：+08:00。<br />Difference to Greenwich time (GMT) with colon between hours and minutes. Example: +08:00.<br />跟随 `date.timeZone` 配置。<sup style="color:#f33">1.7.24*</sup><br />Follows the `date.timeZone` configuration.<br /> |
@@ -281,7 +292,112 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
     '2019/07/15 15:38:56' // 字符串日期(String datetime)  
 ```
 [去演练场试一试(try)](https://codepen.io/editor/toviLau/pen/019f47ff-2005-7e2a-bb3d-410fca70ab64/) 
-<br /><br /><br />
+<br /><br />
+
+###### DateChain
+
+### 链式日期操作 (chain) <sup style="color:#f33">(1.8.0+)</sup>
+
+> 用法 / usage：
+>
+> date.chain([dateTime: Date | string | number = Date.now()])
+
+#### 新增 
+
+1. `date.chain()` 链式日期操作入口
+
+2. `DateChain.prototype.add()` 日期加减运算
+
+   > 签名
+
+   ```ts
+   add(
+     num: number, // 时间数量, 正值加时, 负值减时
+     unit: 'year'|'month'|'week'|'day'|'hour'|'minute'|'second'|'millisecond' // 时间单位
+   )
+   ```
+
+3. `DateChain.prototype.prev()` 日期向前推(`add` 的语法糖)
+
+   > 签名
+
+   ```ts
+   prev(
+     num: number, // 最终转为绝对值
+     unit: 'year'|'month'|'week'|'day'|'hour'|'minute'|'second'|'millisecond' // 时间单位
+   )
+   ```
+
+4. `DateChain.prototype.next()` 日期向后推(`add` 的语法糖)
+
+   > 签名
+
+   ```ts
+   prev(
+     num: number, // 最终转为绝对值
+     unit: 'year'|'month'|'week'|'day'|'hour'|'minute'|'second'|'millisecond' // 时间单位
+   )
+   ```
+
+5. `DateChain.prototype.format()` 链式格式化
+
+6. `DateChain.prototype.toDate()` 返回原生 Date
+
+#### 调用示例
+
+```js
+// 创建链式日期对象
+const dc = date.chain();                    // 当前时间
+const dc2 = date.chain('2026-07-17');       // 指定日期
+const dc3 = date.chain(1752681600000);      // 时间戳
+const dc4 = date.chain('Fri Jul 17 2026 09:57:05 GMT+0800 (中国标准时间)');
+
+
+// 日期加减
+dc.add(3, 'day')           // 加3天
+dc.add(-1, 'month')        // 减1个月（负数表示减）
+dc.add(2, 'year')          // 加2年
+dc.add(-10, 'year')        // 减2年
+dc.add(1, 'week')          // 加1周
+dc.add(30, 'minute')       // 加30分钟
+dc.add(500, 'millisecond') // 加500毫秒
+
+// 语义化别名
+dc.prev(2, 'day')         // 向前推2天（等同于 add(-2, 'day')）
+dc.next(1, 'week')        // 向后推1周（等同于 add(1, 'week')）
+
+// 格式化输出
+dc.format('Y-m-d H:i:s')  // "2026-07-17 15:38:56"
+dc.format('C年f月k日')     // "二〇二六年七月十七日"
+
+// 转回原生 Date 对象
+dc.toDate()               // Date 对象
+
+// 链式调用示例1
+date.chain()
+  .add(3, 'day')
+  .format('Y-m-d')        // 三天后的日期
+
+// 链式调用示例2
+date.chain('2026-07-17')
+  .prev(1, 'month')
+  .format('Y-m-d')  // '2026-06-17'
+
+
+// 链式调用示例3
+date.chain(1765432101234)
+  .prev(1, 'year')
+  .next(1, 'month')
+  .prev(1, 'hour')
+  .format('Y-m-d H:i:s.v') 
+'2025-01-11 12:48:21.234'
+```
+
+
+
+
+
+
 
 ### 时区配置/Timezone Configuration <sup style="color:#f33">1.7.23+</sup>
 

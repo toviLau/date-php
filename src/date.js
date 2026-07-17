@@ -281,7 +281,7 @@ const date = function (fmt = "Y-m-d", now = new Date(), ms = true) {
     const currentTimeZone =
         TIMEZONE_MAP[date.timeZone] || date.timeZone || Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-    if (ms === false && typeof now === 'number') now = now * 1000;
+    if (ms === false && typeof now === "number") now = now * 1000;
     const _now = isDate(this) ? this : isDate(now) ? new Date(now) : new Date();
     now = new Date(
         new Date(_now).toLocaleString(lang, {
@@ -291,6 +291,24 @@ const date = function (fmt = "Y-m-d", now = new Date(), ms = true) {
 
     // 获取农历
     const lunarInfo = () => getLunar.solar2lunar(tChars.Y(), tChars.n(), tChars.j());
+
+    /**
+     * 格式化时区偏移量
+     * @param {UTC|GMT} prefix 前缀
+     * @param {boolean} reverseSign 是否反转符号
+     * @returns
+     */
+    const formatTimezoneOffset = (prefix, reverseSign) => {
+        const info = getOffsetInfo(now, currentTimeZone);
+        if (info.hours === 0 && info.minutes === 0) return prefix;
+        const sign = reverseSign ? (info.sign === "+" ? "-" : "+") : info.sign;
+        const hours = info.hours;
+        const minutes = info.minutes;
+        if (minutes > 0) {
+            return `${prefix}${sign}${hours}:${pad(minutes, 2)}`;
+        }
+        return `${prefix}${sign}${hours}`;
+    };
 
     // 模板字串替换函数
     const tChars = {
@@ -391,22 +409,12 @@ const date = function (fmt = "Y-m-d", now = new Date(), ms = true) {
         u: () => tChars.v() * 1e3 + ~~(((performance ? performance.now() : Date.now()) % 1) * 1e3),
         v: () => (_now.getTime() + "").substr(-3) - 0,
 
-        // 时区
-        e: () => TIMEZONE_MAP[date.timeZone] || date.timeZone || Intl.DateTimeFormat().resolvedOptions().timeZone,
+        eU: () => formatTimezoneOffset("UTC", false),
+        eG: () => formatTimezoneOffset("GMT", true),
         // I: () => {
-        //     let DST = null;
-        //     for (var i = 0; i < 12; ++i) {
-        //         const d = new Date(tChars.Y(), i, 1);
-        //         const offset = d.getTimezoneOffset();
 
-        //         if (DST === null) DST = offset;
-        //         else if (offset < DST) {
-        //             DST = offset;
-        //             break;
-        //         } else if (offset > DST) break;
-        //     }
-        //     return (now.getTimezoneOffset() === DST) | 0;
-        // },
+        // 时区名称
+        e: () => TIMEZONE_MAP[date.timeZone] || date.timeZone || Intl.DateTimeFormat().resolvedOptions().timeZone,
         // O: () => (now.getTimezoneOffset() > 0 ? "-" : "+") + pad(Math.abs((now.getTimezoneOffset() / 60) * 100), 4),
         // P: () =>
         //     tChars
@@ -479,8 +487,7 @@ const date = function (fmt = "Y-m-d", now = new Date(), ms = true) {
                 [date.rowUnitConf.Second]: 1e3,
             };
 
-            if (diff > 0 && absDiff <= date.rowUnitConf.threshold)
-                return date.rowUnitConf.justNow;
+            if (diff > 0 && absDiff <= date.rowUnitConf.threshold) return date.rowUnitConf.justNow;
 
             const suffix = diff > 0 ? date.rowUnitConf.before : date.rowUnitConf.after;
 
@@ -499,7 +506,7 @@ const date = function (fmt = "Y-m-d", now = new Date(), ms = true) {
         Object.keys(tChars).forEach((res, idx) => (json[res] = tChars[res]()));
         return json;
     }
-    return fmt.replace(/\\?(([lf][a-z])|([a-z]))/gi, (res, key) => {
+    return fmt.replace(/\\?((e[UG])|([lf][a-z])|([a-z]))/gi, (res, key) => {
         let result = "";
         if (res !== key) {
             result = key;
@@ -516,6 +523,99 @@ const date = function (fmt = "Y-m-d", now = new Date(), ms = true) {
 
 date.timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
+class DateChain {
+    /**
+     *
+     * @param {Date|string|number} dateTime
+     */
+    constructor(dateTime) {
+        this._date = new Date(dateTime === undefined ? Date.now() : dateTime);
+        const _dateString = this._date.toLocaleString();
+        Object.defineProperty(this, "valueOf", {
+            get: () => {
+                return () => (_dateString === "Invalid Date" ? new Date() : this._date);
+            },
+            set: (val) => new Date(val),
+            // writable: true,
+        });
+    }
+
+    /**
+     * 日期计算
+     * @param {number} num 时间数量
+     * @param {string} unit 时间单位 'year' | 'month' | 'week' | 'day' | 'hour' | 'minute' | 'second' | 'millisecond'
+     * @returns {DateChain}
+     */
+    add(num, unit) {
+        const originDate = date("all", this._date);
+        if (
+            unit === undefined &&
+            ["year", "month", "week", "day", "hour", "minute", "second", "millisecond"].includes(num)
+        ) {
+            unit = num;
+            num = 1;
+        }
+
+        switch (unit) {
+            case "year": // 年
+                originDate.Y += num;
+                break;
+            case "month": // 月
+                originDate.n += num;
+                break;
+            case "week": // 周
+                originDate.j += num * 7;
+                break;
+            case "day": // 日
+                originDate.j += num;
+                break;
+            case "hour": // 时
+                originDate.G += num;
+                break;
+            case "minute": // 分�
+                originDate.i = (originDate.i - 0) + num;
+                break;
+            case "second": // 秒
+                originDate.s = (originDate.s - 0) + num;
+                break;
+            case "millisecond": // 毫秒
+                originDate.v = (originDate.v - 0) + num;
+                break;
+            default:
+        }
+        this._date = new Date(
+            originDate.Y,
+            originDate.n - 1,
+            originDate.j - 0,
+            originDate.G - 0,
+            originDate.i - 0,
+            originDate.s - 0,
+            originDate.v - 0,
+        );
+        return this;
+    }
+
+    prev(num, unit) {
+        return this.add(-Math.abs(num), unit);
+    }
+    next(num, unit) {
+        return this.add(Math.abs(num), unit);
+    }
+
+    format(tplChars = "Y-m-d") {
+        return date(tplChars, this._date);
+    }
+
+    toDate() {
+        return new Date(this._date);
+    }
+
+    toString() {
+        return this.valueOf().toString();
+    }
+}
+
+date.chain = (dateTime) => new DateChain(dateTime);
 const lang =
     typeof navigator !== "undefined"
         ? navigator.language || "zh-CN"
