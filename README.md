@@ -7,12 +7,12 @@ JavaScript implements date formatting functions similar to PHP
 [![forks](https://img.shields.io/github/forks/toviLau/date-php)](https://github.com/toviLau/date-php)
 [![github](https://img.shields.io/github/package-json/v/tovilau/date-php?logo=github)](https://github.com/toviLau/date-php)
 [![stars](https://img.shields.io/github/stars/toviLau/date-php)](https://github.com/toviLau/date-php)
-![license](https://img.shields.io/github/license/toviLau/date-php)
-![github last commit](https://img.shields.io/github/last-commit/tovilau/date-php?logo=github)
-[![npm](https://img.shields.io/npm/v/date-php?label=latest&logo=npm)](https://www.npmjs.com/package/date-php) 
-[![npm](https://img.shields.io/npm/v/date-php/alpha?color=orange&logo=npm&label=alpha)](https://www.npmjs.com/package/date-php)  
+[![github last commit](https://img.shields.io/github/last-commit/tovilau/date-php?logo=github)](https://github.com/toviLau/date-php)  
+[![npm1x](https://img.shields.io/npm/v/date-php?label=latest&logo=npm)](https://www.npmjs.com/package/date-php) 
+[![npm2x](https://img.shields.io/npm/v/date-php/alpha?color=orange&logo=npm&label=alpha)](https://www.npmjs.com/package/date-php/v/alpha)
 [![downloads](https://img.shields.io/npm/dm/date-php?logo=npm)](https://www.npmjs.com/package/date-php)
 [![npm bundle size](https://img.shields.io/bundlephobia/minzip/date-php?logo=npm)](https://www.npmjs.com/package/date-php)
+![license](https://img.shields.io/github/license/toviLau/date-php)
 
 
 > 这是一个Javascript模仿类似于PHP日期时间格式化函数，使用方法和PHP非常类似，有丰富的模板字符，并在原来的基础上增强了一些模板字符。例如：中国的农历日期、用汉字来表示日期、十二生肖与星座。让转换日期时间更自由。  
@@ -40,7 +40,7 @@ JavaScript implements date formatting functions similar to PHP
 >
 > 
 >
-> **您现在正在阅读的是 v1.x 文档 [v2文档在这里(TS重构)](https://github.com/toviLau/date-php/blob/next/README.md) 目前优先维护 1.x 系列 **
+> **您现在正在阅读的是 v1.x 文档 [v2文档在这里(TS重构)](https://github.com/toviLau/date-php/blob/next/README.md) 目前优先维护 1.x 系列**
 >
 > **You are viewing v1.x docs. [v2 docs here.(TS rewrite)](https://github.com/toviLau/date-php/blob/next/README.md) Currently focusing on 1.x.**
 
@@ -709,9 +709,9 @@ date.timeZone = 'GMT+5' // 西8区 - 纽约
 date.timeZone = 'UTC-5' // 西8区 - 纽约
 ```
 
-
-
 [去演练场试一试(try)](https://codepen.io/editor/toviLau/pen/019f47ff-2005-7e2a-bb3d-410fca70ab64/) 
+
+
 
 | GMT时区 / GMT timezone | UTC时区 / UTC timezone | IANA 时区名称/IANA time zone name |
 |---| --- | --- |
