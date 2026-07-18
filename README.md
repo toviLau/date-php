@@ -52,6 +52,8 @@ JavaScript implements date formatting functions similar to PHP (v2)
   * getGanZhi
   * 等可独立使用
 
+* 链式调用: [date.chain()](#date.chain(dateTime)) 支持日期计算、比较、边界时间的链式操作
+
 
 ### 快速开始
 
@@ -410,6 +412,63 @@ date('Y-m-d R', new Date() - 60 * 2000); // "2026-07-09 2 minute ago"
 date.duration('D天h小时i分钟s秒', 86400000 + 12345); // "1天00小时00分钟12秒"
 date.duration('H小时i分钟s.v秒', 86400000 + 7654321); // "26小时07分钟34.321秒"
 date.duration('高考倒计时：D天h小时i分钟s秒', 1591491612345 - 1577808654321);
+```
+
+### date.chain(dateTime)
+
+创建链式调用对象，支持日期计算与比较的链式操作。
+
+| 参数 | 类型 | 默认值 | 说明 |
+| :--- | :--- | :--- | :--- |
+| dateTime | `Date\|string\|number` | `Date.now()` | 初始日期时间 |
+
+**返回值：** `DateChain` 实例
+
+#### DateChain 方法
+
+| 方法 | 说明 |
+| :--- | :--- |
+| `.add(obj)` | 传入对象批量加减，如 `{year: 1, month: 2}` |
+| `.add(num, unit)` | 加减日期，正数加、负数减。unit: `'year'\|'month'\|'week'\|'day'\|'hour'\|'minute'\|'second'\|'millisecond'` |
+| `.add(unit)` | 加 1 个 unit，如 `.add('day')` 等同于 `.add(1, 'day')` |
+| `.sub(num, unit)` | 减去指定时间，等同于 `.add(-num, unit)` |
+| `.prev(num, unit)` | 上一个相关日期，num 取绝对值后减（add 语法糖） |
+| `.next(num, unit)` | 下一个相关日期，num 取绝对值后加（add 语法糖） |
+| `.startOfDay()` | 当天开始时间（00:00:00.000） |
+| `.endOfDay()` | 当天结束时间（23:59:59.999） |
+| `.startOfWeek()` | 当周开始时间（周日 00:00:00.000） |
+| `.endOfWeek()` | 当周结束时间（周六 23:59:59.999） |
+| `.startOfMonth()` | 当月开始时间（1号 00:00:00.000） |
+| `.endOfMonth()` | 当月结束时间（最后一天 23:59:59.999） |
+| `.startOfYear()` | 当年开始时间（1月1日 00:00:00.000） |
+| `.endOfYear()` | 当年结束时间（12月31日 23:59:59.999） |
+| `.isBefore(dateTime)` | 是否在指定时间之前 |
+| `.isAfter(dateTime)` | 是否在指定时间之后 |
+| `.isSame(dateTime, unit?)` | 是否与指定时间相同，可指定比较精度（默认 `'day'`） |
+| `.isSameMonth(dateTime)` | 是否同月 |
+| `.isSameYear(dateTime)` | 是否同年 |
+| `.format(tplChars?)` | 格式化输出，默认 `'Y-m-d'` |
+| `.toDate()` | 返回新的 `Date` 对象 |
+| `.toString()` | 返回日期字符串 |
+
+```javascript
+// 链式日期计算
+date.chain().add(1, 'day').format('Y-m-d'); // 明天
+date.chain().add({year: 1, month: 2}).format('Y-m-d'); // 加1年2个月
+date.chain().sub(3, 'day').format('Y-m-d'); // 3天前
+
+// 边界时间
+date.chain().startOfMonth().format('Y-m-d H:i:s'); // 当月1号 00:00:00
+date.chain().endOfYear().format('Y-m-d H:i:s'); // 12月31日 23:59:59
+
+// 日期比较
+date.chain().isBefore(new Date('2025-01-01')); // false
+date.chain().isSame(new Date(), 'year'); // true（同年）
+date.chain().isSameMonth(new Date()); // true
+
+// 从指定时间开始
+date.chain('2025-06-15').add(1, 'month').format('Y-m-d'); // "2025-07-15"
+date.chain(1563148800000).startOfWeek().format('Y-m-d');
 ```
 
 ### date.replaceHolidayConf / date.editHolidayConf

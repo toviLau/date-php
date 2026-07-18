@@ -5,6 +5,7 @@ import { pad, longDays, txt_ordin, txt_months, ordinal, defP, textReplace, textR
 import { TIMEZONE_MAP, getOffsetInfo } from "../timezone";
 import { duration } from "../duration";
 import type { DatePlugin, TChars, PluginContext, DateFunction, iDateOptions } from "../types";
+import DateChain from "./dateChain";
 
 const isDate = (d: unknown): boolean => {
     if (d === null || d === undefined) return false;
@@ -73,13 +74,13 @@ const date = function (
                 `  5. ${D.getTime()}\n`)(new Date(), receivedType),
         );
     }
+    if ([false, 0].includes(isMs) && typeof dateTime === "number") dateTime = dateTime * 1000;
     const _now = isDate(this) ? (this as Date) : isDate(dateTime) ? new Date(dateTime) : new Date();
     dateTime = new Date(
         new Date(_now).toLocaleString(lang, {
             timeZone: TIMEZONE_MAP[date.timeZone] || date.timeZone,
         }),
     );
-    if ([false, 0].includes(isMs)) dateTime = new Date((dateTime as Date).getTime() * 1000);
 
     const _nowDate = dateTime as Date;
     const _year = _nowDate.getFullYear();
@@ -285,5 +286,8 @@ const _apiMap: Record<string, any> = { duration };
 Object.keys(_apiMap).forEach((res) => {
     defP(date, res, _apiMap[res]);
 });
+
+DateChain._dateFn = date;
+date.chain = (dateTime?: Date | string | number): DateChain => new DateChain(dateTime);
 
 export default date;

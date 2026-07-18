@@ -2,550 +2,506 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>DEMO</title>
+    <title>DEMO - date-php</title>
     <script src="../dist/date.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.5.13/vue.global.prod.min.js"></script>
     <style>
-        html, body, .main {
-            height:100%;
+        html,
+        body,
+        .main {
+            height: 100%;
+            overflow: hidden;
+            padding: 0;
+            margin: 0;
+            width: 100%;
         }
 
         .main {
-            width:1260px;
-            margin:0 auto;
-            display:flex;
-            flex-direction:column;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            padding: 0.5em 1em;
+            box-sizing: border-box;
+            flex: 1;
+            overflow: auto;
+        }
+
+        #app {
+            height: 100%;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
         .date-editer {
-            font-size:22px;
-            line-height:2em;
-            padding:1.6em 1em;
-            border:1px solid #ccc;
-            position:relative;
-            margin:1em auto;
-            width:100%;
-            box-sizing:border-box;
+            font-size: 16px;
+            line-height: 2em;
+            padding: 1.6em 0.5em 0.5em;
+            border: 1px solid #ccc;
+            position: relative;
+            margin: 1em auto;
+            width: 100%;
+            box-sizing: border-box;
         }
 
-        .date-editer:before {
-            content:'试一试(try)';
-            position:absolute;
-            top:-1em;
-            left:2em;
-            padding:0 .5em;
-            background-color:#fff;
+        .date-editer::before {
+            content: '试一试(try) - version:' attr(data-version);
+            position: absolute;
+            top: -1em;
+            left: 2em;
+            padding: 0 0.5em;
+            background-color: #fff;
         }
 
         .table {
-            flex:1;
-            overflow:auto;
-            border-right:1px solid #ccc;
-            border-bottom:1px solid #ccc;
-            font-size:12px;
+            flex: 1;
+            overflow: auto;
+            border-right: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+            font-size: 12px;
+        }
+
+        .table #now-time {
+            background-color: #eeeeff;
+        }
+
+        .table td,
+        .table th {
+            border-width: 1px 0 0 1px;
+            border-style: solid;
+            border-color: #ccc;
+            padding: 2px 0;
         }
 
         .table th {
-            line-height:2.2em;
-            background-color:#d9d9d9;
+            line-height: 2.2em;
+            background-color: #d9d9d9;
         }
 
-        .table tbody tr:hover td {
-            background-color:#def;
-        }
-
-        .table tbody tr:nth-child(even) {
-            background-color:#f0f0f0;
-        }
-
-        .table tbody tr:nth-child(odd):hover td:nth-last-child(4) {
-            background-color:#f0f0f0;
-        }
-
-        .table tbody tr:nth-child(odd):hover td:nth-last-child(4) {
-            background-color:#fff;
-        }
-
-        .table td, .table th {
-            border-width:1px 0 0 1px;
-            border-style:solid;
-            border-color:#ccc;
-            padding:2px 0;
-        }
-
-        .table td .block, .table th .block, .table .clock {
-            padding:2px 6px;
-        }
-
-        .table .date-params {
-            color:#c33;
-            font-weight:bold;
-        }
-
-        .table .date-object {
-            color:#393;
-            font-weight:bold;
+        .table .block,
+        .table .clock {
+            padding: 2px 6px;
         }
 
         .table td .block:nth-child(2) {
-            border-top:1px solid #ccc;
+            border-top: 1px solid #ccc;
         }
 
-        .table #now-time tr td {
-            background-color:#eeeeff;
+        .table tbody tr:hover td {
+            background-color: #def;
+        }
+
+        .table tbody tr:nth-child(even) {
+            background-color: #f0f0f0;
+        }
+
+        .table tbody tr:nth-child(odd):hover td:nth-last-child(4) {
+            background-color: #fff;
+        }
+
+        .table .date-params {
+            color: #c33;
+            font-weight: bold;
+        }
+
+        .table .date-object {
+            color: #393;
+            font-weight: bold;
+        }
+
+        .date-time::before {
+            content: attr(data-label);
         }
 
         .tips {
-            color:#ddd;
-            font-size:12px;
-            display:inline-block;
+            color: #ddd;
+            font-size: 12px;
+            display: inline-block;
         }
 
-        .tplChars, .dateObj, .isMs {
-            float:left;
-        }
-
-        .tplChars:after {
-            content:"tplChars?:";
-        }
-
-        .dateObj:after {
-            content:"dateObj?:";
-        }
-
-        .isMs:after {
-            content:"isMs?:";
+        .tips::before {
+            content: attr(data-label);
         }
 
         .date-input {
-            outline:none;
-            border:none;
-            border-bottom:1px dashed #999;
-            font-size:18px;
-            display:inline;
-            /*margin: 0 .5em;*/
-            /*background:transparent;*/
-            /*opacity: 0;*/
-            /*width: 100px;*/
+            outline: none;
+            border: none;
+            border-bottom: 1px dashed #999;
+            font-size: 16px;
+            display: inline;
+            background: none;
+            height: 1.5em;
+            padding: 0 0.35em;
         }
 
         .date-input::placeholder {
-            color:#ddd;
+            color: #ddd;
         }
 
-        .date-input:focus + * {
-            color:#666;
+        .tips:focus-within::before {
+            color: #333;
         }
 
-        .date-input-def {
-            /*color: #ccc;*/
-            width:3em;
+        .tips:focus-within .date-input:focus {
+            border-bottom: 2px solid #666;
+            background-color: #f0fccf;
         }
 
-        .date-input:focus {
-            border-bottom:2px solid #666;
+        .date-input-isms {
+            width: 2.5em;
+        }
+
+        .date-input-template {
+            width: 120px;
+        }
+
+        .date-input-dateTime {
+            width: 120px;
+        }
+
+        .succ {
+            color: #666;
+            white-space: nowrap;
+            font-size: 0.7em;
+            background: #f3f3f3;
+            border: 1px solid #e6e6e6;
+            padding: 0.25em 0.5em;
+            border-radius: 3px;
         }
 
         .fixed-btns {
-            position:fixed;
-            bottom:2em;
-            /*left:50%;*/
-            /*margin-left:480px;*/
+            position: fixed;
+            bottom: 2em;
             right: 1em;
-            width:180px;
-            opacity:.2;
+            width: 180px;
+            opacity: 0.2;
         }
 
         .fixed-btns:hover {
-            opacity:.8;
+            opacity: 0.8;
         }
-        .date-config{
-            resize: none;
-            width:100%;
-            height: 150px;
-            border:none;
-            background-color: #333;
+
+        .time-editer-li {
+            padding: 0.25em 1em;
+            border-radius: 5px;
+        }
+
+        .time-editer-li::before {
+            content: 'date(';
+            margin-right: 0.25em;
+            color: #333;
+        }
+
+        .time-editer-li:focus-within {
+            background-color: #f0f9fc;
+            box-shadow: 0 0 1px #c3c3c3;
+        }
+
+        .time-editer-li.duration::before {
+            content: 'date.duration(';
+        }
+
+        .time-editer-li.chain::before {
+            content: 'date.chain(';
+        }
+
+        .time-editer-li .tips:nth-last-child(2)::after {
+            content: ')';
+            font-size: 20px;
+            margin-right: 0.5em;
+            color: #333;
+        }
+
+        .time-editer-li .tips:not(:last-child)::after {
+            content: ',';
+            font-size: 16px;
+            color: #666;
+            margin-right: 0.25em;
+        }
+
+        .copyright {
+            font-size: 12px;
+            line-height: 2em;
+            text-align: center;
+            background-color: #3c3c3c;
             color: #ccc;
-            box-sizing:border-box;
-            padding: 1em;
-        }
-        .back {
+            border-bottom: 1px solid #f0f0f0;
         }
 
-        .github {
+        .copy-link {
+            color: inherit;
+            text-decoration: none;
         }
 
-        .npm {
-        }
-        .holiday-conf{
-            border: 1px dashed #ccc;
-        }
-        .holiday-conf-area textarea{
-            width: 100%;
-            outline: none;
-            /*border: 1px dotted #ccc;*/
-            border-radius: 6px;
-            resize: none;
-            padding: .5em;
-            height: 150px;
-            background-color: #333;
-            color: #99cc99;
-        }
-        .holiday-conf-area textarea:focus{
-            color: #33cc33;
+        .copy-link:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-<div class="main">
-    <div class="date-editer" id="date-editer">
-        <!--<div>
-            <textarea class="date-config" v-text="editHolidayConf"></textarea>
-        </div>-->
-        <!--<fieldset class="holiday-conf">
-            <legend>节假日配置(holiday config)</legend>
-            <label><input name="holiday-conf" type="radio" v-model="holidayConf.type" value="1"/> date.editHolidayConf </label>
-            <label><input name="holiday-conf" type="radio" v-model="holidayConf.type" value="2"/> date.replaceHolidayConf </label>
-            <div class="holiday-conf-area">
-                <textarea name="holiday-conf" id="holidayConf" cols="30" rows="10" v-model="holidayConf.conf"></textarea>
+<div id="app">
+    <div class="main">
+        <div class="date-editer" :data-version="version">
+            <!--date(...)-->
+            <div class="time-editer-li" v-for="(item, idx) in dataList" :key="idx">
+                <span class="tips" data-label="template?">
+                    <input type="text" class="date-input" placeholder="Y-m-d" v-model="item.template" />
+                </span>
+                <span class="tips" data-label="dateTime?">
+                    <input type="text" class="date-input" :placeholder="Date.now()" v-model="item.dateTime" />
+                </span>
+                <span class="tips" data-label="isMs?">
+                    <input type="text" class="date-input date-input-isms" v-model.trim="item.isMs" placeholder="true" />
+                </span>
+                <span class="succ" v-text="formatDate(item)"></span>
             </div>
-        </fieldset>-->
 
-        <div>
-            date(
-            <span class="tips">
-                <input type="text" class="date-input" placeholder="Y-m-d" v-model="dater1.tplChars"/>
-                <span class="tplChars"></span>
-            </span>,
-            <span class="tips">
-                <input type="text" class="date-input" :placeholder="Date.now()" v-model="dater1.dateObj"/>
-                <span class="dateObj"></span>
-            </span>,
-            <span class="tips">
-                <input type="text" class="date-input date-input-def" v-model="dater1.isMs" placeholder="true"/>
-                <span class="isMs"></span>
-            </span>
-            )
-            <span v-text="fDater1"></span>
+            <!--date.duration(...)-->
+            <div class="time-editer-li duration" v-for="(item, idx) in durationList" :key="'d'+idx">
+                <span class="tips" data-label="template?">
+                    <input type="text" class="date-input date-input-template" placeholder="D天h:i:s" v-model="item.template" />
+                </span>
+                <span class="tips" data-label="datetime?">
+                    <input type="text" class="date-input date-input-dateTime" :placeholder="0" v-model="item.dateTime" />
+                </span>
+                <span class="tips" data-label="isMs?">
+                    <input type="text" class="date-input date-input-isms" v-model="item.isMs" placeholder="true" />
+                </span>
+                <span class="succ" v-text="formatDuration(item)"></span>
+            </div>
         </div>
-        <div>
-            date(
-            <span class="tips">
-                <input type="text" class="date-input" placeholder="Y-m-d" v-model="dater11.tplChars"/>
-                <span class="tplChars"></span>
-            </span>,
-            <span class="tips">
-                <input type="text" class="date-input" :placeholder="Date.now()" v-model="dater11.dateObj"/>
-                <span class="dateObj"></span>
-            </span>,
-            <span class="tips">
-                <input type="text" class="date-input date-input-def" v-model="dater11.isMs" placeholder="true"/>
-                <span class="isMs"></span>
-            </span>
-            )
-            <span v-text="fDater11"></span>
-        </div>
-        <div>
-            date(
-            <span class="tips">
-                <input type="text" class="date-input" placeholder="Y-m-d" v-model="dater2.tplChars"/>
-                <span class="tplChars"></span>
-            </span>,
-            <span class="tips">
-                <input type="text" class="date-input" :placeholder="Date.now()" v-model="dater2.dateObj">
-                <span class="dateObj"></span>
-            </span>,
-            <span class="tips">
-                <input type="text" class="date-input date-input-def" v-model="dater2.isMs" placeholder="true"/>
-                <span class="isMs"></span>
-            </span>
-            )
-            <span v-text="fDater2"></span>
-        </div>
-        <div>
-            date(
-            <span class="tips">
-                <input type="text" class="date-input" placeholder="Y-m-d" v-model="dater3.tplChars"/>
-                <span class="tplChars"></span>
-            </span>,
-            <span class="tips">
-                <input type="text" class="date-input" :placeholder="Date.now()" v-model="dater3.dateObj">
-                <span class="dateObj"></span>
-            </span>
-            )
-            <span v-text="fDater3"></span>
-        </div>
-        <div>
-            date.duration(
-            <span class="tips">
-                <input type="text" class="date-input" placeholder="D天h:i:s" v-model="duration1.tplChars"/>
-                <span class="tplChars"></span>
-            </span>,
-            <span class="tips">
-                <input type="text" class="date-input" :placeholder="0" v-model="duration1.timestamp"/>
-                <span class="dateObj"></span>
-            </span>,
-            <span class="tips">
-                <input type="text" class="date-input date-input-def" v-model="duration1.isMs" placeholder="true"/>
-                <span class="isMs"></span>
-            </span>
-            )
-            <span v-text="fDuration1"></span>
-        </div>
-        <div>
-            date.duration(
-            <span class="tips">
-                <input type="text" class="date-input" placeholder="D天h:i:s" v-model="duration2.tplChars"/>
-                <span class="tplChars"></span>
-            </span>,
-            <span class="tips">
-                <input type="text" class="date-input" :placeholder="0" v-model="duration2.timestamp"/>
-                <span class="dateObj"></span>
-            </span>
-            )
-            <span v-text="fDuration2"></span>
-        </div>
-        <div>
-            date.duration(
-            <span class="tips">
-                <input type="text" class="date-input" placeholder="D天h:i:s" v-model="duration3.tplChars"/>
-                <span class="tplChars"></span>
-            </span>,
-            <span class="tips">
-                <input type="text" class="date-input" :placeholder="0" v-model="duration3.timestamp"/>
-                <span class="dateObj"></span>
-            </span>,
-            <span class="tips">
-                <input type="text" class="date-input date-input-def" placeholder="true" v-model="duration3.isMs">
-                <span class="isMs"></span>
-            </span>
-            )
-            <span v-text="fDuration3"></span>
-        </div>
+
+        <!-- all params table -->
+        <table class="table" border="0" cellspacing="0">
+            <thead id="now-time">
+                <tr>
+                    <td colspan="4">
+                        <div class="clock">
+                            <span data-label="当前时间：" class="date-time"></span>
+                        </div>
+                        <div class="clock">
+                            <span data-label="now time：" class="date-time"></span>
+                        </div>
+                    </td>
+                </tr>
+            </thead>
+            <thead>
+                <tr>
+                    <th>模板字符<br />(Template character)</th>
+                    <th>时间对象<br />(Datetime object)</th>
+                    <th>
+                        代码(
+                        <span class="date-object">时间对象 </span>
+                        <span class="date-params">模板字符</span>
+                        )<br />
+                        code(
+                        <span class="date-object">Datetime object </span>
+                        <span class="date-params">Template character</span>
+                        )
+                    </th>
+                    <th>输出<br />(output)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <template v-for="(item, idx) in chars" :key="idx">
+                    <tr v-for="(cItem, cIdx) in daters" :key="cIdx">
+                        <td :rowspan="daters.length" v-if="cIdx === 0">
+                            <div class="block date-params" v-text="item"></div>
+                        </td>
+                        <td>
+                            <div class="block date-object" v-text="cItem"></div>
+                        </td>
+                        <td>
+                            <div class="block">
+                                date("<span class="date-params" v-text="item"></span>",
+                                <span class="date-object" v-text="cItem"></span>)
+                            </div>
+                            <div class="block">
+                                new Date("<span class="date-object" v-text="cItem"></span>").format("<span class="date-params" v-text="item"></span>")
+                            </div>
+                        </td>
+                        <td>
+                            <div class="block" v-text="date(item, resolveDateTime(cItem))"></div>
+                            <div class="block" v-text="new Date(resolveDateTime(cItem)).format(item)"></div>
+                        </td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
     </div>
 
-    <table class="table" border="0" cellspacing="0">
-        <thead id="now-time">
-        <tr>
-            <td colspan="4">
-                <div class="clock"><span>当前时间：</span> <span class="date-time">--:--</span></div>
-                <div class="clock"><span>now time：</span> <span class="date-time">--:--</span></div>
-            </td>
-        </tr>
-        </thead>
-        <thead>
-        <tr>
-            <th>模板字符<br/>(Template character)</th>
-            <th>时间对象<br/>(Datetime objec)</th>
-            <th>代码(<span class="date-object">时间对象</span> <span class="date-params">模板字符</span>)<br/>code(<span
-                class="date-object">Datetime objec</span> <span class="date-params">Template character</span>)
-            </th>
-            <th>输出<br/>(output)</th>
-        </tr>
-        </thead>
-        <tbody id="tbody">
-        <template v-for="(item, idx) in chars" :key="idx">
-            <tr v-for="(cItem, cIdx) in daters" :key="cIdx">
-                <td :rowspan="daters.length" v-if="cIdx === 0">
-                    <div class="block date-params" v-text="item"></div>
-                    <!--<input type="text" class="date-input date-params" v-model="item"/>-->
-                </td>
-                <td>
-                    <div class="block date-object" v-text="cItem"></div>
-                    <!--<input type="text" class="date-input date-object" v-model="cItem"/>-->
-                </td>
-                <td>
-                    <div class="block">date("<span class="date-params" v-text="item"></span>", <span class="date-object"
-                                                                                                     v-text="cItem"></span>)
-                    </div>
-                    <div class="block">new Date("<span class="date-object" v-text="cItem"></span>").format("<span
-                        class="date-params" v-text="item"></span>")
-                    </div>
-                </td>
-                <td>
-                    <div class="block"
-                         v-text="date(item, new Date(new Date(cItem).valueOf() ? cItem : eval(cItem)))"></div>
-                    <div class="block"
-                         v-text="new Date(new Date(cItem).valueOf() ? cItem : eval(cItem)).format(item)"></div>
-                </td>
-            </tr>
-        </template>
-        </tbody>
-    </table>
+    <div class="copyright">
+        &copy; <a target="_blank" class="copy-link" href="https://www.npmjs.com/package/date-php">ToviLau</a> 2026&ndash;Present
+    </div>
 
     <div class="fixed-btns">
-        <a href="https://github.com/toviLau/date-php" class="back github">
-            <img
-                src="https://img.shields.io/github/package-json/v/tovilau/date-php?label=%E8%BF%94%E5%9B%9E%20Github&logo=github"
-                height="25"
-                alt="返回 Github">
+        <a href="https://github.com/toviLau/date-php" target="_blank" class="back github">
+            <img src="https://img.shields.io/github/package-json/v/tovilau/date-php?label=%E8%BF%94%E5%9B%9E%20Github&logo=github" height="25" alt="返回 Github" />
         </a>
-        <a href="https://www.npmjs.com/package/date-php" class="back npm">
-            <img src="https://img.shields.io/npm/v/date-php?label=%E8%BF%94%E5%9B%9E%20NPM&logo=npm"
-                 height="25"
-                 alt="返回 Npm">
+        <a href="https://www.npmjs.com/package/date-php" target="_blank" class="back npm">
+            <img src="https://img.shields.io/npm/v/date-php?label=%E8%BF%94%E5%9B%9E%20NPM&logo=npm" height="25" alt="返回 Npm" />
         </a>
     </div>
 </div>
+
 <script>
-    new Vue({
-        el: '.main',
-        data: {
-            // date,
-            // editHolidayConf: 'date.editHolidayConf = {\n' +
-            //   `    '0214': ['小三节', 'Other woman day'], // 修改(edit)\n` +
-            //   `    '0715': ['示例节', 'Demo\'s day'], // 修改(edit)\n` +
-            //   `    '#0836': ['纪念日', 'Anniversary day'], // 新增(add)\n` +
-            //   `    '*1213': ['作者生日', 'Author\'s birthday'] // 新增(add)\n` +
-            //   `}`,
-            holidayConf: {
-                type: '1',
-                conf: `{
-    '0214': ['小三节', 'Other woman day'], // 修改(edit)
-    '0715': ['示例节', \`Demo's day\`], // 修改(edit)
-    '#0836': ['纪念日', 'Acommemoration day'], // 新增(add)
-    '*1213': ['作者生日', \`Author's birthday\`] // 新增(add)
-}`
+const { createApp, reactive, ref } = Vue;
+
+createApp({
+    setup() {
+        const _timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+        const version = ref(date.version);
+
+        const dataList = reactive([
+            {
+                template: 'Y-m-d H:i',
+                dateTime: new Date().toString(),
+                isMs: '!false',
             },
-            dater1: {
-                tplChars: 'Y-m-d',
-                dateObj: new Date().getTime(),
-                isMs: true,
+            {
+                template: 'Y-m-d H:i',
+                dateTime: ~~(Date.now() * 0.001),
+                isMs: '!1',
             },
-            dater11: {
-                tplChars: 'R',
-                dateObj: new Date()-0,
-                isMs: true,
+            {
+                template: 'y-m-d',
+                dateTime: Date.now() - 0,
             },
-            dater2: {
-                tplChars: 'Y-m-d H:i:s 周 w, 一年中的 第 W 周 ',
-                dateObj: parseInt(new Date().getTime()*.001),
+            {
+                template: 'm-d H:i 周 w, 第 W 周',
+                dateTime: ~~(Date.now() * 0.001) - 15 * 24 * 60 * 60,
                 isMs: false,
             },
-            dater3: {
-                tplChars: '\\I \\l\\o\\v\\e \\y\\o\\u',
-                dateObj: new Date().getTime(),
+            {
+                template: '\\I \\l\\o\\v\\e \\y\\o\\u',
+                dateTime: Date.now(),
+                isMs: 'true',
             },
-            duration1: {
-                tplChars: 'd天 h小时i分种',
-                timestamp: 86400000 * 1.2345,
+            {
+                template: 'H:i:s R [e]',
+                dateTime: date('Y-m-d H:i:s', Date.now() - 12 * 60 * 1000),
+            },
+            {
+                template: 'H:i:s R [e]',
+                dateTime: new Date(Date.now() - 25 * 1000).getTime(),
                 isMs: true,
             },
-            duration2: {
-                tplChars: 'H小时i分种',
-                timestamp: 86400000 * 1.2345,
+            {
+                template: 'H:i:s R [e]',
+                dateTime: ~~(Date.now() * 0.001),
+                isMs: !true,
             },
-            duration3: {
-                tplChars: 'H小时i分种',
-                timestamp: parseInt(86400000 * 1.2345 * .001),
+        ]);
+
+        const durationList = reactive([
+            {
+                template: 'd天 h小时i分种',
+                dateTime: 106660800,
+                isMs: true,
+            },
+            {
+                template: 'H小时i分种',
+                dateTime: 106660800,
+            },
+            {
+                template: 'H\\hour i\\m\\i\\nute\\s',
+                dateTime: 106660800,
+            },
+            {
+                template: 'H:i:s',
+                dateTime: 106660,
                 isMs: false,
             },
-            daters: [
-                'new Date()',
-                new Date()-0,
-                '2018-01-01',
-                '2020-01-07',
-                '2020-01-24',
-                '2020-05-12',
-                '2020-09-12',
-                '2021-09-13',
-                '2020-10-24',
-                '2019-12-24 20:23:52',
-            ],
-            chars: [
-                'Y-m-d fh - lh',
-                'Y-m-d H:i:s lq lQ q Q n',
-                'Y-m-d 第W周 lq lQ q Q n',
-                'Y-m-d 周w lg lG',
-                '公历(阳历)：C(Y)年f月k日 星期K',
-                '农历(阴历)：lC(lc)年lm月ld lt时lk刻',
-                'ly年lf月lj日 生肖lz lS ls',
-                'lj lf ly lc lC lz lZ la lM',
-                'o-m-d H:i:s.v',
-            ],
-        },
-        created: function () {
-            this.init();
-        },
-        watch:{
-            // editHolidayConf: function (val) {
-            //     eval(val)
-            // }
-        },
-        computed: {
-            fDater1: function () {
-                const dateObj = this.dater1.dateObj === ''
-                  ? Date.now()
-                  : !isNaN(this.dater1.dateObj)
-                    ? parseInt(this.dater1.dateObj)
-                    : this.dater1.dateObj;
-                const isMs = !(this.dater1.isMs === 'false' || this.dater1.isMs === false);
+            {
+                template: 'H:i:s',
+                dateTime: 106660,
+            },
+            {
+                template: 'D \\d\\a\\y h:i:s',
+                dateTime: 106660,
+                isMs: false,
+            },
+        ]);
 
-                return date(this.dater1.tplChars || 'Y-m-d', dateObj, isMs);
-            },
-            fDater11: function () {
-                const dateObj = this.dater11.dateObj === ''
-                  ? Date.now()
-                  : !isNaN(this.dater11.dateObj)
-                    ? parseInt(this.dater11.dateObj)
-                    : this.dater11.dateObj;
-                const isMs = !(this.dater11.isMs === 'false' || this.dater11.isMs === false);
+        const daters = reactive([
+            'new Date()',
+            '2018-01-01',
+            '2020-01-07',
+            '2020-01-24',
+            '2020-05-12',
+            '2020-09-12',
+            '2021-09-13',
+            '2020-10-24',
+            '2019-12-24 20:23:52',
+        ]);
 
-                return date(this.dater11.tplChars || 'Y-m-d', dateObj, isMs);
-            },
-            fDater2: function () {
-                const dateObj = this.dater2.dateObj === ''
-                  ? Date.now()
-                  : !isNaN(this.dater2.dateObj)
-                    ? parseInt(this.dater2.dateObj)
-                    : this.dater2.dateObj;
-                const isMs = !(this.dater2.isMs === 'false' || this.dater2.isMs === false);
+        const chars = reactive([
+            'Y-m-d fh - lh',
+            'Y-m-d H:i:s lq lQ q Q n',
+            'Y-m-d 第W周 lq lQ q Q n',
+            'Y-m-d 周w lg lG',
+            '公历(阳历)：C(Y)年f月k日 星期K',
+            '农历(阴历)：lC(lc)年lm月ld lt时lk刻',
+            'ly年lf月lj日 生肖lz lS ls',
+            'lj lf ly lc lC lz lZ la lM',
+            'o-m-d H:i:s.v',
+        ]);
 
-                return date(this.dater2.tplChars || 'Y-m-d', dateObj, isMs);
-            },
-            fDater3: function () {
-                const dateObj = this.dater3.dateObj === ''
-                  ? Date.now()
-                  : !isNaN(this.dater3.dateObj)
-                    ? parseInt(this.dater3.dateObj)
-                    : this.dater3.dateObj;
-                const isMs = !(this.dater3.isMs === 'false' || this.dater3.isMs === false);
+        const parseBool = (val) => {
+            if (typeof val === 'boolean') return val;
+            if (['', undefined, null].includes(val)) return undefined;
+            const _val = val.match(/(\!*)([^\s]*)/i);
+            const isNot = _val[1].length % 2 === 1;
+            const isFalse = /^(0|false|null|undefined)$/.test(_val[2]);
+            return isNot ? isFalse : !isFalse;
+        };
 
-                return date(this.dater3.tplChars || 'Y-m-d', dateObj, isMs);
-            },
-            fDuration1: function () {
-                return date.duration(this.duration1.tplChars || 'D天h:i:s', !isNaN(this.duration1.timestamp - 0) ? this.duration1.timestamp - 0 : this.duration1.timestamp, this.duration1.isMs === 'false' || this.duration1.isMs === false ? false : true);
-            },
-            fDuration2: function () {
-                return date.duration(this.duration2.tplChars || 'D天h:i:s', !isNaN(this.duration2.timestamp - 0) ? this.duration2.timestamp - 0 : this.duration2.timestamp);
-            },
-            fDuration3: function () {
-                return date.duration(this.duration3.tplChars || 'D天h:i:s', !isNaN(this.duration3.timestamp - 0) ? this.duration3.timestamp - 0 : this.duration3.timestamp, this.duration3.isMs === 'false' || this.duration3.isMs === false ? false : true);
-            },
-        },
-        methods: {
-            init: function () {
-                date.editHolidayConf = {
-                    '*1213': ['作者生日', `Author's birthday`],
-                };
+        const formatDate = (item) => {
+            let dateTime = item.dateTime;
+            if (dateTime && typeof dateTime === 'object' && typeof dateTime.getTime === 'function') {
+                dateTime = dateTime.getTime();
+            } else {
+                const num = Number(dateTime);
+                dateTime = num.toString() !== 'NaN' ? num : dateTime;
+            }
+            return date(item.template || 'Y-m-d', dateTime, parseBool(item.isMs));
+        };
 
-                this.clocker();
-            },
-            clocker: function () {
-                var nowClock = document.getElementsByClassName('date-time');
-                setInterval(() => {
-                    for (let i = 0; i < nowClock.length; i += 1) {
-                        nowClock[i].innerHTML = date('Y-m-d H:i:s.v');
-                    }
-                }, 1000);
-            },
-        },
-    });
+        const formatDuration = (item) => {
+            const ts = item.dateTime - 0;
+            return date.duration(item.template, ts, parseBool(item.isMs));
+        };
+
+        const resolveDateTime = (cItem) => {
+            try {
+                const d = new Date(cItem);
+                if (d.toString() !== 'Invalid Date') return cItem;
+            } catch (e) {}
+            return Date.now();
+        };
+
+        const nowClock = document.getElementsByClassName('date-time');
+        setInterval(() => {
+            for (let i = 0; i < nowClock.length; i += 1) {
+                nowClock[i].innerHTML = date('Y-m-d H:i:s.v');
+            }
+        }, 1000);
+
+        return {
+            version,
+            dataList,
+            durationList,
+            daters,
+            chars,
+            date: date.bind(null),
+            formatDate,
+            formatDuration,
+            resolveDateTime,
+            Date: window.Date,
+        };
+    },
+}).mount('#app');
 </script>
-
-<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
-
-
-<script>LA.init({id:"LFBFrH8ueyH6Iy38",ck:"LFBFrH8ueyH6Iy38",autoTrack:true,hashMode:true,screenRecord:true})</script>
 </body>
 </html>

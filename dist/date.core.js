@@ -1,5 +1,5 @@
 /**
- * date-php.js v2.0.0-alpha.1
+ * date-php.js v2.0.0-alpha.2
  *   :-) date('Y-m-d', 1563148800000) - 这是一个Javascript模仿PHP日期时间格式化函数，使用方法和PHP非常类似，有丰富的模板字符，并在原来的基础上增强了一些模板字符。例如：中国的农历日期、用汉字来表示日期、十二生肖与星座。让转换日期时间更自由。
  *   This is a Javascript mimicking PHP datetime formatting function. It is very similar to PHP, has rich template 
  *   characters, and enhances some template characters on the basis of the original. For example: Chinese Lunar Date,
@@ -259,6 +259,199 @@
         return template.replace(/(\\?([a-z]))/gi, (res, key) => res !== key ? key : tChars[key] ? String(tChars[key]()) : key.replace("\\", ""));
     };
 
+    const VALID_UNITS = ["year", "month", "week", "day", "hour", "minute", "second", "millisecond"];
+    const _throwError = (msg) => {
+        throw new Error("[date-php] " + msg);
+    };
+    const _hasUnit = (unit) => VALID_UNITS.includes(unit);
+    class DateChain {
+        constructor(dateTime) {
+            this._date = new Date(dateTime === undefined ? Date.now() : dateTime);
+            const _dateString = this._date.toLocaleString();
+            Object.defineProperty(this, "valueOf", {
+                get: () => {
+                    return () => (_dateString === "Invalid Date" ? new Date() : this._date);
+                },
+                set: (val) => new Date(val),
+            });
+        }
+        add(numOrObj, unit) {
+            if (numOrObj !== null && typeof numOrObj === "object") {
+                Object.entries(numOrObj).forEach(([key, value]) => {
+                    if (_hasUnit(key))
+                        this.add(value, key);
+                });
+                return this;
+            }
+            let num;
+            let resolvedUnit = unit;
+            if (typeof numOrObj === "string" && _hasUnit(numOrObj)) {
+                resolvedUnit = numOrObj;
+                num = 1;
+            }
+            else {
+                num = numOrObj;
+            }
+            if (num === null || num === undefined || isNaN(num)) {
+                _throwError("add 方法参数错误: num 必须是有效数字");
+            }
+            const d = this._date;
+            const Y = d.getFullYear();
+            const n = d.getMonth();
+            const j = d.getDate();
+            switch (resolvedUnit) {
+                case "year": {
+                    const targetY = Y + num;
+                    const maxDay = new Date(targetY, n + 1, 0).getDate();
+                    d.setFullYear(targetY, n, Math.min(j, maxDay));
+                    break;
+                }
+                case "month": {
+                    const targetN = n + num;
+                    const maxDay = new Date(Y, targetN + 1, 0).getDate();
+                    d.setFullYear(Y, targetN, Math.min(j, maxDay));
+                    break;
+                }
+                case "week":
+                    d.setDate(j + num * 7);
+                    break;
+                case "day":
+                    d.setDate(j + num);
+                    break;
+                case "hour":
+                    d.setHours(d.getHours() + num);
+                    break;
+                case "minute":
+                    d.setMinutes(d.getMinutes() + num);
+                    break;
+                case "second":
+                    d.setSeconds(d.getSeconds() + num);
+                    break;
+                case "millisecond":
+                    d.setMilliseconds(d.getMilliseconds() + num);
+                    break;
+            }
+            return this;
+        }
+        sub(num, unit) {
+            return this.add(-num, unit);
+        }
+        prev(num, unit) {
+            if (typeof num !== "number")
+                _throwError("prev 方法参数 num 必须为数字");
+            if (typeof unit === "string" && !_hasUnit(unit))
+                _throwError("prev 方法参数 unit 必须为有效的时间单位");
+            return this.add(-Math.abs(num), unit);
+        }
+        next(num, unit) {
+            if (typeof num !== "number")
+                _throwError("next 方法参数 num 必须为数字");
+            if (typeof unit === "string" && !_hasUnit(unit))
+                _throwError("next 方法参数 unit 必须为有效的时间单位");
+            return this.add(Math.abs(num), unit);
+        }
+        startOfDay() {
+            const d = this._date;
+            d.setHours(0, 0, 0, 0);
+            return this;
+        }
+        endOfDay() {
+            const d = this._date;
+            d.setHours(23, 59, 59, 999);
+            return this;
+        }
+        startOfWeek() {
+            const d = this._date;
+            const day = d.getDay();
+            d.setDate(d.getDate() - day);
+            d.setHours(0, 0, 0, 0);
+            return this;
+        }
+        endOfWeek() {
+            const d = this._date;
+            const day = d.getDay();
+            d.setDate(d.getDate() + (6 - day));
+            d.setHours(23, 59, 59, 999);
+            return this;
+        }
+        startOfMonth() {
+            const d = this._date;
+            d.setDate(1);
+            d.setHours(0, 0, 0, 0);
+            return this;
+        }
+        endOfMonth() {
+            const d = this._date;
+            d.setMonth(d.getMonth() + 1, 0);
+            d.setHours(23, 59, 59, 999);
+            return this;
+        }
+        startOfYear() {
+            const d = this._date;
+            d.setMonth(0, 1);
+            d.setHours(0, 0, 0, 0);
+            return this;
+        }
+        endOfYear() {
+            const d = this._date;
+            d.setMonth(11, 31);
+            d.setHours(23, 59, 59, 999);
+            return this;
+        }
+        isBefore(dateTime) {
+            return this._date.getTime() < new Date(dateTime).getTime();
+        }
+        isAfter(dateTime) {
+            return this._date.getTime() > new Date(dateTime).getTime();
+        }
+        isSame(dateTime, unit = "day") {
+            const date = this.constructor._dateFn;
+            const a = date("all", this._date);
+            const b = date("all", new Date(dateTime));
+            switch (unit) {
+                case "year":
+                    return a.Y === b.Y;
+                case "month":
+                    return a.Y === b.Y && a.n === b.n;
+                case "week": {
+                    const aStart = new Date(this._date);
+                    aStart.setDate(aStart.getDate() - aStart.getDay());
+                    aStart.setHours(0, 0, 0, 0);
+                    const bStart = new Date(dateTime);
+                    bStart.setDate(bStart.getDate() - bStart.getDay());
+                    bStart.setHours(0, 0, 0, 0);
+                    return aStart.getTime() === bStart.getTime();
+                }
+                case "day":
+                    return a.Y === b.Y && a.n === b.n && a.j === b.j;
+                case "hour":
+                    return a.Y === b.Y && a.n === b.n && a.j === b.j && a.G === b.G;
+                case "minute":
+                    return a.Y === b.Y && a.n === b.n && a.j === b.j && a.G === b.G && a.i === b.i;
+                case "second":
+                    return a.Y === b.Y && a.n === b.n && a.j === b.j && a.G === b.G && a.i === b.i && a.s === b.s;
+                default:
+                    return this._date.getTime() === new Date(dateTime).getTime();
+            }
+        }
+        isSameMonth(dateTime) {
+            return this.isSame(dateTime, "month");
+        }
+        isSameYear(dateTime) {
+            return this.isSame(dateTime, "year");
+        }
+        format(tplChars = "Y-m-d") {
+            const date = this.constructor._dateFn;
+            return date(tplChars, this._date);
+        }
+        toDate() {
+            return new Date(this._date);
+        }
+        toString() {
+            return this.valueOf().toString();
+        }
+    }
+
     /**
      * date-php.js v__VERSION__
      */
@@ -317,12 +510,12 @@
                 `  4. "new Date()"\n` +
                 `  5. ${D.getTime()}\n`)(new Date(), receivedType));
         }
+        if ([false, 0].includes(isMs) && typeof dateTime === "number")
+            dateTime = dateTime * 1000;
         const _now = isDate(this) ? this : isDate(dateTime) ? new Date(dateTime) : new Date();
         dateTime = new Date(new Date(_now).toLocaleString(lang, {
             timeZone: TIMEZONE_MAP[date.timeZone] || date.timeZone,
         }));
-        if ([false, 0].includes(isMs))
-            dateTime = new Date(dateTime.getTime() * 1000);
         const _nowDate = dateTime;
         const _year = _nowDate.getFullYear();
         const _month = _nowDate.getMonth() + 1;
@@ -490,12 +683,14 @@
         after: "\u540e",
     }, date.rowUnitConf || {});
     defP(Date.prototype, "format", date);
-    defP(date, "version", "2.0.0-alpha.1");
+    defP(date, "version", "2.0.0-alpha.2");
     defP(date, "description", () => log("\u6b64 API \u5df2\u7ecf\u5e9f\u5f03\uff0c\u67e5\u770b\u4f7f\u7528\u8bf4\u660e\u8bf7\u79fb\u6b65\u8fd9\u91cc\nhttps://github.com/toviLau/date-php/blob/master/README.md", "warn", "color:#c30"));
     const _apiMap = { duration };
     Object.keys(_apiMap).forEach((res) => {
         defP(date, res, _apiMap[res]);
     });
+    DateChain._dateFn = date;
+    date.chain = (dateTime) => new DateChain(dateTime);
 
     return date;
 
