@@ -15,8 +15,10 @@ JavaScript implements date formatting functions similar to PHP
 ![license](https://img.shields.io/github/license/toviLau/date-php)
 
 
+> 此库的由来: 2013年入坑互联网, 写了三个的PHP,
+>
 > 这是一个Javascript模仿类似于PHP日期时间格式化函数，使用方法和PHP非常类似，有丰富的模板字符，并在原来的基础上增强了一些模板字符。例如：中国的农历日期、用汉字来表示日期、十二生肖与星座。让转换日期时间更自由。  
-> This is a JavaScript library that imitates PHP's date and time formatting functions. It is very similar to PHP in usage, provides rich template characters, and extends them with additional features such as Chinese lunar dates, Chinese character date representation, Chinese zodiac signs, and constellations — giving you more flexibility in date and time conversion.  
+> This is a JavaScript library that provides PHP-style date and time formatting functions. It is very similar to PHP in usage, provides rich template characters, and extends them with additional features such as Chinese lunar dates, Chinese character date representation, Chinese zodiac signs, and constellations — giving you more flexibility in date and time conversion.  
 >
 > 
 >
@@ -110,7 +112,7 @@ yarn add date-php
   >    　 Entry parameters in all of the following ways are optional.
   >
   > 2. 以下`new Date()`或其它的日期时间的初始化的值，我们默许都是 `1563176336000` Unix时间戳对应的日期时间。  
-  >    　 The following `new Date ()` or other date time initialization values, we acquiescence are `1563176336000` Unix timestamp corresponding Datetime.
+  >    　 The following `new Date ()` or other date time initialization values, we assume it corresponds to the Unix timestamp.
   >
   > 3. [_**持续时间/剩余时间/倒计时** 点这里(**duration/countdown** clicked here)_](#use-duration)
   >
@@ -170,17 +172,19 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 >
 > > **如果在date里想输出模板本来的字符，请用转义符--双反斜杠"\\\\"(PHP是一个单反斜杠"\\")。**   
 > > **If you want to output the original character of the template on the date, use the escape character – double backslash "\\\\" (PHP is a single backslash "\\").**  
-> >   举个栗子：   date("\\\\I \\\\l\\\\o\\\\v\\\\e \\\\y\\\\o\\\\u: y-m-d H:i", new Date()) // 输出 "I love you: 19-07-15 15:38"    
-> >    Example: date("\\\\I \\\\l\\\\o\\\\v\\\\e \\\\y\\\\o\\\\u: y-m-d H:i", new Date()) // Output "I love you: 19-07-15 15:38"  
->
-> >   上面栗子中，'I'<sup>(大写的i)</sup>、'l'<sup>(小写的L)</sup>、'o'、'v'、'e'、'y'、'u' 都是模板字符，所以前面加双反斜杠(\\\\)转义，这样字符就会输出本来的值。  
-> >   In the previous example, 'I'<sup>(Uppercase i)</sup>, 'l'<sup>(lowercase L)</sup>, 'o', 'e', 'y', 'u' are all template characters, so add a double backslash (\\) in front of the template characters to escape them, and the characters will output their literal value.
+> > 举个栗子：   date("\\\\I \\\\l\\\\o\\\\v\\\\e \\\\y\\\\o\\\\u: y-m-d H:i", new Date()) // 输出 "I love you: 19-07-15 15:38"    
+> > Example: date("\\\\I \\\\l\\\\o\\\\v\\\\e \\\\y\\\\o\\\\u: y-m-d H:i", new Date()) // Output "I love you: 19-07-15 15:38"  
+> >
+> > 
+> >
+> > 上面栗子中，'I'<sup>(大写的i)</sup>、'l'<sup>(小写的L)</sup>、'o'、'v'、'e'、'y'、'u' 都是模板字符，所以前面加双反斜杠(\\\\)转义，这样字符就会输出本来的值。  
+> > In the previous example, 'I'<sup>(Uppercase i)</sup>, 'l'<sup>(lowercase L)</sup>, 'o', 'e', 'y', 'u' are all template characters, so add a double backslash (\\) in front of the template characters to escape them, and the characters will output their literal value.
 >
 > 4. 加"\*"号的为PHP语言中没有的功能，是`date-php.js`特有的功能。  
->      Add the "\*" in front is a function not available in the PHP language, and is a feature unique to `date-php.js`.
+>      Features marked with "*" are not available in PHP and are unique to `date-php.js`.
 >
 > 5. 转农历正常只能转1900-2100之间的200年份。  
->      The conversion to the lunar calendar can only be transferred to 200 years between 1900-2100.
+>      Lunar calendar conversion is only supported for years between 1900 and 2100 (200 years total).
 >
 > 6. 模板字符区分大小写。  
 >      Template characters are case sensitive.
@@ -201,19 +205,19 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 | | <span style="color:#999">\*</span>k <sup style="color:#f33">1.3.2+</sup> | 月份中的第几天，汉字表示。从"一"到"卅一"。 <br />Day of the month, Chinese character representation. "一" to "卅一". |
 | | D | 星期中的第几天，文本表示，3个字母。从"Mon"到"Sun"。<br />Day of the week, textual representation, three letters. Mon to Sun. |
 | | j | 月份中的第几天，没有前导零。从"1"到"31"。 <br />Day of the month without leading zeros. 1 to 31. |
-| | <span style="color:#999">\*</span>lj <sup style="color:#f33">1.6.0+</sup> | 月份中的第几天(天干地支表示法) 例：'甲子' / '戊戌'。 <br />Day of the month(Heavenly Stems && Earthly Branches  Representation) E.g：'甲子' / '戊戌’. |
-| | <span style="color:#999">\*</span>ld <sup style="color:#f33">1.5.0+</sup>| 农历月份中的第几天。从"初一"到"卅"。  <br />Day of the month of the lunar month. "初一" to "卅" |
-| | <span style="color:#999">\*</span>lt <sup style="color:#f33">1.5.0+</sup> | 中国古代计时单位中的时辰(类似小时，2小时1时辰)。从"子"到"亥"。  <br />The 'shi chen' in the ancient Chinese timing unit(similar to hours, 2 hours of 1 "shi chen"). "子" to "亥" |
-| | <span style="color:#999">\*</span>lg <sup style="color:#f33">1.5.0\*</sup> | 中国古代夜里更时(打更点，一晚五更)。从"1"到"5"。  <br />The "geng" in ancient Chinese night (tapping geng, one night five geng). "1" to "5" |
-| | <span style="color:#999">\*</span>lG <sup style="color:#f33">1.5.0+</sup> | 中国古代夜里更时(打更点，一晚五更)。从"一更"到"五更"。  <br />The "geng" in ancient Chinese night (tapping geng, one night five geng). "一更" to "五更" |
-| | <span style="color:#999">\*</span>lk  <sup style="color:#f33">1.5.0+</sup> | 中国古代计时单位中的刻(类似分钟，一时辰八刻钟)。从"零"到"七"。  <br />The 'ke' in the ancient Chinese timing unit(similar to minutes, 1 "shi cheng" of 8 "ke"). "零" to "七" |
-| | <span style="color:#999">\*</span>fh <sup style="color:#f33">1.6.0+</sup> | 节假日中文: 例如: 元旦节。  <br />holiday in chinese. e.g.: 元旦节  <br /> <br /> !需要自定义节假日请参考  [_`conf.replaceHolidayConf`_](#custom) 与 [_`conf.editHolidayConf`_](#custom) <br />!For custom holidays, please refer to  [_`conf.replaceHolidayConf`_](#custom) & [_`conf.editHolidayConf`_](#custom)|
-| | <span style="color:#999">\*</span>lh <sup style="color:#f33">1.6.0+</sup> | 节假日英文 例如: new Year  <br />holiday in english. e.g.: new Year  <br /> <br />!需要自定义节假日请参考 [_`conf.replaceHolidayConf`_](#custom) 与 [_`conf.editHolidayConf`_](#custom) <br />!For custom holidays, please refer to [_`conf.replaceHolidayConf`_](#custom) & [_`conf.editHolidayConf`_](#custom) |
+| | <span style="color:#999">\*</span>lj <sup style="color:#f33">1.6.0+</sup> | 月份中的第几天(天干地支表示法) 例：'甲子' / '戊戌'。 <br />Day of the month(Heavenly Stems && Earthly Branches  Representation) e.g.：'甲子' / '戊戌’. |
+| | <span style="color:#999">\*</span>ld <sup style="color:#f33">1.5.0+</sup>| 农历月份中的第几天。从"初一"到"卅"。  <br />Day of the month in the lunar calendar. "初一" to "卅" |
+| | <span style="color:#999">\*</span>lt <sup style="color:#f33">1.5.0+</sup> | 中国古代计时单位中的时辰(类似小时，2小时1时辰)。从"子"到"亥"。  <br />The "shi chen" (ancient Chinese time unit, 1 shi chen = 2 hours). "子" to "亥" |
+| | <span style="color:#999">\*</span>lg <sup style="color:#f33">1.5.0\*</sup> | 中国古代夜里更时(打更点，一晚五更)。从"1"到"5"。  <br />The "geng" (ancient Chinese night watch system, 5 watches per night). "1" to "5" |
+| | <span style="color:#999">\*</span>lG <sup style="color:#f33">1.5.0+</sup> | 中国古代夜里更时(打更点，一晚五更)。从"一更"到"五更"。  <br />The "geng" (ancient Chinese night watch system, 5 watches per night). "一更" to "五更" |
+| | <span style="color:#999">\*</span>lk  <sup style="color:#f33">1.5.0+</sup> | 中国古代计时单位中的刻(类似分钟，一时辰八刻钟)。从"零"到"七"。  <br />The "ke" (ancient Chinese time unit, 1/8 of a shi chen, approx. 15 minutes). "零" to "七" |
+| | <span style="color:#999">\*</span>fh <sup style="color:#f33">1.6.0+</sup> | 节假日中文: 例如: 元旦节。  <br />Holiday name in Chinese. e.g.: 元旦节  <br /> <br /> !需要自定义节假日请参考  [_`conf.replaceHolidayConf`_](#custom) 与 [_`conf.editHolidayConf`_](#custom) <br />!For custom holidays, please refer to  [_`conf.replaceHolidayConf`_](#custom) & [_`conf.editHolidayConf`_](#custom) |
+| | <span style="color:#999">\*</span>lh <sup style="color:#f33">1.6.0+</sup> | 节假日英文 例如: new Year  <br />Holiday name in English. e.g.: New Year  <br /> <br />!需要自定义节假日请参考 [_`conf.replaceHolidayConf`_](#custom) 与 [_`conf.editHolidayConf`_](#custom) <br />!For custom holidays, please refer to [_`conf.replaceHolidayConf`_](#custom) & [_`conf.editHolidayConf`_](#custom) |
 | | l | 星期几，完整的文本格式。从"Sunday"到"Saturday"。 <br />A full textual representation of the day of the week. "Sunday" to "Saturday". |
 | | N | ISO-8601格式的星期中的第几天。从"1"(表示星期一)到"7"(表示星期天)。  <br />ISO-8601 numeric representation of the day of the week. 1 (for Monday) to 7 (for Sunday). |
 | | S | 每月天数后面的英文后缀，2 个字符 st/nd/rd/th。可以与 j 很好的配合使用。 <br />English ordinal suffix for the day of the month, 2 characters. st, nd, rd or th. Works well with j. |
 | | w | 星期中的第几天，数字表示。从"0"(表示星期天)到"6"(表示星期六)。 <br />Numeric representation of the day of the week. 0 (for Sunday) to 6 (for Saturday). |
-| | <span style="color:#999">\*</span>K <sup style="color:#f33">1.3.2+</sup> | 星期中的第几天，汉字表示。从"日"(表示星期天)到"六"(表示星期六)。 <br />The Chinese characters of the day of the week indicate. "日"(for Sunday) to "六"(for Saturday). |
+| | <span style="color:#999">\*</span>K <sup style="color:#f33">1.3.2+</sup> | 星期中的第几天，汉字表示。从"日"(表示星期天)到"六"(表示星期六)。 <br />Day of the week in Chinese characters. "日"(for Sunday) to "六"(for Saturday). |
 | | z | 年份中的第几天。从"0"到"365"。 <br />The day of the year. "0" to "365". |
 | | | |
 | **星期(Week)** |  |  |
@@ -222,16 +226,16 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 | **月(Month)** | | |
 | | F | 月份，完整的文本格式。从"January"到"December"。 <br />A full textual representation of a month, such as January or March. "January" to "December". |
 | | <span style="color:#999">\*</span>f <sup style="color:#f33">1.3.2+</sup> | 月份，汉字表示。从"一"到"十二"。 <br />The Chinese characters of the month. "一" to "十二". |
-| | <span style="color:#999">\*</span>lf <sup style="color:#f33">1.6.0+</sup> | 月份(天干地支表示法)。 例：'甲子' / '戊戌'。 <br />The month(Heavenly Stems && Earthly Branches  Representation) E.g：'甲子' / '戊戌’. |
+| | <span style="color:#999">\*</span>lf <sup style="color:#f33">1.6.0+</sup> | 月份(天干地支表示法)。 例：'甲子' / '戊戌'。 <br />The month(Heavenly Stems && Earthly Branches  Representation) e.g.：'甲子' / '戊戌’. |
 | | m | 数字表示的月份，有前导零。"01"到"12" <br />Numeric representation of a month, with leading zeros. "1" to "12" |
 | | M | 三个字母缩写表示的月份。从"Jan"到"Dec" <br />A short textual representation of a month, three letters. "Jan" to "Dec" |
 | | n | 数字表示的月份，没有前导零。"1"到"12" <br />Numeric representation of a month, without leading zeros. "1" to "12" |
 | | <span style="color:#999">\*</span>lM <sup style="color:#f33">1.6.0+</sup> | 农历月份。从"1"到"12" <br />Month of the lunar month. "1" to "12" |
 | | <span style="color:#999">\*</span>lm <sup style="color:#f33">1.5.0+</sup> | 农历月份。从"一"到"十二" <br />Month of the lunar month. "一" to "十二" |
 | | t | 给定月份所应有的天数。 "28"到"31" <br />Number of days in the given month |
-| | <span style="color:#999">\*</span>la <sup style="color:#f33">1.6.0+</sup> | 12星座 <br />12 Constellation |
-| | <span style="color:#999">\*</span>ls <sup style="color:#f33">1.6.0+</sup> | 24节气汉字 <br />24 solar terms Chinese Characters |
-| | <span style="color:#999">\*</span>lS <sup style="color:#f33">1.6.0+</sup> | 24节气英文 <br />24 solar terms English |
+| | <span style="color:#999">\*</span>la <sup style="color:#f33">1.6.0+</sup> | 12星座 <br />12 Constellations |
+| | <span style="color:#999">\*</span>ls <sup style="color:#f33">1.6.0+</sup> | 24节气汉字 <br />24 solar terms in Chinese |
+| | <span style="color:#999">\*</span>lS <sup style="color:#f33">1.6.0+</sup> | 24节气英文 <br />24 solar terms in English |
 | | <span style="color:#999">\*</span>lq <sup style="color:#f33">1.6.0+</sup> | 季度数字 <br />Quarter Number |
 | | <span style="color:#999">\*</span>lQ <sup style="color:#f33">1.6.0+</sup> | 季度汉字 <br />Quarter Number Chinese Characters |
 | | <span style="color:#999">\*</span>q <sup style="color:#f33">1.6.0+</sup> | 季度英文缩写<br />Quarter abbreviations |
@@ -239,11 +243,11 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 | | | |
 | **年(Year)** | | |
 | | L | 是否为闰年。1:是，0:否。 <br />Whether it's a leap year. 1 leap year, 0 otherwise. |
-| | o | ISO-8601格式年份数字。这和 Y 的值类似，星期数（W）属于前一年或下一年，则用那一年。 <br />ISO-8601 week-numbering year. This has the same value as Y, except that if the ISO week number (W) belongs to the previous or next year, that year is used instead. |
+| | o | ISO-8601格式年份数字。这和 Y 的值类似，星期数（W）属于前一年或下一年，则用那一年。 <br />ISO-8601 week-numbering year. This has the same value as Y, except that if the ISO week number (W) belongs to the previous or next year, that year is used instead. |
 | | Y | 4 位数字完整表示的年份。 <br />A full numeric representation of a year, 4 digits. |
 | | y | 2 位数字表示的年份。 <br />A two digit representation of a year. |
 | | <span style="color:#999">\*</span>ly <sup style="color:#f33">1.5.0+</sup> | 农历记年法(天干地支，60年一循环)。从"甲子"到"癸亥" 。<br />Chinese lunar calendar dating system (Heavenly Stems and Earthly Branches, a 60-year cycle). From "Jia Zi" to "Gui Hai". |
-| | <span style="color:#999">\*</span>C <sup style="color:#f33">1.3.2+</sup> | 4 个汉字表示的公历年份。 例: 公历1月1日前: 二〇一九 公历1月1日后: 二〇二〇 <br />Gregorian calendar year represented by 4 Chinese characters. Example: Before January 1st: 二〇一九 (2019); After January 1st: 二〇二〇 (2020).. |
+| | <span style="color:#999">\*</span>C <sup style="color:#f33">1.3.2+</sup> | 4 个汉字表示的公历年份。 例: 公历1月1日前: 二〇一九 公历1月1日后: 二〇二〇 <br />Gregorian calendar year represented by 4 Chinese characters. Example: Before January 1st: 二〇一九 (2019); After January 1st: 二〇二〇 (2020). |
 | | <span style="color:#999">\*</span>lc <sup style="color:#f33">1.6.0+</sup> | 农历年数字 <br />Numeric representation of a lunar year (using 4 Chinese characters). |
 | | <span style="color:#999">\*</span>lC <sup style="color:#f33">1.6.0+</sup> | 4 个汉字表示的农历年汉字。例: 春节前: 二〇一九 春节后: 二〇二〇 <br />Lunar year represented by 4 Chinese characters. Example: Before the Spring Festival: 二〇一九; After the Spring Festival: 二〇二〇. |
 | | <span style="color:#999">\*</span>lz <sup style="color:#f33">1.6.0+</sup> | 生肖 (12年一循环)汉字。从"鼠"到"猪" <br />Chinese Zodiac characters (12-year cycle). From "鼠" to "猪" |
@@ -259,18 +263,18 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 | | H | 24 小时格式，有前导零。"00"到"23"。 <br />24-hour format of an hour with leading zeros. "00" to "23" . |
 | | i | 有前导零的分钟数。"00"到"59"。 <br />Minutes with leading zeros. "00" to "59". |
 | | s | 有前导零的秒数。"00"到"59"。 <br />Seconds with leading zeros. "00" to "59". |
-| | <span style="color:#999">\*</span>u <sup style="color:#f33">1.7.19\*</sup> | 微秒。"0"到"999999"。 <br />Microsecond value range: "0" to "999999". |
-| | <span style="color:#999">\*</span>v <sup style="color:#f33">1.5.0+</sup> | 毫秒。"0"到"999"。 <br />Millisecond value range: "0" to "999". |
-| | <span style="color:#999">\*</span>R <sup style="color:#f33">1.7.22+</sup> <sup style="color:#f33">1.7.23*</sup> | 相对时间。如 "3分钟前"、"2小时后"、"刚刚"。<br />Relative time. E.g.: "3分钟前", "2小时后", "刚刚".<br /><br />默认是中文: 如果想换英文或其它国家地区文字, 修改配置项([rowUnitConf](#rowUnitConf))<br />Default: Chinese. Modify config for other languages.([rowUnitConf](#rowUnitConf))<br /><br /><sup style="color:#f33">1.7.23*</sup><br />"刚刚"的默认阈值是 `30` 秒(阈值可在配置项[rowUnitConf](#rowUnitConf)里配置)<br />"just now" threshold defaults to `30` seconds (configurable via [rowUnitConf](#rowUnitConf)). |
+| | <span style="color:#999">\*</span>u <sup style="color:#f33">1.7.19\*</sup> | 微秒。"0"到"999999"。 <br />Microsecond, with leading zeros. "000000" to "999999". |
+| | <span style="color:#999">\*</span>v <sup style="color:#f33">1.5.0+</sup> | 毫秒。"0"到"999"。 <br />Millisecond, with leading zeros. "000" to "999". |
+| | <span style="color:#999">\*</span>R <sup style="color:#f33">1.7.22+</sup> <sup style="color:#f33">1.7.23*</sup> | 相对时间。如 "3分钟前"、"2小时后"、"刚刚"。<br />Relative time. e.g.: "3分钟前", "2小时后", "刚刚".<br /><br />默认是中文: 如果想换英文或其它国家地区文字, 修改配置项([rowUnitConf](#rowUnitConf))<br />Default: Chinese. Modify config for other languages.([rowUnitConf](#rowUnitConf))<br /><br /><sup style="color:#f33">1.7.23*</sup><br />"刚刚"的默认阈值是 `30` 秒(阈值可在配置项[rowUnitConf](#rowUnitConf)里配置)<br />"just now" threshold defaults to `30` seconds (configurable via [rowUnitConf](#rowUnitConf)). |
 | | | |
 | **时区(Timezone)** | | |
-| | e | 时区名。Atlantic/Azores <br />Timezone identifier.Examples: Atlantic/Azores |
-| | \*eU<br /><sup style="color:#f33">1.8.0+</sup> | UTC时区名 例:UTC+8<br />UTC timezone name. e.g. UTC-8 |
+| | e | 时区名。Atlantic/Azores <br />Timezone identifier. Examples: Atlantic/Azores |
+| | \*eU<br /><sup style="color:#f33">1.8.0+</sup> | UTC时区名 例:UTC+8<br />UTC timezone name. e.g. UTC+8 |
 | | \*eG<br /><sup style="color:#f33">1.8.0+</sup> | GMT时区名 例:GMT-8<br />GMT timezone name. e.g. GMT-8 |
 | | I | 是否为夏令时。1:是，0:否 。 <br />Whether or not the date is in daylight saving time. 1 Daylight Saving Time, 0 otherwise. |
 | | O<br /><sup style="color:#f33">1.7.24*</sup> | 与格林威治时间相差的小时数。例如：+0800。 <br />Difference to Greenwich time (GMT) in hours. Example: +0800.<br />跟随 `date.timeZone` 配置。<sup style="color:#f33">1.7.24*</sup> |
 | | P<br /><sup style="color:#f33">1.7.24*</sup> | 与格林威治时间的差别，小时和分钟之间有冒号分隔。例如：+08:00。<br />Difference to Greenwich time (GMT) with colon between hours and minutes. Example: +08:00.<br />跟随 `date.timeZone` 配置。<sup style="color:#f33">1.7.24*</sup><br />Follows the `date.timeZone` configuration.<br /> |
-| | T | 本机所在的时区。例如：EST，MDT。 <br />Timezone abbreviation.  Examples: EST, MDT, |
+| | T | 本机所在的时区。例如：EST，MDT。 <br />Timezone abbreviation.  Examples: EST, MDT. |
 | | Z<br /><sup style="color:#f33">1.7.24*</sup> | 时差偏移量的秒数。<br />Timezone offset in seconds.<br />跟随 `date.timeZone` 配置。<sup style="color:#f33">1.7.24*</sup><br />Follows the `date.timeZone` configuration.<br /> |
 | | | |
 | **完整的日期／时间<br />(Full Date/Time)** | | |
@@ -306,40 +310,37 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 >
 > date.chain([dateTime: Date | string | number = Date.now()])
 
-#### 新增
+* `date.chain()` 链式日期操作入口 / Entry point for chainable date operations.
+* DateChain.prototype.add()` 日期加减运算(核心方法) / Date arithmetic (core method)
 
-1. `date.chain()` 链式日期操作入口 / Entry point for chainable date operations.
+###### add
 
-2. `DateChain.prototype.add()` 日期加减运算(核心方法) / Date arithmetic (core method)
+> **注意: `add(obj: AddObject)` AddObject里的 key:value 的先后顺序决定执行顺序**
+> **Note: `add(obj: AddObject)` The order of keys in AddObject determines the execution order.**
 
-   ###### add 
+```ts
+type TimeUnit = "year" | "month" | "week" | "day" | "hour" | "minute" | "second" | "millisecond";
+interface AddObject {
+    year?: number;
+    month?: number;
+    week?: number;
+    day?: number;
+    hour?: number;
+    minute?: number;
+    second?: number;
+    millisecond?: number;
+}
+// 单次操作 / Single execution 1.8.0+
+date.chain().add(num: number, unit: TimeUnit): this;
+date.chain().add(unit: TimeUnit): this; // 简写，等同于 `add(1, unit)
 
-   > **注意: `add(obj: AddObject)` AddObject里的 key:value 的先后顺序决定执行顺序**
-   > **Note: `add(obj: AddObject)` executes keys in order.**
+// 批量操作/Batch execution 1.8.1+
+date.chain().add(obj: AddObject): this; 
+```
 
-   ```ts
-   type TimeUnit = "year" | "month" | "week" | "day" | "hour" | "minute" | "second" | "millisecond";
-   interface AddObject {
-       year?: number;
-       month?: number;
-       week?: number;
-       day?: number;
-       hour?: number;
-       minute?: number;
-       second?: number;
-       millisecond?: number;
-   }
-   // 单次操作 / Single execution 1.8.0+
-   date.chain().add(num: number, unit: TimeUnit): this;
-   date.chain().add(unit: TimeUnit): this; // 简写，等同于 `add(1, unit)
-   
-   // 批量操作/Batch execution 1.8.1+
-   date.chain().add(obj: AddObject): this; 
-   ```
+1. `DateChain.prototype.prev()` 日期向前推([add](#add) 的语法糖) / Moves the date backward. Syntactic sugar for `add()`.
 
-3. `DateChain.prototype.prev()` 日期向前推([add](#add) 的语法糖) / Moves date backward. Sugar for `add()`.
-
-   > 同 add(num: number, unit: TimeUnit): this;
+   > 同 `add(num: number, unit: TimeUnit): this`;
    >
    > Same as `add(num: number, unit: TimeUnit): this;`
    >
@@ -365,11 +366,11 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 
    
 
-4. `DateChain.prototype.next()` 日期向后推([add](#add) 的语法糖) / Moves forward. Syntactic sugar for `add()`.
+2. `DateChain.prototype.next()` 日期向后推([add](#add) 的语法糖) / Moves the date forward. Syntactic sugar for `add()`.
 
-   > 同 add(num: number, unit: TimeUnit): this;
+   > 同 `add(num: -number, unit: TimeUnit): this`;
    >
-   > Same as `add(num: number, unit: TimeUnit): this;`
+   > Same as `add(num: -number, unit: TimeUnit): this;`
    >
    > `num`: **number**, // 最终转为绝对值 / Converts to absolute value.
 
@@ -392,7 +393,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 
    
 
-5. `DateChain.prototype.format(tplChars?)` 链式格式化 / Chainable formatting.
+3. `DateChain.prototype.format(tplChars?)` 链式格式化 / Chainable formatting.
 
    > format(tplChars?):string|{Object}
    >
@@ -404,7 +405,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 
    
 
-6. `DateChain.prototype.toDate()` 返回原生 Date / Returns native Date.
+4. `DateChain.prototype.toDate()` 返回原生 Date / Returns native Date.
 
    > toDate():Date
 
@@ -414,7 +415,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 
    
 
-7. `DateChain.prototype.startOfDay()` 
+5. `DateChain.prototype.startOfDay()` 
 
    当天开始时间 / Beginning of day (00:00:00.000)<sup style="color:#f33">(1.8.1+)</sup>
 
@@ -426,7 +427,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 
    
 
-8. `DateChain.prototype.endOfDay()` 
+6. `DateChain.prototype.endOfDay()` 
 
    当天结束时间 / End of day (23:59:59.999)<sup style="color:#f33">(1.8.1+)</sup>
 
@@ -438,7 +439,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 
    
 
-9. `DateChain.prototype.startOfWeek()` 
+7. `DateChain.prototype.startOfWeek()` 
 
    当周开始时间 / Start of the week (周日 / sun. 00:00:00.000)<sup style="color:#f33">(1.8.1+)</sup>
 
@@ -451,33 +452,33 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 
    
 
-10. `DateChain.prototype.endOfWeek()` 
+8. `DateChain.prototype.endOfWeek()` 
 
-    当周结束时间 / Start of the week (周六 / Sat. 23:59:59.999)<sup style="color:#f33">(1.8.1+)</sup>
+   当周结束时间 / End of the week (周六 / Sat. 23:59:59.999)<sup style="color:#f33">(1.8.1+)</sup>
 
-    > 默认首周: 周日 / Default week start: Sun.
-    > endOfWeek():DateChain
+   > 默认首周: 周日 / Default week start: Sun.
+   > endOfWeek():DateChain
 
-    ```ts
-    date.chain().endOfWeek():DateChain;
-    ```
+   ```ts
+   date.chain().endOfWeek():DateChain;
+   ```
 
-    
+   
 
-11. `DateChain.prototype.startOfMonth()` 
+9. `DateChain.prototype.startOfMonth()` 
 
-    当月开始时间 / Start of the month (1号 / 1# 00:00:00.000)<sup style="color:#f33">(1.8.1+)</sup>
+   当月开始时间 / Start of the month (1号 / 1# 00:00:00.000)<sup style="color:#f33">(1.8.1+)</sup>
 
-    > 当月第一天 / First day of the month
-    > startOfMonth():DateChain
+   > 当月第一天 / First day of the month
+   > startOfMonth():DateChain
 
-    ```ts
-    date.chain().startOfMonth():DateChain;
-    ```
+   ```ts
+   date.chain().startOfMonth():DateChain;
+   ```
 
-    
+   
 
-12. `DateChain.prototype.endOfMonth()` 
+10. `DateChain.prototype.endOfMonth()` 
 
     当月结束时间/End of the month (最后一天 23:59:59.999)<sup style="color:#f33">(1.8.1+)</sup>
 
@@ -491,7 +492,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 
     
 
-13. `DateChain.prototype.startOfYear()` 
+11. `DateChain.prototype.startOfYear()` 
 
     当年开始时间 / Start of the year (1月1日 00:00:00.000)<sup style="color:#f33">(1.8.1+)</sup>
 
@@ -503,7 +504,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 
     
 
-14. `DateChain.prototype.endOfYear()` 
+12. `DateChain.prototype.endOfYear()` 
 
     当年结束时间 / End of the year(12月31日 23:59:59.999)<sup style="color:#f33">(1.8.1+)</sup>
 
@@ -515,9 +516,9 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 
     
 
-15. `DateChain.prototype.isBefore(dateTime)` 
+13. `DateChain.prototype.isBefore(dateTime)` 
 
-    是否在指定时间之前 / Checks if before a specified time<sup style="color:#f33">(1.8.1+)</sup>
+    是否在指定时间之前 / Checks if the current date is before a specified time<sup style="color:#f33">(1.8.1+)</sup>
 
     > isBefore(): boolean
 
@@ -527,9 +528,9 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 
     
 
-16. `DateChain.prototype.isAfter(dateTime)` 
+14. `DateChain.prototype.isAfter(dateTime)` 
 
-    是否在指定时间之后 / Checks if after a specified time<sup style="color:#f33">(1.8.1+)</sup>
+    是否在指定时间之后 / Checks if the current date is after a specified time<sup style="color:#f33">(1.8.1+)</sup>
 
     > isAfter(): boolean
 
@@ -539,7 +540,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 
     
 
-17. `DateChain.prototype.isSame(dateTime, unit?:TimeUnit)` 
+15. `DateChain.prototype.isSame(dateTime, unit?:TimeUnit)` 
 
     是否在指定时间相同 (支持粒度比较) / Same as target time (with granularity support).<sup style="color:#f33">(1.8.1+)</sup>
 
@@ -551,7 +552,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 
     
 
-18. `DateChain.prototype.isSameMonth(dateTime)` 
+16. `DateChain.prototype.isSameMonth(dateTime)` 
 
     是否在指定时间同月/Is in the same month as the target<sup style="color:#f33">(1.8.1+)</sup>
 
@@ -563,7 +564,7 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 
     
 
-19. `DateChain.prototype.isSameYear(dateTime)` 
+17. `DateChain.prototype.isSameYear(dateTime)` 
 
     是否在指定时间同年 / Is in the same year as the target<sup style="color:#f33">(1.8.1+)</sup>
 
@@ -610,8 +611,6 @@ dc.add({ // "2027-09-14"
 }).format('Y-m-d') // 不要忘记 format()/Don't forget format()!
 
 // 链式调用示例2 / chain demo 1
-// 注意: add(obj: AddObject) AddObject里的 key:value 的先后顺序决定执行顺序
-// Note: add(obj: AddObject) executes keys in order.
 date.chain('2026-07-17')
     .next(2 ** 32, 'second') // +4294967296 秒/second
     .prev(2 ** 6, 'day') // -64 day/天 
@@ -620,8 +619,6 @@ date.chain('2026-07-17')
     .format('Y-m-d H:i:s')   // 2162-02-25 14:28:16
 
 // 链式调用示例3 /  chain demo 2
-// 注意: add(obj: AddObject) AddObject里的 key:value 的先后顺序决定执行顺序
-// Note: add(obj: AddObject) executes keys in order.
 date.chain(1765432101234)
   .prev(1, 'year') 
   .next(2, 'month')
@@ -629,7 +626,9 @@ date.chain(1765432101234)
   // more chain...
   .format('Y-m-d H:i:s.v')  // 2025-02-11 12:48:21.234
 
- // 链式调用示例3: 批量加减(等同: 链式调用示例2)
+// 链式调用示例3: 批量加减(等同: 链式调用示例2)
+// 注意: add(obj: AddObject) AddObject里的 key:value 的先后顺序决定执行顺序
+// Note: add(obj: AddObject) executes keys in order.
 date.chain(1765432101234)
     .add({
         year: -1, // 上一年
@@ -851,20 +850,20 @@ date.rowUnitConf = {
     '1226': ['毛泽东诞辰', `Zedong Mao birthday`],
     '1117': ['世界学生日', `World student's day`],
     '1201': ['世界艾滋病日', `World AIDS day`],
-    '*0101': ['春节', 'Chinese year'],
-    '*0115': ['元宵节', 'Lantern day'],
-    '*0202': ['龙头节', 'Dragon head day'],
-    '*0505': ['端午节', 'Dragon boat day'],
-    '*0707': ['乞巧节', 'Qi qiao day'],
-    '*0715': ['中元节', 'Ghost day'],
-    '*0815': ['中秋节', 'Moon day'],
-    '*0909': ['重阳节', 'Chongyang day'],
-    '*1001': ['寒衣节', 'Winter clothing day'],
+    '*0101': ['春节', 'Spring Festival'],
+    '*0115': ['元宵节', 'Lantern Festival'],
+    '*0202': ['龙头节', 'Dragon Head Raising Festival'],
+    '*0505': ['端午节', 'Dragon Boat Festival'],
+    '*0707': ['七夕节', 'Qixi Festival'],
+    '*0715': ['中元节', 'Hungry Ghost Festival'],
+    '*0815': ['中秋节', 'Mid-Autumn Festival'],
+    '*0909': ['重阳节', 'Double Ninth Festival'],
+    '*1001': ['寒衣节', 'Winter Clothing Festival'],
     '*1015': ['下元节', 'Xiayuan day'],
-    '*1208': ['腊八节', 'Laba day'],
-    '*1223': ['祭灶节', 'Stove day'],
-    '*1229': lunarInfo.isLeap ? ['除夕', `Year's Eve`] : '',
-    '*1230': lunarInfo.isLeap ? '' : ['除夕', `Year's Eve`],
+    '*1208': ['腊八节', 'Laba Festival'],
+    '*1223': ['祭灶节', 'Kitchen God Festival'],
+    '*1229': lunarInfo.isLeap ? ['除夕', `Chinese New Year's Eve`] : '',
+    '*1230': lunarInfo.isLeap ? '' : ['除夕', `Chinese New Year's Eve`],
     '#0520': ['母亲节', `Mother's day`],
     '#0630': ['父亲节', `Father's day`],
     '@0256': ['俄罗斯程序员节', `Russian programmer's day`]
@@ -925,7 +924,7 @@ date.rowUnitConf = {
 
  > 用法 / usage：
  > date.duration([tplChars:string='D天h:i:s'[, duration:number=0 [,isMs: boolean=true]]])
- > date.duration(['模板字符'[, 持续时间:时间戳 [,是否毫秒: true]]]) 
+ > date.duration(['模板字符'[, 持续时间(相对时间):时间戳 [,是否毫秒: true]]]) 
  >
  > 
  >
@@ -983,8 +982,8 @@ date.rowUnitConf = {
 >
 > ![time clock](https://tovilau.github.io/date-php/img.md/clock.gif)  
 >
-> 咦！这个时间的毫秒是不是有点怪？这是所有基于“事件循环”的定时器（包括 `setInterval` 和 `setTimeout`）共有的特性，并非代码有 BUG ([_**MDN**_](https://developer.mozilla.org/en-US/docs/Web/API/Window/setTimeout#reasons_for_longer_delays_than_specified) 上有说明)。(虽然这只是一张图片^\_^，但目的是抛出Javascript确实存在的问题。) 简单的讲这与`事件循环`或 `cpu 时间片`的执行有关
-> Hmm, is the millisecond part of this time looking a bit off? That's a known quirk of [_**setInterval**_](https://developer.mozilla.org/en-US/docs/Web/API/Window/setTimeout#reasons_for_longer_delays_than_specified)  ([_**MDN**_](https://developer.mozilla.org/en-US/docs/Web/API/Window/setTimeout#reasons_for_longer_delays_than_specified) has a detailed explanation). Although this is just a static image ^_^, it highlights a real issue that exists in JavaScript. In simple terms, it all comes down to the `event loop` and `CPU time slice` scheduling.
+> 咦！这个时间的毫秒是不是有点怪？这是所有基于“事件循环”的定时器（包括 `setInterval` 和 `setTimeout`）共有的特性，并非代码有 BUG ([_**MDN**_](https://developer.mozilla.org/en-US/docs/Web/API/Window/setInterval) 上有说明)。(虽然这只是一张图片^\_^，但目的是抛出Javascript确实存在的问题。) 简单的讲这与`事件循环`或 `cpu 时间片`的执行有关
+> Hmm, is the millisecond part of this time looking a bit off? That's a known quirk of [_**setInterval**_](https://developer.mozilla.org/en-US/docs/Web/API/Window/setInterval)  ([_**MDN**_](https://developer.mozilla.org/en-US/docs/Web/API/Window/setInterval) has a detailed explanation). Although this is just a static image ^_^, it highlights a real issue that exists in JavaScript. In simple terms, it all comes down to the `event loop` and `CPU time slice` scheduling.
 
 
 ```html
