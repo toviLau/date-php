@@ -1,5 +1,5 @@
 /**
- * date-php.js v2.0.0-alpha.2
+ * date-php.js v2.0.0-alpha.3
  *   :-) date('Y-m-d', 1563148800000) - 这是一个Javascript模仿PHP日期时间格式化函数，使用方法和PHP非常类似，有丰富的模板字符，并在原来的基础上增强了一些模板字符。例如：中国的农历日期、用汉字来表示日期、十二生肖与星座。让转换日期时间更自由。
  *   This is a Javascript mimicking PHP datetime formatting function. It is very similar to PHP, has rich template 
  *   characters, and enhances some template characters on the basis of the original. For example: Chinese Lunar Date,
@@ -479,6 +479,16 @@
         : color
             ? console[type]("%c[date-php] " + msg, color)
             : console[type]("[date-php] " + msg);
+    function getTimezone() {
+        if (typeof Intl !== "undefined" && Intl.DateTimeFormat) {
+            return Intl.DateTimeFormat().resolvedOptions().timeZone;
+        }
+        // 回退方案:通过偏移量推断
+        const offset = -new Date().getTimezoneOffset() / 60;
+        const sign = offset >= 0 ? "+" : "-";
+        const absOffset = Math.abs(offset);
+        return TIMEZONE_MAP[`GMT${sign}${absOffset}`] || `Etc/GMT${sign}${absOffset}`;
+    }
     const date = function (templateOrOptions, dateTime = new Date(), isMs = true) {
         var _a, _b, _c, _d;
         let template = "Y-m-d";
@@ -494,7 +504,7 @@
             log("参数1必须为字符串类型/Param 1 must be string.");
             template = "Y-m-d H:i:s";
         }
-        const currentTimeZone = TIMEZONE_MAP[date.timeZone] || date.timeZone || Intl.DateTimeFormat().resolvedOptions().timeZone;
+        const currentTimeZone = TIMEZONE_MAP[date.timeZone] || date.timeZone || getTimezone();
         if (!isDate(dateTime)) {
             let receivedType = typeOf(dateTime);
             dateTime = new Date();
@@ -579,7 +589,7 @@
             s: () => pad(dateTime.getSeconds(), 2),
             u: () => tChars.v() * 1e3 + ~~(((typeof performance !== "undefined" ? performance.now() : Date.now()) % 1) * 1e3),
             v: () => Number((_now.getTime() + "").slice(-3)) - 0,
-            e: () => TIMEZONE_MAP[date.timeZone] || date.timeZone || Intl.DateTimeFormat().resolvedOptions().timeZone,
+            e: () => TIMEZONE_MAP[date.timeZone] || date.timeZone || getTimezone(),
             O: () => getOffsetInfo(dateTime, currentTimeZone).O,
             P: () => getOffsetInfo(dateTime, currentTimeZone).P,
             I: () => {
@@ -668,7 +678,7 @@
         }
         return date;
     };
-    date.timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    date.timeZone = getTimezone();
     date.rowUnitConf = Object.assign({
         threshold: 3e4,
         Year: "\u5e74",
@@ -683,7 +693,7 @@
         after: "\u540e",
     }, date.rowUnitConf || {});
     defP(Date.prototype, "format", date);
-    defP(date, "version", "2.0.0-alpha.2");
+    defP(date, "version", "2.0.0-alpha.3");
     defP(date, "description", () => log("\u6b64 API \u5df2\u7ecf\u5e9f\u5f03\uff0c\u67e5\u770b\u4f7f\u7528\u8bf4\u660e\u8bf7\u79fb\u6b65\u8fd9\u91cc\nhttps://github.com/toviLau/date-php/blob/master/README.md", "warn", "color:#c30"));
     const _apiMap = { duration };
     Object.keys(_apiMap).forEach((res) => {

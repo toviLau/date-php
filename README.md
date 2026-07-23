@@ -32,6 +32,8 @@ JavaScript implements date formatting functions similar to PHP (v2)
 ### 2.0 重大更新
 
 > 2.0 版本用 `TS` 重构，引入**插件系统**，实现**按需加载**，支持**摇树**, 大幅减小核心包体积。
+>
+> 保留1.0的 API 使用方式
 
 * 插件架构: 核心功能与农历、节假日等功能解耦，通过 `date.use()` 按需注册插件
 * Core 轻量版: 仅包含基础日期格式化，体积缩小约 60%
@@ -99,15 +101,15 @@ date.duration('D天h小时i分钟s.v秒',  86400000 - 12345) // 0天23小时59�
 ### 安装(install)
 
 ```shell
-# npm（安装 alpha 版本, 请勿用于生产环境, 些版本 API 可能会调整）
+# npm（安装 alpha 版本, 请勿用于生产环境, 正式版某些 API 可能会调整, 尽量保留1.0 api一样的使用方式）
 npm i date-php@alpha
 
-# yarn（安装 alpha 版本, 请勿用于生产环境, 些版本 API 可能会调整）
+# yarn（安装 alpha 版本, 请勿用于生产环境, 正式版某些 API 可能会调整, 尽量保留1.0 api一样的使用方式）
 yarn add date-php@alpha
 
-# CDN（注意：CDN 无法直接指定 "alpha" 标签，需指定具体版本号，例如 2.0.0-alpha.1）
+# CDN（注意：CDN 无法直接指定 "alpha" 标签，需指定具体版本号，例如 2.0.0-alpha.2）
 # 查看最新 alpha 版本：https://www.npmjs.com/package/date-php?activeTab=versions
-<script src="https://unpkg.com/date-php@2.0.0-alpha.1" />
+<script src="https://unpkg.com/date-php@2.0.0-alpha.2" />
 ```
 
 

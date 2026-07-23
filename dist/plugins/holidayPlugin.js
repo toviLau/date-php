@@ -1,5 +1,5 @@
 /**
- * date-php.js v2.0.0-alpha.2
+ * date-php.js v2.0.0-alpha.3
  *   :-) date('Y-m-d', 1563148800000) - 这是一个Javascript模仿PHP日期时间格式化函数，使用方法和PHP非常类似，有丰富的模板字符，并在原来的基础上增强了一些模板字符。例如：中国的农历日期、用汉字来表示日期、十二生肖与星座。让转换日期时间更自由。
  *   This is a Javascript mimicking PHP datetime formatting function. It is very similar to PHP, has rich template 
  *   characters, and enhances some template characters on the basis of the original. For example: Chinese Lunar Date,
@@ -296,20 +296,20 @@
             "1226": ["毛泽东诞辰", `Zedong Mao birthday`],
             "1117": ["世界学生日", `World student's day`],
             "1201": ["世界艾滋病日", `World AIDS day`],
-            "*0101": ["春节", "Chinese year"],
-            "*0115": ["元宵节", "Lantern day"],
-            "*0202": ["龙头节", "Dragon head day"],
-            "*0505": ["端午节", "Dragon boat day"],
-            "*0707": ["乞巧节", "Qi qiao day"],
-            "*0715": ["中元节", "Ghost day"],
-            "*0815": ["中秋节", "Moon day"],
-            "*0909": ["重阳节", "Chongyang day"],
-            "*1001": ["寒衣节", "Winter clothing day"],
-            "*1015": ["下元节", "Xiayuan day"],
-            "*1208": ["腊八节", "Laba day"],
-            "*1223": ["祭灶节", "Stove day"],
-            "*1229": lunarInfo.isLeap ? ["除夕", `Year's Eve`] : undefined, // 闰年除夕在12月29日
-            "*1230": lunarInfo.isLeap ? undefined : ["除夕", `Year's Eve`], // 非闰年除夕在12月30日
+            "*0101": ["春节", "Spring Festival"],
+            "*0115": ["元宵节", "Lantern Festival"],
+            "*0202": ["龙头节", "Dragon Head Raising Festival"],
+            "*0505": ["端午节", "Dragon Boat Festival"],
+            "*0707": ["七夕节", "Qixi Festival"],
+            "*0715": ["中元节", "Hungry Ghost Festival"],
+            "*0815": ["中秋节", "Mid-Autumn Festival"],
+            "*0909": ["重阳节", "Double Ninth Festival"],
+            "*1001": ["寒衣节", "Winter Clothing Festival"],
+            "*1015": ["下元节", "Xiayuan Festival"],
+            "*1208": ["腊八节", "Laba Festival"],
+            "*1223": ["祭灶节", "Kitchen God Festival"],
+            "*1229": lunarInfo.isLeap ? ["除夕", `Chinese New Year's Eve`] : undefined, // 闰年除夕在12月29日
+            "*1230": lunarInfo.isLeap ? undefined : ["除夕", `Chinese New Year's Eve`], // 非闰年除夕在12月30日
             "#0520": ["母亲节", `Mother's day`],
             "#0630": ["父亲节", `Father's day`],
             "@0256": ["俄罗斯程序员节", `Russian programmer's day`],
