@@ -1,5 +1,5 @@
 /**
- * date-php.js v1.8.1
+ * date-php.js v1.8.2
  *   :-) date('Y-m-d', 1563148800000) - 这是一个Javascript模仿PHP日期时间格式化函数，使用方法和PHP非常类似，有丰富的模板字符，并在原来的基础上增强了一些模板字符。例如：中国的农历日期、用汉字来表示日期、十二生肖与星座。让转换日期时间更自由。
  *   This is a Javascript mimicking PHP datetime formatting function. It is very similar to PHP, has rich template 
  *   characters, and enhances some template characters on the basis of the original. For example: Chinese Lunar Date,
@@ -862,20 +862,20 @@
         '1226': ['毛泽东诞辰', "Zedong Mao birthday"],
         '1117': ['世界学生日', "World student's day"],
         '1201': ['世界艾滋病日', "World AIDS day"],
-        '*0101': ['春节', 'Chinese year'],
-        '*0115': ['元宵节', 'Lantern day'],
-        '*0202': ['龙头节', 'Dragon head day'],
-        '*0505': ['端午节', 'Dragon boat day'],
-        '*0707': ['乞巧节', 'Qi qiao day'],
-        '*0715': ['中元节', 'Ghost day'],
-        '*0815': ['中秋节', 'Moon day'],
-        '*0909': ['重阳节', 'Chongyang day'],
-        '*1001': ['寒衣节', 'Winter clothing day'],
+        '*0101': ['春节', 'Spring Festival'],
+        '*0115': ['元宵节', 'Lantern Festival'],
+        '*0202': ['龙头节', 'Dragon Head Raising Festival'],
+        '*0505': ['端午节', 'Dragon Boat Festival'],
+        '*0707': ['七夕节', 'Qixi Festival'],
+        '*0715': ['中元节', 'Hungry Ghost Festival'],
+        '*0815': ['中秋节', 'Mid-Autumn Festival'],
+        '*0909': ['重阳节', 'Double Ninth Festival'],
+        '*1001': ['寒衣节', 'Winter Clothing Festival'],
         '*1015': ['下元节', 'Xiayuan day'],
-        '*1208': ['腊八节', 'Laba day'],
-        '*1223': ['祭灶节', 'Stove day'],
-        '*1229': lunarInfo.isLeap ? ['除夕', "Year's Eve"] : '',
-        '*1230': lunarInfo.isLeap ? '' : ['除夕', "Year's Eve"],
+        '*1208': ['腊八节', 'Laba Festival'],
+        '*1223': ['祭灶节', 'Kitchen God Festival'],
+        '*1229': lunarInfo.isLeap ? ['除夕', "Chinese New Year's Eve"] : '',
+        '*1230': lunarInfo.isLeap ? '' : ['除夕', "Chinese New Year's Eve"],
         '#0520': ['母亲节', "Mother's day"],
         '#0630': ['父亲节', "Father's day"],
         '@0256': ['俄罗斯程序员节', "Russian programmer's day"]
@@ -1075,6 +1075,18 @@
         "UTC-5:30": "America/Indianapolis",
         "UTC-9:30": "Pacific/Marquesas",
     };
+    function getTimezone() {
+        if (typeof Intl !== "undefined" && Intl.DateTimeFormat) {
+            return Intl.DateTimeFormat().resolvedOptions().timeZone;
+        }
+
+        // 回退方案:通过偏移量推断
+        var offset = -new Date().getTimezoneOffset() / 60;
+        var sign = offset >= 0 ? "+" : "-";
+        var absOffset = Math.abs(offset);
+
+        return TIMEZONE_MAP[("GMT" + sign + absOffset)] || ("Etc/GMT" + sign + absOffset);
+    }
 
     // 创建一个获取偏移量的辅助函数
     function getOffsetInfo(d, tz) {
@@ -1162,7 +1174,7 @@
 
         // 在 date 函数内部，先获取当前时区
         var currentTimeZone =
-            TIMEZONE_MAP[date.timeZone] || date.timeZone || Intl.DateTimeFormat().resolvedOptions().timeZone;
+            TIMEZONE_MAP[date.timeZone] || date.timeZone || getTimezone();
 
         if (ms === false && typeof now === "number") { now = now * 1000; }
         var _now = isDate(this) ? this : isDate(now) ? new Date(now) : new Date();
@@ -1296,7 +1308,7 @@
             // I: () => {
 
             // 时区名称
-            e: function () { return TIMEZONE_MAP[date.timeZone] || date.timeZone || Intl.DateTimeFormat().resolvedOptions().timeZone; },
+            e: function () { return TIMEZONE_MAP[date.timeZone] || date.timeZone || getTimezone(); },
             // O: () => (now.getTimezoneOffset() > 0 ? "-" : "+") + pad(Math.abs((now.getTimezoneOffset() / 60) * 100), 4),
             // P: () =>
             //     tChars
@@ -1401,7 +1413,7 @@
         });
     };
 
-    date.timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    date.timeZone = getTimezone();
 
     function _throwError(msg) {
         throw new Error("[date-php] " + msg);
@@ -1501,8 +1513,7 @@
      */
     DateChain.prototype.prev = function prev (num, unit) {
         if (typeof num !== "number") { _throwError("prev 方法参数 num 必须为数字"); }
-        if (typeof unit === "string" && !_hasUnit(unit))
-            { _throwError("prev 方法参数 unit 必须为有效的时间单位"); }
+        if (typeof unit === "string" && !_hasUnit(unit)) { _throwError("prev 方法参数 unit 必须为有效的时间单位"); }
         return this.add(-Math.abs(num), unit);
     };
 
@@ -1514,8 +1525,7 @@
      */
     DateChain.prototype.next = function next (num, unit) {
         if (typeof num !== "number") { _throwError("next 方法参数 num 必须为数字"); }
-        if (typeof unit === "string" && !_hasUnit(unit))
-            { _throwError("next 方法参数 unit 必须为有效的时间单位"); }
+        if (typeof unit === "string" && !_hasUnit(unit)) { _throwError("next 方法参数 unit 必须为有效的时间单位"); }
         return this.add(Math.abs(num), unit);
     };
 
@@ -1745,7 +1755,7 @@
     );
     defP(Date.prototype, "format", date);
 
-    defP(date, "version", "1.8.1");
+    defP(date, "version", "1.8.2");
     defP(
         date,
         "description",

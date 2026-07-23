@@ -196,6 +196,18 @@ const TIMEZONE_MAP = {
     "UTC-5:30": "America/Indianapolis",
     "UTC-9:30": "Pacific/Marquesas",
 };
+function getTimezone() {
+    if (typeof Intl !== "undefined" && Intl.DateTimeFormat) {
+        return Intl.DateTimeFormat().resolvedOptions().timeZone;
+    }
+
+    // 回退方案:通过偏移量推断
+    const offset = -new Date().getTimezoneOffset() / 60;
+    const sign = offset >= 0 ? "+" : "-";
+    const absOffset = Math.abs(offset);
+
+    return TIMEZONE_MAP[`GMT${sign}${absOffset}`] || `Etc/GMT${sign}${absOffset}`;
+}
 
 // 创建一个获取偏移量的辅助函数
 function getOffsetInfo(d, tz) {
@@ -279,7 +291,7 @@ const date = function (fmt = "Y-m-d", now = new Date(), ms = true) {
 
     // 在 date 函数内部，先获取当前时区
     const currentTimeZone =
-        TIMEZONE_MAP[date.timeZone] || date.timeZone || Intl.DateTimeFormat().resolvedOptions().timeZone;
+        TIMEZONE_MAP[date.timeZone] || date.timeZone || getTimezone();
 
     if (ms === false && typeof now === "number") now = now * 1000;
     const _now = isDate(this) ? this : isDate(now) ? new Date(now) : new Date();
@@ -414,7 +426,7 @@ const date = function (fmt = "Y-m-d", now = new Date(), ms = true) {
         // I: () => {
 
         // 时区名称
-        e: () => TIMEZONE_MAP[date.timeZone] || date.timeZone || Intl.DateTimeFormat().resolvedOptions().timeZone,
+        e: () => TIMEZONE_MAP[date.timeZone] || date.timeZone || getTimezone(),
         // O: () => (now.getTimezoneOffset() > 0 ? "-" : "+") + pad(Math.abs((now.getTimezoneOffset() / 60) * 100), 4),
         // P: () =>
         //     tChars
@@ -521,7 +533,7 @@ const date = function (fmt = "Y-m-d", now = new Date(), ms = true) {
     });
 };
 
-date.timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+date.timeZone = getTimezone();
 
 function _throwError(msg) {
     throw new Error("[date-php] " + msg);
@@ -621,8 +633,7 @@ class DateChain {
      */
     prev(num, unit) {
         if (typeof num !== "number") _throwError("prev 方法参数 num 必须为数字");
-        if (typeof unit === "string" && !_hasUnit(unit))
-            _throwError("prev 方法参数 unit 必须为有效的时间单位");
+        if (typeof unit === "string" && !_hasUnit(unit)) _throwError("prev 方法参数 unit 必须为有效的时间单位");
         return this.add(-Math.abs(num), unit);
     }
 
@@ -634,8 +645,7 @@ class DateChain {
      */
     next(num, unit) {
         if (typeof num !== "number") _throwError("next 方法参数 num 必须为数字");
-        if (typeof unit === "string" && !_hasUnit(unit))
-            _throwError("next 方法参数 unit 必须为有效的时间单位");
+        if (typeof unit === "string" && !_hasUnit(unit)) _throwError("next 方法参数 unit 必须为有效的时间单位");
         return this.add(Math.abs(num), unit);
     }
 
