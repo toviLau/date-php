@@ -15,16 +15,14 @@ JavaScript implements date formatting functions similar to PHP
 ![license](https://img.shields.io/github/license/toviLau/date-php)
 
 
-> 此库的由来: 2013年入坑互联网, 写了三个的PHP,
->
 > 这是一个Javascript模仿类似于PHP日期时间格式化函数，使用方法和PHP非常类似，有丰富的模板字符，并在原来的基础上增强了一些模板字符。例如：中国的农历日期、用汉字来表示日期、十二生肖与星座。让转换日期时间更自由。  
-> This is a JavaScript library that provides PHP-style date and time formatting functions. It is very similar to PHP in usage, provides rich template characters, and extends them with additional features such as Chinese lunar dates, Chinese character date representation, Chinese zodiac signs, and constellations — giving you more flexibility in date and time conversion.  
->
+>This is a JavaScript library that provides PHP-style date and time formatting functions. It is very similar to PHP in usage, provides rich template characters, and extends them with additional features such as Chinese lunar dates, Chinese character date representation, Chinese zodiac signs, and constellations — giving you more flexibility in date and time conversion.  
+> 
 > 
 >
 > 兼容 TypeScript(.ts)<sup style="color:#f33">(1.7.6+)</sup>  
-> TypeScript(.ts) compatible <sup style="color:#f33">(1.7.6+)</sup> 
->
+>TypeScript(.ts) compatible <sup style="color:#f33">(1.7.6+)</sup> 
+> 
 > 
 >
 > 支持[链式](#DateChain)操作<sup style="color:#f33">(1.8.0+)</sup>
@@ -38,8 +36,8 @@ JavaScript implements date formatting functions similar to PHP
 > 
 >
 > [如果你喜欢请 star 支持一下](https://www.npmjs.com/package/date-php)    
-> [If you like this project, please star it.](https://www.npmjs.com/package/date-php)  
->
+>[If you like this project, please star it.](https://www.npmjs.com/package/date-php)  
+> 
 > 
 >
 > **您现在正在阅读的是 v1.x 文档 [v2文档在这里(TS重构)](https://github.com/toviLau/date-php/blob/next/README.md) 目前优先维护 1.x 系列**
