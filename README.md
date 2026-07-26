@@ -157,8 +157,8 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 [去演练场试一试(try)](https://codepen.io/editor/toviLau/pen/019f47ff-2005-7e2a-bb3d-410fca70ab64/) 
 <br /><br /><br />
 
-
 ### 模板字符，默认值：{string} 'Y-m-d'(Template characters, default: {string} 'Y-m-d')
+
 > 1. 你也可以去<u> [_**PHP中文官网**_](https://www.php.net/manual/zh/function.date.php) </u>看看，使用方法类似。  
 >    You can also go to the <u> [_**PHP english official website**_](https://www.php.net/manual/en/function.date.php) </u>to see, the method is similar.  
 >
@@ -195,6 +195,8 @@ new Date().format('Y-m-d H:i 第W周'); // "2019-07-15 15:38 第29周"
 > 8. 支持[链式](#DateChain)操作<sup style="color:#f33">(1.8.0+)</sup>
 >
 >      Supports [chainable](#DateChain) operations <sup style="color:#f33">(1.8.0+)</sup>
+
+###### 模板字符
 
 | \# | chars | Description |
 | :--- | :--- | :--- |
@@ -328,6 +330,7 @@ interface AddObject {
     second?: number;
     millisecond?: number;
 }
+
 // 单次操作 / Single execution 1.8.0+
 date.chain().add(num: number, unit: TimeUnit): this;
 date.chain().add(unit: TimeUnit): this; // 简写，等同于 `add(1, unit)
@@ -346,17 +349,6 @@ date.chain().add(obj: AddObject): this;
 
    ```ts
    type TimeUnit = "year" | "month" | "week" | "day" | "hour" | "minute" | "second" | "millisecond";
-   interface AddObject {
-       year?: number;
-       month?: number;
-       week?: number;
-       day?: number;
-       hour?: number;
-       minute?: number;
-       second?: number;
-       millisecond?: number;
-   }
-   // 批量操作/Batch execution 1.8.1+
    
    // 单次操作 / Single execution
    date.chain().prev(num: number, unit: TimeUnit): this;
@@ -374,28 +366,18 @@ date.chain().add(obj: AddObject): this;
 
    ```ts
    type TimeUnit = "year" | "month" | "week" | "day" | "hour" | "minute" | "second" | "millisecond";
-   interface AddObject {
-       year?: number;
-       month?: number;
-       week?: number;
-       day?: number;
-       hour?: number;
-       minute?: number;
-       second?: number;
-       millisecond?: number;
-   }
    
    // 单次操作 / Single execution
    date.chain().prev(num: number, unit: TimeUnit): this;
    ```
-
    
-
+   
+   
 3. `DateChain.prototype.format(tplChars?)` 链式格式化 / Chainable formatting.
 
    > format(tplChars?):string|{Object}
    >
-   > templeate: 支持所有 date 模板字符
+   > templeate: 支持所有 date [模板字符](#模板字符)
 
    ```ts
    date.chain().format(tplchars): string;
@@ -608,7 +590,7 @@ dc.add({ // "2027-09-14"
     day: -3
 }).format('Y-m-d') // 不要忘记 format()/Don't forget format()!
 
-// 链式调用示例2 / chain demo 1
+// 链式调用示例1 / chain demo 1
 date.chain('2026-07-17')
     .next(2 ** 32, 'second') // +4294967296 秒/second
     .prev(2 ** 6, 'day') // -64 day/天 
@@ -616,7 +598,7 @@ date.chain('2026-07-17')
     .prev(2, 'month') // -2month/月
     .format('Y-m-d H:i:s')   // 2162-02-25 14:28:16
 
-// 链式调用示例3 /  chain demo 2
+// 链式调用示例2 /  chain demo 2
 date.chain(1765432101234)
   .prev(1, 'year') 
   .next(2, 'month')
